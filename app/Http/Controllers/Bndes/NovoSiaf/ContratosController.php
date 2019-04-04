@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Bndes\NovoSiaf;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\NovoSiaf\Contratos;
+use App\Models\Bndes\NovoSiaf\Contratos;
 use App\Classes\Geral\Ldap;
 use App\Empregados;
 use App\AcessaEmpregados;
@@ -264,7 +264,18 @@ class ContratosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->input('contratoCaixa') != null) {
+            $solicitacao = array(
+                "contratoBndes" => $request->input('contratoBndes'),
+                "contratoCaixa" => $request->input('contratoCaixa'),
+                "contaDebito" => $request->input('contaDebito'),
+                "valorAmortizacao" => $request->input('valorAmortizacao'),
+                "tipoComando" => $request->input('tipoComando'),
+            );
+            return json_encode($solicitacao);
+        } else {
+            return "objeto vazio";
+        }
     }
 
     /**

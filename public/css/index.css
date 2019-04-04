@@ -4,15 +4,24 @@ margin-bottom: 5%;
 
 }
 
-#botaoCadastrar{
-
-   margin-left: 30%;
-  
-}
-
 #avisoAgencia{
 
     font-weight: bold;
     font-size: 100%;
     margin-left: 2%;
+}
+
+.form-control{
+
+    padding-right: 0px !important;
+}
+
+.modal-title{
+font-size: 15px !important;
+}
+
+.botaoModal{
+
+    margin:10px;
+
 }

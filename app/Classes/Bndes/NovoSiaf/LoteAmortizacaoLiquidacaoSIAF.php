@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes\NovoSiaf;
+namespace App\Classes\Bndes\NovoSiaf;
 
 class LoteAmortizacaoLiquidacaoSIAF
 {

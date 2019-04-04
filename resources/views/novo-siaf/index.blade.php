@@ -20,6 +20,7 @@
 
     <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js')}}"></script>
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js')}}"></script>
+    <script src="{{ asset('js/plugins/forms/jquery.maskMoney.min.js')}}"></script>
 
     <!-- <style>
   
@@ -53,13 +54,13 @@
         	<ul class="nav navbar-nav navbar-right collapse" id="navbar-icons">
 		
 			<li class="user dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown"><span></span><i class="caret"></i></a>
+				<a class="dropdown-toggle" data-toggle="dropdown"><span id="nomeEmpregado"></span><i class="caret"></i></a>
 				<ul class="dropdown-menu dropdown-menu-right">
-					<li><a href="#">Nome: </a></li>
-					<li><a href="#">Matrícula:</a></li>
-					<li><a href="#">Função: </a></li>
-					<li><a href="#">Lotação: </a></li>
-					<li><a href="#" id="grupo">Grupo:  </a></li>
+					<li><a href="#">Nome: <span id="nomeSessao"></span> </a></li>
+					<li><a href="#">Matrícula: <span id="matriculaSessao"></span></a></li>
+					<li><a href="#">Função: <span id="funcaoSessao"></span></a></li>
+					<li><a href="#">Lotação: <span id="lotacaoSessao"></span></a></li>
+					<li><a href="#">Perfil: <span  id="perfilSessao"></span>  </a></li>
 				</ul>
 			</li>
 		</ul>
@@ -162,10 +163,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><i class="icon-file-plus"></i>Solicitação de Amortização \ Liquidação  <span id="nome_cliente"></span>  <span id="cnpj_cliente"></h4>
+                    <h4 class="modal-title"><i class="icon-file-plus"></i>Solicitação de Amortização \ Liquidação  <span id="nome_cliente"></span>  <span id="cnpj_cliente"></span></h4>
                 </div>
                 
-                
+               
                 <div class="modal-body with-padding">
                     <div class="tabbable">
                         <ul class="nav nav-tabs">
@@ -177,17 +178,13 @@
                             <div class="tab-pane fade in active" id="tabSelecionar">
                             <div class="row"><small class="display-block " id="avisoAgencia"><strong> RATIFICAR AS INFORMAÇÕES CARREGADAS! No caso de dúvidas consulte as instruções de preenchimento no menu acima ! &nbsp &nbsp &nbsp </small></div></strong>
                             
-                            <div class="row"><small class="display-block text-danger active" id ="avisoAgencia"> Para solicitar, Informe abaixo o nº BNDES, valor, confirme a conta, contrato e o tipo de comando dos contratos desejados e envie à CEOPC!  </small></div>
+                            <div class="row"><small class="display-block text-danger active avisoAgencia" id ="avisoAgencia"> Para solicitar, Informe abaixo o nº BNDES, valor, confirme a conta, contrato e o tipo de comando dos contratos desejados e envie à CEOPC!  </small></div>
                             
-                            <h5 class=""><span id="nome_cliente2"></span>  <span id="cnpj_cliente2"></span></h5>
+                            <h6 class=""><span id="nome_cliente2"></span>  <span id="cnpj_cliente2"></span></h6>
                             
                                 
                                 <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_pedido_amortizacao">
-                            
-                            
-                                <input type="hidden" id="nome_cliente3"  name="nome_cliente3">
-                                <input type="hidden" id="cnpj_cliente3" name="cnpj_cliente3">
-                                
+                                                            
                                 <div class="form-group">
                             
                                 <table id ="tabCadastrar" class="table table-bordered table-striped datatable">
@@ -210,11 +207,11 @@
                                 
                              
                             <label>Observações</label>
-                            <textarea class="form-control" rows="3"name="co_observacoes" placeholder="Digite as observações da solicitação aqui...."></textarea>  
+                            <textarea class="form-control co_observacoes" rows="3" name="co_observacoes" placeholder="Digite as observações da solicitação aqui...."></textarea>  
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-danger pull-left fecha_e_refresh" data-dismiss="modal">Fechar</button>
-                                <button class="btn btn-success pull-right cadamortizacao">Enviar à CEOPC</button>
+                                <button class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
+                                <button class="btn btn-success pull-right cadAmortizacao onclick="enviarSolicitacaoAmortizacao()">Enviar à CEOPC</button>
                             </div>
                             </form>
                             </div>
@@ -250,29 +247,34 @@
     <!-- /large modal -->
     
     <!-- /Modal para visualizar contrato -->
-    <div id="visualizarContrato" class="modal fade" tabindex="-1" role="dialog"  data-backdrop="static">
-        <div class="modal-dialog modal-lg">
+
+    <div id="visualizarcontrato" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" >
+        
+        <div class="modal-dialog modal-danger modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close fecha_e_refresh" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><i class="icon-eye"></i> Visualizar Contrato</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"><i class="icon-eye"></i>Visualizar Contrato <span id="nome_cliente"></span>  <span id="cnpj_cliente"></span></h4>
                 </div>
-
+                               
                 <div class="modal-body with-padding">
-                    
-                    <div class="tabbable">
-                    
-                       
-                             <h5 class=""><span id="nome_cliente_modal"></span>  <span id="cnpj_cliente_modal"></h5>
-                            
-                                <form>
-                            
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+                
+                        <li class="active"><a href="#tabVisualizar" data-toggle="tab"><i class="icon-eye"></i>Visualizar Contrato</a></li>
+                        <li><a href="#tabHistórico" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
+                        
+                    </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="tabVisualizar">
+
+                    <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_visualiza_pedido">
+                                                            
                                 <div class="form-group">
                             
-                                
-                             <br>             
+                        <br>             
                              <div class="row">  
-                                    <div id="conteudoModal"></div>
+                        <div id="conteudoModal"></div>
                             <div class="col-sm-3">
                                 <label class="control-label">N Contrato BNDES</label>
                                  <input placeholder="..."  id="contrato_bndes_modal"class="form-control" type="text" disabled>
@@ -282,8 +284,6 @@
                                  <input placeholder="..." id="contrato_caixa_modal" class="form-control" type="text" disabled>
                             </div>
                            
-                            
-                            
                             <div class="col-sm-3">
                                 <label class="control-label">Conta para Débito</label>
                                  <input placeholder="..." id="conta_corrente_modal"class="form-control" type="text" disabled>
@@ -310,23 +310,18 @@
                               <div class="col-sm-1">
                                 <label class="control-label">SR</label>
                                  <input placeholder="..." id="sr_modal" class="form-control" type="text" disabled>
-                            </div>
+                                </div>
                               <div class="col-sm-1">
                                 <label class="control-label">GIGAD</label>
                                  <input placeholder="..." id="gigad_modal" class="form-control" type="text" disabled>
+                                </div>
+                         
                             </div>
-                            </div>
-                                            
-                                        
-                                        
-                            
-                    <br>
-                                                              
-                                
+                                     
+                        <br>
                              
-                              <label>Observações</label>
-                             
-                              <span class="editor form-control" id="obs_modal"></span>
+                            <label>Observações</label>
+                            <span class="form-control" id="obs_modal"></span>
                               <br>
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -355,23 +350,20 @@
                                 
                                 </div>
                             </div>
-            
-                        
-                              
-                              </div>
-                             
-                            </form>
                             </div>
+                    </form>
                             
+                    </div>
                             
-                           <div class="panel panel-default">
-                               <div class="panel-heading">
+                            <div class="tab-pane body fade" id="tabHistórico">
+                            <div class="row">
+                                <div class="panel-heading">
                                    <h6 class="panel-title"><i class="icon-vcard"></i> Histórico do contrato</h6>
-                               </div>
+                                </div>
                                
                                <div class="panel-body">
                                
-                                 <table class="table table-bordered table-striped datatable">
+                                <table class="table table-bordered table-striped datatable">
                                    <thead>
                                        <tr>
                                            <th>Data e Hora</th>
@@ -384,63 +376,62 @@
                                    <tbody >
                                        
                                    </tbody>
-                               </table>
+								</table>
                                
                                
                                </div>
-                           </div>
-                        
-                    </div>
-                     <div class="modal-footer">
-                                    <small class="pull-left"> Cadastrado em : <span id="datacadastramento"></span>, por  <span id="solicitante_nome"></span>  (<span id="solicitante_matricula"></span>) </small>
-                                    <button class="btn btn-danger pull-right fecha_e_refresh" data-dismiss="modal">Fechar</button>
-                                
-                                
+                          
                             </div>
-                
-                    
-                    
-                    
-                </div>
-
+                            </div>
+                          
+                </div>                       
+                      
+            </div>
+                    <div class="modal-footer">
+                        <small class="pull-left"> Cadastrado em : <span id="datacadastramento"></span>, por  <span id="solicitante_nome"></span>  (<span id="solicitante_matricula"></span>) </small>
+                        <button class="btn btn-danger pull-right" data-dismiss="modal">Fechar</button>
+                                
+                    </div>
+                </div>                
             </div>
         </div>
-    
+    </div>
+   
     <!-- /Modal para visualizar contrato -->
     
     <!-- /Modal para editar status -->
-       <div id="editarcontrato" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
-        <div class="modal-dialog modal-lg">
+    <div id="editarcontrato" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" >
+        
+        <div class="modal-dialog modal-danger modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close fecha_e_refresh" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><i class="icon-eye"></i> Editar Contrato</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"><i class="icon-eye"></i>Editar Contrato <span id="nome_cliente"></span>  <span id="cnpj_cliente"></span></h4>
                 </div>
-                
-                <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_editar_amortizacao">
-                    <input type="hidden" id="protocolo_alterar_dados"  name="protocolo_alterar_dados">        
-                    <input type="hidden" id="editar_contrato_bndes_antigo" name="editar_contrato_bndes_antigo">   
-                    <input type="hidden" id="editar_contrato_caixa_antigo" name="editar_contrato_caixa_antigo">   
-                    <input type="hidden" id="editar_conta_antigo" name="editar_conta_antigo">   
-                    <input type="hidden" id="editar_valor_antigo" name="editar_valor_antigo">   
-                    <input type="hidden" id="editar_status_antigo" name="editar_status_antigo">   
-
+                               
                 <div class="modal-body with-padding">
-                    
-                    <div class="tabbable">
-                       
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+                
+                        <li class="active"><a href="#tabEditar" data-toggle="tab"><i class="icon-eye"></i>Editar Contrato</a></li>
+                        <li><a href="#tabHistoricoEditar" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
                         
-                           
+                    </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="tabEditar">
+
+                    <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_editar_amortizacao">
+                        <input type="hidden" id="protocolo_alterar_dados"  name="protocolo_alterar_dados">        
+                        <input type="hidden" id="editar_contrato_bndes_antigo" name="editar_contrato_bndes_antigo">   
+                        <input type="hidden" id="editar_contrato_caixa_antigo" name="editar_contrato_caixa_antigo">   
+                        <input type="hidden" id="editar_conta_antigo" name="editar_conta_antigo">   
+                        <input type="hidden" id="editar_valor_antigo" name="editar_valor_antigo">   
+                        <input type="hidden" id="editar_status_antigo" name="editar_status_antigo">   
+                                                            
+                        <div class="form-group">
                             
-                            <h5 class=""><span id="nome_cliente_editar"></span>  <span id="cnpj_cliente_editar"></h5>
-                            
-                                <form>
-                            
-                                <div class="form-group">
-                                
-                                
-                              <br>             
-                             <div class="row">  
+                        <br>             
+                        <div class="row">  
                                     <div id="conteudoModal"></div>
                             <div class="col-sm-3">
                                 <label class="control-label">N Contrato BNDES</label>
@@ -490,20 +481,12 @@
                             </div>
                             </div>
                             
-                                            
-                                        
-                                        
-                            
-                                <br>
-                                
-                                
-                                
+                        <br>
                              
-                              <label>Observações</label>
-                             
-                              <textarea class="editor form-control" rows="3"name="co_observacoes" placeholder="Digite as observações da solicitação aqui...."></textarea> 
+                            <label>Observações</label>
+                            <textarea class="form-control" rows="3" name="co_observacoes" placeholder="Digite as observações da solicitação aqui...."></textarea> 
                               <br>
-                            <div class="panel panel-default">
+                              <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h6 class="panel-title"><i class="icon-coin"></i> Histórico de saldo</h6>
                                 </div>
@@ -531,21 +514,20 @@
                                 </div>
                             </div>
             
-                        
-                              
-                              </div>
-                             
-                            </form>
-                            </div>
-                      
-                            <div class="panel panel-default">
-                               <div class="panel-heading">
+                        </div>
+                    </form>
+                            
+                    </div>
+                            
+                            <div class="tab-pane body fade" id="tabHistoricoEditar">
+                            <div class="row">
+                                <div class="panel-heading">
                                    <h6 class="panel-title"><i class="icon-vcard"></i> Histórico do contrato</h6>
-                               </div>
+                                </div>
                                
                                <div class="panel-body">
                                
-                                 <table class="table table-bordered table-striped datatable">
+                                <table class="table table-bordered table-striped datatable">
                                    <thead>
                                        <tr>
                                            <th>Data e Hora</th>
@@ -558,29 +540,28 @@
                                    <tbody >
                                        
                                    </tbody>
-                               </table>
+								</table>
                                
                                
                                </div>
-                           </div>
-                        
-                    </div>
-                    <div class="modal-footer">
+                          
+                            </div>
+                            </div>
+                          
+                </div>                       
+                      
+            </div>
+                <div class="modal-footer">
                     <small class="pull-left"> Cadastrado em : <span id="editardatacadastramento"></span>, por  <span id="editarsolicitante_nome"></span>  (<span id="editarsolicitante_matricula"></span>) </small>
-                            <button class="btn btn-default btn-success pull-right mandei_editar  fecha_e_refresh" data-dismiss="modal">Enviar á CEOPC </button>
-                            <span class="pull-right"> </span>
-                                <button class="btn btn-default btn-danger pull-right fecha_e_refresh" data-dismiss="modal">Fechar</button> 
-                                
-                    </div>
-                    </form>
-                
-                    
-                    
-                    
-                </div>
-
+                        <button class="btn btn-default btn-success pull-right mandei_editar  botaoModal" data-dismiss="modal">Enviar á CEOPC </button>
+                        <span class="pull-right"> </span>
+                        <button class="btn btn-default btn-danger pull-right botaoModal" data-dismiss="modal">Fechar</button> 
+                            
+            </div>
+                </div>                
             </div>
         </div>
+    </div>
     <!-- /Modal para editar status -->
     
     <!-- /Modal para excluir-->
@@ -589,7 +570,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close fecha_e_refresh" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title"><i class="icon-accessibility"></i> Excluir </h4>
                 </div>
 
@@ -599,7 +580,7 @@
                 <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_excluir">
                 <input type="hidden" id="excluir_protocolo"  name="exluirestepedido">
                 <div class="modal-footer">
-                    <button class="btn btn-warning fecha_e_refresh" data-dismiss="modal">Fechar</button>
+                    <button class="btn btn-warning" data-dismiss="modal">Fechar</button>
                     <button class="btn btn-success exclui_apos_confirmacao" >Excluir </button>
                 </div>
                 </form>
@@ -615,7 +596,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close fecha_e_refresh" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title"><i class="icon-checkmark"></i>Dados Cadastrados com sucesso!!</h4>
                 </div>
 
@@ -625,7 +606,7 @@
 
                 <div class="modal-footer">
                     
-                    <button class="btn btn-success fecha_e_refresh">OK</button>
+                    <button class="btn btn-success">OK</button>
                 </div>
             </div>
         </div>
@@ -645,7 +626,7 @@
     <!-- Page header -->
     <div class="page-header">
         <div class="page-title">
-            <h3 >Amortização \ Liquidação <small>Bem Vindo  </small></h3>
+            <h3 >Amortização \ Liquidação <small>Bem Vindo <span id="nomeSessaoBemVindo"></span> </small></h3>
         </div>
 
     </div>
@@ -700,8 +681,8 @@
     <div class="tabbable page-tabs">
         <ul class="nav nav-tabs">
             <li class="active">
-            <a href="#contratosliquidar" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Contratos a liquidar         </a></li>
-            <li><a href="#amortizaprox" data-toggle="tab"><i class="icon-exit4"></i> Amortizações para o próximo Lote         </a></li>
+            <a id="abaContratosLiquidar" href="#contratosliquidar" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Contratos a liquidar         </a></li>
+            <li id="abaAmortizaprox"><a href="#amortizaprox" data-toggle="tab"><i class="icon-exit4"></i> Amortizações para o próximo Lote         </a></li>
             <li><a href="#amortizaant" data-toggle="tab"><i class="icon-exit3"></i> Amortizações do Lote Anterior</a></li>
             <li><a href="#SUMEP" data-toggle="tab"><i class="icon-hammer"></i>Contratos na SUMEP</a></li>
             <li><a href="#amortizatodas" data-toggle="tab"><i class="icon-file4"></i>Todas solicitações de Amortização </a></li>
@@ -715,18 +696,18 @@
         
             <div class="tab-pane active fade in" id="contratosliquidar">
 
-            <p><strong>Amortizações referentes ao lote: </strong></p>
+            
                 <!-- Default datatable inside panel -->
                 <div class="panel panel-default">
-                <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Contratos da agência:  x </h6></div>
+                <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Contratos da <span id="agenciaContrato"></span> </h6></div>
                     <!-- <div> -->
-                        <table id="tabelaContratosLiquidar" class="table  table-striped table-hover">
+                        <table id="tabelaContratosLiquidar" class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <!-- <th>Contrato CAIXA</th> -->
                                     <th>Tomador</th>                             
                                     <th>CNPJ</th>
-                                    <th>Solicitar liquidação/amortização</th>
+                                    <th class= "text-center">Solicitar liquidação/amortização</th>
                                     <!-- <th></th> -->
                                 </tr>
                                         
@@ -1067,10 +1048,10 @@
                             <div class="col-md-6">
                             <div class="thumbnail thumbnail-boxed">
                                 <div class="thumb">
-                                    <img alt="" src="images/decop.jpg">
+                                    <img alt="" src="../images/decop.jpg">
                                     <div class="thumb-options">
                                         <span>
-                                            <a href="#" onclick=" window.open('http://www.ceopc.sp.caixa/novosiaf/padrao/geopc/sumep/ceopc/modulosiaf.php')" class="btn tip" title="Clique aqui e navegue pela video apresentação de slides!"><img alt="" src="images/decop6.png"></a>
+                                            <a href="#" onclick=" window.open('http://www.ceopc.sp.caixa/novosiaf/padrao/geopc/sumep/ceopc/modulosiaf.php')" class="btn tip" title="Clique aqui e navegue pela video apresentação de slides!"><img alt="" src="../images/decop6.png"></a>
                                             
                                         </span>
                                     </div>
@@ -1154,7 +1135,7 @@
 </body>
 </html>
 
-        
+        <script src="{{ asset('js/ldap.js')}}"></script>
         <script src="{{ asset('js/plugins/forms/wysihtml5/wysihtml5.min.js')}}"></script>
         <script src="{{ asset('js/plugins/forms/wysihtml5/toolbar.js')}}"></script>
         <script src="{{ asset('js/plugins/charts/sparkline.min.js')}}"></script>
@@ -1171,7 +1152,7 @@
         <script src="{{ asset('js/plugins/forms/uploader/plupload.queue.min.js')}}"></script>
         
         
-        <script src="{{ asset('js/plugins/forms/jquery.maskMoney.min.js')}}"></script>
+        
         <script src="{{ asset('js/plugins/interface/daterangepicker.js')}}"></script>
         <script src="{{ asset('js/plugins/interface/fancybox.min.js')}}"></script>
         <script src="{{ asset('js/plugins/interface/moment.js')}}"></script>
@@ -1185,7 +1166,8 @@
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
         <script src="{{ asset('js/application.js')}}"></script>
         <!-- <script src="{{ asset('js/carrega_dados_dos_contratos.js')}}"></script> -->
-        <script src="{{ asset('js/dados-base.js')}}"></script>
+        <script src="{{ asset('js/dados.contratos.ag.js')}}"></script>
+        <!-- <script src="{{ asset('js/ldap.js')}}"></script> -->
         <!-- <script src="{{ asset('js/index.js')}}"></script> -->
         <!-- <script src="{{ asset('js/incluirDataTableLotes.js')}}"></script> -->
 

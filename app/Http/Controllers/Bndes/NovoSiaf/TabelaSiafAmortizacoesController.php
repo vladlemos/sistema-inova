@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Bndes\NovoSiaf;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\NovoSiaf\TabelaSiafAmortizacoes;
-use App\Classes\NovoSiaf\LoteAmortizacaoLiquidacaoSIAF;
-use App\Models\NovoSiaf\Contratos;
+use App\Http\Controllers\Controller;
+use App\Models\Bndes\NovoSiaf\TabelaSiafAmortizacoes;
+use App\Classes\Bndes\NovoSiaf\LoteAmortizacaoLiquidacaoSIAF;
+use App\Models\Bndes\NovoSiaf\Contratos;
 use App\Classes\Geral\Ldap;
 use App\Empregados;
 use App\AcessaEmpregados;
@@ -26,43 +27,82 @@ class TabelaSiafAmortizacoesController extends Controller
         '2655', '2656', '2690', '2691', '2692', '2693', '2694', '3222', '3226', '3227'
     ];
     
-    public function apiCompleta()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $arraySiaf = [];
-        $lote = new LoteAmortizacaoLiquidacaoSIAF;
-        // echo $lote;
-        $siaf = TabelaSiafAmortizacoes::all()->where('DT_LT_AMORTIZADOR', $lote->getDataLoteAnterior())->toArray();
-        // return var_dump($siaf);
-
-        /*
-        // Teste de inclusão dos dados do usuário na rota única, via Laravel
-        $usuario = new Ldap;
-        // echo "$usuario <hr>";
-        $empregado = Empregados::find($usuario->getMatricula());
-        $empregadoAcesso = DB::table('tbl_empregados')
-                            ->join('tbl_acessa_empregado', 'tbl_empregados.matricula', '=', 'tbl_acessa_empregado.matricula')
-                            ->select('tbl_empregados.*', 'tbl_acessa_empregado.nivel_acesso')
-                            // ->select('tbl_empregados.matricula', 'tbl_empregados.nome_completo', 'tbl_empregados.nome_funcao', 'tbl_empregados.codigo_lotacao_administrativa',  'tbl_acessa_empregado.nivel_acesso')
-                            ->where('tbl_acessa_empregado.matricula', '=', $usuario->getMatricula())
-                            ->get()
-                            ->toArray();
-        $rotaAcessoEmpregado = array('acessoEmpregado' => $empregadoAcesso);
-        array_push($arraySiaf,  $rotaAcessoEmpregado);
-        */
-        
-
-        // COMEÇA A MONTAR O ARRAY DE ARRAYS DE INDICADORES
-        $listaDemandasLoteAtual = array('listaDemandasLoteAtual' => TabelaSiafAmortizacoes::all()->where('DT_LT_AMORTIZADOR', $lote->getDataLoteAnterior())->toArray());
-        // var_dump($listaDemandasLoteAtual);
-        // FAZ PUSH DOS ARRAYS DOS INDICADORES EM UM ÚNICO ARRAY
-        array_push($arraySiaf,  $listaDemandasLoteAtual);
-
-        
-
-        // RETORNA O JSON DO ARRAY UNIFICADO
-        return json_encode($arraySiaf, JSON_UNESCAPED_SLASHES);
+        //
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+    
     public function loteAnterior()
     {
         $usuario = new Ldap;
@@ -418,7 +458,7 @@ class TabelaSiafAmortizacoesController extends Controller
         $empregado = Empregados::find($usuario->getMatricula());
         $empregadoAcesso = DB::table('tbl_empregados')
                             ->join('tbl_acessa_empregado', 'tbl_empregados.matricula', '=', 'tbl_acessa_empregado.matricula')
-                            ->select('tbl_empregados.*', 'tbl_acessa_empregado.nivel_acesso')
+                            ->select('tbl_empregados.matricula','tbl_empregados.nome_completo', 'tbl_empregados.nome_funcao', 'tbl_empregados.codigo_lotacao_administrativa', 'tbl_empregados.nome_lotacao_administrativa', 'tbl_empregados.codigo_lotacao_fisica', 'tbl_empregados.nome_lotacao_fisica',  'tbl_acessa_empregado.nivel_acesso')
                             // ->select('tbl_empregados.matricula', 'tbl_empregados.nome_completo', 'tbl_empregados.nome_funcao', 'tbl_empregados.codigo_lotacao_administrativa',  'tbl_acessa_empregado.nivel_acesso')
                             ->where('tbl_acessa_empregado.matricula', '=', $usuario->getMatricula())
                             ->get();

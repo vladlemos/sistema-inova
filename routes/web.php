@@ -12,7 +12,7 @@
 */
 
 // use Illuminate\Support\Facades\DB;
-use App\Models\NovoSiaf\AtendimentoWebListaAtividades;
+use App\Models\Bndes\NovoSiaf\AtendimentoWebListaAtividades;
 
 Route::get('/', function () {return 'Hello World';});
 

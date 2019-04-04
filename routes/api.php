@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Models\NovoSiaf\TabelaSiafAmortizacoes;
+use App\Models\Bndes\NovoSiaf\TabelaSiafAmortizacoes;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +23,13 @@ use App\Models\NovoSiaf\TabelaSiafAmortizacoes;
 // });
 
 
-Route::get('/siaf_amortizacoes_lote_anterior', 'TabelaSiafAmortizacoesController@loteAnterior');
-Route::get('/siaf_amortizacoes_lote_atual', 'TabelaSiafAmortizacoesController@loteAtual');
-Route::get('/siaf_contratos_sumep', 'TabelaSiafAmortizacoesController@contratosNaSumep');
-Route::get('/dados_empregado', 'TabelaSiafAmortizacoesController@acessoEmpregado');
-Route::get('/siaf_api_completa', 'TabelaSiafAmortizacoesController@apiCompleta');
-Route::get('/siaf_contratos_a_liquidar', 'TabelaSiafAmortizacoesController@contratosParaLiquidar');
+Route::get('/siaf_amortizacoes_lote_anterior', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@loteAnterior');
+Route::get('/siaf_amortizacoes_lote_atual', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@loteAtual');
+Route::get('/siaf_contratos_sumep', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@contratosNaSumep');
+Route::get('/dados_empregado', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@acessoEmpregado');
+Route::get('/siaf_api_completa', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@apiCompleta');
+Route::get('/siaf_contratos_a_liquidar', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@contratosParaLiquidar');
 
 // Route::get('/siaf_contratos_a_liquidar/{contrato}', 'TabelaSiafAmortizacoesController@showDadosContrato');
 
-Route::resource('bndes/v1/siaf_contratos', 'ContratosController');
+Route::resource('bndes/v1/siaf_contratos', 'Bndes\NovoSiaf\ContratosController');
