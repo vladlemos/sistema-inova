@@ -5,6 +5,8 @@ $(document).ready(function(){
 
  });
 
+//  carrega dos dados da pessoa logada na sessão
+
 function carregaDadosEmpregado(json){
     var url = ('../api/dados_empregado')
     
@@ -20,6 +22,7 @@ function carregaDadosEmpregado(json){
           
           $.each(empregado, function(key, value){
 
+// verificao perfil e desabilita a aba da agência caso perfil CEOPC
             if(value.nivel_acesso == 'CEOPC'){
 
                 $("ul.nav-tabs li").removeClass("active");  

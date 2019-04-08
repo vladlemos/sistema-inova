@@ -19,7 +19,7 @@ Route::get('/', function () {return 'Hello World';});
 Route::prefix('bndes')->group(function(){
     Route::get('siaf-amortizacao-liquidacao', function () 
     {
-        return view('novo-siaf.index');
+        return view('Bndes.NovoSiaf.index');
     });
 });
 

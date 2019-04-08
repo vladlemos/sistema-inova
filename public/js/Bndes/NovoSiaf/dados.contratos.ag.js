@@ -1,4 +1,5 @@
 
+// quando o documento carrega chama a função 
 
 $(document).ready(function(){
    
@@ -11,6 +12,8 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': "{{ csrf_token() }}"
     }
 });
+
+// carrega tabela dos clientes da agência de acordo com o Perfil 
 
 function carregarDadosAgencia()
 {
@@ -47,6 +50,7 @@ function atualizaTabelaAgencia(json)
    
 }
 
+// carrega todos os contratos dos clientes para solicitar amortizacao
 
    function visualizaContrato(json){
 
@@ -90,7 +94,7 @@ function atualizaTabelaAgencia(json)
     $('#modalCadastramento').modal('show');
    
 }   
-           
+        // remove os dados do modal e inclui o da nova pesquisa   
     jQuery('#modalCadastramento').on('hidden.bs.modal', function (e) {
 	    jQuery(this).removeData('#tabCadastrar>tbody');
         jQuery(this).find('#tabCadastrar>tbody').empty();
@@ -99,7 +103,7 @@ function atualizaTabelaAgencia(json)
             
   
      
- 
+//  envia dados para o banco
     $('.cadAmortizacao').click(function(){
 
         enviarSolicitacaoAmortizacao();
@@ -110,13 +114,16 @@ function atualizaTabelaAgencia(json)
     });
 	
 function enviarSolicitacaoAmortizacao(){
+
+    if ($("input.dinheiro").val() !==null){
     ctr ={
         contratoBndes: $("input.contratoBndes").val(),
         contratoCaixa: $("input.contratoCaixa").val(),
         contaDebito: $("input.conta").val(),
         valorAmortizacao: $("input.dinheiro").val(),
-        tipoComando: $("input.tipoAmortizacao").val()
+        tipoComando: $("select.tipoAmortizacao").val()
     }
+}
     // $.ajax({
         
     //     type: 'post',
