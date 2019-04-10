@@ -9,6 +9,7 @@ use App\Models\Bndes\NovoSiaf\Contratos;
 use App\Classes\Geral\Ldap;
 use App\Empregados;
 use App\AcessaEmpregados;
+use App\Classes\Bndes\NovoSiaf\SiafPhpMailer;
 
 class ContratosController extends Controller
 {
@@ -264,7 +265,7 @@ class ContratosController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->input('contratoCaixa') != null) {
+        if ($request->input('valorAmortizacao') != null && $request->input('tipoComando') != null && $request->input('contaDebito') != null) {
             $solicitacao = array(
                 "contratoBndes" => $request->input('contratoBndes'),
                 "contratoCaixa" => $request->input('contratoCaixa'),
@@ -272,6 +273,11 @@ class ContratosController extends Controller
                 "valorAmortizacao" => $request->input('valorAmortizacao'),
                 "tipoComando" => $request->input('tipoComando'),
             );
+            // $usuario = new Ldap;
+            // $empregado = Empregados::find($usuario->getMatricula());
+            // $demanda = Contratos::find($request->input('contratoCaixa'));
+            // $mensageria = new SiafPhpMailer;
+            // $mensageria->enviarMensageria($empregado, $demanda, 'registroNovaDemanda');
             return json_encode($solicitacao);
         } else {
             return "objeto vazio";

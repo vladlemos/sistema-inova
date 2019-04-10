@@ -21,6 +21,10 @@ Route::prefix('bndes')->group(function(){
     {
         return view('Bndes.NovoSiaf.index');
     });
+    Route::get('siaf-amortizacao-liquidacao/teste-de-email', function () 
+    {
+        return view('Bndes.NovoSiaf.envio-de-email');
+    });
 });
 
 Route::fallback(function(){

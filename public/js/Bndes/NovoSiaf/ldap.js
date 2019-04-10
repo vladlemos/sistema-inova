@@ -5,7 +5,7 @@ $(document).ready(function(){
 
  });
 
-//  carrega dos dados da pessoa logada na sessão
+//  carrega os dados da pessoa logada na sessão
 
 function carregaDadosEmpregado(json){
     var url = ('../api/dados_empregado')

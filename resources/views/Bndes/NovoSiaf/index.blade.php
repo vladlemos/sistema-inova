@@ -15,7 +15,7 @@
     <link href="{{ asset('css/icons.css') }}" rel="stylesheet" type="text/css">
     <!-- <link href="{{ asset('css//wysihtml5/wysiwyg-color.css') }}" rel="stylesheet" type="text/css"> -->
     <link href="{{ asset('css/font-awesome-4.5.0/font-awesome-4.5.0/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/index.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/Bndes/NovoSiaf/index.css') }}" rel="stylesheet" type="text/css">
     <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css"> -->
 
     <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js')}}"></script>
@@ -319,10 +319,12 @@
                             </div>
                                      
                         <br>
-                             
-                            <label>Observações</label>
                             <span class="form-control" id="obs_modal"></span>
-                              <br>
+                            <label>Observações</label>
+                                <span class="form-control" id="obs_modal"></span>
+                            
+                            <br>
+
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h6 class="panel-title"><i class="icon-coin"></i> Histórico de saldo</h6>
@@ -482,7 +484,7 @@
                             </div>
                             
                         <br>
-                             
+                             <span class="form-control" id="obs_modal"></span>
                             <label>Observações</label>
                             <textarea class="form-control" rows="3" name="co_observacoes" placeholder="Digite as observações da solicitação aqui...."></textarea> 
                               <br>
@@ -1048,10 +1050,10 @@
                             <div class="col-md-6">
                             <div class="thumbnail thumbnail-boxed">
                                 <div class="thumb">
-                                    <img alt="" src="../images/decop.jpg">
+                                    <img alt="" src="../images/Bndes/NovoSiaf/decop.jpg">
                                     <div class="thumb-options">
                                         <span>
-                                            <a href="#" onclick=" window.open('http://www.ceopc.sp.caixa/novosiaf/padrao/geopc/sumep/ceopc/modulosiaf.php')" class="btn tip" title="Clique aqui e navegue pela video apresentação de slides!"><img alt="" src="../images/decop6.png"></a>
+                                            <a href="#" onclick=" window.open('http://www.ceopc.sp.caixa/novosiaf/padrao/geopc/sumep/ceopc/modulosiaf.php')" class="btn tip" title="Clique aqui e navegue pela video apresentação de slides!"><img alt="" src="../images/Bndes/NovoSiaf/decop6.png"></a>
                                             
                                         </span>
                                     </div>
@@ -1135,7 +1137,7 @@
 </body>
 </html>
 
-        <script src="{{ asset('js/ldap.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/ldap.js')}}"></script>
         <script src="{{ asset('js/plugins/forms/wysihtml5/wysihtml5.min.js')}}"></script>
         <script src="{{ asset('js/plugins/forms/wysihtml5/toolbar.js')}}"></script>
         <script src="{{ asset('js/plugins/charts/sparkline.min.js')}}"></script>
@@ -1166,7 +1168,7 @@
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
         <script src="{{ asset('js/application.js')}}"></script>
         <!-- <script src="{{ asset('js/carrega_dados_dos_contratos.js')}}"></script> -->
-        <script src="{{ asset('js/dados.contratos.ag.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratos.ag.js')}}"></script>
         <!-- <script src="{{ asset('js/ldap.js')}}"></script> -->
         <!-- <script src="{{ asset('js/index.js')}}"></script> -->
         <!-- <script src="{{ asset('js/incluirDataTableLotes.js')}}"></script> -->

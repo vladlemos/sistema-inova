@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\NovoSiaf;
+namespace App\Models\Bndes\NovoSiaf;
 
 use Illuminate\Database\Eloquent\Model;
 

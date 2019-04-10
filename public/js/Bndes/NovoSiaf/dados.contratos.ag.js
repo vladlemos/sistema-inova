@@ -1,5 +1,5 @@
 
-// quando o documento carrega chama a função 
+// quando o documento carrega chama a função que carrega os dados dos contratos de acordo com o perfil
 
 $(document).ready(function(){
    
@@ -50,6 +50,12 @@ function atualizaTabelaAgencia(json)
    
 }
 
+    // remove os dados do modal e inclui o da nova pesquisa   
+    jQuery('#modalCadastramento').on('hidden.bs.modal', function (e) {
+    jQuery(this).removeData('#tabCadastrar>tbody');
+    jQuery(this).find('#tabCadastrar>tbody').empty();
+    
+})
 // carrega todos os contratos dos clientes para solicitar amortizacao
 
    function visualizaContrato(json){
@@ -73,15 +79,16 @@ function atualizaTabelaAgencia(json)
                              
             linhaCadastro = '<tr>' +
 
-                                '<td><input placeholder ="..." type="text" class=" contratoBndes form-control" value="' + value.CONTRATO_BNDES_2 + ' "/></td>' +
-                                '<td><input placeholder ="..." type="text" class="contratoCaixa form-control" value="' + value.CONTRATO_CAIXA + '"/readonly></td>' +
-                                '<td><input placeholder ="..." type="text" class="conta form-control" value="' + value.CONTA	+ '"/></td>' +
-                                '<td><input type="text" placeholder="Informe o valor" class="dinheiro form-control"  /></td>' +
-                                '<td><select class=" tipoAmortizacao form-control"><option disabled selected value>Selecione o tipo:</option> <option value="A">Amortização</option> <option value="L">Liquidação</option> </select></td>' +
+                                '<td><input placeholder ="..." type="text" name="contratoBndes" class=" contratoBndes form-control" value="' + value.CONTRATO_BNDES_2 + '" id="ctrBndesTeste"/></td>' +
+                                '<td><input placeholder ="..." type="text" name="contratoCaixa"class="contratoCaixa form-control" value="' + value.CONTRATO_CAIXA + '"/readonly></td>' +
+                                '<td><input placeholder ="..." type="text" name="conta"class="conta form-control" value="' + value.CONTA	+ '"/></td>' +
+                                '<td><input type="text" placeholder="Informe o valor" name="valorAmortizacao"class="valorAmortizacao dinheiro form-control"  /></td>' +
+                                '<td><select name="tipoAmortizacao" class=" tipoAmortizacao form-control"><option disabled selected value>Selecione o tipo:</option> <option value="A">Amortização</option> <option value="L">Liquidação</option> </select></td>' +
                                 
                             '</tr>';
-          
+            //adiciona linha ao modal
             $('#tabCadastrar>tbody').append(linhaCadastro);
+            //coloca mascará de valor 
             $("input.dinheiro").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
 
             });
@@ -94,18 +101,12 @@ function atualizaTabelaAgencia(json)
     $('#modalCadastramento').modal('show');
    
 }   
-        // remove os dados do modal e inclui o da nova pesquisa   
-    jQuery('#modalCadastramento').on('hidden.bs.modal', function (e) {
-	    jQuery(this).removeData('#tabCadastrar>tbody');
-        jQuery(this).find('#tabCadastrar>tbody').empty();
-       
-	})
+ 
             
   
      
 //  envia dados para o banco
     $('.cadAmortizacao').click(function(){
-
         enviarSolicitacaoAmortizacao();
     })
 
@@ -115,15 +116,62 @@ function atualizaTabelaAgencia(json)
 	
 function enviarSolicitacaoAmortizacao(){
 
-    if ($("input.dinheiro").val() !==null){
-    ctr ={
-        contratoBndes: $("input.contratoBndes").val(),
-        contratoCaixa: $("input.contratoCaixa").val(),
-        contaDebito: $("input.conta").val(),
-        valorAmortizacao: $("input.dinheiro").val(),
-        tipoComando: $("select.tipoAmortizacao").val()
+
+    var pedidoAmortizacao= $('#form_contratos>tr');
+
+    // $.post("https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_contratos", pedidoAmortizacao, function (ctr){
+    //     for (i=0; i<pedidoAmortizacao[i]; i++){
+        ctr={ 
+            contratoBndes: $("input.contratoBndes").val(),
+            contratoCaixa: $("input.contratoCaixa").val(),
+            contaDebito: $("input.conta").val(),
+            valorAmortizacao: $("input.dinheiro").val(),
+            tipoComando: $("select.tipoAmortizacao").val()
+            
+        }
+    //     console.log('estou aqui');
+    // }
+        console.log(ctr);
     }
-}
+
+    // pedidoAmortizacao.lenght;
+    // text = "<tr>";
+
+    // for (i=0; i<pedidoAmortizacao[i]; i++){
+
+    //   if ($("input.dinheiro").val() !==null){
+       
+    //        ctr={ 
+    //         contratoBndes: $("input.contratoBndes").val(),
+    //         contratoCaixa: $("input.contratoCaixa").val(),
+    //         contaDebito: $("input.conta").val(),
+    //         valorAmortizacao: $("input.dinheiro").val(),
+    //         tipoComando: $("select.tipoAmortizacao").val()
+    //     }
+    //     console.log(ctr);
+    //   }
+            
+    // }
+
+    // console.log(pedidoAmortizacao);
+    
+
+    // $(pedidoAmortizacao).each(function(){
+    
+    // if ($("input.dinheiro").val() !==null){
+    //     ctr ={
+    //         contratoBndes: $("input.contratoBndes").val(),
+    //         contratoCaixa: $("input.contratoCaixa").val(),
+    //         contaDebito: $("input.conta").val(),
+    //         valorAmortizacao: $("input.dinheiro").val(),
+    //         tipoComando: $("select.tipoAmortizacao").val()
+    //         }
+    //     }
+        
+    // })
+    // console.log(pedidoAmortizacao);
+   
+
     // $.ajax({
         
     //     type: 'post',
@@ -136,10 +184,26 @@ function enviarSolicitacaoAmortizacao(){
 //   }
  
     // });
+    // $.ajax(
+    //     {
+    //         method: 'POST',
+    //         url: 'https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_contratos',
+    //         data: $( "#formulario_pedido_amortizacao" ).serialize(),
+    //         async: false,
+    //         success: function (jsonStr) 
+    //         {
+    //             $(function()
+    //             {
 
-    $.post('https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_contratos', ctr, function(demandaCadastrada){
-        produto = JSON.parse(demandaCadastrada);
-        console.log(produto);
-    });
-}
+    //                 console.log(jsonStr);
+    //             });
+                
+    //         }
+    //     });
+
+    // $.post('https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_contratos', pedidoAmortizacao, function(demandaCadastrada){
+    //     produto = JSON.parse(demandaCadastrada);
+    //     console.log(produto);
+    // });
+// }
  
