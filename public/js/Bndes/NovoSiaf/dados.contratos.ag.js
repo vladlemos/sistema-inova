@@ -79,7 +79,7 @@ function atualizaTabelaAgencia(json)
                              
             linhaCadastro = '<tr>' +
 
-                                '<td><input placeholder ="..." type="text" name="contratoBndes" class=" contratoBndes form-control" value="' + value.CONTRATO_BNDES_2 + '" id="ctrBndesTeste"/></td>' +
+                                '<td><input placeholder ="..." type="text" name="contratoBndes" class=" contratoBndes form-control" value="' + value.CONTRATO_BNDES + '" id="ctrBndesTeste"/></td>' +
                                 '<td><input placeholder ="..." type="text" name="contratoCaixa"class="contratoCaixa form-control" value="' + value.CONTRATO_CAIXA + '"/readonly></td>' +
                                 '<td><input placeholder ="..." type="text" name="conta"class="conta form-control" value="' + value.CONTA	+ '"/></td>' +
                                 '<td><input type="text" placeholder="Informe o valor" name="valorAmortizacao"class="valorAmortizacao dinheiro form-control"  /></td>' +
@@ -88,7 +88,7 @@ function atualizaTabelaAgencia(json)
                             '</tr>';
             //adiciona linha ao modal
             $('#tabCadastrar>tbody').append(linhaCadastro);
-            //coloca mascará de valor 
+            //coloca mascara de valor 
             $("input.dinheiro").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
 
             });
@@ -118,21 +118,38 @@ function enviarSolicitacaoAmortizacao(){
 
 
     var pedidoAmortizacao= $('#form_contratos>tr');
+    // listaPedidoAmortizacao =  pedidoAmortizacao.lenght;
+
+    
+
+//    pedidoAmortizacao.forEach(pedido);
+
+//    function pedido(value){
+    for (i= 0; i < pedidoAmortizacao.lenght; i++){
 
     // $.post("https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_contratos", pedidoAmortizacao, function (ctr){
     //     for (i=0; i<pedidoAmortizacao[i]; i++){
-        ctr={ 
-            contratoBndes: $("input.contratoBndes").val(),
-            contratoCaixa: $("input.contratoCaixa").val(),
-            contaDebito: $("input.conta").val(),
-            valorAmortizacao: $("input.dinheiro").val(),
-            tipoComando: $("select.tipoAmortizacao").val()
-            
-        }
+    var  ctr = 
+        
+            contratoBndes= $("input.contratoBndes").val();
+            contratoCaixa= $("input.contratoCaixa").val();
+            contaDebito= $("input.conta").val();
+            valorAmortizacao= $("input.dinheiro").val();
+            tipoComando= $("select.tipoAmortizacao").val();
+            observacoes= $("textarea.co_observacoes").val()
+           
+      
+        
+
+        return ctr;
     //     console.log('estou aqui');
     // }
-        console.log(ctr);
-    }
+        // }
+    // }
+   
+}
+console.log(ctr)
+}
 
     // pedidoAmortizacao.lenght;
     // text = "<tr>";

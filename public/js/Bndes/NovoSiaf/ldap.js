@@ -25,6 +25,7 @@ function carregaDadosEmpregado(json){
 // verificao perfil e desabilita a aba da agência caso perfil CEOPC
             if(value.nivel_acesso == 'CEOPC'){
 
+                $(".perfilVisualizacao").html('Visualizando Todos Pedidos (Perfil Master)');
                 $("ul.nav-tabs li").removeClass("active");  
                 $("#abaContratosLiquidar").hide();
                 $("#contratosliquidar").hide();
@@ -34,6 +35,7 @@ function carregaDadosEmpregado(json){
 
             if(value.codigo_lotacao_fisica !== null){
                 
+                $(".perfilVisualizacao").html('Pedidos da unidade : ' + value.nome_lotacao_fisica);
                 $("#nomeEmpregado").html(value.nome_completo);
                 $("#nomeSessao").html(value.nome_completo);
                 $("#matriculaSessao").html(value.matricula);
@@ -46,6 +48,7 @@ function carregaDadosEmpregado(json){
             }
             else{
             
+                $(".perfilVisualizacao").html('Pedidos da unidade : ' + value.nome_lotacao_administrativa);
                 $("#nomeEmpregado").html(value.nome_completo);
                 $("#nomeSessao").html(value.nome_completo);
                 $("#matriculaSessao").html(value.matricula);
@@ -57,6 +60,8 @@ function carregaDadosEmpregado(json){
             
             }
           });
+
+          
        
       }
     

@@ -368,7 +368,7 @@
                                 <table class="table table-bordered table-striped datatable">
                                    <thead>
                                        <tr>
-                                           <th>Data e Hora</th>
+                                           <th> Data e Hora</th>
                                            <th> Status </th>
                                            <th> Observações </th>
                                            <th> Responsável </th>
@@ -532,7 +532,7 @@
                                 <table class="table table-bordered table-striped datatable">
                                    <thead>
                                        <tr>
-                                           <th>Data e Hora</th>
+                                           <th> Data e Hora</th>
                                            <th> Status </th>
                                            <th> Observações </th>
                                            <th> Responsável </th>
@@ -618,7 +618,7 @@
     
      
     
-<!-- --------------------CONTRUÇÃO DE MODAL--------------
+<!-- --------------------FIM CONTRUÇÃO DE MODAL--------------
 ###################################################################################################
 ###################################################################################################
 #################################################################################################### -->
@@ -639,7 +639,7 @@
     <div class="breadcrumb-line">
         <ul class="breadcrumb">
             <li><a href="index.html">Amortização - Liquidação </a></li>
-            <li class="active"></li>
+            <li class="active perfilVisualizacao"></li>
         </ul>
     </div>
     
@@ -728,22 +728,22 @@
      <!-- tabela contratos tratamento ceopc -->
         
             <div class="tab-pane" id="amortizaprox">
-            <p><strong>Amortizações referentes ao lote: </strong></p>
+            <!-- <p><strong>Amortizações referentes ao lote: </strong></p> -->
                 <!-- Default datatable inside panel -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h6 class="panel-title"><i class="icon-table"></i> Lista de solicitações referentes ao lote : </h6>
-                        </div>
-                    <div class="datatable">
-                        <table id="tabelaAmortizaProx" class="table  table-striped table-hover">
+                        <h6 class="panel-title"><i class="icon-table"></i> Lista de solicitações referentes ao lote : <span id ="proxLote"></span></h6>
+                    </div>
+                    <!-- <div class="datatable"> -->
+                        <table id="tabelaAmortizaProx" class="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>#COD</th>
+                                    <th>Pedido</th>
                                     <th>Tomador</th>
                                     <th>Ctr CAIXA</th>
                                     <th>Ctr BNDES</th>
                                     <th>Conta</th>
-                                    <th>Valor</th>
+                                    <th class="dinheiro">Valor</th>
                                     <th>Comando</th>
                                     <th>Status</th>
                                     <th></th>
@@ -755,7 +755,7 @@
                                     
                                 </tbody>
                         </table>
-                    </div>
+                    <!-- </div> -->
                 </div>
                     
             </div>
@@ -763,19 +763,19 @@
 
             <!-- contratos lote anterior -->
             <div class="tab-pane" id="amortizaant">
-            <p><strong>Amortizações referentes ao lote: </strong></p>
+            <!-- <p><strong>Amortizações referentes ao lote: </strong></p> -->
                     <!-- Default datatable inside panel -->
                     <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h6 class="panel-title">
-                                <i class="icon-table"></i>  Lista de solicitações referentes ao lote : </h6>
+                                <i class="icon-table"></i>  Lista de solicitações referentes ao lote : <span id ="loteAnt"></span></h6>
                             </div>
 
-                            <div class="datatable">
+                            <!-- <div class="datatable"> -->
                                     <table id="tabelaLoteAnterior" class="table table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th>#COD</th>
+                                                <th>Pedido</th>
                                                 <th>Tomador</th>
                                                 <th>Ctr CAIXA</th>
                                                 <th>Ctr BNDES</th>
@@ -789,7 +789,7 @@
                                         </thead>
                                         <tbody></tbody>
                                     </table>
-                            </div>
+                            <!-- </div> -->
                     </div>
                     
             </div>
@@ -806,16 +806,16 @@
                                 <i class="icon-table"></i>  Lista de solicitações com análise Pendente pela SUMEP:</h6>
                             </div>
 
-                            <div class="datatable">
+                            <!-- <div class="datatable"> -->
                                     <table id="tabelaSumep" class="table table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th>#COD</th>
+                                                <th>Pedido</th>
                                                 <th>Tomador</th>
                                                 <th>Ctr CAIXA</th>
                                                 <th>Ctr BNDES</th>
                                                 <th>Lote Rotina</th>
-                                                <th>Valor</th>
+                                                <th class="dinheiro">Valor</th>
                                                 <th>Comando</th>
                                                 <th>Status</th>
                                                 <th></th>
@@ -828,7 +828,7 @@
                                         
                                         </tbody>
                                     </table>
-                            </div>
+                            <!-- </div> -->
                     </div>
                     
             </div>
@@ -861,7 +861,7 @@
                                 <th align="center">Lote</th>
                                         <th align="center">Quantidade Solicitada</th>
                                         <th align="center">Quantidade Acatada</th>
-                                        <th align="center">Valor do Lote</th>
+                                        <th align="center" class="dinheiro">Valor do Lote</th>
                                         <th></th>
                                 </tr>
                                         
@@ -888,7 +888,7 @@
                                             <tr>
                                                 <th align="center">CNPJ</th>
                                                 <th align="center">Tomador</th>
-                                                <th align="center">Valor</th>
+                                                <th align="center" class="dinheiro">Valor</th>
                                                 <th align="center">Status</th>
                                                 <th align="center">Lote</th>
                                             <th></th>
@@ -960,7 +960,7 @@
                         <div class="panel-body">
                             <p class="alert alert-success fade in text-center">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
-                                É facil, no menu de amortização você deve clicar em solicitar amortização.
+                                É facil, no menu de amortização você deve escolher a empresa e clicar em solicitar amortização/liquidação.
                             </p>		
                             <hr>							
                             <p><strong>Ao clicar no botão de solicitação você deve prosseguir preenchendo os campos solicitados.</strong></p>
@@ -1169,6 +1169,9 @@
         <script src="{{ asset('js/application.js')}}"></script>
         <!-- <script src="{{ asset('js/carrega_dados_dos_contratos.js')}}"></script> -->
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratos.ag.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.proxlote.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnt.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoSumep.js')}}"></script>
         <!-- <script src="{{ asset('js/ldap.js')}}"></script> -->
         <!-- <script src="{{ asset('js/index.js')}}"></script> -->
         <!-- <script src="{{ asset('js/incluirDataTableLotes.js')}}"></script> -->

@@ -110,101 +110,133 @@ class TabelaSiafAmortizacoesController extends Controller
         $empregadoAcesso = DB::table('tbl_empregados')
                             ->join('tbl_acessa_empregado', 'tbl_empregados.matricula', '=', 'tbl_acessa_empregado.matricula')
                             ->select('tbl_empregados.*', 'tbl_acessa_empregado.nivel_acesso')
-                            // ->select('tbl_empregados.matricula', 'tbl_empregados.nome_completo', 'tbl_empregados.nome_funcao', 'tbl_empregados.codigo_lotacao_administrativa',  'tbl_acessa_empregado.nivel_acesso')
                             ->where('tbl_acessa_empregado.matricula', '=', $usuario->getMatricula())
                             ->get();
-        
         switch ($empregadoAcesso[0]->nivel_acesso) {
             case 'EMPREGADO_AG':
                 if ($empregadoAcesso[0]->codigo_lotacao_fisica === null) {
                     $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                    $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
-                                                                ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa);       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                        ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                            DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                        ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa)
+                                        ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())             
+                                        ->get(); 
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
+                                    ->get();    
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
+                                    ->get();      
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } else {
-                    if (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
-                                                                    ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
-                                                                    ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    } else {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
-                                                                    ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    }                   
-                }
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
+                                    ->get();       
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                }                   
                 break;
             case 'EMPREGADO_SR':
                 if ($empregadoAcesso[0]->codigo_lotacao_fisica === null) {
                     $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                    $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
-                                                                ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa);       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa)
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
+                                    ->get();       
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
+                                    ->get();      
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
+                                    ->get();     
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } else {
-                    if (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
-                                                                    ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
-                                                                    ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    } else {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
-                                                                    ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    }                   
-                }
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
+                                    ->get();      
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                }                   
                 break;
             case 'GIGAD':
                 if ($empregadoAcesso[0]->codigo_lotacao_fisica === null) {
                     $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                    $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
-                                                                ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa);       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa)
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
+                                    ->get();    
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
+                                    ->get();        
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
+                                    ->get();      
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } else {
-                    if (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
-                                                                    ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
-                                                                    ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    } else {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
-                                                                    ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    }                   
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
+                                    ->get();       
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 }
                 break;
             default:
             $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-            $loteAnterior = TabelaSiafAmortizacoes::all()->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior());
+            $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                    DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAnterior())
+                                ->get();
             return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 break;
         }
@@ -217,65 +249,86 @@ class TabelaSiafAmortizacoesController extends Controller
         $empregadoAcesso = DB::table('tbl_empregados')
                             ->join('tbl_acessa_empregado', 'tbl_empregados.matricula', '=', 'tbl_acessa_empregado.matricula')
                             ->select('tbl_empregados.*', 'tbl_acessa_empregado.nivel_acesso')
-                            // ->select('tbl_empregados.matricula', 'tbl_empregados.nome_completo', 'tbl_empregados.nome_funcao', 'tbl_empregados.codigo_lotacao_administrativa',  'tbl_acessa_empregado.nivel_acesso')
                             ->where('tbl_acessa_empregado.matricula', '=', $usuario->getMatricula())
                             ->get();
         
         switch ($empregadoAcesso[0]->nivel_acesso) {
             case 'EMPREGADO_AG':
                 if ($empregadoAcesso[0]->codigo_lotacao_fisica === null) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                    $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
-                                                                ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa);       
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                        ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                            DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                        ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                        ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa)
+                                        ->get();       
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                    ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                    ->get();        
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                    ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                    ->get();         
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } else {
-                    if (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
-                                                                    ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
-                                                                    ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    } else {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
-                                                                    ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    }                   
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                    ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                        DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                    ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                    ->get();        
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 }
                 break;
             case 'EMPREGADO_SR':
                 if ($empregadoAcesso[0]->codigo_lotacao_fisica === null) {
                     $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                    $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
-                                                                ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa);       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                        ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                            DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                        ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                        ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa)
+                                        ->get();       
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } else {
                     if (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
                         $lote = new LoteAmortizacaoLiquidacaoSIAF;
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
-                                                                    ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
+                        $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                        ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                            DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                        ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                        ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->get();        
                         return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                     } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {
                         $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
-                                                                    ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
+                        $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                        ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                            DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                        ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                        ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->get();      
                         return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                     } else {
                         $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
-                                                                    ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
+                        $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                        ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                            DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                        ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                        ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->get();       
                         return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                     }                   
                 }
@@ -283,35 +336,49 @@ class TabelaSiafAmortizacoesController extends Controller
             case 'GIGAD':
                 if ($empregadoAcesso[0]->codigo_lotacao_fisica === null) {
                     $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                    $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
-                                                                ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa);       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                        ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                            DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                        ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                        ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa)
+                                        ->get();   
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                        ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                            DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                        ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                        ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->get();        
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                        ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                            DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                        ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                        ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->get();       
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } else {
-                    if (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
-                                                                    ->where('CO_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
-                                                                    ->where('CO_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    } else {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-                        $loteAnterior = TabelaSiafAmortizacoes::all()
-                                                                    ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
-                                                                    ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica);       
-                        return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    }                   
+                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                    $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                        ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                            DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                        ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                        ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->get();        
+                    return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 }
                 break;
             default:
             $lote = new LoteAmortizacaoLiquidacaoSIAF;       
-            $loteAnterior = TabelaSiafAmortizacoes::all()->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual());
+            $loteAnterior = DB::table('TBL_SIAF_AMORTIZACOES')
+                                ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS',
+                                    DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                                ->where('DT_LT_AMORTIZADOR', '=', $lote->getDataLoteAtual())
+                                ->get();
             return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 break;
         }
@@ -336,7 +403,7 @@ class TabelaSiafAmortizacoesController extends Controller
                                                     DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
                                             ->where('STATUS', 'like', '%SUMEP%')
                                             ->where('CO_PA', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa)              
-                                            ->get();;       
+                                            ->get();      
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
                 } else {
                     if (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
