@@ -347,7 +347,7 @@ class SiafPhpMailer
             
             3. Em caso de autorização, solicitamos formalizar para a caixa postal CEOPC10.\n  
             
-            3.1  Ressaltamos que a autorização deve estar  arquivada no dossiê da operação e não necessita  ser encaminhada para a CEOPC.\n  
+                3.1  Ressaltamos que a autorização deve estar  arquivada no dossiê da operação e não necessita  ser encaminhada para a CEOPC.\n  
             
             4. Após regularização, orientamos efetuar nova solicitação no SIAF.\n  
 
@@ -357,5 +357,219 @@ class SiafPhpMailer
         return $mail;
     }
 
-}
+    function pendenciaContratoCreditoEmAtraso($objEmpregado, $objSiafAmortizacoes, $mail) {
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = "#CONFIDENCIAL10 - ";
+        $mail->Body = "
+            <head>
+                <meta charset=\"UTF-8\">
+                <style>
+                    body{
+                        font-family: arial,verdana,sans serif;
+                    }
+                    p{
+                        line-height: 1.5;
+                    }
+                    ol {
+                        counter-reset: item
+                    }
+                    li {
+                    display: block
+                    }
+                    li:before {
+                    content: counters(item, '.') ' ';
+                    counter-increment: item
+                    }
+                </style>
+            </head>
+            <p>À<br>
+            $objSiafAmortizacoes->NO_PA</p>
 
+            <p>Prezado(a) Gerente</p>
+            
+            <ol>
+                <li>
+                </li> 
+            </ol>
+
+            <p>Atenciosamente,</p>
+   
+            <p>CEOPC - CN Operações do Corporativo</p>";
+        
+        $mail->AltBody = "
+            À
+            $objSiafAmortizacoes->NOME_PA\n 
+
+            Prezado(a) Gerente\n
+            
+            \n  
+
+            Atenciosamente,\n
+
+            CEOPC - CN Operações do Corporativo";
+        return $mail;
+    }
+
+    function contratoLiquidadoOuAmortizado($objEmpregado, $objSiafAmortizacoes, $mail) {
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = "#CONFIDENCIAL10 - ";
+        $mail->Body = "
+            <head>
+                <meta charset=\"UTF-8\">
+                <style>
+                    body{
+                        font-family: arial,verdana,sans serif;
+                    }
+                    p{
+                        line-height: 1.5;
+                    }
+                    ol {
+                        counter-reset: item
+                    }
+                    li {
+                    display: block
+                    }
+                    li:before {
+                    content: counters(item, '.') ' ';
+                    counter-increment: item
+                    }
+                </style>
+            </head>
+            <p>À<br>
+            $objSiafAmortizacoes->NO_PA</p>
+
+            <p>Prezado(a) Gerente</p>
+            
+            <ol>
+                <li>
+                </li> 
+            </ol>
+
+            <p>Atenciosamente,</p>
+   
+            <p>CEOPC - CN Operações do Corporativo</p>";
+        
+        $mail->AltBody = "
+            À
+            $objSiafAmortizacoes->NOME_PA\n 
+
+            Prezado(a) Gerente\n
+            
+            \n  
+
+            Atenciosamente,\n
+
+            CEOPC - CN Operações do Corporativo";
+        return $mail;
+    }
+
+    function pendenciaContratoNaoLiquidadoResiduo($objEmpregado, $objSiafAmortizacoes, $mail) {
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = "#CONFIDENCIAL10 - ";
+        $mail->Body = "
+            <head>
+                <meta charset=\"UTF-8\">
+                <style>
+                    body{
+                        font-family: arial,verdana,sans serif;
+                    }
+                    p{
+                        line-height: 1.5;
+                    }
+                    ol {
+                        counter-reset: item
+                    }
+                    li {
+                    display: block
+                    }
+                    li:before {
+                    content: counters(item, '.') ' ';
+                    counter-increment: item
+                    }
+                </style>
+            </head>
+            <p>À<br>
+            $objSiafAmortizacoes->NO_PA</p>
+
+            <p>Prezado(a) Gerente</p>
+            
+            <ol>
+                <li>
+                </li> 
+            </ol>
+
+            <p>Atenciosamente,</p>
+   
+            <p>CEOPC - CN Operações do Corporativo</p>";
+        
+        $mail->AltBody = "
+            À
+            $objSiafAmortizacoes->NOME_PA\n 
+
+            Prezado(a) Gerente\n
+            
+            \n  
+
+            Atenciosamente,\n
+
+            CEOPC - CN Operações do Corporativo";
+        return $mail;
+    }
+
+    function pendenciaContratoNaoLiquidadoPorAusenciaSaldo($objEmpregado, $objSiafAmortizacoes, $mail) {
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = "#CONFIDENCIAL10 - ";
+        $mail->Body = "
+            <head>
+                <meta charset=\"UTF-8\">
+                <style>
+                    body{
+                        font-family: arial,verdana,sans serif;
+                    }
+                    p{
+                        line-height: 1.5;
+                    }
+                    ol {
+                        counter-reset: item
+                    }
+                    li {
+                    display: block
+                    }
+                    li:before {
+                    content: counters(item, '.') ' ';
+                    counter-increment: item
+                    }
+                </style>
+            </head>
+            <p>À<br>
+            $objSiafAmortizacoes->NO_PA</p>
+
+            <p>Prezado(a) Gerente</p>
+            
+            <ol>
+                <li>
+                </li> 
+            </ol>
+
+            <p>Atenciosamente,</p>
+   
+            <p>CEOPC - CN Operações do Corporativo</p>";
+        
+        $mail->AltBody = "
+            À
+            $objSiafAmortizacoes->NOME_PA\n 
+
+            Prezado(a) Gerente\n
+            
+            \n  
+
+            Atenciosamente,\n
+
+            CEOPC - CN Operações do Corporativo";
+        return $mail;
+    }
+}

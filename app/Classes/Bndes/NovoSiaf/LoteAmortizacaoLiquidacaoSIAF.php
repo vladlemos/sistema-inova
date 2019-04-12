@@ -15,7 +15,7 @@ class LoteAmortizacaoLiquidacaoSIAF
 	}
 	public function setDataLoteAtual()
 	{
-		if(date("d") <= 13)
+		if(date("d/m/Y") <= strtotime($this->getDataLimiteParaCadastroDeDemanda()))
 		{
 			$this->dataLoteAtual = date('d/m/Y', strtotime(date("Y") . '-' . sprintf('%02d', date('m')) . '-15'));
 		}
@@ -39,19 +39,13 @@ class LoteAmortizacaoLiquidacaoSIAF
 	}
 	public function setDataLoteAnterior()
 	{
-		if(date("d") <= 13)
-		{
-			if(date("m") == 1)
-			{	
+		if(date("d/m/Y") <= strtotime($this->getDataLimiteParaCadastroDeDemanda())) {
+			if(date("m") == 1) {	
 				$this->dataLoteAnterior = date('d/m/Y', strtotime((date("Y")-1) . '-12-15'));				
-			}	
-			else	
-			{	
+			} else {	
 				$this->dataLoteAnterior = date('d/m/Y', strtotime(date("Y") . '-' . sprintf("%02d", (date('m') - 1)) . '-15'));
 			}
-		} 
-		else
-		{
+		} else {
 			$this->dataLoteAnterior = date('d/m/Y', strtotime(date("Y") . '-' . date('m') . '-15'));
 		}
 	}
@@ -63,7 +57,8 @@ class LoteAmortizacaoLiquidacaoSIAF
 	}
 	public function setDataLimiteParaCadastroDeDemanda()
 	{
-		$this->dataLimiteParaCadastroDeDemanda = date('d/m/Y', strtotime(date('Y') . '-' . sprintf("%02d", date('m')) . '-13'));
+		$this->dataLimiteParaCadastroDeDemanda = date('Y-m-d', strtotime(date('Y') . '-' . sprintf("%02d", date('m')) . '-15'));
+		
 		switch (date('w', strtotime($this->dataLimiteParaCadastroDeDemanda))) 
 		{
 			case '0':
@@ -81,9 +76,9 @@ class LoteAmortizacaoLiquidacaoSIAF
 				break;
 		}
 
-		if (date('d/m/Y', getdate() >= $this->dataLimiteParaCadastroDeDemanda)) 
+		if (date('d/m/Y') >= $this->dataLimiteParaCadastroDeDemanda) 
 		{
-			$this->dataLimiteParaCadastroDeDemanda = date('d/m/Y', strtotime(date('Y') . '-' . sprintf("%02d", (date('m') +1)) . '-15'));
+			$this->dataLimiteParaCadastroDeDemanda = date('Y-m-d', strtotime(date('Y') . '-' . sprintf("%02d", (date('m') +1)) . '-15'));
 			switch (date('w', strtotime($this->dataLimiteParaCadastroDeDemanda))) 
 			{
 				case '0':
@@ -105,9 +100,9 @@ class LoteAmortizacaoLiquidacaoSIAF
 	
 	public function __construct()
 	{
+		$this->setDataLimiteParaCadastroDeDemanda();
 		$this->setDataLoteAtual();
 		$this->setDataLoteAnterior();
-		$this->setDataLimiteParaCadastroDeDemanda();
 	}
 
 	public function __toString()
@@ -116,8 +111,7 @@ class LoteAmortizacaoLiquidacaoSIAF
 			'data_lote_atual'=>$this->getDataLoteAtual(),
 			'data_lote_anterior'=>$this->getDataLoteAnterior(),
 			'data_limite_para_cadastro_de_demanda'=>$this->getDataLimiteParaCadastroDeDemanda(),
-		), JSON_UNESCAPED_SLASHES);
-		
+		), JSON_UNESCAPED_SLASHES);	
 	}
 }
 

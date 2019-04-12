@@ -8,7 +8,7 @@ $(document).ready(function(){
 //  carrega os dados da pessoa logada na sessão
 
 function carregaDadosEmpregado(json){
-    var url = ('../api/dados_empregado')
+    var url = ('../api/sistemas/v1/dados_empregado')
     
   $.ajax({
       
@@ -23,16 +23,7 @@ function carregaDadosEmpregado(json){
           $.each(empregado, function(key, value){
 
 // verificao perfil e desabilita a aba da agência caso perfil CEOPC
-            if(value.nivel_acesso == 'CEOPC'){
-
-                $(".perfilVisualizacao").html('Visualizando Todos Pedidos (Perfil Master)');
-                $("ul.nav-tabs li").removeClass("active");  
-                $("#abaContratosLiquidar").hide();
-                $("#contratosliquidar").hide();
-                $("#abaAmortizaprox").addClass("active").show(); 
-                $("#amortizaprox").show();
-            }
-
+          
             if(value.codigo_lotacao_fisica !== null){
                 
                 $(".perfilVisualizacao").html('Pedidos da unidade : ' + value.nome_lotacao_fisica);
@@ -46,6 +37,9 @@ function carregaDadosEmpregado(json){
                 $("#agenciaContrato").html(value.nome_lotacao_fisica);
                
             }
+
+        
+
             else{
             
                 $(".perfilVisualizacao").html('Pedidos da unidade : ' + value.nome_lotacao_administrativa);
@@ -58,6 +52,16 @@ function carregaDadosEmpregado(json){
                 $("#nomeSessaoBemVindo").html(value.nome_completo);  
                 $("#agenciaContrato").html(value.nome_lotacao_administrativa);
             
+            }
+
+            if(value.nivel_acesso == 'CEOPC'){
+                
+                $("ul.nav-tabs li").removeClass("active");  
+                $("#abaContratosLiquidar").hide();
+                $("#contratosliquidar").hide();
+                $("#abaAmortizaprox").addClass("active").show(); 
+                $("#amortizaprox").show();
+                $(".perfilVisualizacao").html('Visualizando Todos Pedidos');
             }
           });
 

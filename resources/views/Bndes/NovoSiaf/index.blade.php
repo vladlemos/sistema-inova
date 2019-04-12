@@ -266,6 +266,7 @@
                         
                     </ul>
                 <div class="tab-content">
+                <h5 class=""><span id="nome_cliente_modal"></span> &nbsp &nbsp <span id="cnpj_cliente_modal"></h5>
                     <div class="tab-pane fade in active" id="tabVisualizar">
 
                     <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_visualiza_pedido">
@@ -319,7 +320,7 @@
                             </div>
                                      
                         <br>
-                            <span class="form-control" id="obs_modal"></span>
+                            <span class="form-control" id="obs_modalAnterior"></span>
                             <label>Observações</label>
                                 <span class="form-control" id="obs_modal"></span>
                             
@@ -420,15 +421,16 @@
                         
                     </ul>
                 <div class="tab-content">
+                <h5 class=""><span id="nome_cliente_editar"></span> &nbsp &nbsp <span id="cnpj_cliente_editar"></h5>
                     <div class="tab-pane fade in active" id="tabEditar">
 
                     <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_editar_amortizacao">
-                        <input type="hidden" id="protocolo_alterar_dados"  name="protocolo_alterar_dados">        
+                        <!-- <input type="hidden" id="protocolo_alterar_dados"  name="protocolo_alterar_dados">        
                         <input type="hidden" id="editar_contrato_bndes_antigo" name="editar_contrato_bndes_antigo">   
                         <input type="hidden" id="editar_contrato_caixa_antigo" name="editar_contrato_caixa_antigo">   
                         <input type="hidden" id="editar_conta_antigo" name="editar_conta_antigo">   
                         <input type="hidden" id="editar_valor_antigo" name="editar_valor_antigo">   
-                        <input type="hidden" id="editar_status_antigo" name="editar_status_antigo">   
+                        <input type="hidden" id="editar_status_antigo" name="editar_status_antigo">    -->
                                                             
                         <div class="form-group">
                             
@@ -463,10 +465,28 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="control-label">STATUS</label>
-                               
+                              
                                 
-                                <div id="form_status_editar"></div>
-                                
+                                <!-- <div id="form_status_editar"> -->
+                            <div>
+                                <select data-placeholder="Selecione o tipo.."  id="status_editar" class="form-control">
+								<option value=""> - </option> 
+								<option value="SIBAN OK">SIBAN OK</option>
+								<option value="FALTA SIBAN">FALTA SIBAN</option>
+								<option value="RECEBIDO">RECEBIDO</option>
+								<option value="NA SUMEP">À SUMEP</option>
+								<option value="NL SEM SALDO">NL SEM SALDO</option>
+								<option value="NL EM CA">NL EM CA</option>
+								<option value="NL SEM COMANDO">NL SEM COMANDO</option>
+								<option value="SUMEP RESIDUO SIFBN">SUMEP - RESIDUO SIFBN</option>
+								<option value="SUMEP DEB_PENDENTE">SUMEP DEB_PENDENTE</option>
+								<option value="SUMEP NAO LIQUIDADO">SUMEP - NAO LIQUIDADO</option>
+								<option value="CANCELADO">CANCELADO</option>
+								<option value="ACATADO">ACATADO</option>
+								<option value="CONCLUIDO">CONCLUIDO</option>
+							    </select>
+
+                            </div>
                                 
                             </div>
                              <div class="col-sm-2">
@@ -484,7 +504,7 @@
                             </div>
                             
                         <br>
-                             <span class="form-control" id="obs_modal"></span>
+                             <span class="form-control" id="obs_editarAnt"></span>
                             <label>Observações</label>
                             <textarea class="form-control" rows="3" name="co_observacoes" placeholder="Digite as observações da solicitação aqui...."></textarea> 
                               <br>
