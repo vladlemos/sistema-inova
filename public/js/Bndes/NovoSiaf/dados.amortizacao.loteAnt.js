@@ -10,7 +10,7 @@ $.ajaxSetup({
     }
 });
 
-// carrega tabela dos clientes da agência de acordo com o Perfil 
+//carrega tabela com os contratos amortizados no lote anterior
 
 function carregarTabelaLoteAnt()
 {
@@ -49,17 +49,20 @@ function atualizaTabelaLoteAnt(json)
                 '<td>' + json.STATUS	        + '</td>' +
 
 				'<td>'	+				
-					'<button class="btn btn-info btn-xs tip visualiza icon-pencil3 center-block" id="botaoCadastrarAnt" onclick ="visualizaContratoAnt(\'' + json.CO_PEDIDO + '\')" ></button> ' + 
+					'<button class="btn btn-info btn-xs tip visualiza fa fa-binoculars center-block" id="botaoCadastrarAnt" onclick ="visualizaContratoAnt(\'' + json.CONTRATO_CAIXA + '\')" ></button> ' + 
                 '</td>' +
                 '<td>'	+				
-					'<button class="btn btn-warning btn-xs tip edita fa fa-edit center-block" id="botaoEditarAnt" onclick ="editarContratoAnt(\'' + json.CO_PEDIDO + '\')" ></button> ' + 
+					'<button class="btn btn-warning btn-xs tip edita fa fa-edit center-block" id="botaoEditarAnt" onclick ="editarContratoAnt(\'' + json.CONTRATO_CAIXA + '\')" ></button> ' + 
 				'</td>' +
                 
             '</tr>';
             
+            $("input.dinheiro").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
     return linhaLoteAnt;
    
 }
+
+//carrega as informações do contrato para visualização
 function visualizaContratoAnt(json){
 
     var url = ('../api/bndes/v1/siaf_contratos/' + json )
@@ -101,6 +104,7 @@ function visualizaContratoAnt(json){
  
 }   
 
+//carrega as informações do contrato para editar
 function editarContratoAnt(json){
 
 var url = ('../api/bndes/v1/siaf_contratos/' + json )

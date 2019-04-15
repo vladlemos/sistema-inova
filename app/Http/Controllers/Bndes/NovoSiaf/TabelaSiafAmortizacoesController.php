@@ -65,9 +65,18 @@ class TabelaSiafAmortizacoesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($demanda)
     {
-        //
+        $dadosDemanda = DB::table('TBL_SIAF_AMORTIZACOES')
+                            ->select('CO_PEDIDO', 'NO_CLIENTE', 'CO_CNPJ', 'CONTRATO_CAIXA', 'CONTRATO_BNDES', 'VL_AMORTIZADO', 'CONTA_CORRENTE', 'STATUS', 'CO_PA', 'CO_SR', 'CO_GIGAD',
+                                DB::raw("(CASE WHEN TP_AMORTIZACAO = 'L' THEN 'LIQUIDACAO' WHEN TP_AMORTIZACAO = 'A' THEN 'AMORTIZACAO' END) AS TP_AMORTIZACAO"))
+                            ->where('CO_PEDIDO', '=', $demanda)
+                            ->get();
+        if (isset($dadosDemanda)) {
+            return json_encode($dadosDemanda);
+        } else{
+            return response('Demanda não encontrada', 404);
+        }
     }
 
     /**
@@ -525,4 +534,6 @@ class TabelaSiafAmortizacoesController extends Controller
                                 ->get();
             return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
     }
+
+
 }

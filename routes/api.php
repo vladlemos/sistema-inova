@@ -13,25 +13,24 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-// Route::fallback(function(){
-//     return response()->json(['message' => 'Not Found!'], 404);
-// });
-
-
-Route::get('/siaf_amortizacoes_lote_anterior', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@loteAnterior');
-Route::get('/siaf_amortizacoes_lote_atual', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@loteAtual');
-Route::get('/siaf_contratos_sumep', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@contratosNaSumep');
+// Route::get('/siaf_amortizacoes_lote_anterior', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@loteAnterior');
+// Route::get('/siaf_amortizacoes_lote_atual', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@loteAtual');
+// Route::get('/siaf_contratos_sumep', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@contratosNaSumep');
 // Route::get('/dados_empregado', 'Bndes\NovoSiaf\DadosLoteEmpregadosSiafController@acessoEmpregado');
-Route::get('/siaf_api_completa', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@apiCompleta');
-Route::get('/siaf_contratos_a_liquidar', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@contratosParaLiquidar');
 
-// Route::get('/siaf_contratos_a_liquidar/{contrato}', 'TabelaSiafAmortizacoesController@showDadosContrato');
+/* ROTAS UTILIZADAS EM TODOS OS SISTEMAS CEOPC */
+    Route::get('sistemas/v1/dados_empregado', 'Sistemas\EmpregadosController@dadosEmpregado');
 
-Route::resource('bndes/v1/siaf_contratos', 'Bndes\NovoSiaf\ContratosController');
-Route::get('sistemas/v1/dados_empregado', 'Sistemas\EmpregadosController@dadosEmpregado');
+
+/* ROTAS UTILIZADAS EM PROJETOS ESPECIFICOS */
+
+/* ROTAS BNDES */
+
+    /* NOVOSIAF */
+        Route::resource('bndes/v1/siaf_contratos', 'Bndes\NovoSiaf\ContratosController');
+        Route::get('bndes/v1/siaf_amortizacoes_lote_atual', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@loteAtual');
+        Route::get('bndes/v1/siaf_amortizacoes_lote_anterior', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@loteAnterior');
+        Route::get('bndes/v1/siaf_contratos_sumep', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@contratosNaSumep');
+        Route::get('bndes/v1/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@show');
 
 

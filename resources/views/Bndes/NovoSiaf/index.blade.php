@@ -291,7 +291,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="control-label">Valor da Amortização</label>
-                                 <input placeholder="..." id="valor_modal" class="form-control" type="text" disabled>
+                                 <input placeholder="..." id="valor_modal" class="form-control dinheiro" type="text" disabled>
                             </div>
                             </div>
                             <br>
@@ -454,7 +454,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="control-label">Valor</label>
-                                 <input placeholder="..." name="valor_editar" id="valor_editar" valoreditar class="form-control" type="text" >
+                                 <input placeholder="..." name="valor_editar" id="valor_editar" valoreditar class="form-control dinheiro" type="text" >
                             </div>
                             </div>
                             <br>

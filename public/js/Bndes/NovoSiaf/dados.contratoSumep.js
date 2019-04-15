@@ -10,7 +10,7 @@ $.ajaxSetup({
     }
 });
 
-// carrega tabela dos clientes da agência de acordo com o Perfil 
+// //carrega tabela com os contratos pendentes na SUMEP
 
 function carregarTabelaSumep()
 {
@@ -52,10 +52,10 @@ function atualizaTabelaSumep(json)
                 '<td>' + json.STATUS	        + '</td>' +
 
 				'<td>'	+				
-					'<button class="btn btn-info btn-xs tip visualiza icon-pencil3 center-block" id="botaoCadastrarSumep" onclick ="visualizaContratoSumep(\'' + json.CO_PEDIDO + '\')" ></button> ' + 
+					'<button class="btn btn-info btn-xs tip visualiza fa fa-binoculars center-block" id="botaoCadastrarSumep" onclick ="visualizaContratoSumep(\'' + json.CONTRATO_CAIXA + '\')" ></button> ' + 
                 '</td>' +
                 '<td>'	+				
-					'<button class="btn btn-warning btn-xs tip edita fa fa-edit center-block" id="botaoEditarSumep" onclick ="editarContratoSumep(\'' + json.CO_PEDIDO + '\')" ></button> ' + 
+					'<button class="btn btn-warning btn-xs tip edita fa fa-edit center-block" id="botaoEditarSumep" onclick ="editarContratoSumep(\'' + json.CONTRATO_CAIXA + '\')" ></button> ' + 
 				'</td>' +
                 
             '</tr>';

@@ -10,7 +10,7 @@ $.ajaxSetup({
     }
 });
 
-// carrega tabela com os contratos a serem amortizados
+// carrega tabela com os contratos a serem amortizados no proximo lote
 
 function carregarTabelaProxLote()
 {
@@ -46,7 +46,7 @@ function atualizaTabelaProxLote(json)
                 '<td>' + json.CONTRATO_CAIXA    + '</td>' +
                 '<td>' + json.CONTRATO_BNDES    + '</td>' +
                 '<td>' + json.CONTA_CORRENTE    + '</td>' +
-                '<td>' + json.VL_AMORTIZADO     + '</td>' +
+                '<td class="dinheiro">' + json.VL_AMORTIZADO     + '</td>' +
                 '<td>' + json.TP_AMORTIZACAO    + '</td>' +
                 '<td>' + json.STATUS	        + '</td>' +
 
@@ -58,7 +58,7 @@ function atualizaTabelaProxLote(json)
 				'</td>' +
                 
             '</tr>';
-
+            $("td.dinheiro").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
      
 
             
@@ -66,7 +66,7 @@ function atualizaTabelaProxLote(json)
   
    
 }
-
+//carrega as informações do contrato para visualização
 function visualizaContratoProxlote(json){
 
         var url = ('../api/bndes/v1/siaf_contratos/' + json )
@@ -107,7 +107,7 @@ function visualizaContratoProxlote(json){
       $('#visualizarcontrato').modal('show');
      
   }   
-
+//carrega as informações do contrato para edição
   function editarContratoProx(json){
 
     var url = ('../api/bndes/v1/siaf_contratos/' + json )
