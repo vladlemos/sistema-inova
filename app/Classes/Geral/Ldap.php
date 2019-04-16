@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Classes\Geral;
-use App\Empregados;
+use App\Empregado;
 
 class Ldap
 {
@@ -15,7 +15,6 @@ class Ldap
     private $nomeLotacaoAdministrativa;
     private $codicoLotacaoFisica;
     private $nomeLotacaoFisica;
-    private $fotoEmpregado;
 
     /* Getters and Setters */
     public function getMatricula()
@@ -142,17 +141,6 @@ class Ldap
         }
     }
 
-    public function getFotoEmpregado()
-    {
-        return $this->fotoEmpregado;
-    }
-    public function setFotoEmpregado($fotoEmpregado)
-    {
-        $link = "http://www.sr2576.sp.caixa/2017/foto.asp?matricula=" . $fotoEmpregado;
-        // $link = "http://tedx.caixa/lib/asp/foto.asp?Matricula=" . $fotoEmpregado;
-        $this->fotoEmpregado = $link;
-    }
-
     public function __construct()
     {
         $this->settaDadosEmpregado();
@@ -172,7 +160,6 @@ class Ldap
 			"nome_lotacao_administrativa"=>$this->getNomeLotacaoAdministrativa(),
             "codigo_lotacao_fisica"=>$this->getCodicoLotacaoFisica(),
             "nome_lotacao_fisica"=>$this->getNomeLotacaoFisica(),
-            "foto_empregado"=>$this->getFotoEmpregado(),
 		), JSON_UNESCAPED_SLASHES);
     }
 
@@ -180,7 +167,7 @@ class Ldap
     {
         if(!isset($_SESSION['aut_matricula']) or strtoupper($_SESSION['aut_matricula'])!=strtoupper(substr($_SERVER["AUTH_USER"],10)))
         {
-            $simular='c111640'; //$simular='c026868';
+            $simular='c111710'; //$simular='c026868';
             //echo $simular;
             $matricula = $_SERVER["AUTH_USER"];
             if ($simular != "")    
@@ -219,13 +206,12 @@ class Ldap
             $this->setCodicoLotacaoFisica($ldap_user['nu-lotacaofisica'][0]);
             $this->setNomeLotacaoFisica($ldap_user['no-lotacaofisica'][0]);         
             $this->setDataDeNascimento(isset($ldap_user['dt-nascimento'][0]) ? $ldap_user['dt-nascimento'][0] : null);
-            $this->setFotoEmpregado($this->getMatricula());
         }
     }
 
     public function updateBaseEmpregados()
     {
-        $empregado = Empregados::firstOrNew(array('matricula' => $this->getMatricula()));
+        $empregado = Empregado::firstOrNew(array('matricula' => $this->getMatricula()));
         $empregado->matricula = $this->getMatricula();
         $empregado->nome_completo = $this->getNomeCompleto();
         $empregado->primeiro_nome = $this->getPrimeiroNome();
@@ -236,7 +222,6 @@ class Ldap
         $empregado->nome_lotacao_administrativa = $this->getNomeLotacaoAdministrativa();
         $empregado->codigo_lotacao_fisica = $this->getCodicoLotacaoFisica();
         $empregado->nome_lotacao_fisica = $this->getNomeLotacaoFisica();
-        $empregado->foto_empregado = $this->getFotoEmpregado();
         $empregado->save();
     }
 }

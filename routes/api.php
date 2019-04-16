@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 // Route::get('/dados_empregado', 'Bndes\NovoSiaf\DadosLoteEmpregadosSiafController@acessoEmpregado');
 
 /* ROTAS UTILIZADAS EM TODOS OS SISTEMAS CEOPC */
-    Route::get('sistemas/v1/dados_empregado', 'Sistemas\EmpregadosController@dadosEmpregado');
+    Route::get('sistemas/v1/dados_empregado', 'Sistemas\EmpregadoController@dadosEmpregado');
 
 
 /* ROTAS UTILIZADAS EM PROJETOS ESPECIFICOS */

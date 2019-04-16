@@ -29,7 +29,7 @@
             "App\\Models\\Bndes\\NovoSiaf\\": "app/Models/Bndes/NovoSiaf/",
             "App\\Classes\\Bndes\\NovoSiaf\\": "app/Classes/Bndes/NovoSiaf/",
             "App\\Classes\\Geral\\": "app/Classes/Geral/",
-            "App\\Http\\Controllers\\Sistemas": "App/Http/Controllers/Sistemas"
+            "App\\Http\\Controllers\\Sistemas\\": "App/Http/Controllers/Sistemas"
             
         }
     },

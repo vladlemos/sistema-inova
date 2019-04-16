@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Bndes\NovoSiaf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Bndes\NovoSiaf\Contratos;
+use App\Models\Bndes\NovoSiaf\Contrato;
 use App\Classes\Geral\Ldap;
-use App\Empregados;
-use App\AcessaEmpregados;
+use App\Empregado;
+use App\AcessaEmpregado;
 use App\Classes\Bndes\NovoSiaf\SiafPhpMailer;
 
-class ContratosController extends Controller
+class ContratoController extends Controller
 {
     public $arrayGigad = [
         '7641', '7639', '7640', '7606', '7648', '7647', '7649', '7652', '7655', '7658', '7657', '7659', '7660', '7661'
@@ -34,21 +34,21 @@ class ContratosController extends Controller
     public function index()
     {
         $usuario = new Ldap;
-        $empregado = Empregados::find($usuario->getMatricula());
-        $empregadoAcesso = DB::table('tbl_empregados')
-                            ->join('tbl_acessa_empregado', 'tbl_empregados.matricula', '=', 'tbl_acessa_empregado.matricula')
-                            ->select('tbl_empregados.*', 'tbl_acessa_empregado.nivel_acesso')
+        $empregado = Empregado::find($usuario->getMatricula());
+        $empregadoAcesso = DB::table('tbl_EMPREGADOS')
+                            ->join('tbl_ACESSA_EMPREGADO', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADO.matricula')
+                            ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADO.nivelAcesso')
                             // ->select('tbl_empregados.matricula', 'tbl_empregados.nome_completo', 'tbl_empregados.nome_funcao', 'tbl_empregados.codigo_lotacao_administrativa',  'tbl_acessa_empregado.nivel_acesso')
-                            ->where('tbl_acessa_empregado.matricula', '=', $usuario->getMatricula())
+                            ->where('tbl_ACESSA_EMPREGADO.matricula', '=', $empregado->getMatricula())
                             ->get();
         
-        switch ($empregadoAcesso[0]->nivel_acesso) {
+        switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigo_lotacao_fisica === null) {     
+                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {     
                     $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
                                         ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.CONTRATO_CAIXA', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
                                         ->select('TBL_SIAF_CONTRATOS.CNPJ', 'TBL_SIAF_CONTRATOS.CLIENTE')
-                                        ->where('TBL_SIAF_CONTRATOS.COD_PA', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa)
+                                        ->where('TBL_SIAF_CONTRATOS.COD_PA', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
                                         ->where(function($where){
                                             $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
                                                 ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
@@ -61,11 +61,11 @@ class ContratosController extends Controller
                                         ->get();       
                     return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                 } else {
-                    if (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
+                    if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
                                         ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.CONTRATO_CAIXA', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
                                         ->select('TBL_SIAF_CONTRATOS.CNPJ', 'TBL_SIAF_CONTRATOS.CLIENTE')
-                                        ->where('TBL_SIAF_CONTRATOS.COD_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->where('TBL_SIAF_CONTRATOS.COD_GIGAD', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
                                             $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
                                                 ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
@@ -77,11 +77,11 @@ class ContratosController extends Controller
                                         ->distinct()
                                         ->get();        
                         return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
-                    } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {      
+                    } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {      
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
                                         ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.CONTRATO_CAIXA', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
                                         ->select('TBL_SIAF_CONTRATOS.CNPJ', 'TBL_SIAF_CONTRATOS.CLIENTE')
-                                        ->where('TBL_SIAF_CONTRATOS.COD_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->where('TBL_SIAF_CONTRATOS.COD_SR', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
                                             $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
                                                 ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
@@ -97,7 +97,7 @@ class ContratosController extends Controller
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
                                         ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.CONTRATO_CAIXA', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
                                         ->select('TBL_SIAF_CONTRATOS.CNPJ', 'TBL_SIAF_CONTRATOS.CLIENTE')
-                                        ->where('TBL_SIAF_CONTRATOS.COD_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->where('TBL_SIAF_CONTRATOS.COD_PA', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
                                             $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
                                                 ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
@@ -113,11 +113,11 @@ class ContratosController extends Controller
                 }
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigo_lotacao_fisica === null) {
+                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
                     $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
                                         ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.CONTRATO_CAIXA', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
                                         ->select('TBL_SIAF_CONTRATOS.CNPJ', 'TBL_SIAF_CONTRATOS.CLIENTE')
-                                        ->where('TBL_SIAF_CONTRATOS.COD_SR', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa)
+                                        ->where('TBL_SIAF_CONTRATOS.COD_SR', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
                                         ->where(function($where){
                                             $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
                                                 ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
@@ -130,11 +130,11 @@ class ContratosController extends Controller
                                         ->get();     
                     return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                 } else {
-                    if (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
+                    if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
                                         ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.CONTRATO_CAIXA', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
                                         ->select('TBL_SIAF_CONTRATOS.CNPJ', 'TBL_SIAF_CONTRATOS.CLIENTE')
-                                        ->where('TBL_SIAF_CONTRATOS.COD_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->where('TBL_SIAF_CONTRATOS.COD_GIGAD', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
                                             $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
                                                 ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
@@ -146,11 +146,11 @@ class ContratosController extends Controller
                                         ->distinct()
                                         ->get();
                         return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
-                    } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {      
+                    } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {      
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
                                         ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.CONTRATO_CAIXA', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
                                         ->select('TBL_SIAF_CONTRATOS.CNPJ', 'TBL_SIAF_CONTRATOS.CLIENTE')
-                                        ->where('TBL_SIAF_CONTRATOS.COD_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->where('TBL_SIAF_CONTRATOS.COD_SR', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
                                             $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
                                                 ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
@@ -166,7 +166,7 @@ class ContratosController extends Controller
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
                                         ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.CONTRATO_CAIXA', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
                                         ->select('TBL_SIAF_CONTRATOS.CNPJ', 'TBL_SIAF_CONTRATOS.CLIENTE')
-                                        ->where('TBL_SIAF_CONTRATOS.COD_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->where('TBL_SIAF_CONTRATOS.COD_PA', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
                                             $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
                                                 ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
@@ -182,11 +182,11 @@ class ContratosController extends Controller
                 }
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigo_lotacao_fisica === null) {      
+                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {      
                     $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
                                         ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.CONTRATO_CAIXA', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
                                         ->select('TBL_SIAF_CONTRATOS.CNPJ', 'TBL_SIAF_CONTRATOS.CLIENTE')
-                                        ->where('TBL_SIAF_CONTRATOS.COD_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_administrativa)
+                                        ->where('TBL_SIAF_CONTRATOS.COD_GIGAD', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
                                         ->where(function($where){
                                             $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
                                                 ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
@@ -199,11 +199,11 @@ class ContratosController extends Controller
                                         ->get();
                     return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                 } else {
-                    if (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arrayGigad)) {
+                    if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
                                         ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.CONTRATO_CAIXA', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
                                         ->select('TBL_SIAF_CONTRATOS.CNPJ', 'TBL_SIAF_CONTRATOS.CLIENTE')
-                                        ->where('TBL_SIAF_CONTRATOS.COD_GIGAD', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->where('TBL_SIAF_CONTRATOS.COD_GIGAD', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
                                             $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
                                                 ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
@@ -215,11 +215,11 @@ class ContratosController extends Controller
                                         ->distinct()
                                         ->get();
                         return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
-                    } elseif (in_array($empregadoAcesso[0]->codigo_lotacao_fisica, $this->arraySR)) {
+                    } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
                                         ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.CONTRATO_CAIXA', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
                                         ->select('TBL_SIAF_CONTRATOS.CNPJ', 'TBL_SIAF_CONTRATOS.CLIENTE')
-                                        ->where('TBL_SIAF_CONTRATOS.COD_SR', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->where('TBL_SIAF_CONTRATOS.COD_SR', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
                                             $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
                                                 ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
@@ -235,7 +235,7 @@ class ContratosController extends Controller
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
                                         ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.CONTRATO_CAIXA', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
                                         ->select('TBL_SIAF_CONTRATOS.CNPJ', 'TBL_SIAF_CONTRATOS.CLIENTE')
-                                        ->where('TBL_SIAF_CONTRATOS.COD_PA', '=', $empregadoAcesso[0]->codigo_lotacao_fisica)
+                                        ->where('TBL_SIAF_CONTRATOS.COD_PA', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
                                             $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
                                                 ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
