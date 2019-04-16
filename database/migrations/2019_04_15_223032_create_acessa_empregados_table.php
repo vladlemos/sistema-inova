@@ -13,9 +13,10 @@ class CreateAcessaEmpregadosTable extends Migration
      */
     public function up()
     {
-        Schema::create('acessa_empregados', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::create('tbl_ACESSA_EMPREGADOS', function (Blueprint $table) {
+            $table->string('matricula', 7);
+            $table->string('nivelAcesso', 30);
+            $table->smallInteger('unidade');
         });
     }
 
