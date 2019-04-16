@@ -19,7 +19,8 @@ use Illuminate\Http\Request;
 // Route::get('/dados_empregado', 'Bndes\NovoSiaf\DadosLoteEmpregadosSiafController@acessoEmpregado');
 
 /* ROTAS UTILIZADAS EM TODOS OS SISTEMAS CEOPC */
-    Route::get('sistemas/v1/dados_empregado', 'Sistemas\EmpregadoController@dadosEmpregado');
+    Route::get('sistemas/v1/dados_empregado', 'Sistemas\EmpregadoController@index');
+    Route::get('sistemas/v1/dados_empregado/{matricula}', 'Sistemas\EmpregadoController@show');
 
 
 /* ROTAS UTILIZADAS EM PROJETOS ESPECIFICOS */
@@ -27,10 +28,11 @@ use Illuminate\Http\Request;
 /* ROTAS BNDES */
 
     /* NOVOSIAF */
-        Route::resource('bndes/v1/siaf_contratos', 'Bndes\NovoSiaf\ContratosController');
-        Route::get('bndes/v1/siaf_amortizacoes_lote_atual', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@loteAtual');
-        Route::get('bndes/v1/siaf_amortizacoes_lote_anterior', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@loteAnterior');
-        Route::get('bndes/v1/siaf_contratos_sumep', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@contratosNaSumep');
-        Route::get('bndes/v1/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\TabelaSiafAmortizacoesController@show');
+        Route::resource('bndes/v1/siaf_contratos', 'Bndes\NovoSiaf\SiafContratoController');
+        Route::get('bndes/v1/siaf_amortizacoes_lote_atual', 'Bndes\NovoSiaf\SiafDemandaController@loteAtual');
+        Route::get('bndes/v1/siaf_amortizacoes_lote_anterior', 'Bndes\NovoSiaf\SiafDemandaController@loteAnterior');
+        Route::get('bndes/v1/siaf_contratos_sumep', 'Bndes\NovoSiaf\SiafDemandaController@contratosNaSumep');
+        Route::get('bndes/v1/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@show');
+        
 
 

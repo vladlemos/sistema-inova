@@ -151,15 +151,15 @@ class Ldap
     {
         return json_encode(array(
 			"matricula"=>$this->getMatricula(),
-			"nome_completo"=>$this->getNomeCompleto(),
-			"primeiro_nome"=>$this->getPrimeiroNome(),
-			"data_de_nascimento"=>$this->getDataDeNascimento(),
-			"codigo_funcao"=>$this->getCodigoFuncao(),
-			"nome_funcao"=>$this->getNomeFuncao(),
-			"codigo_lotacao_administrativa"=>$this->getCodigoLotacaoAdministrativa(),
-			"nome_lotacao_administrativa"=>$this->getNomeLotacaoAdministrativa(),
-            "codigo_lotacao_fisica"=>$this->getCodicoLotacaoFisica(),
-            "nome_lotacao_fisica"=>$this->getNomeLotacaoFisica(),
+			"nomeCompleto"=>$this->getNomeCompleto(),
+			"primeiroNome"=>$this->getPrimeiroNome(),
+			"dataNascimento"=>$this->getDataDeNascimento(),
+			"codigoFuncao"=>$this->getCodigoFuncao(),
+			"nomeFuncao"=>$this->getNomeFuncao(),
+			"codigoLotacaoAdministrativa"=>$this->getCodigoLotacaoAdministrativa(),
+			"nomeLotacaoAdministrativa"=>$this->getNomeLotacaoAdministrativa(),
+            "codigoLotacaoFisica"=>$this->getCodicoLotacaoFisica(),
+            "nomeLotacaoFisica"=>$this->getNomeLotacaoFisica(),
 		), JSON_UNESCAPED_SLASHES);
     }
 
@@ -167,7 +167,7 @@ class Ldap
     {
         if(!isset($_SESSION['aut_matricula']) or strtoupper($_SESSION['aut_matricula'])!=strtoupper(substr($_SERVER["AUTH_USER"],10)))
         {
-            $simular='c111710'; //$simular='c026868';
+            $simular='c111640'; //$simular='c026868';
             //echo $simular;
             $matricula = $_SERVER["AUTH_USER"];
             if ($simular != "")    
@@ -213,15 +213,15 @@ class Ldap
     {
         $empregado = Empregado::firstOrNew(array('matricula' => $this->getMatricula()));
         $empregado->matricula = $this->getMatricula();
-        $empregado->nome_completo = $this->getNomeCompleto();
-        $empregado->primeiro_nome = $this->getPrimeiroNome();
-        $empregado->data_de_nascimento = $this->getDataDeNascimento();
-        $empregado->codigo_funcao = $this->getCodigoFuncao();
-        $empregado->nome_funcao = $this->getNomeFuncao();
-        $empregado->codigo_lotacao_administrativa = $this->getCodigoLotacaoAdministrativa();
-        $empregado->nome_lotacao_administrativa = $this->getNomeLotacaoAdministrativa();
-        $empregado->codigo_lotacao_fisica = $this->getCodicoLotacaoFisica();
-        $empregado->nome_lotacao_fisica = $this->getNomeLotacaoFisica();
+        $empregado->nomeCompleto = $this->getNomeCompleto();
+        $empregado->primeiroNome = $this->getPrimeiroNome();
+        $empregado->dataNascimento = $this->getDataDeNascimento();
+        $empregado->codigoFuncao = $this->getCodigoFuncao();
+        $empregado->nomeFuncao = $this->getNomeFuncao();
+        $empregado->codigoLotacaoAdministrativa = $this->getCodigoLotacaoAdministrativa();
+        $empregado->nomeLotacaoAdministrativa = $this->getNomeLotacaoAdministrativa();
+        $empregado->codigoLotacaoFisica = $this->getCodicoLotacaoFisica();
+        $empregado->nomeLotacaoFisica = $this->getNomeLotacaoFisica();
         $empregado->save();
     }
 }

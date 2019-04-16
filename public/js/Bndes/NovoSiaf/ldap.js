@@ -24,17 +24,18 @@ function carregaDadosEmpregado(json){
 
 // verificao perfil e desabilita a aba da agência caso perfil CEOPC
           
-            if(value.codigo_lotacao_fisica !== null){
+            if(value.codigoLotacaoFisica !== null){
                 
-                $(".perfilVisualizacao").html('Pedidos da unidade : ' + value.nome_lotacao_fisica);
-                $("#nomeEmpregado").html(value.nome_completo);
-                $("#nomeSessao").html(value.nome_completo);
+                $(".perfilVisualizacao").html('Pedidos da unidade : ' + value.nomeLotacaoFisica);
+                $("#nomeEmpregado").html(value.nomeCompleto);
+                $("#nomeSessao").html(value.nomeCompleto);
                 $("#matriculaSessao").html(value.matricula);
-                $("#funcaoSessao").html(value.nome_funcao);
-                $("#lotacaoSessao").html(value.codigo_lotacao_fisica);
-                $("#perfilSessao").html(value.nivel_acesso);  
-                $("#nomeSessaoBemVindo").html(value.nome_completo);  
-                $("#agenciaContrato").html(value.nome_lotacao_fisica);
+                $("#funcaoSessao").html(value.nomeFuncao);
+                $("#lotacaoSessao").html(value.codigoLotacaoFisica);
+                $("#perfilSessao").html(value.nivelAcesso);  
+                $("#nomeSessaoBemVindo").html(value.nomeCompleto);  
+                $("#agenciaContrato").html(value.nomeLotacaoFisica);
+                // $("#abaContratosLiquidar").hide();
                
             }
 
@@ -42,19 +43,20 @@ function carregaDadosEmpregado(json){
 
             else{
             
-                $(".perfilVisualizacao").html('Pedidos da unidade : ' + value.nome_lotacao_administrativa);
-                $("#nomeEmpregado").html(value.nome_completo);
-                $("#nomeSessao").html(value.nome_completo);
+                $(".perfilVisualizacao").html('Pedidos da unidade : ' + value.nomeLotacaoAdministrativa);
+                $("#nomeEmpregado").html(value.nomeCompleto);
+                $("#nomeSessao").html(value.nomeCompleto);
                 $("#matriculaSessao").html(value.matricula);
-                $("#funcaoSessao").html(value.nome_funcao);
-                $("#lotacaoSessao").html(value.codigo_lotacao_administrativa);
-                $("#perfilSessao").html(value.nivel_acesso);  
-                $("#nomeSessaoBemVindo").html(value.nome_completo);  
-                $("#agenciaContrato").html(value.nome_lotacao_administrativa);
+                $("#funcaoSessao").html(value.nomeFuncao);
+                $("#lotacaoSessao").html(value.codigoLotacaoAdministrativa);
+                $("#perfilSessao").html(value.nivelAcesso);  
+                $("#nomeSessaoBemVindo").html(value.nomeCompleto);  
+                $("#agenciaContrato").html(value.nomeLotacaoAdministrativa);
+                // $("#abaContratosLiquidar").hide();
             
             }
 
-            if(value.nivel_acesso == 'CEOPC'){
+            if(value.nivelAcesso == 'CEOPC'){
                 
                 $("ul.nav-tabs li").removeClass("active");  
                 $("#abaContratosLiquidar").hide();

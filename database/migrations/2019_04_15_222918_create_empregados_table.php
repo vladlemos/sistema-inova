@@ -13,7 +13,7 @@ class CreateEmpregadosTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_EMPREGADOS', function (Blueprint $table) {
+        Schema::create('TBL_EMPREGADOS', function (Blueprint $table) {
             $table->string('matricula', 7);
             $table->string('nomeCompleto', 50);
             $table->string('primeiroNome', 15);
@@ -35,6 +35,6 @@ class CreateEmpregadosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_EMPREGADOS');
+        Schema::dropIfExists('TBL_EMPREGADOS');
     }
 }

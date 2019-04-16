@@ -13,7 +13,7 @@ class CreateSiafHistoricoDemandasTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_SIAF_HISTORICO_DEMANDAS', function (Blueprint $table) {
+        Schema::create('TBL_SIAF_HISTORICO_DEMANDAS', function (Blueprint $table) {
             $table->increments('codigoHistorico');
             $table->string('contratoCaixa', 20);
             $table->string('loteAmortizacao', 10);
@@ -32,6 +32,6 @@ class CreateSiafHistoricoDemandasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('siaf_historico_demandas');
+        Schema::dropIfExists('TBL_SIAF_HISTORICO_DEMANDAS');
     }
 }

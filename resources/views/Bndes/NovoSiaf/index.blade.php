@@ -575,7 +575,7 @@
             </div>
                 <div class="modal-footer">
                     <small class="pull-left"> Cadastrado em : <span id="editardatacadastramento"></span>, por  <span id="editarsolicitante_nome"></span>  (<span id="editarsolicitante_matricula"></span>) </small>
-                        <button class="btn btn-default btn-success pull-right mandei_editar  botaoModal" data-dismiss="modal">Enviar á CEOPC </button>
+                        <button class="btn btn-default btn-success pull-right mandei_editar  botaoModal" data-dismiss="modal">Enviar a CEOPC </button>
                         <span class="pull-right"> </span>
                         <button class="btn btn-default btn-danger pull-right botaoModal" data-dismiss="modal">Fechar</button> 
                             
@@ -703,8 +703,8 @@
     <div class="tabbable page-tabs">
         <ul class="nav nav-tabs">
             <li class="active">
-            <a id="abaContratosLiquidar" href="#contratosliquidar" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Contratos a liquidar         </a></li>
-            <li id="abaAmortizaprox"><a href="#amortizaprox" data-toggle="tab"><i class="icon-exit4"></i> Amortizações para o próximo Lote         </a></li>
+            <a id="abaContratosLiquidar" href="#contratosliquidar" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Pedido de Liquidação/Amortização  </a></li>
+            <li id="abaAmortizaprox"><a href="#amortizaprox" data-toggle="tab"><i class="icon-exit4"></i> Acompanhamento pedidos para o próximo Lote  </a></li>
             <li><a href="#amortizaant" data-toggle="tab"><i class="icon-exit3"></i> Amortizações do Lote Anterior</a></li>
             <li><a href="#SUMEP" data-toggle="tab"><i class="icon-hammer"></i>Contratos na SUMEP</a></li>
             <li><a href="#amortizatodas" data-toggle="tab"><i class="icon-file4"></i>Todas solicitações de Amortização </a></li>
@@ -835,7 +835,7 @@
                                                 <th>Ctr CAIXA</th>
                                                 <th>Ctr BNDES</th>
                                                 <th>Lote Rotina</th>
-                                                <th class="dinheiro">Valor</th>
+                                                <th>Valor</th>
                                                 <th>Comando</th>
                                                 <th>Status</th>
                                                 <th></th>

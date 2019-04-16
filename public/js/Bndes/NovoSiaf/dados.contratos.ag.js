@@ -39,10 +39,10 @@ function atualizaTabelaAgencia(json)
 	linha = '<tr>' +
 				
                 
-                '<td>' + json.CLIENTE	+ '</td>' +
-				'<td>' + json.CNPJ.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5") + '</td>' +
+                '<td>' + json.cliente	+ '</td>' +
+				'<td>' + json.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5") + '</td>' +
 				'<td>'	+				
-					'<button class="btn btn-info btn-xs tip visualiza icon-pencil3 center-block" id="botaoCadastrar" onclick ="visualizaContrato(\'' + json.CNPJ + '\')" ></button> ' + 
+					'<button class="btn btn-info btn-xs tip visualiza icon-pencil3 center-block" id="botaoCadastrar" onclick ="visualizaContrato(\'' + json.cnpj + '\')" ></button> ' + 
 				'</td>' +
                 
             '</tr>';
@@ -74,22 +74,41 @@ function atualizaTabelaAgencia(json)
             
             $.each(contratos, function(key, value){
 
-                $("#cnpj_cliente").html(value.CNPJ);
-                $("#nome_cliente").html(value.CLIENTE);
+                $("#cnpj_cliente").html(value.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+                $("#nome_cliente").html(value.cliente);
+
+                if (value.operacao == '717')
                              
             linhaCadastro = '<tr>' +
 
-                                '<td><input placeholder ="..." type="text" name="contratoBndes" class=" contratoBndes form-control" value="' + value.CONTRATO_BNDES + '" id="ctrBndesTeste"/></td>' +
-                                '<td><input placeholder ="..." type="text" name="contratoCaixa"class="contratoCaixa form-control" value="' + value.CONTRATO_CAIXA + '"/readonly></td>' +
-                                '<td><input placeholder ="..." type="text" name="conta"class="conta form-control" value="' + value.CONTA	+ '"/></td>' +
+                                                   
+                                '<td><input placeholder ="..." type="text" name="contratoBndes" class=" contratoBndes form-control" value="' + value.contratoBndes + '" id="ctrBndesTeste"/></td>' +
+                                '<td><input placeholder ="..." type="text" name="contratoCaixa"class="contratoCaixa form-control" value="' + value.contratoCaixa + '"/readonly></td>' +
+                                '<td><input placeholder ="..." type="text" name="conta"class="conta form-control" value="' + value.contaDebito	+ '"/></td>' +
                                 '<td><input type="text" placeholder="Informe o valor" name="valorAmortizacao"class="valorAmortizacao dinheiro form-control"  /></td>' +
                                 '<td><select name="tipoAmortizacao" class=" tipoAmortizacao form-control"><option disabled selected value>Selecione o tipo:</option> <option value="A">Amortização</option> <option value="L">Liquidação</option> </select></td>' +
                                 
                             '</tr>';
+                            
+
+                else
+
+            linhaCadastro = '<tr>' +
+
+                                '<td><input placeholder ="..." type="text" name="contratoBndes" class=" contratoBndes form-control" value="' + value.contratoBndesFiname + '" id="ctrBndesTeste"/></td>' +
+                                '<td><input placeholder ="..." type="text" name="contratoCaixa"class="contratoCaixa form-control" value="' + value.contratoCaixa + '"/readonly></td>' +
+                                '<td><input placeholder ="..." type="text" name="conta"class="conta form-control" value="' + value.contaDebito	+ '"/></td>' +
+                                '<td><input type="text" placeholder="Informe o valor" name="valorAmortizacao"class="valorAmortizacao dinheiro form-control"  /></td>' +
+                                '<td><select name="tipoAmortizacao" class=" tipoAmortizacao form-control"><option disabled selected value>Selecione o tipo:</option> <option value="A">Amortização</option> <option value="L">Liquidação</option> </select></td>' +
+            
+                            '</tr>';
+
             //adiciona linha ao modal
             $('#tabCadastrar>tbody').append(linhaCadastro);
             //coloca mascara de valor 
             $("input.dinheiro").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+
+            
 
             });
          

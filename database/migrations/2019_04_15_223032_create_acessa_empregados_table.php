@@ -13,7 +13,7 @@ class CreateAcessaEmpregadosTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_ACESSA_EMPREGADOS', function (Blueprint $table) {
+        Schema::create('TBL_ACESSA_EMPREGADOS', function (Blueprint $table) {
             $table->string('matricula', 7);
             $table->string('nivelAcesso', 30);
             $table->smallInteger('unidade');
@@ -27,6 +27,6 @@ class CreateAcessaEmpregadosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acessa_empregados');
+        Schema::dropIfExists('TBL_ACESSA_EMPREGADOS');
     }
 }
