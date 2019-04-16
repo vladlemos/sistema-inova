@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Bndes\NovoSiaf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Bndes\NovoSiaf\SiafDemandas;
+use App\Models\Bndes\NovoSiaf\SiafDemanda;
+use App\Models\Bndes\NovoSiaf\SiafHistoricoDemanda;
 use App\Http\Controllers\Bndes\NovoSiaf\SiafHistoricoDemandaController;
 use App\Classes\Bndes\NovoSiaf\LoteAmortizacaoLiquidacaoSIAF;
 use App\Models\Bndes\NovoSiaf\SiafContrato;
@@ -68,9 +69,23 @@ class SiafDemandaController extends Controller
      */
     public function show($demanda)
     {
+        // $dadosDemanda = DB::table('TBL_SIAF_DEMANDAS')
+        //                     ->join('tbl_SIAF_HISTORICO_DEMANDAS', 'tbl_SIAF_HISTORICO_DEMANDAS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+        //                     ->select('TBL_SIAF_DEMANDAS.codigoDemanda', 'TBL_SIAF_DEMANDAS.nomeCliente', 'TBL_SIAF_DEMANDAS.cnpj', 'TBL_SIAF_DEMANDAS.contratoCaixa', 'TBL_SIAF_DEMANDAS.contratoBndes', 'TBL_SIAF_DEMANDAS.valorOperacao', 'TBL_SIAF_DEMANDAS.contaDebito', 'TBL_SIAF_DEMANDAS.status', 'TBL_SIAF_DEMANDAS.codigoPa', 'TBL_SIAF_DEMANDAS.codigoSr', 'TBL_SIAF_DEMANDAS.codigoGigad', 'tbl_SIAF_HISTORICO_DEMANDAS.historico', 'tbl_SIAF_HISTORICO_DEMANDAS.tipoHistorico',
+        //                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
+        //                     ->where('TBL_SIAF_DEMANDAS.codigoDemanda', '=', $demanda)
+        //                     // ->where('TBL_SIAF_DEMANDAS.dataLote', '=', 'tbl_SIAF_HISTORICO_DEMANDAS.loteAmortizacao')
+        //                     ->get();
+        // // var_dump($dadosDemanda[0]->contratoCaixa);
+        // if (isset($dadosDemanda)) {
+        //     return json_encode($dadosDemanda);
+        // } else{
+        //     return response('Demanda não encontrada', 404);
+        // }
+
         $dadosDemanda = DB::table('TBL_SIAF_DEMANDAS')
-                            ->join('tbl_SIAF_HISTORICO_DEMANDAS', 'tbl_SIAF_HISTORICO_DEMANDAS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
-                            ->select('TBL_SIAF_DEMANDAS.codigoDemanda', 'TBL_SIAF_DEMANDAS.nomeCliente', 'TBL_SIAF_DEMANDAS.cnpj', 'TBL_SIAF_DEMANDAS.contratoCaixa', 'TBL_SIAF_DEMANDAS.contratoBndes', 'TBL_SIAF_DEMANDAS.valorOperacao', 'TBL_SIAF_DEMANDAS.contaDebito', 'TBL_SIAF_DEMANDAS.status', 'TBL_SIAF_DEMANDAS.codigoPa', 'TBL_SIAF_DEMANDAS.codigoSr', 'TBL_SIAF_DEMANDAS.codigoGigad', 'tbl_SIAF_HISTORICO_DEMANDAS.historico', 'tbl_SIAF_HISTORICO_DEMANDAS.tipoHistorico',
+                            // ->join('tbl_SIAF_HISTORICO_DEMANDAS', 'tbl_SIAF_HISTORICO_DEMANDAS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                            ->select('TBL_SIAF_DEMANDAS.codigoDemanda', 'TBL_SIAF_DEMANDAS.nomeCliente', 'TBL_SIAF_DEMANDAS.cnpj', 'TBL_SIAF_DEMANDAS.contratoCaixa', 'TBL_SIAF_DEMANDAS.contratoBndes', 'TBL_SIAF_DEMANDAS.valorOperacao', 'TBL_SIAF_DEMANDAS.contaDebito', 'TBL_SIAF_DEMANDAS.status', 'TBL_SIAF_DEMANDAS.codigoPa', 'TBL_SIAF_DEMANDAS.codigoSr', 'TBL_SIAF_DEMANDAS.codigoGigad', 
                                 DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
                             ->where('TBL_SIAF_DEMANDAS.codigoDemanda', '=', $demanda)
                             // ->where('TBL_SIAF_DEMANDAS.dataLote', '=', 'tbl_SIAF_HISTORICO_DEMANDAS.loteAmortizacao')
@@ -528,6 +543,35 @@ class SiafDemandaController extends Controller
                                 ->get();
             return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
                 break;
+        }
+    }
+
+    public function show2($demanda)
+    {
+        // $dadosDemanda = DB::table('TBL_SIAF_DEMANDAS')
+        //                     ->join('tbl_SIAF_HISTORICO_DEMANDAS', 'tbl_SIAF_HISTORICO_DEMANDAS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+        //                     ->select('TBL_SIAF_DEMANDAS.codigoDemanda', 'TBL_SIAF_DEMANDAS.nomeCliente', 'TBL_SIAF_DEMANDAS.cnpj', 'TBL_SIAF_DEMANDAS.contratoCaixa', 'TBL_SIAF_DEMANDAS.contratoBndes', 'TBL_SIAF_DEMANDAS.valorOperacao', 'TBL_SIAF_DEMANDAS.contaDebito', 'TBL_SIAF_DEMANDAS.status', 'TBL_SIAF_DEMANDAS.codigoPa', 'TBL_SIAF_DEMANDAS.codigoSr', 'TBL_SIAF_DEMANDAS.codigoGigad', 'tbl_SIAF_HISTORICO_DEMANDAS.historico', 'tbl_SIAF_HISTORICO_DEMANDAS.tipoHistorico',
+        //                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
+        //                     ->where('TBL_SIAF_DEMANDAS.codigoDemanda', '=', $demanda)
+        //                     // ->where('TBL_SIAF_DEMANDAS.dataLote', '=', 'tbl_SIAF_HISTORICO_DEMANDAS.loteAmortizacao')
+        //                     ->get();
+        // // var_dump($dadosDemanda[0]->contratoCaixa);
+        // if (isset($dadosDemanda)) {
+        //     return json_encode($dadosDemanda);
+        // } else{
+        //     return response('Demanda não encontrada', 404);
+        // }
+
+        $dadosDemanda = SiafDemanda::find($demanda);
+            $jsonDados = [
+                "codigoDemanda" => $dadosDemanda->codigoDemanda,
+                "historicoContrato" => $dadosDemanda->SiafHistoricoDemanda[0]->historico
+            ];
+        // var_dump($dadosDemanda[0]->contratoCaixa);
+        if (isset($jsonDados)) {
+            return json_encode($jsonDados);
+        } else{
+            return response('Demanda não encontrada', 404);
         }
     }
 }

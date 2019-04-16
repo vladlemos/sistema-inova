@@ -27,7 +27,9 @@ function carregarDadosAgencia()
         }
         
         );
-        $("#tabelaContratosLiquidar").DataTable();
+        $("#tabelaContratosLiquidar").DataTable({
+            responsive: true
+        } );
 
     });
 }

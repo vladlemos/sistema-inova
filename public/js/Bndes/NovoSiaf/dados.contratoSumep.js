@@ -25,9 +25,10 @@ function carregarTabelaSumep()
         
         );
        
-        $('#tabelaSumep').DataTable();
-           
-           
+        $('#tabelaSumep').DataTable({
+            responsive: true,
+        } );
+   
             
             
     });
@@ -47,7 +48,7 @@ function atualizaTabelaSumep(json)
                 '<td>' + json.contratoCaixa     + '</td>' +
                 '<td>' + json.contratoBndes     + '</td>' +
                 '<td>' + json.dataLote          + '</td>' +
-                '<td>' + json.valorOperacao.replace(".", ",") + '</td>' +
+                '<td>' + json.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.")  + '</td>' +
                 '<td>' + json.tipoOperacao    + '</td>' +
                 '<td>' + json.status	        + '</td>' +
 
@@ -86,7 +87,7 @@ function visualizaContratoSumep(json){
             $("#contrato_bndes_modal").val(value.contratoBndes);
             $("#contrato_caixa_modal").val(value.contratoCaixa);
             $("#conta_corrente_modal").val(value.contaDebito);
-            $("#valor_modal").val(value.valorOperacao.replace('.',','));
+            $("#valor_modal").val(value.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1."));
             $("#tipo_modal").val(value.tipoOperacao);
             $("#status_modal").val(value.status); 
             $("#pv_modal").val(value.codigoPa);  
@@ -127,7 +128,7 @@ $.ajax({
         $("#contrato_bndes_editar").val(value.contratoBndes);
         $("#contrato_caixa_editar").val(value.contratoCaixa);
         $("#conta_corrente_editar").val(value.contaDebito);
-        $("#valor_editar").val(value.valorOperacao.replace('.',','));
+        $("#valor_editar").val(value.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1."));
         $("#tipo_editar").val(value.tipoOperacao);
         $("#status_editar").val(value.status);  
         $("#pv_editar").val(value.codigoPa);  
