@@ -16,7 +16,7 @@
     <!-- <link href="{{ asset('css//wysihtml5/wysiwyg-color.css') }}" rel="stylesheet" type="text/css"> -->
     <link href="{{ asset('css/font-awesome-4.5.0/font-awesome-4.5.0/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/Bndes/NovoSiaf/index.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('css/responsive.dataTables.min.css') }}" rel="stylesheet" type="text/css"> 
+    <!-- <link href="{{ asset('css/responsive.dataTables.min.css') }}" rel="stylesheet" type="text/css">  -->
     <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css"> -->
 
     <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js')}}"></script>
@@ -339,11 +339,12 @@
                                   <table class="table table-bordered table-striped datatable">
                                     <thead>
                                         <tr>
-                                            <th>Data e Hora</th>
+                                            <th> Data e Hora</th>
                                             <th> Status </th>
                                             <th> Saldo Disponível </th>
                                             <th> Saldo Bloqueado </th>
-                                            <th> Limite Disponível </th>
+                                            <th> Limite Cheque Azul </th>
+                                            <th> Limite GIM </th>
                                             <th> Saldo Total </th>
                                            
                                         </tr>
@@ -376,6 +377,7 @@
                                            <th> Status </th>
                                            <th> Observações </th>
                                            <th> Responsável </th>
+                                           <th> Unidade </th>
                                                                                     
                                        </tr>
                                    </thead>
@@ -524,7 +526,8 @@
                                             <th> Status </th>
                                             <th> Saldo Disponível </th>
                                             <th> Saldo Bloqueado </th>
-                                            <th> Limite Disponível </th>
+                                            <th> Limite Cheque Azul </th>
+                                            <th> Limite GIM </th>
                                             <th> Saldo Total </th>
                                            
                                         </tr>
@@ -555,10 +558,11 @@
                                 <table class="table table-bordered table-striped datatable">
                                    <thead>
                                        <tr>
-                                           <th> Data e Hora</th>
-                                           <th> Status </th>
-                                           <th> Observações </th>
-                                           <th> Responsável </th>
+                                            <th> Data e Hora</th>
+                                            <th> Status </th>
+                                            <th> Observações </th>
+                                            <th> Responsável </th>
+                                            <th> Unidade </th>
                                                                                     
                                        </tr>
                                    </thead>
@@ -795,7 +799,7 @@
                             </div>
 
                             <!-- <div class="datatable"> -->
-                                    <table id="tabelaLoteAnterior" class="table table-striped table-hover">
+                                    <table id="tabelaLoteAnterior" class="table table-striped table-hover ">
                                         <thead>
                                             <tr>
                                                 <th>Pedido</th>
@@ -1195,7 +1199,7 @@
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.proxlote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnt.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoSumep.js')}}"></script>
-        <script src="{{ asset('js/jquery.dataTables.responsive.min.js')}}"></script>
+        <!-- <script src="{{ asset('js/dataTables.responsive.min.js')}}"></script> -->
         <!-- <script src="{{ asset('js/ldap.js')}}"></script> -->
         <!-- <script src="{{ asset('js/index.js')}}"></script> -->
         <!-- <script src="{{ asset('js/incluirDataTableLotes.js')}}"></script> -->

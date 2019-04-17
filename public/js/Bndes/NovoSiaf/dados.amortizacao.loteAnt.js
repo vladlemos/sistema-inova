@@ -25,9 +25,7 @@ function carregarTabelaLoteAnt()
         
         );
        
-        $('#tabelaLoteAnterior').DataTable({
-            responsive: true
-        } );
+        $('#tabelaLoteAnterior').DataTable();
    
     });
     
@@ -46,7 +44,7 @@ function atualizaTabelaLoteAnt(json)
                 '<td>' + json.contratoCaixa    + '</td>' +
                 '<td>' + json.contratoBndes    + '</td>' +
                 '<td>' + json.contaDebito    + '</td>' +
-                '<td>' + json.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.")    + '</td>' +
+                '<td>' + json.valorOperacao    + '</td>' +
                 '<td>' + json.tipoOperacao   + '</td>' +
                 '<td>' + json.status	        + '</td>' +
 
@@ -68,7 +66,7 @@ function atualizaTabelaLoteAnt(json)
 //carrega as informações do contrato para visualização
 function visualizaContratoAnt(json){
 
-    var url = ('../api/bndes/v1/siaf_amortizacoes/' + json )
+    var url = ('../api/bndes/v2/siaf_amortizacoes/' + json )
     
   $.ajax({
       
@@ -79,24 +77,24 @@ function visualizaContratoAnt(json){
          
             
           var ctrAnt = JSON.parse(carregaContratoAnt);
-          
-          $.each(ctrAnt, function(key, value){
+        
+        //   $.each(ctrAnt, function(key, value){
 
-            $("#cnpj_cliente_modal").html(value.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-            $("#nome_cliente_modal").html(value.nomeCliente);
+            $("#cnpj_cliente_modal").html(ctrAnt.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+            $("#nome_cliente_modal").html(ctrAnt.nomeCliente);
                            
-            $("#contrato_bndes_modal").val(value.contratoBndes);
-            $("#contrato_caixa_modal").val(value.contratoCaixa);
-            $("#conta_corrente_modal").val(value.contaDebito);
-            $("#valor_modal").val(value.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") );
-            $("#tipo_modal").val(value.tipoOperacao);
-            $("#status_modal").val(value.status);  
-            $("#pv_modal").val(value.codigoPa);  
-            $("#sr_modal").val(value.codigoSr);
-            $("#gigad_modal").val(value.codigoGigad);
-            // $("#obs_modalAnterior").val(value.CO_OBS);
+            $("#contrato_bndes_modal").val(ctrAnt.contratoBndes);
+            $("#contrato_caixa_modal").val(ctrAnt.contratoCaixa);
+            $("#conta_corrente_modal").val(ctrAnt.contaDebito);
+            $("#valor_modal").val(ctrAnt.valorOperacao);
+            $("#tipo_modal").val(ctrAnt.tipoOperacao);
+            $("#status_modal").val(ctrAnt.status);  
+            $("#pv_modal").val(ctrAnt.codigoPa);  
+            $("#sr_modal").val(ctrAnt.codigoSr);
+            $("#gigad_modal").val(ctrAnt.codigoGigad);
+            // $("#obs_modalAnterior").val(ctrAnt.CO_OBS);
 
-          });
+        //   });
        
       }
     
@@ -110,7 +108,7 @@ function visualizaContratoAnt(json){
 //carrega as informações do contrato para editar
 function editarContratoAnt(json){
 
-var url = ('../api/bndes/v1/siaf_amortizacoes/' + json )
+var url = ('../api/bndes/v2/siaf_amortizacoes/' + json )
 
 $.ajax({
   
@@ -120,27 +118,27 @@ $.ajax({
       success: function(editarContratoAnt){
      
         
-      var ctr = JSON.parse(editarContratoAnt);
+      var ctrAnt = JSON.parse(editarContratoAnt);
       
-      $.each(ctr, function(key, value){
+    //   $.each(ctr, function(key, ctrAnt){
 
-          $("#cnpj_cliente_editar").html(value.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-          $("#nome_cliente_editar").html(value.nomeCliente);
+          $("#cnpj_cliente_editar").html(ctrAnt.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+          $("#nome_cliente_editar").html(ctrAnt.nomeCliente);
 
-        $("#contrato_bndes_editar").val(value.contratoBndes);
-        $("#contrato_caixa_editar").val(value.contratoCaixa);
-        $("#conta_corrente_editar").val(value.contaDebito);
-        $("#valor_editar").val(value.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") );
-        $("#tipo_editar").val(value.tipoOperacao);
-        $("#status_editar").val(value.status);  
-        $("#pv_editar").val(value.codigoPa);  
-        $("#sr_editar").val(value.codigoSr);
-        $("#gigad_editar").val(value.codigoGigad);
-        // $("#obs_editarAnt").val(value.CO_OBS);
+        $("#contrato_bndes_editar").val(ctrAnt.contratoBndes);
+        $("#contrato_caixa_editar").val(ctrAnt.contratoCaixa);
+        $("#conta_corrente_editar").val(ctrAnt.contaDebito);
+        $("#valor_editar").val(ctrAnt.valorOperacao);
+        $("#tipo_editar").val(ctrAnt.tipoOperacao);
+        $("#status_editar").val(ctrAnt.status);  
+        $("#pv_editar").val(ctrAnt.codigoPa);  
+        $("#sr_editar").val(ctrAnt.codigoSr);
+        $("#gigad_editar").val(ctrAnt.codigoGigad);
+        // $("#obs_editarAnt").val(ctrAnt.CO_OBS);
                        
        
 
-      });
+    //   });
    
   }
 

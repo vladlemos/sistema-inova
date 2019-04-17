@@ -108,9 +108,9 @@ class LoteAmortizacaoLiquidacaoSIAF
 	public function __toString()
 	{
 		return json_encode(array(
-			'data_lote_atual'=>$this->getDataLoteAtual(),
-			'data_lote_anterior'=>$this->getDataLoteAnterior(),
-			'data_limite_para_cadastro_de_demanda'=>$this->getDataLimiteParaCadastroDeDemanda(),
+			'dataLoteAtual'=>$this->getDataLoteAtual(),
+			'dataLoteanterior'=>$this->getDataLoteAnterior(),
+			'dataLimiteParaCadastroDemanda'=>$this->getDataLimiteParaCadastroDeDemanda(),
 		), JSON_UNESCAPED_SLASHES);	
 	}
 }

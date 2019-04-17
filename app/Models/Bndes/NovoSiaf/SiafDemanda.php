@@ -12,4 +12,8 @@ class SiafDemanda extends Model
     function SiafHistoricoDemanda() {
         return $this->hasMany('App\Models\Bndes\NovoSiaf\SiafHistoricoDemanda', 'contratoCaixa', 'contratoCaixa');
     }
+
+    function SiafHistoricoSaldoContaAmortizacao() {
+        return $this->hasMany('App\Models\Bndes\NovoSiaf\SiafHistoricoSaldoContaAmortizacao', 'contaDebito', 'contaDebito');
+    }
 }

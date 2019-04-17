@@ -15,6 +15,7 @@
 use App\Models\Bndes\NovoSiaf\AtendimentoWebListaAtividades;
 
 Route::get('/', function () {return 'Hello World';});
+Route::get('/consumo-json-multinivel', function () {return view('consumoJsonMultinivel');});
 
 Route::prefix('bndes')->group(function(){
     Route::get('siaf-amortizacao-liquidacao', function () 

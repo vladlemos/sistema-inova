@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SiafHistoricoDemanda extends Model
 {
     protected $table = 'tbl_SIAF_HISTORICO_DEMANDAS';
-    // protected $primaryKey = 'codigoHistorico';
+    protected $primaryKey = 'contratoCaixa';
 
     function SiafDemanda() {
         return $this->belongsTo('App\Models\Bndes\NovoSiaf\SiafDemanda', 'contratoCaixa', 'contratoCaixa');

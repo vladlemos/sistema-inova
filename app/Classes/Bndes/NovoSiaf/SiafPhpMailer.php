@@ -74,7 +74,7 @@ class SiafPhpMailer
     function registroNovaDemanda($objEmpregado, $objContratos, $mail) {
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "#CONFIDENCIAL10 - Solicitação de liquidação/Amortização SIAF #{{idDemanda}} - Empresa: $objContratos->CLIENTE - Contrato Caixa: $objContratos->CONTRATO_CAIXA";
+        $mail->Subject = "#CONFIDENCIAL10 - Solicitação de liquidação/Amortização SIAF #{{idDemanda}} - Empresa: $objContratos->CLIENTE - Contrato Caixa: $objContratos->contratoCaixa";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">
@@ -98,7 +98,9 @@ class SiafPhpMailer
                 </style>
             </head>
             <p>À<br>
-            $objContratos->NOME_PA</p>
+            $objContratos->nomePa<br/>
+            $objSiafAmortizacoes->nomeSr<br/>
+            $objSiafAmortizacoes->nomeGigad</p>
           
             <p>Prezado(a) Gerente</p>
 
@@ -118,7 +120,9 @@ class SiafPhpMailer
         
         $mail->AltBody = "
             À
-            $objContratos->NOME_PA\n 
+            $objContratos->nomePa
+            $objSiafAmortizacoes->nomeSr
+            $objSiafAmortizacoes->nomeGigad\n 
 
             Prezado(a) Gerente\n
             
@@ -139,7 +143,7 @@ class SiafPhpMailer
     function pendenciaContaDivergente($objEmpregado, $objSiafAmortizacoes, $mail) {
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} cancelada - Solicitação com conta divergente do SIFBN - Empresa: $objSiafAmortizacoes->NO_CLIENTE - Contrato Caixa: $objSiafAmortizacoes->CONTRATO_CAIXA";
+        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} cancelada - Solicitação com conta divergente do SIFBN - Empresa: $objSiafAmortizacoes->nomeCliente - Contrato Caixa: $objSiafAmortizacoes->contratoCaixa";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">
@@ -163,12 +167,14 @@ class SiafPhpMailer
                 </style>
             </head>
             <p>À<br>
-            $objSiafAmortizacoes->NO_PA</p>
+            $objSiafAmortizacoes->nomePa<br/>
+            $objSiafAmortizacoes->nomeSr<br/>
+            $objSiafAmortizacoes->nomeGigad</p>
 
             <p>Prezado(a) Gerente</p>
             
             <ol>
-                <li>Recebemos através do SIAF a solicitação de LIQUIDAÇÃO/AMORTIZAÇÃO referente ao contrato $objSiafAmortizacoes->CONTRATO_CAIXA.</li>
+                <li>Recebemos através do SIAF a solicitação de LIQUIDAÇÃO/AMORTIZAÇÃO referente ao contrato $objSiafAmortizacoes->contratoCaixa.</li>
                 <li>Entretanto verificamos que a conta cadastrada no SIAF ($objSiafAmortizacoes->CONTA_CORRENTE) diverge da conta cadastrada no SIBAN.</li>
                 <li>Informamos que a alteração da conta no SIBAN é feita pela agência no seguinte caminho:</li>
                     <ul>
@@ -187,11 +193,13 @@ class SiafPhpMailer
         
         $mail->AltBody = "
             À
-            $objSiafAmortizacoes->NOME_PA\n 
+            $objSiafAmortizacoes->nomePa
+            $objSiafAmortizacoes->nomeSr
+            $objSiafAmortizacoes->nomeGigad\n 
 
             Prezado(a) Gerente\n
             
-            1. Recebemos através do SIAF a solicitação de LIQUIDAÇÃO/AMORTIZAÇÃO referente ao contrato $objSiafAmortizacoes->CONTRATO_CAIXA.\n
+            1. Recebemos através do SIAF a solicitação de LIQUIDAÇÃO/AMORTIZAÇÃO referente ao contrato $objSiafAmortizacoes->contratoCaixa.\n
 
             2. Entretanto verificamos que a conta cadastrada no SIAF ($objSiafAmortizacoes->CONTA_CORRENTE) diverge da conta cadastrada no SIBAN (9999.000.00000000-0).\n
 
@@ -210,7 +218,7 @@ class SiafPhpMailer
     function pendenciaValorDivergenteSiafSiban($objEmpregado, $objSiafAmortizacoes, $mail) {
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} cancelada - Solicitação com valor divergente do SIFBN - Empresa: $objSiafAmortizacoes->NO_CLIENTE - Contrato Caixa: $objSiafAmortizacoes->CONTRATO_CAIXA";
+        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} cancelada - Solicitação com valor divergente do SIFBN - Empresa: $objSiafAmortizacoes->nomeCliente - Contrato Caixa: $objSiafAmortizacoes->contratoCaixa";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">
@@ -234,12 +242,14 @@ class SiafPhpMailer
                 </style>
             </head>
             <p>À<br>
-            $objSiafAmortizacoes->NO_PA</p>
+            $objSiafAmortizacoes->nomePa<br/>
+            $objSiafAmortizacoes->nomeSr<br/>
+            $objSiafAmortizacoes->nomeGigad</p>
 
             <p>Prezado(a) Gerente</p>
             
             <ol>
-                <li>Recebemos através do SIAF a solicitação de LIQUIDAÇÃO referente ao contrato $objSiafAmortizacoes->CONTRATO_CAIXA.
+                <li>Recebemos através do SIAF a solicitação de LIQUIDAÇÃO referente ao contrato $objSiafAmortizacoes->contratoCaixa.
 
                 <li>Entretanto verificamos que o valor cadastrado no SIAF (R$ $objSiafAmortizacoes->VL_AMORTIZADO) diverge do valor do saldo devedor calculado pelo SIBAN.</li>
 
@@ -260,11 +270,13 @@ class SiafPhpMailer
         
         $mail->AltBody = "
             À
-            $objSiafAmortizacoes->NOME_PA\n 
+            $objSiafAmortizacoes->nomePa
+            $objSiafAmortizacoes->nomeSr
+            $objSiafAmortizacoes->nomeGigad\n 
 
             Prezado(a) Gerente\n
             
-            1. Recebemos através do SIAF a solicitação de LIQUIDAÇÃO referente ao contrato $objSiafAmortizacoes->CONTRATO_CAIXA.\n
+            1. Recebemos através do SIAF a solicitação de LIQUIDAÇÃO referente ao contrato $objSiafAmortizacoes->contratoCaixa.\n
 
             2. Entretanto verificamos que o valor cadastrado no SIAF (R$ $objSiafAmortizacoes->VL_AMORTIZADO) diverge do valor do saldo devedor calculado pelo SIBAN.\n
 
@@ -283,7 +295,7 @@ class SiafPhpMailer
     function pendenciaSolicitacaoComContaPessoaFisica($objEmpregado, $objSiafAmortizacoes, $mail) {
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} cancelada - Solicitação com conta Pessoa Física - Empresa: $objSiafAmortizacoes->NO_CLIENTE - Contrato Caixa: $objSiafAmortizacoes->CONTRATO_CAIXA";
+        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} cancelada - Solicitação com conta Pessoa Física - Empresa: $objSiafAmortizacoes->nomeCliente - Contrato Caixa: $objSiafAmortizacoes->contratoCaixa";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">
@@ -307,12 +319,14 @@ class SiafPhpMailer
                 </style>
             </head>
             <p>À<br>
-            $objSiafAmortizacoes->NO_PA</p>
+            $objSiafAmortizacoes->nomePa<br/>
+            $objSiafAmortizacoes->nomeSr<br/>
+            $objSiafAmortizacoes->nomeGigad</p>
 
             <p>Prezado(a) Gerente</p>
             
             <ol>
-                <li>Recebemos através do SIAF a solicitação de LIQUIDAÇÃO referente ao contrato $objSiafAmortizacoes->CONTRATO_CAIXA.</li>
+                <li>Recebemos através do SIAF a solicitação de LIQUIDAÇÃO referente ao contrato $objSiafAmortizacoes->contratoCaixa.</li>
 
                 <li>Verificamos que a conta cadastrada para débito não pertence à empresa, assim para prosseguimento, solicitamos informar se há autorização formal do tomador e também do titular da conta para o débito desta operação na conta informada.</li>
                 
@@ -329,11 +343,13 @@ class SiafPhpMailer
         
         $mail->AltBody = "
             À
-            $objSiafAmortizacoes->NOME_PA\n 
+            $objSiafAmortizacoes->nomePa
+            $objSiafAmortizacoes->nomeSr
+            $objSiafAmortizacoes->nomeGigad\n 
 
             Prezado(a) Gerente\n
             
-            1. Recebemos através do SIAF a solicitação de LIQUIDAÇÃO referente ao contrato $objSiafAmortizacoes->CONTRATO_CAIXA.\n 
+            1. Recebemos através do SIAF a solicitação de LIQUIDAÇÃO referente ao contrato $objSiafAmortizacoes->contratoCaixa.\n 
 
             2. Verificamos que a conta cadastrada para débito não pertence à empresa, assim para prosseguimento, solicitamos informar se há autorização formal do tomador e  também do titular da conta para o débito desta operação na conta informada.\n  
             
@@ -352,7 +368,7 @@ class SiafPhpMailer
     function pendenciaContratoCreditoEmAtraso($objEmpregado, $objSiafAmortizacoes, $mail) {
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} cancelada - Solicitação com crédito em atraso - Empresa: $objSiafAmortizacoes->NO_CLIENTE - Contrato Caixa: $objSiafAmortizacoes->CONTRATO_CAIXA";
+        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} cancelada - Solicitação com crédito em atraso - Empresa: $objSiafAmortizacoes->nomeCliente - Contrato Caixa: $objSiafAmortizacoes->contratoCaixa";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">
@@ -376,12 +392,14 @@ class SiafPhpMailer
                 </style>
             </head>
             <p>À<br>
-            $objSiafAmortizacoes->NO_PA</p>
+            $objSiafAmortizacoes->nomePa<br/>
+            $objSiafAmortizacoes->nomeSr<br/>
+            $objSiafAmortizacoes->nomeGigad</p>
 
             <p>Prezado(a) Gerente</p>
             
             <ol>
-                <li>Recebemos através do SIAF a solicitação de LIQUIDAÇÃO/AMORTIZAÇÃO referente ao contrato $objSiafAmortizacoes->CONTRATO_CAIXA, no entanto o SIBAN informa que o contrato está com o status de Crédito em atraso.</li>
+                <li>Recebemos através do SIAF a solicitação de LIQUIDAÇÃO/AMORTIZAÇÃO referente ao contrato $objSiafAmortizacoes->contratoCaixa, no entanto o SIBAN informa que o contrato está com o status de Crédito em atraso.</li>
                 <li>Haja vista que o contrato encontra-se em CA não é possível efetuarmos a liquidação do mesmo, conforme disposto na norma do produto.</li>
                 <li>Informamos que para contratos na situação de crédito em atraso deve ser observado o disposto no CO451.</li>
                 <li>A presente demanda foi cancelada, após regularização do contrato, para liquidação/amortização, nova demanda deverá ser cadastrada no SIAF.</li>
@@ -393,11 +411,13 @@ class SiafPhpMailer
         
         $mail->AltBody = "
             À
-            $objSiafAmortizacoes->NOME_PA\n 
+            $objSiafAmortizacoes->nomePa
+            $objSiafAmortizacoes->nomeSr
+            $objSiafAmortizacoes->nomeGigad\n 
 
             Prezado(a) Gerente\n
             
-            1. Recebemos através do SIAF a solicitação de LIQUIDAÇÃO/AMORTIZAÇÃO referente ao contrato $objSiafAmortizacoes->CONTRATO_CAIXA, no entanto o SIBAN informa que o contrato está com o status de Crédito em atraso.\n
+            1. Recebemos através do SIAF a solicitação de LIQUIDAÇÃO/AMORTIZAÇÃO referente ao contrato $objSiafAmortizacoes->contratoCaixa, no entanto o SIBAN informa que o contrato está com o status de Crédito em atraso.\n
 
             2. Haja vista que o contrato encontra-se em CA não é possível efetuarmos a liquidação do mesmo, conforme disposto na norma do produto.\n
 
@@ -414,7 +434,7 @@ class SiafPhpMailer
     function contratoLiquidadoOuAmortizado($objEmpregado, $objSiafAmortizacoes, $mail) {
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} conforme - Empresa: $objSiafAmortizacoes->NO_CLIENTE - Contrato Caixa: $objSiafAmortizacoes->CONTRATO_CAIXA";
+        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} conforme - Empresa: $objSiafAmortizacoes->nomeCliente - Contrato Caixa: $objSiafAmortizacoes->contratoCaixa";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">
@@ -438,12 +458,14 @@ class SiafPhpMailer
                 </style>
             </head>
             <p>À<br>
-            $objSiafAmortizacoes->NO_PA</p>
+            $objSiafAmortizacoes->nomePa<br/>
+            $objSiafAmortizacoes->nomeSr<br/>
+            $objSiafAmortizacoes->nomeGigad</p>
 
             <p>Prezado(a) Gerente</p>
             
             <ol>
-                <li>Comunicamos que a liquidação/amortização do contrato $objSiafAmortizacoes->CONTRATO_CAIXA ocorreu com sucesso.</li>
+                <li>Comunicamos que a liquidação/amortização do contrato $objSiafAmortizacoes->contratoCaixa ocorreu com sucesso.</li>
                 <li>Orientamos que a Agência/PA/PLAT/SGE efetue a verificação no SIBAN, conforme abaixo:
                     <ul>
                         <li>Acessa o SIBAN;</li>
@@ -462,11 +484,13 @@ class SiafPhpMailer
         
         $mail->AltBody = "
             À
-            $objSiafAmortizacoes->NOME_PA\n 
+            $objSiafAmortizacoes->nomePa
+            $objSiafAmortizacoes->nomeSr
+            $objSiafAmortizacoes->nomeGigad\n 
 
             Prezado(a) Gerente\n
             
-            1. Comunicamos que a liquidação/amortização do contrato $objSiafAmortizacoes->CONTRATO_CAIXA ocorreu com sucesso.\n 
+            1. Comunicamos que a liquidação/amortização do contrato $objSiafAmortizacoes->contratoCaixa ocorreu com sucesso.\n 
             
             2. Orientamos que a Agência/PA/PLAT/SGE efetue a verificação no SIBAN, conforme abaixo:\n
 
@@ -493,7 +517,7 @@ class SiafPhpMailer
     function pendenciaContratoNaoLiquidadoResiduo($objEmpregado, $objSiafAmortizacoes, $mail) {
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} - Pendente de regularização - Empresa: $objSiafAmortizacoes->NO_CLIENTE - Contrato Caixa: $objSiafAmortizacoes->CONTRATO_CAIXA";
+        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} - Pendente de regularização - Empresa: $objSiafAmortizacoes->nomeCliente - Contrato Caixa: $objSiafAmortizacoes->contratoCaixa";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">
@@ -517,7 +541,9 @@ class SiafPhpMailer
                 </style>
             </head>
             <p>À<br>
-            $objSiafAmortizacoes->NO_PA</p>
+            $objSiafAmortizacoes->nomePa<br/>
+            $objSiafAmortizacoes->nomeSr<br/>
+            $objSiafAmortizacoes->nomeGigad</p>
 
             <p>Prezado(a) Gerente</p>
             
@@ -535,7 +561,9 @@ class SiafPhpMailer
         
         $mail->AltBody = "
             À
-            $objSiafAmortizacoes->NOME_PA\n 
+            $objSiafAmortizacoes->nomePa
+            $objSiafAmortizacoes->nomeSr
+            $objSiafAmortizacoes->nomeGigad\n 
 
             Prezado(a) Gerente\n
             
@@ -558,7 +586,7 @@ class SiafPhpMailer
     function pendenciaContratoNaoLiquidadoPorAusenciaSaldo($objEmpregado, $objSiafAmortizacoes, $mail) {
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} cancelada - Não Liquidado por Ausência de Saldo - Empresa: $objSiafAmortizacoes->NO_CLIENTE - Contrato Caixa: $objSiafAmortizacoes->CONTRATO_CAIXA";
+        $mail->Subject = "#CONFIDENCIAL10 - Demanda #{{idDemanda}} cancelada - Não Liquidado por Ausência de Saldo - Empresa: $objSiafAmortizacoes->nomeCliente - Contrato Caixa: $objSiafAmortizacoes->contratoCaixa";
         $mail->Body = "
             <head>
                 <meta charset=\"UTF-8\">
@@ -582,12 +610,14 @@ class SiafPhpMailer
                 </style>
             </head>
             <p>À<br>
-            $objSiafAmortizacoes->NO_PA</p>
+            $objSiafAmortizacoes->nomePa<br/>
+            $objSiafAmortizacoes->nomeSr<br/>
+            $objSiafAmortizacoes->nomeGigad</p>
 
             <p>Prezado(a) Gerente</p>
             
             <ol>
-                <li>Comunicamos que o contrato $objSiafAmortizacoes->CONTRATO_CAIXA  não foi liquidado/amortizado devido a ausência de saldo suficiente na conta do cliente no momento da efetivação da liquidação e/ou amortização, entretanto, a caixa honrou o pagamento junto ao BNDES.</li>
+                <li>Comunicamos que o contrato $objSiafAmortizacoes->contratoCaixa  não foi liquidado/amortizado devido a ausência de saldo suficiente na conta do cliente no momento da efetivação da liquidação e/ou amortização, entretanto, a caixa honrou o pagamento junto ao BNDES.</li>
                 <li>Assim, para liquidação junto a CAIXA, orientamos manter o saldo em conta no próximo dia 15 ou no 1º dia útil seguinte para que possamos efetuar o débito.</li>
                 <li>Lembramos que também deve ser efetuado um novo comando de amortização e/ou liquidação no SIBAN, conforme  disposto na norma do produto.</li> 
                 <li>Caso não seja mais de interesse do cliente efetuar liquidação e/ou amortização do contrato, solicitamos formalizar <b>de imediato</b> para a caixa postal CEOPC10 para que possamos ter tempo hábil de recuperar o valor pago junto ao BNDES.</li>
@@ -599,11 +629,13 @@ class SiafPhpMailer
         
         $mail->AltBody = "
             À
-            $objSiafAmortizacoes->NOME_PA\n 
+            $objSiafAmortizacoes->nomePa
+            $objSiafAmortizacoes->nomeSr
+            $objSiafAmortizacoes->nomeGigad\n 
 
             Prezado(a) Gerente\n
             
-            Comunicamos que o contrato $objSiafAmortizacoes->CONTRATO_CAIXA  não foi liquidado/amortizado devido a ausência de saldo suficiente na conta do cliente no momento da efetivação da liquidação e/ou amortização, entretanto, a caixa honrou o pagamento junto ao BNDES.\n
+            Comunicamos que o contrato $objSiafAmortizacoes->contratoCaixa  não foi liquidado/amortizado devido a ausência de saldo suficiente na conta do cliente no momento da efetivação da liquidação e/ou amortização, entretanto, a caixa honrou o pagamento junto ao BNDES.\n
             
             Assim, para liquidação junto a CAIXA, orientamos manter o saldo em conta no próximo dia 15 ou no 1º dia útil seguinte para que possamos efetuar o débito.\n
 

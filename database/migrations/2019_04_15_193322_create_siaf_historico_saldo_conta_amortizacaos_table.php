@@ -21,9 +21,9 @@ class CreateSiafHistoricoSaldoContaAmortizacaosTable extends Migration
             $table->string('contratoCaixa', 20);
             $table->decimal('saldoDisponivel', 17, 2);
             $table->decimal('saldoBloqueado', 17, 2);
-            $table->decimal('LimiteChequeAzul', 17, 2);
-            $table->decimal('LimiteGim', 17, 2);
-            $table->decimal('SaldoTotal', 17, 2);
+            $table->decimal('limiteChequeAzul', 17, 2);
+            $table->decimal('limiteGim', 17, 2);
+            $table->decimal('saldoTotal', 17, 2);
             $table->timestamps();
         });
     }

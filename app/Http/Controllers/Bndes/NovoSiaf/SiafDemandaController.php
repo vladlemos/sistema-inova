@@ -548,30 +548,64 @@ class SiafDemandaController extends Controller
 
     public function show2($demanda)
     {
-        // $dadosDemanda = DB::table('TBL_SIAF_DEMANDAS')
-        //                     ->join('tbl_SIAF_HISTORICO_DEMANDAS', 'tbl_SIAF_HISTORICO_DEMANDAS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
-        //                     ->select('TBL_SIAF_DEMANDAS.codigoDemanda', 'TBL_SIAF_DEMANDAS.nomeCliente', 'TBL_SIAF_DEMANDAS.cnpj', 'TBL_SIAF_DEMANDAS.contratoCaixa', 'TBL_SIAF_DEMANDAS.contratoBndes', 'TBL_SIAF_DEMANDAS.valorOperacao', 'TBL_SIAF_DEMANDAS.contaDebito', 'TBL_SIAF_DEMANDAS.status', 'TBL_SIAF_DEMANDAS.codigoPa', 'TBL_SIAF_DEMANDAS.codigoSr', 'TBL_SIAF_DEMANDAS.codigoGigad', 'tbl_SIAF_HISTORICO_DEMANDAS.historico', 'tbl_SIAF_HISTORICO_DEMANDAS.tipoHistorico',
-        //                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
-        //                     ->where('TBL_SIAF_DEMANDAS.codigoDemanda', '=', $demanda)
-        //                     // ->where('TBL_SIAF_DEMANDAS.dataLote', '=', 'tbl_SIAF_HISTORICO_DEMANDAS.loteAmortizacao')
-        //                     ->get();
-        // // var_dump($dadosDemanda[0]->contratoCaixa);
-        // if (isset($dadosDemanda)) {
-        //     return json_encode($dadosDemanda);
-        // } else{
-        //     return response('Demanda não encontrada', 404);
-        // }
-
         $dadosDemanda = SiafDemanda::find($demanda);
-            $jsonDados = [
-                "codigoDemanda" => $dadosDemanda->codigoDemanda,
-                "historicoContrato" => $dadosDemanda->SiafHistoricoDemanda[0]->historico
-            ];
-        // var_dump($dadosDemanda[0]->contratoCaixa);
+        $arrayHistorico = [];
+        $arraySaldo = [];
+        foreach ($dadosDemanda->SiafHistoricoDemanda as $historico => $value) {                
+            $dadosHistorico = array(
+                "dataHistorico" => $value['created_at'],
+                "statusHistorico" => $value['tipoHistorico'],
+                "matriculaResponsavel" => $value['matriculaResponsavel'],
+                "unidadeResponsavel" => str_pad($value['unidadeResponsavel'], 4, '0', STR_PAD_LEFT),
+                "observacaoHistorico" => utf8_decode($value['historico'])
+            );
+            array_push($arrayHistorico, $dadosHistorico);
+        }
+        foreach ($dadosDemanda->SiafHistoricoSaldoContaAmortizacao as $saldo => $value) {                
+            $dadosSaldo = array(
+                "dataConsultaSaldo" => $value['created_at'],
+                "statusSaldo" => $value['tipoHistorico'],
+                "saldoDisponivel" => number_format($value['saldoDisponivel'], 2, ',', '.'),
+                "saldoBloqueado" => number_format($value['saldoBloqueado'], 2, ',', '.'),
+                "LimiteChequeAzul" => number_format($value['limiteChequeAzul'], 2, ',', '.'),
+                "LimiteGim" => number_format($value['limiteGim'], 2, ',', '.'),
+                "saldoTotal" => number_format($value['saldoTotal'], 2, ',', '.'),
+            );
+            array_push($arraySaldo, $dadosSaldo);
+        }
+        switch($dadosDemanda->tipoOperacao){
+            case 'L':
+                $tipoOperacao = "LIQUIDACAO";
+                break;
+            case 'A':
+                $tipoOperacao = "AMORTIZACAO";
+                break;
+        }
+        $jsonDados = [
+            "nomeCliente" => $dadosDemanda->nomeCliente,
+            "cnpj" => $dadosDemanda->cnpj, 
+            "codigoDemanda" => $dadosDemanda->codigoDemanda,
+            "contratoBndes" => $dadosDemanda->contratoBndes,
+            "contratoCaixa" => $dadosDemanda->contratoCaixa,
+            "contaDebito" => $dadosDemanda->contaDebito,
+            "valorOperacao" => number_format($dadosDemanda->valorOperacao, 2, ',', '.'),
+            "tipoOperacao" => $tipoOperacao,
+            "status" => $dadosDemanda->status,
+            "codigoPa" => str_pad($dadosDemanda->codigoPa, 4, '0', STR_PAD_LEFT),
+            "codigoSr" => $dadosDemanda->codigoSr,
+            "codigoGigad" => $dadosDemanda->codigoGigad,
+            "consultaSaldo" => $arraySaldo,
+            "historicoContrato" => $arrayHistorico
+        ];
         if (isset($jsonDados)) {
             return json_encode($jsonDados);
         } else{
             return response('Demanda não encontrada', 404);
         }
+    }
+
+    public function datasLoteAmortizacao() {
+        $lote = new LoteAmortizacaoLiquidacaoSIAF;
+        echo $lote;
     }
 }

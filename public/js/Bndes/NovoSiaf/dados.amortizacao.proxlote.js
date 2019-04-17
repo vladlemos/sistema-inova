@@ -71,7 +71,7 @@ function atualizaTabelaProxLote(json)
 //carrega as informações do contrato para visualização
 function visualizaContratoProxlote(json){
 
-        var url = ('../api/bndes/v1/siaf_amortizacoes/' + json )
+        var url = ('../api/bndes/v2/siaf_amortizacoes/' + json )
         
       $.ajax({
           
@@ -83,23 +83,23 @@ function visualizaContratoProxlote(json){
                 
               var ctr = JSON.parse(carregaContratoProx);
               
-              $.each(ctr, function(key, value){
+            //   $.each(ctr, function(key, value){
   
-                $("#cnpj_cliente_modal").html(value.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-                $("#nome_cliente_modal").html(value.nomeCliente);
+                $("#cnpj_cliente_modal").html(ctr.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+                $("#nome_cliente_modal").html(ctr.nomeCliente);
                                
-                $("#contrato_bndes_modal").val(value.contratoBndes);
-                $("#contrato_caixa_modal").val(value.contratoCaixa);
-                $("#conta_corrente_modal").val(value.contaDebito);
-                $("#valor_modal").val(value.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") );
-                $("#tipo_modal").val(value.tipoOperacao);
-                $("#status_modal").val(value.status);  
-                $("#pv_modal").val(value.codigoPa);  
-                $("#sr_modal").val(value.codigoSr);
-                $("#gigad_modal").val(value.codigoGigad);
-                // $("#obs_modalAnterior").val(value.CO_OBS);
+                $("#contrato_bndes_modal").val(ctr.contratoBndes);
+                $("#contrato_caixa_modal").val(ctr.contratoCaixa);
+                $("#conta_corrente_modal").val(ctr.contaDebito);
+                $("#valor_modal").val(ctr.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") );
+                $("#tipo_modal").val(ctr.tipoOperacao);
+                $("#status_modal").val(ctr.status);  
+                $("#pv_modal").val(ctr.codigoPa);  
+                $("#sr_modal").val(ctr.codigoSr);
+                $("#gigad_modal").val(ctr.codigoGigad);
+                // $("#obs_modalAnterior").val(ctr.CO_OBS);
 
-              });
+            //   });
            
           }
         
@@ -112,7 +112,7 @@ function visualizaContratoProxlote(json){
 //carrega as informações do contrato para edição
   function editarContratoProx(json){
 
-    var url = ('../api/bndes/v1/siaf_amortizacoes/' + json )
+    var url = ('../api/bndes/v2/siaf_amortizacoes/' + json )
     
   $.ajax({
       
@@ -124,25 +124,25 @@ function visualizaContratoProxlote(json){
             
           var ctr = JSON.parse(editaContratoProx);
           
-          $.each(ctr, function(key, value){
+        //   $.each(ctr, function(key, ctr){
 
-              $("#cnpj_cliente_editar").html(value.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-              $("#nome_cliente_editar").html(value.nomeCliente);
+            $("#cnpj_cliente_editar").html(ctr.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+            $("#nome_cliente_editar").html(ctr.nomeCliente);
 
-            $("#contrato_bndes_editar").val(value.contratoBndes);
-            $("#contrato_caixa_editar").val(value.contratoCaixa);
-            $("#conta_corrente_editar").val(value.contaDebito);
-            $("#valor_editar").val(value.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") );
-            $("#tipo_editar").val(value.tipoOperacao);
-            $("#form_status_editar").val(value.status);  
-            $("#pv_editar").val(value.codigoPa);  
-            $("#sr_editar").val(value.codigoSr);
-            $("#gigad_editar").val(value.codigoGigad);
-            // $("#obs_editarAnt").val(value.CO_OBS);
+            $("#contrato_bndes_editar").val(ctr.contratoBndes);
+            $("#contrato_caixa_editar").val(ctr.contratoCaixa);
+            $("#conta_corrente_editar").val(ctr.contaDebito);
+            $("#valor_editar").val(ctr.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1."));
+            $("#tipo_editar").val(ctr.tipoOperacao);
+            $("#form_status_editar").val(ctr.status);  
+            $("#pv_editar").val(ctr.codigoPa);  
+            $("#sr_editar").val(ctr.codigoSr);
+            $("#gigad_editar").val(ctr.codigoGigad);
+            // $("#obs_editarAnt").val(ctr.CO_OBS);
                            
            
 
-          });
+        //   });
        
       }
     
