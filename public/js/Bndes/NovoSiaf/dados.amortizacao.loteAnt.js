@@ -141,7 +141,7 @@ function visualizaContratoAnt(json){
                     $('#tipo_modal').val(dados.tipoOperacao);
                     $('#valor_modal').val(dados.valorOperacao);
                     $('#pv_modal').val(dados.codigoPa);
-                    $('#codigoSr').val(dados.codigoSr);
+                    $('#sr_modal').val(dados.codigoSr);
                     $('#gigad_modal').val(dados.codigoGigad);
 
              
@@ -194,7 +194,7 @@ function editarContratoAnt(json){
                 linha = montaLinhaTabelaSaldo(dados.consultaSaldo[i]);
                 
            
-                $('#tabConsultaHistoricoEditar>tbody').append(linha);
+                $('#tabConsultaSaldoEditar>tbody').append(linha);
             }              
             function montaLinhaTabelaSaldo(dadosSaldo)
             {
@@ -218,7 +218,7 @@ function editarContratoAnt(json){
             for(i = 0; i < dados.historicoContrato.length; i++){
                 linha = montaLinhaTabelaHistorico(dados.historicoContrato[i]);
                 
-                $('#tabHistoricoEditar>tbody').append(linha);
+                $('#tabConsultaHistoricoEditar>tbody').append(linha);
             }              
             function montaLinhaTabelaHistorico(dadosHistorico)
             {
@@ -240,87 +240,28 @@ function editarContratoAnt(json){
                 // jQuery(this).find('#tabHistorico>tbody').empty();
                 // })
     
-            // $('#codigoDemanda').val(dados.codigoDemanda);
-            $('#nome_cliente_modal').val(dados.nomeCliente);
-            $('#cnpj_cliente_modal').val(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-            $('#status_modal').val(dados.status);
-            $('#contrato_caixa_modal').val(dados.contratoCaixa);
-            $('#contrato_bndes_modal').val(dados.contratoBndes);
-            $('#conta_corrente_modal').val(dados.contaDebito);
-            $('#tipo_modal').val(dados.tipoOperacao);
-            $('#valor_modal').val(dados.valorOperacao);
-            $('#pv_modal').val(dados.codigoPa);
-            $('#codigoSr').val(dados.codigoSr);
-            $('#gigad_modal').val(dados.codigoGigad);
+            $('#codDemanda').val(dados.codigoDemanda);
+            $('#nome_cliente_editar').val(dados.nomeCliente);
+            $('#cnpj_cliente_editar').val(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+            $('#status_editar').val(dados.status);
+            $('#contrato_caixa_editar').val(dados.contratoCaixa);
+            $('#contrato_bndes_editar').val(dados.contratoBndes);
+            $('#conta_corrente_editar').val(dados.contaDebito);
+            $('#tipo_editar').val(dados.tipoOperacao);
+            $('#valor_editar').val(dados.valorOperacao);
+            $('#pv_editar').val(dados.codigoPa);
+            $('#sr_editar').val(dados.codigoSr);
+            $('#gigad_editar').val(dados.codigoGigad);
 
-     
-    // }
-    
-//   var ctrAnt = JSON.parse(carregaContratoAnt);
 
-// //   $.each(ctrAnt, function(key, value){
+                jQuery('#editarcontrato').on('hidden.bs.modal', function (e) {
+                jQuery(this).removeData('#tabConsultaSaldoEditar>tbody');
+                jQuery(this).find('#tabConsultaSaldoEditar>tbody').empty();
+                jQuery(this).removeData('#tabConsultaHistoricoEditar>tbody');
+                jQuery(this).find('#tabConsultaHistoricoEditar>tbody').empty();
+                })
+            });  
 
-//     $("#cnpj_cliente_modal").html(ctrAnt.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-//     $("#nome_cliente_modal").html(ctrAnt.nomeCliente);
-                   
-//     $("#contrato_bndes_modal").val(ctrAnt.contratoBndes);
-//     $("#contrato_caixa_modal").val(ctrAnt.contratoCaixa);
-//     $("#conta_corrente_modal").val(ctrAnt.contaDebito);
-//     $("#valor_modal").val(ctrAnt.valorOperacao);
-//     $("#tipo_modal").val(ctrAnt.tipoOperacao);
-//     $("#status_modal").val(ctrAnt.status);  
-//     $("#pv_modal").val(ctrAnt.codigoPa);  
-//     $("#sr_modal").val(ctrAnt.codigoSr);
-//     $("#gigad_modal").val(ctrAnt.codigoGigad);
-    // $("#obs_modalAnterior").val(ctrAnt.CO_OBS);
-
-//   });
-
-//   }
-            jQuery('#visualizarcontrato').on('hidden.bs.modal', function (e) {
-            jQuery(this).removeData('#tabConsultaHistoricoEditar>tbody');
-            jQuery(this).find('#tabConsultaHistoricoEditar>tbody').empty();
-            jQuery(this).removeData('#tabHistoricoEditar>tbody');
-            jQuery(this).find('#tabHistoricoEditar>tbody').empty();
-            })
-});  
-
-// var url = ('../api/bndes/v2/siaf_amortizacoes/' + json )
-
-// $.ajax({
-  
-//   type: 'GET',
-//   url : url,
-  
-//       success: function(editarContratoAnt){
-     
-        
-//       var ctrAnt = JSON.parse(editarContratoAnt);
-      
-//     //   $.each(ctr, function(key, ctrAnt){
-//         $("#codDemanda").val(ctrAnt.codigoDemanda);
-
-//           $("#cnpj_cliente_editar").html(ctrAnt.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-//           $("#nome_cliente_editar").html(ctrAnt.nomeCliente);
-
-//         $("#contrato_bndes_editar").val(ctrAnt.contratoBndes);
-//         $("#contrato_caixa_editar").val(ctrAnt.contratoCaixa);
-//         $("#conta_corrente_editar").val(ctrAnt.contaDebito);
-//         $("#valor_editar").val(ctrAnt.valorOperacao);
-//         $("#tipo_editar").val(ctrAnt.tipoOperacao);
-//         $("#status_editar").val(ctrAnt.status);  
-//         $("#pv_editar").val(ctrAnt.codigoPa);  
-//         $("#sr_editar").val(ctrAnt.codigoSr);
-//         $("#gigad_editar").val(ctrAnt.codigoGigad);
-//         // $("#obs_editarAnt").val(ctrAnt.CO_OBS);
-                       
-       
-        
-//     //   });
-   
-//   }
-
-// });  
 
 
 $('#editarcontrato').modal('show');
@@ -344,19 +285,19 @@ function enviarSolicitação(){
 ctrAnt = {
         codigoDemanda : $("#codDemanda").val(),
         contratoBndes : $("#contrato_bndes_editar").val(), 
-        contratoCaixa : $("#contrato_caixa_editar").val(), 
+        // contratoCaixa : $("#contrato_caixa_editar").val(), 
         contaDebito : $("#conta_corrente_editar").val(), 
         valorOperacao : $("#valor_editar").val().replace(".","").replace(",","."), 
         tipoOperacao : $("#tipo_editar").val(), 
         status : $("#status_editar").val(),   
-        codigoPa : $("#pv_editar").val(),  
-        codigoSr: $("#sr_editar").val(),
-        codigoGigad : $("#gigad_editar").val(),
+        // codigoPa : $("#pv_editar").val(),  
+        // codigoSr: $("#sr_editar").val(),
+        // codigoGigad : $("#gigad_editar").val(),
         historicoContrato : $("#obs_editarAnt").val(),
 
 }
 
-// console.log(ctrAnt);
+console.log(ctrAnt);
 
-$('#modalConfirmaAlteracao').modal('show');
+// $('#modalConfirmaAlteracao').modal('show');
 }

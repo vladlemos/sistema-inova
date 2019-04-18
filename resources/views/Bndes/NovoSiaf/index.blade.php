@@ -323,7 +323,7 @@
                             </div>
                                      
                         <br>
-                            <span class="form-control" id="obs_modalAnterior"></span>
+                            <!-- <span class="form-control" id="obs_modalAnterior"></span> -->
                             <label>Observações</label>
                                 <span class="form-control" id="obs_modal"></span>
                             
@@ -512,19 +512,20 @@
                             </div>
                             
                         <br>
-                             <span class="form-control" id="obs_editarAnt"></span>
+                             <!-- <span class="form-control" id="obs_editarAnt"></span> -->
                             <label>Observações</label>
                             <textarea class="form-control" rows="3" name="co_observacoes" id="coObs" placeholder="Digite as observações da solicitação aqui...."></textarea> 
                               <br>
                               <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h6 class="panel-title"><i class="icon-coin"></i> Histórico de saldo</h6>
-                                </div>
+                                
                                 <div class="panel-body">
                                 
                                   <table id= "tabConsultaSaldoEditar"class="table table-bordered table-striped datatable">
                                     <thead>
                                         <tr>
+                                            <th> Consulta </th>
                                             <th> Data e Hora</th>
                                             <th> Status </th>
                                             <th> Saldo Disponível </th>
@@ -541,7 +542,7 @@
                                 </table>
                                 
                                 
-                                
+                                </div>
                                 </div>
                             </div>
             
@@ -554,13 +555,14 @@
                             <div class="row">
                                 <div class="panel-heading">
                                    <h6 class="panel-title"><i class="icon-vcard"></i> Histórico do contrato</h6>
-                                </div>
+                                
                                
                                <div class="panel-body">
                                
                                 <table id= "tabConsultaHistoricoEditar" class="table table-bordered table-striped datatable">
                                    <thead>
                                        <tr>
+                                            <th> Pedido </th>
                                             <th> Data e Hora</th>
                                             <th> Status </th>
                                             <th> Observações </th>
@@ -574,7 +576,7 @@
                                    </tbody>
 								</table>
                                
-                               
+                                </div>
                                </div>
                           
                             </div>
