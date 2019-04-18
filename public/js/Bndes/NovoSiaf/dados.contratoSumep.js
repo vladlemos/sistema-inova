@@ -37,7 +37,7 @@ function carregarTabelaSumep()
 
 function atualizaTabelaSumep(json)
 {
-    // $('#tabelaSumep').DataTable();
+   
     bDestroy : true,
 	
 	linhaSumep = '<tr>' +
@@ -67,139 +67,191 @@ function atualizaTabelaSumep(json)
 
 function visualizaContratoSumep(json){
 
-    var url = ('../api/bndes/v2/siaf_amortizacoes/' + json )
-    
-  $.ajax({
-      
-      type: 'GET',
-      url : url,
-      
-          success: function(carregaContratoSumep){
-         
+           
+            $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
+
+                var dados = JSON.parse(dados);
+                console.log(dados);
+                for(i = 0; i < dados.consultaSaldo.length; i++){
+                    linha = montaLinhaTabelaSaldo(dados.consultaSaldo[i]);
+                               
+                    $('#tabHistoricoSaldo>tbody').append(linha);
+                }              
+                function montaLinhaTabelaSaldo(dadosSaldo)
+                {
+                    bDestroy= true;
+
+                    linha = '<tr>' +
+                                '<td>' + dadosSaldo.codigoConsultaSaldo + '</td>' +
+                                '<td>' + dadosSaldo.dataConsultaSaldo + '</td>' +
+                                '<td>' + dadosSaldo.statusSaldo + '</td>' +
+                                '<td>' + dadosSaldo.saldoDisponivel + '</td>' +
+                                '<td>' + dadosSaldo.saldoBloqueado + '</td>' +
+                                '<td>' + dadosSaldo.LimiteChequeAzul + '</td>' +
+                                '<td>' + dadosSaldo.LimiteGim + '</td>' +
+                                '<td>' + dadosSaldo.saldoTotal + '</td>' +
+                            '</tr>';
+                    return linha;
+
             
-          var ctrSumep = JSON.parse(carregaContratoSumep);
-         
-        //   $.each(ctrSumep, function(key, value){
-            
-            $("#cnpj_cliente_modal").html(ctrSumep.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-            $("#nome_cliente_modal").html(ctrSumep.nomeCliente);
-                           
-            $("#contrato_bndes_modal").val(ctrSumep.contratoBndes);
-            $("#contrato_caixa_modal").val(ctrSumep.contratoCaixa);
-            $("#conta_corrente_modal").val(ctrSumep.contaDebito);
-            $("#valor_modal").val(ctrSumep.valorOperacao);
-            $("#tipo_modal").val(ctrSumep.tipoOperacao);
-            $("#status_modal").val(ctrSumep.status); 
-            $("#pv_modal").val(ctrSumep.codigoPa);  
-            $("#sr_modal").val(ctrSumep.codigoSr);
-            $("#gigad_modal").val(ctrSumep.codigoGigad);
-            // $("#obs_modalAnterior").val(value.CO_OBS);
-
-        //   });
-        // var grids = ctrSumep;
-
-// for (var i=0; i < ctrSumep.length; i++) {
-// for(var j=0; j < ctrSumep[i].length; j++){
-// console.log(ctrSumep["+i+"][" + j+"]  +ctrSumep[i][j]);
-// }
-
-// }
-       
-    //    console.log(meuArray[0]);
-    //    console.log(meuArray[0][6][1]);
-
-        // $.each(ctrSumep, function(key, value){
-        //      //carrega saldo da conta para débito
-        //      var consulta = ctrSumep.map(function(value){
-        //         return value.dataConsultaSaldo;
-
-
-        //      });
-          
-            // linhaCadastroConta = '<tr>' +
+                }
+                
+                for(i = 0; i < dados.historicoContrato.length; i++){
+                    linha = montaLinhaTabelaHistorico(dados.historicoContrato[i]);
+                    
+                    $('#tabHistoricoContrato>tbody').append(linha);
+                }              
+                function montaLinhaTabelaHistorico(dadosHistorico)
+                {
+                    bDestroy= true;
+                    linha = '<tr>' +
+                                '<td>' + dadosHistorico.codigoHistorico + '</td>' +
+                                '<td>' + dadosHistorico.dataHistorico + '</td>' +
+                                '<td>' + dadosHistorico.statusHistorico + '</td>' +
+                                '<td>' + dadosHistorico.observacaoHistorico + '</td>' +
+                                '<td>' + dadosHistorico.matriculaResponsavel + '</td>' +
+                                '<td>' + dadosHistorico.unidadeResponsavel + '</td>' +
                             
-            //                     '<td><input type="text" name="dataConsultaConta" class="form-control" value="' + value.date + '" /readonly></td>' +
-            //                     '<td><input type="text" name="statusConsultaConta"class="form-control" value="' + value.statusSaldo + '"/readonly></td>' +
-            //                     '<td><input type="text" name="saldoDispConsultaConta" class="form-control" value="' + value.saldoDisponivel + '" /readonly></td>' +
-            //                     '<td><input type="text" name="saldoBloqConsultaConta" class="form-control" value="' + value.saldoBloqueado + '" /readonly></td>' +
-            //                     '<td><input type="text" name="limiteAzulConsultaConta" class="form-control" value="' + value.LimiteChequeAzul + '" /readonly></td>' +
-            //                     '<td><input type="text" name="limiteGimConsultaConta" class="form-control" value="' + value.LimiteGim + '" /readonly></td>' +
-            //                     '<td><input type="text" name="saldoTotalConsultaConta" class="form-control" value="' + value.saldoTotal + '" /readonly></td>' +
-                                
-            //                     '</tr>';
-    
-            // return linhaCadastroConta;
-      
-    
-        // });  
+                            '</tr>';
+                    return linha;
+                
+                }
+                
+                $('#nome_cliente_modal').val(dados.nomeCliente);
+                $('#cnpj_cliente_modal').val(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+                $('#status_modal').val(dados.status);
+                $('#contrato_caixa_modal').val(dados.contratoCaixa);
+                $('#contrato_bndes_modal').val(dados.contratoBndes);
+                $('#conta_corrente_modal').val(dados.contaDebito);
+                $('#tipo_modal').val(dados.tipoOperacao);
+                $('#valor_modal').val(dados.valorOperacao);
+                $('#pv_modal').val(dados.codigoPa);
+                $('#sr_modal').val(dados.codigoSr);
+                $('#gigad_modal').val(dados.codigoGigad);
 
+        
+            jQuery('#visualizarcontrato').on('hidden.bs.modal', function (e) {
+            jQuery(this).removeData('#tabHistoricoSaldo>tbody');
+            jQuery(this).find('#tabHistoricoSaldo>tbody').empty();
+            jQuery(this).removeData('#tabHistoricoContrato>tbody');
+            jQuery(this).find('#tabHistoricoContrato>tbody').empty();
+            })
+        });  
 
             $('#visualizarcontrato').modal('show');
- 
-        }  
-  }); 
 }
+
 
 function editarContratoSumep(json){
 
-var url = ('../api/bndes/v2/siaf_amortizacoes/' + json )
+    $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
 
-$.ajax({
-  
-  type: 'GET',
-  url : url,
-  
-      success: function(editaContratoSumep){
-     
-        
-      var ctrSumep = JSON.parse(editaContratoSumep);
-      
-      $.each(ctrSumep, function(key, value){
+        var dados = JSON.parse(dados);
+        console.log(dados);
+        for(i = 0; i < dados.consultaSaldo.length; i++){
+            linha = montaLinhaTabelaSaldo(dados.consultaSaldo[i]);
+            
+       
+            $('#tabConsultaSaldoEditar>tbody').append(linha);
+        }              
+        function montaLinhaTabelaSaldo(dadosSaldo)
+        {
+            bDestroy= true;
 
-        //carrega dados do cliente na parte de cima do modal
-            $("#codDemanda").val(ctr.codigoDemanda);
-            $("#cnpj_cliente_editar").val(value.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-            $("#nome_cliente_editar").html(value.nomeCliente);
+            linha = '<tr>' +
+                        '<td>' + dadosSaldo.codigoConsultaSaldo + '</td>' +
+                        '<td>' + dadosSaldo.dataConsultaSaldo + '</td>' +
+                        '<td>' + dadosSaldo.statusSaldo + '</td>' +
+                        '<td>' + dadosSaldo.saldoDisponivel + '</td>' +
+                        '<td>' + dadosSaldo.saldoBloqueado + '</td>' +
+                        '<td>' + dadosSaldo.LimiteChequeAzul + '</td>' +
+                        '<td>' + dadosSaldo.LimiteGim + '</td>' +
+                        '<td>' + dadosSaldo.saldoTotal + '</td>' +
+                    '</tr>';
+            return linha;
 
-        // carrega dados do contrato no modal
-        $("#contrato_bndes_editar").val(value.contratoBndes);
-        $("#contrato_caixa_editar").val(value.contratoCaixa);
-        $("#conta_corrente_editar").val(value.contaDebito);
-        $("#valor_editar").val(value.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1."));
-        $("#tipo_editar").val(value.tipoOperacao);
-        $("#status_editar").val(value.status);  
-        $("#pv_editar").val(value.codigoPa);  
-        $("#sr_editar").val(value.codigoSr);
-        $("#gigad_editar").val(value.codigoGigad);
-
-     
-
-        //carrega saldo da conta para débito
-        // linhaCadastroConta = '<tr>' +
-                        
-        //                     '<td><input type="text" name="dataConsultaConta" class="form-control" value="' + value.date + '" /readonly></td>' +
-        //                     '<td><input type="text" name="statusConsultaConta"class="form-control" value="' + value.statusSaldo + '"/readonly></td>' +
-        //                     '<td><input type="text" name="saldoDispConsultaConta" class="form-control" value="' + value.saldoDisponivel + '" /readonly></td>' +
-        //                     '<td><input type="text" name="saldoBloqConsultaConta" class="form-control" value="' + value.saldoBloqueado + '" /readonly></td>' +
-        //                     '<td><input type="text" name="limiteAzulConsultaConta" class="form-control" value="' + value.LimiteChequeAzul + '" /readonly></td>' +
-        //                     '<td><input type="text" name="limiteGimConsultaConta" class="form-control" value="' + value.LimiteGim + '" /readonly></td>' +
-        //                     '<td><input type="text" name="saldoTotalConsultaConta" class="form-control" value="' + value.saldoTotal + '" /readonly></td>' +
-                            
-        //                 '</tr>';
-
-        // return linhaCadastroConta;
-        // $("#obs_editarAnt").val(value.CO_OBS);
+       
+        }
+         
+        for(i = 0; i < dados.historicoContrato.length; i++){
+            linha = montaLinhaTabelaHistorico(dados.historicoContrato[i]);
+            
+            $('#tabConsultaHistoricoEditar>tbody').append(linha);
+        }              
+        function montaLinhaTabelaHistorico(dadosHistorico)
+        {
+            bDestroy= true;
+            linha = '<tr>' +
+                        '<td>' + dadosHistorico.codigoHistorico + '</td>' +
+                        '<td>' + dadosHistorico.dataHistorico + '</td>' +
+                        '<td>' + dadosHistorico.statusHistorico + '</td>' +
+                        '<td>' + dadosHistorico.observacaoHistorico + '</td>' +
+                        '<td>' + dadosHistorico.matriculaResponsavel + '</td>' +
+                        '<td>' + dadosHistorico.unidadeResponsavel + '</td>' +
                        
-    });
+                    '</tr>';
+            return linha;
+         
+        }
+          
 
-      
-   
-  }
+        $('#codDemanda').val(dados.codigoDemanda);
+        $('#nome_cliente_editar').val(dados.nomeCliente);
+        $('#cnpj_cliente_editar').val(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+        $('#status_editar').val(dados.status);
+        $('#contrato_caixa_editar').val(dados.contratoCaixa);
+        $('#contrato_bndes_editar').val(dados.contratoBndes);
+        $('#conta_corrente_editar').val(dados.contaDebito);
+        $('#tipo_editar').val(dados.tipoOperacao);
+        $('#valor_editar').val(dados.valorOperacao);
+        $('#pv_editar').val(dados.codigoPa);
+        $('#sr_editar').val(dados.codigoSr);
+        $('#gigad_editar').val(dados.codigoGigad);
 
-});  
+
+            jQuery('#editarcontrato').on('hidden.bs.modal', function (e) {
+            jQuery(this).removeData('#tabConsultaSaldoEditar>tbody');
+            jQuery(this).find('#tabConsultaSaldoEditar>tbody').empty();
+            jQuery(this).removeData('#tabConsultaHistoricoEditar>tbody');
+            jQuery(this).find('#tabConsultaHistoricoEditar>tbody').empty();
+            })
+        });  
+
 
 
 $('#editarcontrato').modal('show');
 
 }   
 
+function enviarSolicitação(){
+
+    // var url = ('../api/bndes/v2/siaf_amortizacoes/' + json )
+
+// $.ajax({
+  
+//   type: 'POST',
+//   //   url : url,
+//   datatype: 'json',
+
+//   success: function(enviarDadosContratoAnt){
+     
+
+ctrSumep = {
+        codigoDemanda : $("#codDemanda").val(),
+        contratoBndes : $("#contrato_bndes_editar").val(), 
+        // contratoCaixa : $("#contrato_caixa_editar").val(), 
+        contaDebito : $("#conta_corrente_editar").val(), 
+        valorOperacao : $("#valor_editar").val().replace(".","").replace(",","."), 
+        tipoOperacao : $("#tipo_editar").val(), 
+        status : $("#status_editar").val(),   
+        // codigoPa : $("#pv_editar").val(),  
+        // codigoSr: $("#sr_editar").val(),
+        // codigoGigad : $("#gigad_editar").val(),
+        historicoContrato : $("#observacaoContrato").val(),
+
+}
+
+console.log(ctrSumep);
+
+// $('#modalConfirmaAlteracao').modal('show');
+}

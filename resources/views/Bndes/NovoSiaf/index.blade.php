@@ -514,7 +514,7 @@
                         <br>
                              <!-- <span class="form-control" id="obs_editarAnt"></span> -->
                             <label>Observações</label>
-                            <textarea class="form-control" rows="3" name="co_observacoes" id="coObs" placeholder="Digite as observações da solicitação aqui...."></textarea> 
+                            <textarea class="form-control" rows="3" name="co_observacoes" id="observacaoContrato" placeholder="Digite as observações da solicitação aqui...."></textarea> 
                               <br>
                               <div class="panel panel-default">
                                 <div class="panel-heading">

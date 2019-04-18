@@ -17,7 +17,7 @@ function carregarTabelaLoteAnt()
     $.getJSON('../api/bndes/v1/siaf_amortizacoes_lote_anterior', function(json){
 
         $.each(json, function (key, value){
-            // $('#loteAnt').html(value.DT_LT_AMORTIZADOR);
+          
             linhaLoteAnt = atualizaTabelaLoteAnt(value);
             $('#tabelaLoteAnterior>tbody').append(linhaLoteAnt);
 
@@ -33,7 +33,7 @@ function carregarTabelaLoteAnt()
 
 function atualizaTabelaLoteAnt(json)
 {
-    // $('#tabelaLoteAnterior').DataTable();
+   
     bDestroy : true,
 	
 	linhaLoteAnt = '<tr>' +
@@ -58,25 +58,14 @@ function atualizaTabelaLoteAnt(json)
             '</tr>';
             
            
-            // $(".dinheiro").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+          
     return linhaLoteAnt;
    
 }
 
 //carrega as informações do contrato para visualização
 function visualizaContratoAnt(json){
-    
-  
-    // var url = ('../api/bndes/v2/siaf_amortizacoes/' + json )
-    
-//   $.ajax({
-      
-//       type: 'GET',
-//       url : url,
-      
-//           success:
-//            function carregaContrato(){
-         
+       
             $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
 
                     var dados = JSON.parse(dados);
@@ -126,12 +115,7 @@ function visualizaContratoAnt(json){
                         return linha;
                      
                     }
-                        // jQuery('visualizarcontrato').on('hidden.bs.modal', function (e) {
-                        // jQuery(this).removeData('#tabHistorico>tbody');
-                        // jQuery(this).find('#tabHistorico>tbody').empty();
-                        // })
-            
-                    // $('#codigoDemanda').val(dados.codigoDemanda);
+                      
                     $('#nome_cliente_modal').val(dados.nomeCliente);
                     $('#cnpj_cliente_modal').val(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
                     $('#status_modal').val(dados.status);
@@ -145,30 +129,7 @@ function visualizaContratoAnt(json){
                     $('#gigad_modal').val(dados.codigoGigad);
 
              
-            // }
-            
-        //   var ctrAnt = JSON.parse(carregaContratoAnt);
-        
-        // //   $.each(ctrAnt, function(key, value){
-
-        //     $("#cnpj_cliente_modal").html(ctrAnt.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-        //     $("#nome_cliente_modal").html(ctrAnt.nomeCliente);
-                           
-        //     $("#contrato_bndes_modal").val(ctrAnt.contratoBndes);
-        //     $("#contrato_caixa_modal").val(ctrAnt.contratoCaixa);
-        //     $("#conta_corrente_modal").val(ctrAnt.contaDebito);
-        //     $("#valor_modal").val(ctrAnt.valorOperacao);
-        //     $("#tipo_modal").val(ctrAnt.tipoOperacao);
-        //     $("#status_modal").val(ctrAnt.status);  
-        //     $("#pv_modal").val(ctrAnt.codigoPa);  
-        //     $("#sr_modal").val(ctrAnt.codigoSr);
-        //     $("#gigad_modal").val(ctrAnt.codigoGigad);
-            // $("#obs_modalAnterior").val(ctrAnt.CO_OBS);
-
-        //   });
-      
-    //   }
-    jQuery('#visualizarcontrato').on('hidden.bs.modal', function (e) {
+      jQuery('#visualizarcontrato').on('hidden.bs.modal', function (e) {
         jQuery(this).removeData('#tabHistoricoSaldo>tbody');
         jQuery(this).find('#tabHistoricoSaldo>tbody').empty();
         jQuery(this).removeData('#tabHistoricoContrato>tbody');
@@ -176,16 +137,15 @@ function visualizaContratoAnt(json){
         })
   });  
 
-  
+
  
 $('#visualizarcontrato').modal('show');
-// });
+
 }   
 
 //carrega as informações do contrato para editar
 function editarContratoAnt(json){
-    //function carregaContrato(){
-         
+            
         $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
 
             var dados = JSON.parse(dados);
@@ -235,10 +195,7 @@ function editarContratoAnt(json){
                 return linha;
              
             }
-                // jQuery('visualizarcontrato').on('hidden.bs.modal', function (e) {
-                // jQuery(this).removeData('#tabHistorico>tbody');
-                // jQuery(this).find('#tabHistorico>tbody').empty();
-                // })
+              
     
             $('#codDemanda').val(dados.codigoDemanda);
             $('#nome_cliente_editar').val(dados.nomeCliente);
@@ -293,7 +250,7 @@ ctrAnt = {
         // codigoPa : $("#pv_editar").val(),  
         // codigoSr: $("#sr_editar").val(),
         // codigoGigad : $("#gigad_editar").val(),
-        historicoContrato : $("#obs_editarAnt").val(),
+        historicoContrato : $("#observacaoContrato").val(),
 
 }
 
