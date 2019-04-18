@@ -1,0 +1,351 @@
+{
+  "nomeCliente": "H1 ELET DIST DE SUP DE INF EIRELI - ME",
+  "cnpj": "12310515000177",
+  "codigoDemanda": 2998,
+  "contratoBndes": "64087820010",
+  "contratoCaixa": "2262.717.0000007-10",
+  "contaDebito": "2262.003.00002199-2",
+  "valorOperacao": "7.500,00",
+  "tipoOperacao": "AMORTIZACAO",
+  "status": "CONCLUIDO",
+  "codigoPa": "2262",
+  "codigoSr": "2635",
+  "codigoGigad": "7649",
+  "consultaSaldo": [
+    {
+      "dataConsultaSaldo": {
+        "date": "2017-12-15 07:39:02.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "Saldo Ok",
+      "saldoDisponivel": "73.759,21",
+      "saldoBloqueado": "2.828,12",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "76.587,33"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-01-15 11:16:04.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "CONFERIR",
+      "saldoDisponivel": "74.760,86",
+      "saldoBloqueado": "2.965,00",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "77.725,86"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-01-15 11:16:04.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "CONFERIR",
+      "saldoDisponivel": "74.760,86",
+      "saldoBloqueado": "2.965,00",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "77.725,86"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-01-16 11:07:56.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "CONFERIR",
+      "saldoDisponivel": "21.852,52",
+      "saldoBloqueado": "3.244,75",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "25.097,27"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-02-14 19:44:00.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "CONFERIR",
+      "saldoDisponivel": "75.354,71",
+      "saldoBloqueado": "19.161,16",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "94.515,87"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-11-16 08:20:23.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "Saldo Ok",
+      "saldoDisponivel": "32.892,66",
+      "saldoBloqueado": "7.178,75",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "40.071,41"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-03-14 14:34:50.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "CONFERIR",
+      "saldoDisponivel": "130.050,29",
+      "saldoBloqueado": "0,00",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "130.050,29"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-03-15 07:52:58.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "Saldo Ok",
+      "saldoDisponivel": "122.347,71",
+      "saldoBloqueado": "1.000,00",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "123.347,71"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-03-15 12:12:38.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "CONFERIR",
+      "saldoDisponivel": "123.007,71",
+      "saldoBloqueado": "1.000,00",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "124.007,71"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-03-15 12:13:07.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "CONFERIR",
+      "saldoDisponivel": "123.007,71",
+      "saldoBloqueado": "1.000,00",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "124.007,71"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-01-12 13:56:08.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "Saldo Ok",
+      "saldoDisponivel": "84.378,81",
+      "saldoBloqueado": "3.736,75",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "88.115,56"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2017-12-18 10:24:03.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "CONFERIR",
+      "saldoDisponivel": "70.310,98",
+      "saldoBloqueado": "4.533,35",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "74.844,33"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2017-12-19 13:04:08.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "CONFERIR",
+      "saldoDisponivel": "21.707,69",
+      "saldoBloqueado": "5.021,00",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "26.728,69"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-01-15 07:47:24.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "Saldo Ok",
+      "saldoDisponivel": "74.760,86",
+      "saldoBloqueado": "2.965,00",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "77.725,86"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-10-11 11:43:40.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "Saldo Bloqueado",
+      "saldoDisponivel": "3.887,88",
+      "saldoBloqueado": "15.978,16",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "19.866,04"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-10-15 08:11:22.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "Saldo Ok",
+      "saldoDisponivel": "23.908,19",
+      "saldoBloqueado": "2.296,83",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "26.205,02"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-02-15 08:09:16.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "Saldo Insuficiente",
+      "saldoDisponivel": "80.514,52",
+      "saldoBloqueado": "25.128,61",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "105.643,13"
+    },
+    {
+      "dataConsultaSaldo": {
+        "date": "2018-02-15 12:27:53.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusSaldo": "CONFERIR",
+      "saldoDisponivel": "36.272,85",
+      "saldoBloqueado": "25.128,61",
+      "LimiteChequeAzul": "0,00",
+      "LimiteGim": "0,00",
+      "saldoTotal": "61.401,46"
+    }
+  ],
+  "historicoContrato": [
+    {
+      "dataHistorico": {
+        "date": "2017-12-11 11:10:59.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusHistorico": "CADASTRO",
+      "matriculaResponsavel": "C058746",
+      "unidadeResponsavel": "2262",
+      "observacaoHistorico": "Solicitamos amortização de R$ 50.000,00 no contrato 2262.717.0000007-10"
+    },
+    {
+      "dataHistorico": {
+        "date": "2018-01-09 10:51:49.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusHistorico": "CADASTRO",
+      "matriculaResponsavel": "C121053",
+      "unidadeResponsavel": "2262",
+      "observacaoHistorico": "senhores1   favor proceder a amortização de 50 mil, no contrato.attwakes"
+    },
+    {
+      "dataHistorico": {
+        "date": "2018-01-16 09:45:25.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusHistorico": "CADASTRO",
+      "matriculaResponsavel": "C121053",
+      "unidadeResponsavel": "2262",
+      "observacaoHistorico": "Favor amortizar 100 mil no contrato na data do dia 15/02/2018."
+    },
+    {
+      "dataHistorico": {
+        "date": "2018-01-17 19:09:11.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusHistorico": "CADASTRO",
+      "matriculaResponsavel": "C135369",
+      "unidadeResponsavel": "2262",
+      "observacaoHistorico": "Senhores1  chegou um email falando que a solicitação do dia 15/01/2018. não iria acontecer eu avisei ao cliente e ele gastou o dinheiro. porem o debito foi feito retroativo gerando juros.2  favor cancelar a solicitação de amortização para 15/02/2018. para que eu possa fazer ela do valor correto.attwakes"
+    },
+    {
+      "dataHistorico": {
+        "date": "2018-02-15 09:54:14.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusHistorico": "CADASTRO",
+      "matriculaResponsavel": "C121053",
+      "unidadeResponsavel": "2262",
+      "observacaoHistorico": "favor cancelar  amortização solicitada anteriormente."
+    },
+    {
+      "dataHistorico": {
+        "date": "2018-03-01 12:42:40.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusHistorico": "CADASTRO",
+      "matriculaResponsavel": "C121053",
+      "unidadeResponsavel": "2262",
+      "observacaoHistorico": "Favor amortizar 50 mil.atwakes"
+    },
+    {
+      "dataHistorico": {
+        "date": "2018-03-08 12:50:35.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusHistorico": "CADASTRO",
+      "matriculaResponsavel": "C121053",
+      "unidadeResponsavel": "2262",
+      "observacaoHistorico": "senhoresfavor amortizar R$80.000,00(oitenta mil reais) no contrato.attwakes1"
+    },
+    {
+      "dataHistorico": {
+        "date": "2018-10-04 15:39:14.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusHistorico": "CADASTRO",
+      "matriculaResponsavel": "C121053",
+      "unidadeResponsavel": "2262",
+      "observacaoHistorico": "favor amortizar.attwakes"
+    },
+    {
+      "dataHistorico": {
+        "date": "2018-10-16 11:12:38.000000",
+        "timezone_type": 3,
+        "timezone": "UTC"
+      },
+      "statusHistorico": "CADASTRO",
+      "matriculaResponsavel": "C121053",
+      "unidadeResponsavel": "2262",
+      "observacaoHistorico": "Favor amortizar no contrato.attwakes"
+    }
+  ]
+}
