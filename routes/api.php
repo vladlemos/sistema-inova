@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Classes\Bndes\NovoSiaf\LoteAmortizacaoLiquidacaoSIAF;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +34,12 @@ use Illuminate\Http\Request;
         Route::get('bndes/v1/siaf_amortizacoes_lote_anterior', 'Bndes\NovoSiaf\SiafDemandaController@loteAnterior');
         Route::get('bndes/v1/siaf_contratos_sumep', 'Bndes\NovoSiaf\SiafDemandaController@contratosNaSumep');
         Route::get('bndes/v1/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@show');
-        Route::get('bndes/v2/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@show2');
-        Route::get('bndes/v1/dados_lote', 'Bndes\NovoSiaf\SiafDemandaController@datasLoteAmortizacao');
+        Route::get('bndes/v2/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@showDemandaComHistoricos');
+        Route::get('bndes/v3/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@showDemandaComHistoricosValidada')->where('demanda', '[0-9]+');
+        Route::get('bndes/v1/dados_lote', function() {
+            $lote = new LoteAmortizacaoLiquidacaoSIAF;
+            echo $lote;
+        });
         
 
 

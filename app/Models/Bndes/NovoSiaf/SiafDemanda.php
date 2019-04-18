@@ -14,6 +14,6 @@ class SiafDemanda extends Model
     }
 
     function SiafHistoricoSaldoContaAmortizacao() {
-        return $this->hasMany('App\Models\Bndes\NovoSiaf\SiafHistoricoSaldoContaAmortizacao', 'contaDebito', 'contaDebito');
+        return $this->hasMany('App\Models\Bndes\NovoSiaf\SiafHistoricoSaldoContaAmortizacao', 'contratoCaixa', 'contratoCaixa');
     }
 }

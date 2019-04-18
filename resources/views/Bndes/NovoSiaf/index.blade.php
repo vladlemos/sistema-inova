@@ -265,7 +265,7 @@
                     <ul class="nav nav-tabs">
                 
                         <li class="active"><a href="#tabVisualizar" data-toggle="tab"><i class="icon-eye"></i>Visualizar Contrato</a></li>
-                        <li><a href="#tabHistórico" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
+                        <li><a href="#tabHistorico" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
                         
                     </ul>
                 <div class="tab-content">
@@ -336,9 +336,10 @@
                                 
                                 <div class="panel-body">
                                 
-                                  <table class="table table-bordered table-striped datatable">
+                                  <table id="tabHistoricoSaldo"class="table table-bordered table-striped datatable">
                                     <thead>
                                         <tr>
+                                            <th> consulta </th>
                                             <th> Data e Hora</th>
                                             <th> Status </th>
                                             <th> Saldo Disponível </th>
@@ -361,8 +362,8 @@
                     </form>
                             
                     </div>
-                            
-                            <div class="tab-pane body fade" id="tabHistórico">
+
+                             <div class="tab-pane body fade" id="tabHistorico">
                             <div class="row">
                                 <div class="panel-heading">
                                    <h6 class="panel-title"><i class="icon-vcard"></i> Histórico do contrato</h6>
@@ -370,14 +371,15 @@
                                
                                <div class="panel-body">
                                
-                                <table class="table table-bordered table-striped datatable">
+                                <table id= "tabHistoricoContrato" class="table table-bordered table-striped datatable">
                                    <thead>
                                        <tr>
-                                           <th> Data e Hora</th>
-                                           <th> Status </th>
-                                           <th> Observações </th>
-                                           <th> Responsável </th>
-                                           <th> Unidade </th>
+                                            <th> Pedido </th>
+                                            <th> Data e Hora</th>
+                                            <th> Status </th>
+                                            <th> Observações </th>
+                                            <th> Responsável </th>
+                                            <th> Unidade </th>
                                                                                     
                                        </tr>
                                    </thead>
@@ -396,7 +398,7 @@
                       
             </div>
                     <div class="modal-footer">
-                        <small class="pull-left"> Cadastrado em : <span id="datacadastramento"></span>, por  <span id="solicitante_nome"></span>  (<span id="solicitante_matricula"></span>) </small>
+                        <!-- <small class="pull-left"> Cadastrado em : <span id="datacadastramento"></span>, por  <span id="solicitante_nome"></span>  (<span id="solicitante_matricula"></span>) </small> -->
                         <button class="btn btn-danger pull-right" data-dismiss="modal">Fechar</button>
                                 
                     </div>
@@ -428,6 +430,7 @@
                 <div class="tab-content">
                 <h5 class=""><span id="nome_cliente_editar"></span> &nbsp &nbsp <span id="cnpj_cliente_editar"></h5>
                     <div class="tab-pane fade in active" id="tabEditar">
+                    <span id="codDemanda"></span>
 
                     <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_editar_amortizacao">
                         <!-- <input type="hidden" id="protocolo_alterar_dados"  name="protocolo_alterar_dados">        
@@ -448,7 +451,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="control-label">N Contrato CAIXA</label>
-                                 <input placeholder="..." name="contrato_caixa_editar" id="contrato_caixa_editar" data-mask="9999.999.9999999-99" class="form-control" type="text" >
+                                 <input placeholder="..." name="contrato_caixa_editar" id="contrato_caixa_editar" data-mask="9999.999.9999999-99" class="form-control" type="text" disabled>
                             </div>
                            
                             
@@ -511,7 +514,7 @@
                         <br>
                              <span class="form-control" id="obs_editarAnt"></span>
                             <label>Observações</label>
-                            <textarea class="form-control" rows="3" name="co_observacoes" placeholder="Digite as observações da solicitação aqui...."></textarea> 
+                            <textarea class="form-control" rows="3" name="co_observacoes" id="coObs" placeholder="Digite as observações da solicitação aqui...."></textarea> 
                               <br>
                               <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -519,7 +522,7 @@
                                 </div>
                                 <div class="panel-body">
                                 
-                                  <table class="table table-bordered table-striped datatable">
+                                  <table id= "tabConsultaSaldoEditar"class="table table-bordered table-striped datatable">
                                     <thead>
                                         <tr>
                                             <th> Data e Hora</th>
@@ -555,7 +558,7 @@
                                
                                <div class="panel-body">
                                
-                                <table class="table table-bordered table-striped datatable">
+                                <table id= "tabConsultaHistoricoEditar" class="table table-bordered table-striped datatable">
                                    <thead>
                                        <tr>
                                             <th> Data e Hora</th>
@@ -581,8 +584,8 @@
                       
             </div>
                 <div class="modal-footer">
-                    <small class="pull-left"> Cadastrado em : <span id="editardatacadastramento"></span>, por  <span id="editarsolicitante_nome"></span>  (<span id="editarsolicitante_matricula"></span>) </small>
-                        <button class="btn btn-default btn-success pull-right mandei_editar  botaoModal" data-dismiss="modal">Enviar a CEOPC </button>
+                    <!-- <small class="pull-left"> Cadastrado em : <span id="editarDataCadastramento"></span>, por  <span id="editarSolicitanteNome"></span>  (<span id="editarSolicitanteMatricula"></span>) </small> -->
+                        <button class="btn btn-default btn-success pull-right botaoModal" data-dismiss="modal" onclick="enviarSolicitação()">Enviar a CEOPC </button>
                         <span class="pull-right"> </span>
                         <button class="btn btn-default btn-danger pull-right botaoModal" data-dismiss="modal">Fechar</button> 
                             
@@ -595,7 +598,7 @@
     
     <!-- /Modal para excluir-->
     
-    <div id="excluirpedido" class="modal fade" tabindex="-1" role="dialog">
+    <!-- <div id="excluirpedido" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -615,11 +618,11 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- /Modal para excluir -->
     
     
-      <!-- /Modal para excluir-->
+      <!-- Modal para confirmar cadastro-->
     
     <div id="confirmacao" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm">
@@ -630,7 +633,7 @@
                 </div>
 
                 <div class="modal-body with-padding">
-                    <p>Consulte em seus pedidos os protocolos gerados e acompanhe o processo de amortização.</p>
+                    <p>Consulte em seus pedidos os protocolos gerados e acompanhe o processo de amortização na aba acompanhamento.</p>
                 </div>
 
                 <div class="modal-footer">
@@ -640,7 +643,25 @@
             </div>
         </div>
     </div>
-    <!-- /Modal para excluir-->
+    <!-- /Modal para confirmar cadastro-->
+
+         <!-- /Modal confimar edição-->
+    
+         <div id="modalConfirmaAlteracao" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"><i class="icon-checkmark"></i>Dados alterados com sucesso!!</h4>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal confimar edição-->
 
     
      

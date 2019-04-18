@@ -25,6 +25,7 @@
         <table class="table table-ordered table-hover table-striped" id='tabelaConsultaSaldo'>
             <thead>
                 <tr>
+                    <th>ID CONSULTA</th>
                     <th>DATA CONSULTA SALDO</th>
                     <th>STATUS SALDO</th>
                     <th>SALDO DISPONIVEL</th>
@@ -41,6 +42,7 @@
         <table class="table table-ordered table-hover table-striped" id='tabelaHistoricoContrato'>
             <thead>
                 <tr>
+                    <th>ID HISTORICO</th>
                     <th>DATA HISTORICO</th>
                     <th>STATUS HISTORICO</th>
                     <th>MATRICULA RESPONSAVEL</th>

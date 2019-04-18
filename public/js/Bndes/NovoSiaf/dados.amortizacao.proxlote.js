@@ -1,7 +1,8 @@
 $(document).ready(function(){
    
     carregarTabelaProxLote();
-   
+//formata campo valor no modal de editar cadastro
+$("input.dinheiro").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
  });	
 
 $.ajaxSetup({
@@ -17,7 +18,7 @@ function carregarTabelaProxLote()
     $.getJSON('../api/bndes/v1/siaf_amortizacoes_lote_atual', function(json){
 
         $.each(json, function (key, value){
-            // $('#proxLote').html(value.DT_LT_AMORTIZADOR);
+          
             linhaProxLote = atualizaTabelaProxLote(value);
             $('#tabelaAmortizaProx>tbody').append(linhaProxLote);
             
@@ -34,6 +35,7 @@ function carregarTabelaProxLote()
     
 }
 
+//atualiza a tabela para visualizacao dos contrato para o prox lote
 function atualizaTabelaProxLote(json)
 {
    
@@ -48,7 +50,7 @@ function atualizaTabelaProxLote(json)
                 '<td>' + json.contratoCaixa    + '</td>' +
                 '<td>' + json.contratoBndes    + '</td>' +
                 '<td>' + json.contaDebito    + '</td>' +
-                '<td>' + json.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.")      + '</td>' +
+                '<td>' + json.valorOperacao    + '</td>' +
                 '<td>' + json.tipoOperacao   + '</td>' +
                 '<td>' + json.status	        + '</td>' +
 
@@ -91,7 +93,7 @@ function visualizaContratoProxlote(json){
                 $("#contrato_bndes_modal").val(ctr.contratoBndes);
                 $("#contrato_caixa_modal").val(ctr.contratoCaixa);
                 $("#conta_corrente_modal").val(ctr.contaDebito);
-                $("#valor_modal").val(ctr.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.") );
+                $("#valor_modal").val(ctr.valorOperacao);
                 $("#tipo_modal").val(ctr.tipoOperacao);
                 $("#status_modal").val(ctr.status);  
                 $("#pv_modal").val(ctr.codigoPa);  
@@ -125,7 +127,7 @@ function visualizaContratoProxlote(json){
           var ctr = JSON.parse(editaContratoProx);
           
         //   $.each(ctr, function(key, ctr){
-
+            $("#codDemanda").val(ctr.codigoDemanda);
             $("#cnpj_cliente_editar").html(ctr.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
             $("#nome_cliente_editar").html(ctr.nomeCliente);
 
@@ -153,5 +155,54 @@ function visualizaContratoProxlote(json){
  
 }   
    
+
+//pega as informações alteradas no modal e envia via post quando clicado no botão enviar a ceopc
+function enviarSolicitação(){
+
+    $.getJSON('../api/bndes/v1/siaf_amortizacoes_lote_atual', function(json){
+
+
+    var url = ('../api/bndes/v2/siaf_amortizacoes/' + json.codigoDemanda )
+
+    console.log(url);
+    
+    // $.ajax({
+        
+    //     type: 'post',
+    //     url : url,
+        
+    //         success: function(editaContratoProx){
+           
+              
+    //         var ctr = JSON.parse(editaContratoProx);
+            
+    //       //   $.each(ctr, function(key, ctr){
+  
+    //           $("#cnpj_cliente_editar").html(ctr.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+    //           $("#nome_cliente_editar").html(ctr.nomeCliente);
+  
+    //           $("#contrato_bndes_editar").val(ctr.contratoBndes);
+    //           $("#contrato_caixa_editar").val(ctr.contratoCaixa);
+    //           $("#conta_corrente_editar").val(ctr.contaDebito);
+    //           $("#valor_editar").val(ctr.valorOperacao.replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1."));
+    //           $("#tipo_editar").val(ctr.tipoOperacao);
+    //           $("#form_status_editar").val(ctr.status);  
+    //           $("#pv_editar").val(ctr.codigoPa);  
+    //           $("#sr_editar").val(ctr.codigoSr);
+    //           $("#gigad_editar").val(ctr.codigoGigad);
+    //           // $("#obs_editarAnt").val(ctr.CO_OBS);
+                             
+             
+  
+    //       //   });
+         
+    //     }
+      
+    // });  
+
+    }); 
+}
+
+
 
   

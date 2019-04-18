@@ -96,14 +96,14 @@ function visualizaContratoSumep(json){
             // $("#obs_modalAnterior").val(value.CO_OBS);
 
         //   });
-        var grids = ctrSumep;
+        // var grids = ctrSumep;
 
-for (var i=0; i < ctrSumep.length; i++) {
-for(var j=0; j < ctrSumep[i].length; j++){
-console.log(ctrSumep["+i+"][" + j+"]  +ctrSumep[i][j]);
-}
+// for (var i=0; i < ctrSumep.length; i++) {
+// for(var j=0; j < ctrSumep[i].length; j++){
+// console.log(ctrSumep["+i+"][" + j+"]  +ctrSumep[i][j]);
+// }
 
-}
+// }
        
     //    console.log(meuArray[0]);
     //    console.log(meuArray[0][6][1]);
@@ -157,8 +157,10 @@ $.ajax({
       $.each(ctrSumep, function(key, value){
 
         //carrega dados do cliente na parte de cima do modal
-          $("#cnpj_cliente_editar").val(value.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-          $("#nome_cliente_editar").html(value.nomeCliente);
+            $("#codDemanda").val(ctr.codigoDemanda);
+            $("#cnpj_cliente_editar").val(value.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+            $("#nome_cliente_editar").html(value.nomeCliente);
+
         // carrega dados do contrato no modal
         $("#contrato_bndes_editar").val(value.contratoBndes);
         $("#contrato_caixa_editar").val(value.contratoCaixa);

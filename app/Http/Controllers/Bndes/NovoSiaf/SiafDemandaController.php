@@ -546,34 +546,80 @@ class SiafDemandaController extends Controller
         }
     }
 
-    public function show2($demanda)
+    public function showDemandaComHistoricos($demanda)
     {
-        $dadosDemanda = SiafDemanda::find($demanda);
+        // if (!is_int(((int)$demanda))) {
+        //     return response()->view('errors.404', [], 404);
+        // }
+        $loteDemanda = SiafDemanda::find($demanda);
+        $dataLote = $loteDemanda->dataLote;
+        // return json_encode( $dataLote);
+        $dadosDemanda = SiafDemanda::with(
+            ['SiafHistoricoDemanda' => function($respostaHistorico) use($dataLote) {
+                json_encode($respostaHistorico->where('loteAmortizacao', $dataLote));
+                // $respostaHistorico->where('loteAmortizacao', $dataLote);
+            }, 
+                'SiafHistoricoSaldoContaAmortizacao' => function($respostaSaldo) use($dataLote) { 
+                $respostaSaldo->where('loteAmortizacao', $dataLote);
+            }
+            ])->where('TBL_SIAF_DEMANDAS.codigoDemanda', $demanda)->get();
+        // if (isset($dadosDemanda)) {
+        //     return var_dump($dadosDemanda);
+        // } else{
+        //     return response('Demanda não encontrada', 404);
+        // }
+
         $arrayHistorico = [];
         $arraySaldo = [];
-        foreach ($dadosDemanda->SiafHistoricoDemanda as $historico => $value) {                
-            $dadosHistorico = array(
-                "dataHistorico" => $value['created_at'],
-                "statusHistorico" => $value['tipoHistorico'],
-                "matriculaResponsavel" => $value['matriculaResponsavel'],
-                "unidadeResponsavel" => str_pad($value['unidadeResponsavel'], 4, '0', STR_PAD_LEFT),
-                "observacaoHistorico" => utf8_decode($value['historico'])
-            );
-            array_push($arrayHistorico, $dadosHistorico);
-        }
-        foreach ($dadosDemanda->SiafHistoricoSaldoContaAmortizacao as $saldo => $value) {                
+        if(isset($dadosDemanda[0]->SiafHistoricoSaldoContaAmortizacao)) {
+            foreach ($dadosDemanda[0]->SiafHistoricoSaldoContaAmortizacao as $saldo => $value) {             
+                $dadosSaldo = array(
+                    "codigoConsultaSaldo" => $value['codigoHistorico'], 
+                    "dataConsultaSaldo" => $value['created_at']->format('d/m/Y H:i:s'),
+                    "statusSaldo" => $value['tipoHistorico'],
+                    "saldoDisponivel" => number_format($value['saldoDisponivel'], 2, ',', '.'),
+                    "saldoBloqueado" => number_format($value['saldoBloqueado'], 2, ',', '.'),
+                    "LimiteChequeAzul" => number_format($value['limiteChequeAzul'], 2, ',', '.'),
+                    "LimiteGim" => number_format($value['limiteGim'], 2, ',', '.'),
+                    "saldoTotal" => number_format($value['saldoTotal'], 2, ',', '.'),
+                );
+                array_push($arraySaldo, $dadosSaldo);
+            }
+        } else {
             $dadosSaldo = array(
-                "dataConsultaSaldo" => $value['created_at'],
-                "statusSaldo" => $value['tipoHistorico'],
-                "saldoDisponivel" => number_format($value['saldoDisponivel'], 2, ',', '.'),
-                "saldoBloqueado" => number_format($value['saldoBloqueado'], 2, ',', '.'),
-                "LimiteChequeAzul" => number_format($value['limiteChequeAzul'], 2, ',', '.'),
-                "LimiteGim" => number_format($value['limiteGim'], 2, ',', '.'),
-                "saldoTotal" => number_format($value['saldoTotal'], 2, ',', '.'),
+                "codigoConsultaSaldo" => null, 
+                "dataConsultaSaldo" => null,
+                "statusSaldo" => null,
+                "saldoDisponivel" => null,
+                "saldoBloqueado" => null,
+                "LimiteChequeAzul" => null,
+                "LimiteGim" => null,
+                "saldoTotal" => null,
             );
-            array_push($arraySaldo, $dadosSaldo);
         }
-        switch($dadosDemanda->tipoOperacao){
+        if(isset($dadosDemanda[0]->SiafHistoricoDemanda)) {
+            foreach ($dadosDemanda[0]->SiafHistoricoDemanda as $historico => $value) {               
+                $dadosHistorico = array(
+                    "codigoHistorico" => $value['codigoHistorico'], 
+                    "dataHistorico" => $value['created_at']->format('d/m/Y H:i:s'),
+                    "statusHistorico" => $value['tipoHistorico'],
+                    "matriculaResponsavel" => $value['matriculaResponsavel'],
+                    "unidadeResponsavel" => str_pad($value['unidadeResponsavel'], 4, '0', STR_PAD_LEFT),
+                    "observacaoHistorico" => utf8_decode($value['historico'])
+                );
+                array_push($arrayHistorico, $dadosHistorico);
+            }
+        } else {
+            $dadosHistorico = array(
+                "codigoHistorico" => null, 
+                "dataHistorico" => null,
+                "statusHistorico" => null,
+                "matriculaResponsavel" => null,
+                "unidadeResponsavel" => null,
+                "observacaoHistorico" => null
+            );
+        }
+        switch($dadosDemanda[0]->tipoOperacao){
             case 'L':
                 $tipoOperacao = "LIQUIDACAO";
                 break;
@@ -582,18 +628,20 @@ class SiafDemandaController extends Controller
                 break;
         }
         $jsonDados = [
-            "nomeCliente" => $dadosDemanda->nomeCliente,
-            "cnpj" => $dadosDemanda->cnpj, 
-            "codigoDemanda" => $dadosDemanda->codigoDemanda,
-            "contratoBndes" => $dadosDemanda->contratoBndes,
-            "contratoCaixa" => $dadosDemanda->contratoCaixa,
-            "contaDebito" => $dadosDemanda->contaDebito,
-            "valorOperacao" => number_format($dadosDemanda->valorOperacao, 2, ',', '.'),
+            "codigoDemanda" => $dadosDemanda[0]->codigoDemanda,
+            "nomeCliente" => $dadosDemanda[0]->nomeCliente,
+            "cnpj" => $dadosDemanda[0]->cnpj, 
+            "codigoDemanda" => $dadosDemanda[0]->codigoDemanda,
+            "contratoBndes" => $dadosDemanda[0]->contratoBndes,
+            "contratoCaixa" => $dadosDemanda[0]->contratoCaixa,
+            "contaDebito" => $dadosDemanda[0]->contaDebito,
+            "dataLote"=> $dadosDemanda[0]->dataLote,
+            "valorOperacao" => number_format($dadosDemanda[0]->valorOperacao, 2, ',', '.'),
             "tipoOperacao" => $tipoOperacao,
-            "status" => $dadosDemanda->status,
-            "codigoPa" => str_pad($dadosDemanda->codigoPa, 4, '0', STR_PAD_LEFT),
-            "codigoSr" => $dadosDemanda->codigoSr,
-            "codigoGigad" => $dadosDemanda->codigoGigad,
+            "status" => $dadosDemanda[0]->status,
+            "codigoPa" => str_pad($dadosDemanda[0]->codigoPa, 4, '0', STR_PAD_LEFT),
+            "codigoSr" => $dadosDemanda[0]->codigoSr,
+            "codigoGigad" => $dadosDemanda[0]->codigoGigad,
             "consultaSaldo" => $arraySaldo,
             "historicoContrato" => $arrayHistorico
         ];
@@ -604,8 +652,106 @@ class SiafDemandaController extends Controller
         }
     }
 
-    public function datasLoteAmortizacao() {
-        $lote = new LoteAmortizacaoLiquidacaoSIAF;
-        echo $lote;
+    public function showDemandaComHistoricosValidada($demanda)
+    {
+        $loteDemanda = SiafDemanda::find($demanda);
+        $dataLote = $loteDemanda->dataLote;
+        // return json_encode( $dataLote);
+        $dadosDemanda = SiafDemanda::with(
+            ['SiafHistoricoDemanda' => function($respostaHistorico) use($dataLote) {
+                json_encode($respostaHistorico->where('loteAmortizacao', $dataLote));
+                // $respostaHistorico->where('loteAmortizacao', $dataLote);
+            }, 
+                'SiafHistoricoSaldoContaAmortizacao' => function($respostaSaldo) use($dataLote) { 
+                $respostaSaldo->where('loteAmortizacao', $dataLote);
+            }
+            ])->where('TBL_SIAF_DEMANDAS.codigoDemanda', $demanda)->get();
+        // if (isset($dadosDemanda)) {
+        //     return var_dump($dadosDemanda);
+        // } else{
+        //     return response('Demanda não encontrada', 404);
+        // }
+
+        $arrayHistorico = [];
+        $arraySaldo = [];
+        if(isset($dadosDemanda[0]->SiafHistoricoSaldoContaAmortizacao)) {
+            foreach ($dadosDemanda[0]->SiafHistoricoSaldoContaAmortizacao as $saldo => $value) {             
+                $dadosSaldo = array(
+                    "codigoConsultaSaldo" => $value['codigoHistorico'], 
+                    "dataConsultaSaldo" => $value['created_at']->format('d/m/Y H:i:s'),
+                    "statusSaldo" => $value['tipoHistorico'],
+                    "saldoDisponivel" => number_format($value['saldoDisponivel'], 2, ',', '.'),
+                    "saldoBloqueado" => number_format($value['saldoBloqueado'], 2, ',', '.'),
+                    "LimiteChequeAzul" => number_format($value['limiteChequeAzul'], 2, ',', '.'),
+                    "LimiteGim" => number_format($value['limiteGim'], 2, ',', '.'),
+                    "saldoTotal" => number_format($value['saldoTotal'], 2, ',', '.'),
+                );
+                array_push($arraySaldo, $dadosSaldo);
+            }
+        } else {
+            $dadosSaldo = array(
+                "codigoConsultaSaldo" => null, 
+                "dataConsultaSaldo" => null,
+                "statusSaldo" => null,
+                "saldoDisponivel" => null,
+                "saldoBloqueado" => null,
+                "LimiteChequeAzul" => null,
+                "LimiteGim" => null,
+                "saldoTotal" => null,
+            );
+        }
+        if(isset($dadosDemanda[0]->SiafHistoricoDemanda)) {
+            foreach ($dadosDemanda[0]->SiafHistoricoDemanda as $historico => $value) {               
+                $dadosHistorico = array(
+                    "codigoHistorico" => $value['codigoHistorico'], 
+                    "dataHistorico" => $value['created_at']->format('d/m/Y H:i:s'),
+                    "statusHistorico" => $value['tipoHistorico'],
+                    "matriculaResponsavel" => $value['matriculaResponsavel'],
+                    "unidadeResponsavel" => str_pad($value['unidadeResponsavel'], 4, '0', STR_PAD_LEFT),
+                    "observacaoHistorico" => utf8_decode($value['historico'])
+                );
+                array_push($arrayHistorico, $dadosHistorico);
+            }
+        } else {
+            $dadosHistorico = array(
+                "codigoHistorico" => null, 
+                "dataHistorico" => null,
+                "statusHistorico" => null,
+                "matriculaResponsavel" => null,
+                "unidadeResponsavel" => null,
+                "observacaoHistorico" => null
+            );
+        }
+        switch($dadosDemanda[0]->tipoOperacao){
+            case 'L':
+                $tipoOperacao = "LIQUIDACAO";
+                break;
+            case 'A':
+                $tipoOperacao = "AMORTIZACAO";
+                break;
+        }
+        $jsonDados = [
+            "codigoDemanda" => $dadosDemanda[0]->codigoDemanda,
+            "nomeCliente" => $dadosDemanda[0]->nomeCliente,
+            "cnpj" => $dadosDemanda[0]->cnpj, 
+            "codigoDemanda" => $dadosDemanda[0]->codigoDemanda,
+            "contratoBndes" => $dadosDemanda[0]->contratoBndes,
+            "contratoCaixa" => $dadosDemanda[0]->contratoCaixa,
+            "contaDebito" => $dadosDemanda[0]->contaDebito,
+            "dataLote"=> $dadosDemanda[0]->dataLote,
+            "valorOperacao" => number_format($dadosDemanda[0]->valorOperacao, 2, ',', '.'),
+            "tipoOperacao" => $tipoOperacao,
+            "status" => $dadosDemanda[0]->status,
+            "codigoPa" => str_pad($dadosDemanda[0]->codigoPa, 4, '0', STR_PAD_LEFT),
+            "codigoSr" => $dadosDemanda[0]->codigoSr,
+            "codigoGigad" => $dadosDemanda[0]->codigoGigad,
+            "consultaSaldo" => $arraySaldo,
+            "historicoContrato" => $arrayHistorico
+        ];
+        if (isset($jsonDados)) {
+            return json_encode($jsonDados);
+        } else{
+            return response('Demanda não encontrada', 404);
+        }
     }
 }
