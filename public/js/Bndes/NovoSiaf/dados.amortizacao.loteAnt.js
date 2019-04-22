@@ -69,7 +69,7 @@ function visualizaContratoAnt(json){
             $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
 
                     var dados = JSON.parse(dados);
-                    console.log(dados);
+                    // console.log(dados);
                     for(i = 0; i < dados.consultaSaldo.length; i++){
                         linha = montaLinhaTabelaSaldo(dados.consultaSaldo[i]);
                         

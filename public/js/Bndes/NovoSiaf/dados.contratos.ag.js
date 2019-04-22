@@ -75,13 +75,14 @@ function atualizaTabelaAgencia(json)
             var contratos = JSON.parse(carregaContratos);
             
             $.each(contratos, function(key, value){
-
+                //coloca os dados do cliente na parte de cima do modal
                 $("#cnpj_cliente").html(value.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
                 $("#nome_cliente").html(value.cliente);
-
+                
+                //verifica o tipo de contrato para escolher qual numero de contrato do BNDES mostrar
                 if (value.operacao == '717')
                              
-            linhaCadastro = '<tr>' +
+            linhaCadastro = '<tr class="dadosLinha">' +
 
                                                    
                                 '<td><input placeholder ="..." type="text" name="contratoBndes" class=" contratoBndes form-control" value="' + value.contratoBndes + '" id="ctrBndesTeste"/></td>' +
@@ -95,12 +96,12 @@ function atualizaTabelaAgencia(json)
 
                 else
 
-            linhaCadastro = '<tr>' +
+            linhaCadastro = '<tr class="dadosLinha">' +
 
                                 '<td><input placeholder ="..." type="text" name="contratoBndes" class=" contratoBndes form-control" value="' + value.contratoBndesFiname + '" id="ctrBndesTeste"/></td>' +
                                 '<td><input placeholder ="..." type="text" name="contratoCaixa"class="contratoCaixa form-control" value="' + value.contratoCaixa + '"/readonly></td>' +
                                 '<td><input placeholder ="..." type="text" name="conta"class="conta form-control" value="' + value.contaDebito	+ '"/></td>' +
-                                '<td><input type="text" placeholder="Informe o valor" name="valorAmortizacao"class="valorAmortizacao dinheiro form-control"  /></td>' +
+                                '<td><input type="text" placeholder="Informe o valor" name="valorAmortizacao" class="valorAmortizacao dinheiro form-control"  /></td>' +
                                 '<td><select name="tipoAmortizacao" class=" tipoAmortizacao form-control"><option disabled selected value>Selecione o tipo:</option> <option value="A">Amortização</option> <option value="L">Liquidação</option> </select></td>' +
             
                             '</tr>';
@@ -137,8 +138,41 @@ function atualizaTabelaAgencia(json)
 	
 function enviarSolicitacaoAmortizacao(){
 
+    var pedidos =[];
+$('#tabCadastrar>tbody>tr').each(function(){
 
-    var pedidoAmortizacao= $('#form_contratos>tr');
+    var colunasLinha = $(this).children();
+
+    var pedido = {
+
+            contratoBndes: $("input.contratoBndes").val(),
+            contratoCaixa: $(colunasLinha[1]).text(),
+            contaDebito: $(colunasLinha[2]).text(),
+            valorAmortizacao: $(colunasLinha[3]).text(),
+            tipoComando: $(colunasLinha[4]).text(),
+            observacoes: $("textarea.co_observacoes").val(),
+    }
+    pedidos.push(pedido)
+});
+console.log(pedidos);
+
+    // var pedidoAmortizacao= $('#form_contratos>td');
+// var teste = document.getElementsByClassName('contratoBndes');
+
+// var valores =[];
+
+// for (i=0; i< teste.length; i++){
+// var element = teste[i];
+// var tr = element.closest('tr');
+// if (tr.children[1].children[0]!==''){
+//     valores[i]=tr.children[0].text();
+//     // valores.push(teste[i].value);
+// }
+// console.log(valores);
+// }
+
+}
+
     // listaPedidoAmortizacao =  pedidoAmortizacao.lenght;
 
     
@@ -146,31 +180,35 @@ function enviarSolicitacaoAmortizacao(){
 //    pedidoAmortizacao.forEach(pedido);
 
 //    function pedido(value){
-    for (i= 0; i < pedidoAmortizacao.lenght; i++){
+    // for (i= 0; i < pedidoAmortizacao.lenght; i++){
 
     // $.post("https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_contratos", pedidoAmortizacao, function (ctr){
     //     for (i=0; i<pedidoAmortizacao[i]; i++){
-    var  ctr = 
+
+    // $.each(pedidoAmortizacao, function (index, ctr){
+
+    // var  ctr = {
         
-            contratoBndes= $("input.contratoBndes").val();
-            contratoCaixa= $("input.contratoCaixa").val();
-            contaDebito= $("input.conta").val();
-            valorAmortizacao= $("input.dinheiro").val();
-            tipoComando= $("select.tipoAmortizacao").val();
-            observacoes= $("textarea.co_observacoes").val()
+    //         contratoBndes: $("input.contratoBndes").val(),
+    //         contratoCaixa: $("input.contratoCaixa").val(),
+    //         contaDebito: $("input.conta").val(),
+    //         valorAmortizacao: $("input.dinheiro").val(),
+    //         tipoComando: $("select.tipoAmortizacao").val(),
+    //         observacoes: $("textarea.co_observacoes").val(),
            
-      
+    //         }
         
 
-        return ctr;
+        // return ctr;
     //     console.log('estou aqui');
     // }
         // }
     // }
    
-}
-console.log(ctr)
-}
+// });
+// console.log(ctr)
+// }
+
 
     // pedidoAmortizacao.lenght;
     // text = "<tr>";

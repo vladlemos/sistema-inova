@@ -69,30 +69,13 @@ class SiafDemandaController extends Controller
      */
     public function show($demanda)
     {
-        // $dadosDemanda = DB::table('TBL_SIAF_DEMANDAS')
-        //                     ->join('tbl_SIAF_HISTORICO_DEMANDAS', 'tbl_SIAF_HISTORICO_DEMANDAS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
-        //                     ->select('TBL_SIAF_DEMANDAS.codigoDemanda', 'TBL_SIAF_DEMANDAS.nomeCliente', 'TBL_SIAF_DEMANDAS.cnpj', 'TBL_SIAF_DEMANDAS.contratoCaixa', 'TBL_SIAF_DEMANDAS.contratoBndes', 'TBL_SIAF_DEMANDAS.valorOperacao', 'TBL_SIAF_DEMANDAS.contaDebito', 'TBL_SIAF_DEMANDAS.status', 'TBL_SIAF_DEMANDAS.codigoPa', 'TBL_SIAF_DEMANDAS.codigoSr', 'TBL_SIAF_DEMANDAS.codigoGigad', 'tbl_SIAF_HISTORICO_DEMANDAS.historico', 'tbl_SIAF_HISTORICO_DEMANDAS.tipoHistorico',
-        //                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
-        //                     ->where('TBL_SIAF_DEMANDAS.codigoDemanda', '=', $demanda)
-        //                     // ->where('TBL_SIAF_DEMANDAS.dataLote', '=', 'tbl_SIAF_HISTORICO_DEMANDAS.loteAmortizacao')
-        //                     ->get();
-        // // var_dump($dadosDemanda[0]->contratoCaixa);
-        // if (isset($dadosDemanda)) {
-        //     return json_encode($dadosDemanda);
-        // } else{
-        //     return response('Demanda não encontrada', 404);
-        // }
-
         $dadosDemanda = DB::table('TBL_SIAF_DEMANDAS')
-                            // ->join('tbl_SIAF_HISTORICO_DEMANDAS', 'tbl_SIAF_HISTORICO_DEMANDAS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                             ->select('TBL_SIAF_DEMANDAS.codigoDemanda', 'TBL_SIAF_DEMANDAS.nomeCliente', 'TBL_SIAF_DEMANDAS.cnpj', 'TBL_SIAF_DEMANDAS.contratoCaixa', 'TBL_SIAF_DEMANDAS.contratoBndes', 'TBL_SIAF_DEMANDAS.valorOperacao', 'TBL_SIAF_DEMANDAS.contaDebito', 'TBL_SIAF_DEMANDAS.status', 'TBL_SIAF_DEMANDAS.codigoPa', 'TBL_SIAF_DEMANDAS.codigoSr', 'TBL_SIAF_DEMANDAS.codigoGigad', 
                                 DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
                             ->where('TBL_SIAF_DEMANDAS.codigoDemanda', '=', $demanda)
-                            // ->where('TBL_SIAF_DEMANDAS.dataLote', '=', 'tbl_SIAF_HISTORICO_DEMANDAS.loteAmortizacao')
                             ->get();
-        // var_dump($dadosDemanda[0]->contratoCaixa);
         if (isset($dadosDemanda)) {
-            return json_encode($dadosDemanda);
+            return json_encode($dadosDemanda, JSON_UNESCAPED_SLASHES);
         } else{
             return response('Demanda não encontrada', 404);
         }
@@ -113,12 +96,56 @@ class SiafDemandaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  App\Models\Bndes\NovoSiaf\SiafDemanda  $siafDemanda
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SiafDemanda $siafDemanda)
+    public function update(Request $request, $id)
     {
-        //
+        $arrayHistorico = [];
+
+        // Update na tabela TBL_SIAF_DEMANDAS
+        $demanda = SiafDemanda::find($id);
+        $demanda->contratoBndes = '64199941238';
+        $demanda->contaDebito = '1234.567.8901234-5';
+        $demanda->valorOperacao = '1234.56';
+        $demanda->tipoOperacao = 'L';
+        $demanda->status = 'CANCELADO';
+        // $demanda->save();
+
+        // Capturar os dados do usuário da sessão
+        $usuario = Empregado::find(substr($_SERVER["LOGON_USER"],strpos($_SERVER["LOGON_USER"], "\\")+1));
+        
+        // Insert na tabela TBL_SIAF_HISTORICO_DEMANDAS
+        $historicoDemanda = new SiafHistoricoDemanda;
+        $historicoDemanda->contratoCaixa = $demanda->contratoCaixa;
+        $historicoDemanda->loteAmortizacao = $demanda->loteAmortizacao;
+        $historicoDemanda->tipoHistorico = $demanda->status;
+        $historicoDemanda->historico = $demanda->historicoContrato;
+        $historicoDemanda->matriculaResponsavel = $usuario->matriculaResponsavel;
+        $historicoDemanda->unidadeResponsavel = $usuario->codigoLotacaoAdministrativa;
+        // $historicoDemanda->save();
+
+        // Retorna os dados da demanda atualizada/cadastrada via json
+        $historicoDemandaCadastrada = SiafHistoricoDemanda::find($historicoDemanda->codigoHistorico);
+
+        $arrayHistoricoDemanda = array(
+            "codigoHistorico" => $historicoDemandaCadastrada->codigoHistorico, 
+            "dataHistorico" => $historicoDemandaCadastrada->created_at->format('d/m/Y H:i:s'),
+            "statusHistorico" => $historicoDemandaCadastrada->tipoHistorico,
+            "matriculaResponsavel" => $historicoDemandaCadastrada->matriculaResponsavel,
+            "unidadeResponsavel" => str_pad($historicoDemandaCadastrada->unidadeResponsavel, 4, '0', STR_PAD_LEFT),
+            "observacaoHistorico" => utf8_decode($historicoDemandaCadastrada->historico)
+        );
+    
+        $arrayDemanda = array(
+            "contratoBndes" => $demanda->contratoBndes,
+            "contaDebito" => $demanda->contaDebito,
+            "valorOperacao" => $demanda->valorOperacao,
+            "tipoOperacao" => $demanda->tipoOperacao,
+            "status" => $demanda->status,
+            "historicoDemanda" => $arrayHistoricoDemanda
+        );
+        
+        return json_encode($arrayDemanda, JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -141,10 +168,10 @@ class SiafDemandaController extends Controller
                             ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADOS.nivelAcesso')
                             ->where('tbl_ACESSA_EMPREGADOS.matricula', '=', $empregado->matricula)
                             ->get();
+        $lote = new LoteAmortizacaoLiquidacaoSIAF; 
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                             DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -153,7 +180,6 @@ class SiafDemandaController extends Controller
                                         ->get(); 
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -161,8 +187,7 @@ class SiafDemandaController extends Controller
                                     ->where('dataLote', '=', $lote->getDataLoteAnterior())
                                     ->get();    
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {       
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -170,8 +195,7 @@ class SiafDemandaController extends Controller
                                     ->where('dataLote', '=', $lote->getDataLoteAnterior())
                                     ->get();      
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                } else {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                } else {       
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -182,8 +206,7 @@ class SiafDemandaController extends Controller
                 }                   
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {       
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -192,7 +215,6 @@ class SiafDemandaController extends Controller
                                     ->get();       
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -200,8 +222,7 @@ class SiafDemandaController extends Controller
                                     ->where('dataLote', '=', $lote->getDataLoteAnterior())
                                     ->get();      
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {     
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -209,8 +230,7 @@ class SiafDemandaController extends Controller
                                     ->where('dataLote', '=', $lote->getDataLoteAnterior())
                                     ->get();     
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                } else {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                } else {       
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -221,8 +241,7 @@ class SiafDemandaController extends Controller
                 }                   
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {    
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -231,7 +250,6 @@ class SiafDemandaController extends Controller
                                     ->get();    
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -239,8 +257,7 @@ class SiafDemandaController extends Controller
                                     ->where('dataLote', '=', $lote->getDataLoteAnterior())
                                     ->get();        
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -248,8 +265,7 @@ class SiafDemandaController extends Controller
                                     ->where('dataLote', '=', $lote->getDataLoteAnterior())
                                     ->get();      
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                } else {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                } else {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -259,8 +275,7 @@ class SiafDemandaController extends Controller
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 }
                 break;
-            default:
-            $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+            default:     
             $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                     DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -280,11 +295,10 @@ class SiafDemandaController extends Controller
                             ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADOS.nivelAcesso')
                             ->where('tbl_ACESSA_EMPREGADOS.matricula', '=', $empregado->matricula)
                             ->get();
-        
+        $lote = new LoteAmortizacaoLiquidacaoSIAF;
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
                 if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                             DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -293,7 +307,6 @@ class SiafDemandaController extends Controller
                                         ->get();       
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -302,7 +315,6 @@ class SiafDemandaController extends Controller
                                     ->get();        
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -311,7 +323,6 @@ class SiafDemandaController extends Controller
                                     ->get();         
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } else {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                         DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -322,8 +333,7 @@ class SiafDemandaController extends Controller
                 }
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                             DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -333,7 +343,6 @@ class SiafDemandaController extends Controller
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } else {
                     if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;
                         $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                             DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -341,8 +350,7 @@ class SiafDemandaController extends Controller
                                         ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->get();        
                         return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                    } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {      
                         $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                             DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -350,8 +358,7 @@ class SiafDemandaController extends Controller
                                         ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->get();      
                         return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                    } else {
-                        $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                    } else {       
                         $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                             DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -363,8 +370,7 @@ class SiafDemandaController extends Controller
                 }
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                             DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -373,7 +379,6 @@ class SiafDemandaController extends Controller
                                         ->get();   
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                             DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -381,8 +386,7 @@ class SiafDemandaController extends Controller
                                         ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->get();        
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {       
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                             DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -390,8 +394,7 @@ class SiafDemandaController extends Controller
                                         ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->get();       
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
-                } else {
-                    $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+                } else {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                             DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -401,8 +404,7 @@ class SiafDemandaController extends Controller
                     return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
                 }
                 break;
-            default:
-            $lote = new LoteAmortizacaoLiquidacaoSIAF;       
+            default:     
             $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'contaDebito', 'status',
                                     DB::raw("(CASE WHEN tipoOperacao = 'L' THEN 'LIQUIDACAO' WHEN tipoOperacao = 'A' THEN 'AMORTIZACAO' END) AS tipoOperacao"))
@@ -548,27 +550,14 @@ class SiafDemandaController extends Controller
 
     public function showDemandaComHistoricos($demanda)
     {
-        // if (!is_int(((int)$demanda))) {
-        //     return response()->view('errors.404', [], 404);
-        // }
         $loteDemanda = SiafDemanda::find($demanda);
         $dataLote = $loteDemanda->dataLote;
-        // return json_encode( $dataLote);
         $dadosDemanda = SiafDemanda::with(
             ['SiafHistoricoDemanda' => function($respostaHistorico) use($dataLote) {
-                json_encode($respostaHistorico->where('loteAmortizacao', $dataLote));
-                // $respostaHistorico->where('loteAmortizacao', $dataLote);
-            }, 
-                'SiafHistoricoSaldoContaAmortizacao' => function($respostaSaldo) use($dataLote) { 
+                json_encode($respostaHistorico->where('loteAmortizacao', $dataLote), JSON_UNESCAPED_SLASHES);
+            }, 'SiafHistoricoSaldoContaAmortizacao' => function($respostaSaldo) use($dataLote) { 
                 $respostaSaldo->where('loteAmortizacao', $dataLote);
-            }
-            ])->where('TBL_SIAF_DEMANDAS.codigoDemanda', $demanda)->get();
-        // if (isset($dadosDemanda)) {
-        //     return var_dump($dadosDemanda);
-        // } else{
-        //     return response('Demanda não encontrada', 404);
-        // }
-
+            }])->where('TBL_SIAF_DEMANDAS.codigoDemanda', $demanda)->get();
         $arrayHistorico = [];
         $arraySaldo = [];
         if(isset($dadosDemanda[0]->SiafHistoricoSaldoContaAmortizacao)) {
@@ -646,110 +635,7 @@ class SiafDemandaController extends Controller
             "historicoContrato" => $arrayHistorico
         ];
         if (isset($jsonDados)) {
-            return json_encode($jsonDados);
-        } else{
-            return response('Demanda não encontrada', 404);
-        }
-    }
-
-    public function showDemandaComHistoricosValidada($demanda)
-    {
-        $loteDemanda = SiafDemanda::find($demanda);
-        $dataLote = $loteDemanda->dataLote;
-        // return json_encode( $dataLote);
-        $dadosDemanda = SiafDemanda::with(
-            ['SiafHistoricoDemanda' => function($respostaHistorico) use($dataLote) {
-                json_encode($respostaHistorico->where('loteAmortizacao', $dataLote));
-                // $respostaHistorico->where('loteAmortizacao', $dataLote);
-            }, 
-                'SiafHistoricoSaldoContaAmortizacao' => function($respostaSaldo) use($dataLote) { 
-                $respostaSaldo->where('loteAmortizacao', $dataLote);
-            }
-            ])->where('TBL_SIAF_DEMANDAS.codigoDemanda', $demanda)->get();
-        // if (isset($dadosDemanda)) {
-        //     return var_dump($dadosDemanda);
-        // } else{
-        //     return response('Demanda não encontrada', 404);
-        // }
-
-        $arrayHistorico = [];
-        $arraySaldo = [];
-        if(isset($dadosDemanda[0]->SiafHistoricoSaldoContaAmortizacao)) {
-            foreach ($dadosDemanda[0]->SiafHistoricoSaldoContaAmortizacao as $saldo => $value) {             
-                $dadosSaldo = array(
-                    "codigoConsultaSaldo" => $value['codigoHistorico'], 
-                    "dataConsultaSaldo" => $value['created_at']->format('d/m/Y H:i:s'),
-                    "statusSaldo" => $value['tipoHistorico'],
-                    "saldoDisponivel" => number_format($value['saldoDisponivel'], 2, ',', '.'),
-                    "saldoBloqueado" => number_format($value['saldoBloqueado'], 2, ',', '.'),
-                    "LimiteChequeAzul" => number_format($value['limiteChequeAzul'], 2, ',', '.'),
-                    "LimiteGim" => number_format($value['limiteGim'], 2, ',', '.'),
-                    "saldoTotal" => number_format($value['saldoTotal'], 2, ',', '.'),
-                );
-                array_push($arraySaldo, $dadosSaldo);
-            }
-        } else {
-            $dadosSaldo = array(
-                "codigoConsultaSaldo" => null, 
-                "dataConsultaSaldo" => null,
-                "statusSaldo" => null,
-                "saldoDisponivel" => null,
-                "saldoBloqueado" => null,
-                "LimiteChequeAzul" => null,
-                "LimiteGim" => null,
-                "saldoTotal" => null,
-            );
-        }
-        if(isset($dadosDemanda[0]->SiafHistoricoDemanda)) {
-            foreach ($dadosDemanda[0]->SiafHistoricoDemanda as $historico => $value) {               
-                $dadosHistorico = array(
-                    "codigoHistorico" => $value['codigoHistorico'], 
-                    "dataHistorico" => $value['created_at']->format('d/m/Y H:i:s'),
-                    "statusHistorico" => $value['tipoHistorico'],
-                    "matriculaResponsavel" => $value['matriculaResponsavel'],
-                    "unidadeResponsavel" => str_pad($value['unidadeResponsavel'], 4, '0', STR_PAD_LEFT),
-                    "observacaoHistorico" => utf8_decode($value['historico'])
-                );
-                array_push($arrayHistorico, $dadosHistorico);
-            }
-        } else {
-            $dadosHistorico = array(
-                "codigoHistorico" => null, 
-                "dataHistorico" => null,
-                "statusHistorico" => null,
-                "matriculaResponsavel" => null,
-                "unidadeResponsavel" => null,
-                "observacaoHistorico" => null
-            );
-        }
-        switch($dadosDemanda[0]->tipoOperacao){
-            case 'L':
-                $tipoOperacao = "LIQUIDACAO";
-                break;
-            case 'A':
-                $tipoOperacao = "AMORTIZACAO";
-                break;
-        }
-        $jsonDados = [
-            "codigoDemanda" => $dadosDemanda[0]->codigoDemanda,
-            "nomeCliente" => $dadosDemanda[0]->nomeCliente,
-            "cnpj" => $dadosDemanda[0]->cnpj, 
-            "codigoDemanda" => $dadosDemanda[0]->codigoDemanda,
-            "contratoBndes" => $dadosDemanda[0]->contratoBndes,
-            "contratoCaixa" => $dadosDemanda[0]->contratoCaixa,
-            "contaDebito" => $dadosDemanda[0]->contaDebito,
-            "dataLote"=> $dadosDemanda[0]->dataLote,
-            "valorOperacao" => number_format($dadosDemanda[0]->valorOperacao, 2, ',', '.'),
-            "tipoOperacao" => $tipoOperacao,
-            "status" => $dadosDemanda[0]->status,
-            "codigoPa" => str_pad($dadosDemanda[0]->codigoPa, 4, '0', STR_PAD_LEFT),
-            "codigoSr" => $dadosDemanda[0]->codigoSr,
-            "codigoGigad" => $dadosDemanda[0]->codigoGigad,
-            "consultaSaldo" => $arraySaldo,
-            "historicoContrato" => $arrayHistorico
-        ];
-        if (isset($jsonDados)) {
-            return json_encode($jsonDados);
+            return json_encode($jsonDados, JSON_UNESCAPED_SLASHES);
         } else{
             return response('Demanda não encontrada', 404);
         }

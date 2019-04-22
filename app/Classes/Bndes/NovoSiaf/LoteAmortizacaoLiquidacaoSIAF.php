@@ -109,7 +109,7 @@ class LoteAmortizacaoLiquidacaoSIAF
 	{
 		return json_encode(array(
 			'dataLoteAtual'=>$this->getDataLoteAtual(),
-			'dataLoteanterior'=>$this->getDataLoteAnterior(),
+			'dataLoteAnterior'=>$this->getDataLoteAnterior(),
 			'dataLimiteParaCadastroDemanda'=>$this->getDataLimiteParaCadastroDeDemanda(),
 		), JSON_UNESCAPED_SLASHES);	
 	}

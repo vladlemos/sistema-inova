@@ -35,7 +35,7 @@ use App\Classes\Bndes\NovoSiaf\LoteAmortizacaoLiquidacaoSIAF;
         Route::get('bndes/v1/siaf_contratos_sumep', 'Bndes\NovoSiaf\SiafDemandaController@contratosNaSumep');
         Route::get('bndes/v1/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@show');
         Route::get('bndes/v2/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@showDemandaComHistoricos')->where('demanda', '[0-9]+');
-        Route::patch('bndes/v3/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@update')->where('demanda', '[0-9]+');
+        Route::put('bndes/v2/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@update')->where('demanda', '[0-9]+');
         Route::get('bndes/v1/dados_lote', function() {
             $lote = new LoteAmortizacaoLiquidacaoSIAF;
             echo $lote;
