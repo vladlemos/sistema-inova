@@ -291,7 +291,7 @@ function enviarSolicitação(){
      
 
 ctrProx = {
-        // codigoDemanda : $("#codDemanda").val(),
+        codigoDemanda : $("#codDemanda").val(),
         contratoBndes : $("#contrato_bndes_editar").val(), 
         // contratoCaixa : $("#contrato_caixa_editar").val(), 
         contaDebito : $("#conta_corrente_editar").val(), 
@@ -304,7 +304,21 @@ ctrProx = {
         historicoContrato : $("#observacaoContrato").val(),
 
 }
+$.ajax({
 
+    type: 'PUT',
+    url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
+    context : this,
+    data: ctrProx,
+    sucess: function(ctrProx){
+        contrato = JSON.parse(ctrProx);
+        linha = $('#tabConsultaHistoricoEditar>tbody>tr');
+        registroTabela = linha.filter(function(i, element){
+            return (element.cell[0].textContent==$("#codDemanda").val())
+        })
+    }
+//  console.log(contrato.json);
+});
 console.log(ctrProx);
 
 // $('#modalConfirmaAlteracao').modal('show');

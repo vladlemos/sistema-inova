@@ -22,7 +22,7 @@
     <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js')}}"></script>
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js')}}"></script>
     <script src="{{ asset('js/plugins/forms/jquery.maskMoney.min.js')}}"></script>
-    
+    <!-- <script src="{{ asset('js/plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.css')}}"></script> -->
 
 
     <!-- <style>
@@ -334,7 +334,7 @@
                                     <h6 class="panel-title"><i class="icon-coin"></i> Histórico de saldo</h6>
                                 </div>
                                 
-                                <div class="panel-body">
+                                <div class="panel-body tabResponsiva" >
                                 
                                   <table id="tabHistoricoSaldo"class="table table-bordered table-striped datatable">
                                     <thead>
@@ -350,7 +350,7 @@
                                            
                                         </tr>
                                     </thead>
-                                    <tbody id="form_saldo_conta">
+                                    <tbody>
                                         
                                     </tbody>
                                 </table>
@@ -369,9 +369,9 @@
                                    <h6 class="panel-title"><i class="icon-vcard"></i> Histórico do contrato</h6>
                                 </div>
                                
-                               <div class="panel-body">
+                               <div class="panel-body tabResponsiva">
                                
-                                <table id= "tabHistoricoContrato" class="table table-bordered table-striped datatable">
+                                <table id= "tabHistoricoContrato" class="table table-bordered table-striped table-responsive datatable">
                                    <thead>
                                        <tr>
                                             <th> Pedido </th>
@@ -520,7 +520,7 @@
                                 <div class="panel-heading">
                                     <h6 class="panel-title"><i class="icon-coin"></i> Histórico de saldo</h6>
                                 
-                                <div class="panel-body">
+                                <div class="panel-body tabResponsiva">
                                 
                                   <table id= "tabConsultaSaldoEditar"class="table table-bordered table-striped datatable">
                                     <thead>
@@ -536,7 +536,7 @@
                                            
                                         </tr>
                                     </thead>
-                                    <tbody id="form_saldo_conta_2">
+                                    <tbody>
                                         
                                     </tbody>
                                 </table>
@@ -557,7 +557,7 @@
                                    <h6 class="panel-title"><i class="icon-vcard"></i> Histórico do contrato</h6>
                                 
                                
-                               <div class="panel-body">
+                               <div class="panel-body tabResponsiva">
                                
                                 <table id= "tabConsultaHistoricoEditar" class="table table-bordered table-striped datatable">
                                    <thead>
@@ -752,8 +752,10 @@
                 <!-- Default datatable inside panel -->
                 <div class="panel panel-default">
                 <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Contratos da <span id="agenciaContrato"></span> </h6></div>
-                    <!-- <div> -->
+                    
+                    <div class="tabResponsiva datatable">
                     <h6 class="panel-title">Data limite para solicitação <span class="dataLimite" id="dataLimiteCadastro"></span></h6>
+                    
                         <table id="tabelaContratosLiquidar" class="table table-striped table-hover">
                             <thead>
                                 <tr>
@@ -771,7 +773,7 @@
                                         
                                 </tbody>
                         </table>
-                     <!-- </div> -->
+                     </div>
                 </div>
                     
             </div>
@@ -785,7 +787,7 @@
                     <div class="panel-heading">
                         <h6 class="panel-title"><i class="icon-table"></i> Lista de solicitações referentes ao lote : <span id ="proxLote"></span></h6>
                     </div>
-                    <!-- <div class="datatable"> -->
+                    <div class="tabResponsiva">
                         <table id="tabelaAmortizaProx" class="table table-striped table-hover">
                             <thead>
                                 <tr>
@@ -806,7 +808,7 @@
                                     
                                 </tbody>
                         </table>
-                    <!-- </div> -->
+                    </div>
                 </div>
                     
             </div>
@@ -822,7 +824,7 @@
                                 <i class="icon-table"></i>  Lista de solicitações referentes ao lote : <span id ="loteAnt"></span></h6>
                             </div>
 
-                            <!-- <div class="datatable"> -->
+                            <div class="tabResponsiva">
                                     <table id="tabelaLoteAnterior" class="table table-striped table-hover ">
                                         <thead>
                                             <tr>
@@ -840,7 +842,7 @@
                                         </thead>
                                         <tbody></tbody>
                                     </table>
-                            <!-- </div> -->
+                            </div>
                     </div>
                     
             </div>
@@ -857,7 +859,7 @@
                                 <i class="icon-table"></i>  Lista de solicitações com análise Pendente pela SUMEP:</h6>
                             </div>
 
-                            <!-- <div class="datatable"> -->
+                            <div class="tabResponsiva">
                                     <table id="tabelaSumep" class="table table-striped table-hover">
                                         <thead>
                                             <tr>
@@ -879,7 +881,7 @@
                                         
                                         </tbody>
                                     </table>
-                            <!-- </div> -->
+                            </div>
                     </div>
                     
             </div>
@@ -905,15 +907,15 @@
             <!-- Default datatable inside panel -->
                 <div class="panel panel-default">
                 
-                    <div class="datatable">
+                <div class="tabResponsiva">
                         <table id="tabelaListaSolicitacoes" class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                 <th align="center">Lote</th>
-                                        <th align="center">Quantidade Solicitada</th>
-                                        <th align="center">Quantidade Acatada</th>
-                                        <th align="center" class="dinheiro">Valor do Lote</th>
-                                        <th></th>
+                                <th align="center">Quantidade Solicitada</th>
+                                <th align="center">Quantidade Acatada</th>
+                                <th align="center" class="dinheiro">Valor do Lote</th>
+                                <th></th>
                                 </tr>
                                         
                             </thead>
@@ -933,7 +935,7 @@
                         <!-- Default datatable inside panel -->
                         <div class="panel panel-default">
                         
-                                <div class="datatable">
+                            <div class="tabResponsiva">
                                     <table id="tabelaPesquisaSolicitacoes" class="table table-striped table-hover">
                                         <thead>
                                             <tr>
@@ -951,7 +953,7 @@
                                         
                                         </tbody>
                                     </table>
-                                </div>
+                            </div>
                         </div>
                         
             </div>

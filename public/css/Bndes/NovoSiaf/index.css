@@ -34,3 +34,6 @@ font-size: 15px !important;
     font-size: 110%;
 }
 
+.tabResponsiva{
+    overflow: auto;
+}

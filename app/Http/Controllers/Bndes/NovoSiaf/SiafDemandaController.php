@@ -58,9 +58,41 @@ class SiafDemandaController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->input('cadastro[0].contratoCaixa');
-
-        // return json_encode($request);
+        $arrayDemanda = [];
+        $contrato = Contrato::find($request->input("data.0.contratoCaixa"));
+        // return $request;
+        for ($i = 0; $i < sizeof($request->input('data')); $i++) { 
+            // if (is_null($request->input("data.".$i.".contratoBndes")) && is_null($request->input("data.".$i.".contratoCaixa")) && is_null($request->input("data.".$i.".contaDebito")) && is_null($request->input("data.".$i.".valorAmortizacao")) && is_null($request->input("data.".$i.".observacoes"))) {
+            //     return 'não tem nulo';
+            // } else {
+            //     return 'tem nulo';
+            // }
+            $demanda = new Demanda();
+            $demanda->nomeCliente = $contrato->cliente;
+            $demanda->cnpj;
+            $demanda->contratoCaixa;
+            $demanda->contratoBndes;
+            $demanda->valorOperacao;
+            $demanda->tipoOperacao;
+            $demanda->codigoPa;
+            $demanda->nomePa;
+            $demanda->emailPa;
+            $demanda->codigoSr;
+            $demanda->nomeSr;
+            $demanda->emailSr;
+            $demanda->codigoGigad;
+            $demanda->nomeGigad;
+            $demanda->emailGigad;
+            $demanda->dataCadastramento;
+            $demanda->dataLote;
+            $demanda->status;
+            $demanda->matriculaSolicitante;
+            $demanda->contaDebito;
+            
+            // $dados = $request->input("data.".$i.".contratoCaixa"); //
+            // array_push($arrayDemanda, $dados);
+        }
+        // return json_encode($arrayDemanda);
 
         // for ($i=0; $i < count($request); $i++) { 
         //     if(isset($request->numeroContrato)) {

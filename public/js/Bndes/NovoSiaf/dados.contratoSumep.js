@@ -251,23 +251,23 @@ ctrSumep = {
 
 }
 
-// $.ajax({
+$.ajax({
 
-//     type: 'PUT',
-//     url : '../api/bndes/v2/siaf_amortizacoes/' + json ,
-//     context : this,
-//     data: ctrSumep,
-//     sucess: function(ctrSumep){
-//         contrato = JSON.parse(ctrSumep);
-//         linha = $('#tabConsultaHistoricoEditar>tbody>tr');
-//         registroTabela = linha.filter(function(i, elemnt){
-//             return (element.cell[0].textContent==contrato.json)
-//         })
-//     }
-// //  console.log(contrato.json);
-// });
+    type: 'PUT',
+    url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
+    context : this,
+    data: ctrSumep,
+    sucess: function(ctrSumep){
+        contrato = JSON.parse(ctrSumep);
+        linha = $('#tabConsultaHistoricoEditar>tbody>tr');
+        registroTabela = linha.filter(function(i, element){
+            return (element.cell[0].textContent==$("#codDemanda").val())
+        })
+    }
+//  console.log(contrato.json);
+});
 
-// console.log(ctrSumep);
+console.log(ctrSumep);
 
 // $('#modalConfirmaAlteracao').modal('show');
 }

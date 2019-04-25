@@ -136,31 +136,34 @@ function atualizaTabelaAgencia(json)
         event.preventDefault();
     });
 	
-function enviarSolicitacaoAmortizacao(){
-
+function enviarSolicitacaoAmortizacao() {
     var pedidos = $('#tabCadastrar>tbody>tr').length;
-   
-    var cadastro= [];
- 
+    var cadastro = [];
 
-    for(i=0; i< pedidos; i++){
- 
+    for(i = 0; i < pedidos; i++) {
         var pedido = {
-
-                    contratoBndes: $("#ctrBndes"+[i]).val(),
-                    contratoCaixa: $("#ctrCaixa"+[i]).val(),
-                    contaDebito: $("#contaDebito"+[i]).val(),
-                    valorAmortizacao: $("#valorAmort"+[i]).val(),
-                    tipoComando: $("#tipoAmort"+[i]).val(),
-                    observacoes: $("textarea.co_observacoes").val(),
-
-                
-            }
-           cadastro.push(pedido);
+            contratoBndes: $("#ctrBndes"+[i]).val(),
+            contratoCaixa: $("#ctrCaixa"+[i]).val(),
+            contaDebito: $("#contaDebito"+[i]).val(),
+            valorAmortizacao: $("#valorAmort"+[i]).val(),
+            tipoComando: $("#tipoAmort"+[i]).val(),
+            observacoes: $("textarea.co_observacoes").val(),      
         }
-    $.post('https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_amortizacoes', cadastro, function(dadosCadastrados){
-        // jsonDados = JSON.parse(dadosCadastrados)
-        console.log(dadosCadastrados);
+        cadastro.push(pedido);
+    }
+    // $.post('https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_amortizacoes', cadastro, function(dadosCadastrados){
+    //     // jsonDados = JSON.parse(dadosCadastrados)
+    //     console.log(cadastro);
+    // });
+    $.ajax({
+        method: 'POST',
+        cache: false,
+        url: 'https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_amortizacoes',
+        data: {'data':cadastro},
+        async: false,
+        success: function (jsonStr) {
+            console.log(jsonStr);           
+        }
     });
 }
     // console.log(cadastro);
