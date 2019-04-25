@@ -733,11 +733,11 @@
     <div class="tabbable page-tabs">
         <ul class="nav nav-tabs">
             <li class="active">
-            <a id="abaContratosLiquidar" href="#contratosliquidar" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Pedido de Liquidação/Amortização  </a></li>
-            <li id="abaAmortizaprox"><a href="#amortizaprox" data-toggle="tab"><i class="icon-exit4"></i> Acompanhamento pedidos para o próximo Lote  </a></li>
-            <li><a href="#amortizaant" data-toggle="tab"><i class="icon-exit3"></i> Amortizações do Lote Anterior</a></li>
+            <a id="abaContratosLiquidar" href="#contratosliquidar" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Solicitar Liquidação/Amortização  </a></li>
+            <li id="abaAmortizaprox"><a href="#amortizaprox" data-toggle="tab"><i class="icon-exit4"></i> Pedidos lote dia <span id="dataLoteAtual"></span>  </a></li>
+            <li><a href="#amortizaant" data-toggle="tab"><i class="icon-exit3"></i> Pedidos Lote dia <span id="dataLoteAnterior"></span></a></li>
             <li><a href="#SUMEP" data-toggle="tab"><i class="icon-hammer"></i>Contratos na SUMEP</a></li>
-            <li><a href="#amortizatodas" data-toggle="tab"><i class="icon-file4"></i>Todas solicitações de Amortização </a></li>
+            <li><a href="#amortizatodas" data-toggle="tab"><i class="icon-file4"></i>Pedidos Anteriores </a></li>
         </ul>
 
     <!-- conteudo tabelas -->
@@ -753,6 +753,7 @@
                 <div class="panel panel-default">
                 <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Contratos da <span id="agenciaContrato"></span> </h6></div>
                     <!-- <div> -->
+                    <h6 class="panel-title">Data limite para solicitação <span class="dataLimite" id="dataLimiteCadastro"></span></h6>
                         <table id="tabelaContratosLiquidar" class="table table-striped table-hover">
                             <thead>
                                 <tr>
@@ -1218,10 +1219,12 @@
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
         <script src="{{ asset('js/application.js')}}"></script>
         <!-- <script src="{{ asset('js/carrega_dados_dos_contratos.js')}}"></script> -->
+        <script src="{{ asset('js/Bndes/NovoSiaf/data.lote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratos.ag.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.proxlote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnt.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoSumep.js')}}"></script>
+        
         <!-- <script src="{{ asset('js/dataTables.responsive.min.js')}}"></script> -->
         <!-- <script src="{{ asset('js/ldap.js')}}"></script> -->
         <!-- <script src="{{ asset('js/index.js')}}"></script> -->

@@ -291,7 +291,7 @@ function enviarSolicitação(){
      
 
 ctrProx = {
-        codigoDemanda : $("#codDemanda").val(),
+        // codigoDemanda : $("#codDemanda").val(),
         contratoBndes : $("#contrato_bndes_editar").val(), 
         // contratoCaixa : $("#contrato_caixa_editar").val(), 
         contaDebito : $("#conta_corrente_editar").val(), 

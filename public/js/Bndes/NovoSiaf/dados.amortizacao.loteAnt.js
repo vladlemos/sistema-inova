@@ -149,7 +149,7 @@ function editarContratoAnt(json){
         $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
 
             var dados = JSON.parse(dados);
-            console.log(dados);
+            // console.log(dados);
             for(i = 0; i < dados.consultaSaldo.length; i++){
                 linha = montaLinhaTabelaSaldo(dados.consultaSaldo[i]);
                 
@@ -225,8 +225,10 @@ $('#editarcontrato').modal('show');
 
 }   
 
-
-function enviarSolicitação(){
+$('.cadAmortizacao').click(function(){
+    enviarSolicitacaoAmortizacao();
+})
+function enviarDadosLoteAnterior(){
 
     // var url = ('../api/bndes/v2/siaf_amortizacoes/' + json )
 
@@ -255,6 +257,21 @@ ctrAnt = {
 }
 
 console.log(ctrAnt);
+$.ajax({
+
+    type: 'PUT',
+    url : '../api/bndes/v2/siaf_amortizacoes/' + json ,
+    context : this,
+    data: ctrAnt,
+    sucess: function(ctrSumep){
+        contrato = JSON.parse(ctrSumep);
+        linha = $('#tabConsultaHistoricoEditar>tbody>tr');
+        registroTabela = linha.filter(function(i, elemnt){
+            return (element.cell[0].textContent==contrato.json)
+        })
+    }
+//  console.log(contrato.json);
+});
 
 // $('#modalConfirmaAlteracao').modal('show');
 }

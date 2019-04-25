@@ -58,7 +58,18 @@ class SiafDemandaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->input('cadastro[0].contratoCaixa');
+
+        // return json_encode($request);
+
+        // for ($i=0; $i < count($request); $i++) { 
+        //     if(isset($request->numeroContrato)) {
+        //         return echo "Tem número e segue para salvar no banco.";
+        //     } else {
+        //         echo "Não tem número de contrato";
+        //         break;
+        //     }          
+        // }
     }
 
     /**

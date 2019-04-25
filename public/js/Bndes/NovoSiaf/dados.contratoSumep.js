@@ -251,7 +251,23 @@ ctrSumep = {
 
 }
 
-console.log(ctrSumep);
+// $.ajax({
+
+//     type: 'PUT',
+//     url : '../api/bndes/v2/siaf_amortizacoes/' + json ,
+//     context : this,
+//     data: ctrSumep,
+//     sucess: function(ctrSumep){
+//         contrato = JSON.parse(ctrSumep);
+//         linha = $('#tabConsultaHistoricoEditar>tbody>tr');
+//         registroTabela = linha.filter(function(i, elemnt){
+//             return (element.cell[0].textContent==contrato.json)
+//         })
+//     }
+// //  console.log(contrato.json);
+// });
+
+// console.log(ctrSumep);
 
 // $('#modalConfirmaAlteracao').modal('show');
 }

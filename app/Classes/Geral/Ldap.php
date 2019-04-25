@@ -167,15 +167,12 @@ class Ldap
     {
         if(!isset($_SESSION['aut_matricula']) or strtoupper($_SESSION['aut_matricula'])!=strtoupper(substr($_SERVER["AUTH_USER"],10)))
         {
-            $simular='c111640'; //$simular='c026868';
-            //echo $simular;
+            $simularMatricula='c111640';
+            //echo $simularMatricula;
             $matricula = $_SERVER["AUTH_USER"];
-            if ($simular != "")    
-            {
-                $this->setMatricula($simular);
-            } 
-            else 
-            {
+            if ($simularMatricula != "") {
+                $this->setMatricula($simularMatricula);
+            } else {
                 $this->setMatricula(substr($matricula, 10));
             }
                 
@@ -184,14 +181,12 @@ class Ldap
             $search_filter = '(uid=%s)';          
             $search_filter = sprintf( $search_filter, $this->getMatricula());              
             $search_handle = ldap_search($ldap_handle, $search_base, $search_filter);
-            if(!$search_handle)
-            {
+            if(!$search_handle) {
                 throw new Exception("Servidor de Autenticação Indisponível (LDAP: erro na consulta)");
             }
             
             $ldap_resultado = ldap_get_entries($ldap_handle, $search_handle);
-            if($ldap_resultado['count'] == 0)
-            {
+            if($ldap_resultado['count'] == 0) {
                 throw new Exception("Usuário não reconhecido");
             }
             
