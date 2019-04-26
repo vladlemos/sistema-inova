@@ -240,7 +240,7 @@ function enviarSolicitação(){
      
 
 ctrAnt = {
-        codigoDemanda : $("#codDemanda").val(),
+        // codigoDemanda : $("#codDemanda").val(),
         contratoBndes : $("#contrato_bndes_editar").val(), 
         // contratoCaixa : $("#contrato_caixa_editar").val(), 
         contaDebito : $("#conta_corrente_editar").val(), 
@@ -250,7 +250,7 @@ ctrAnt = {
         // codigoPa : $("#pv_editar").val(),  
         // codigoSr: $("#sr_editar").val(),
         // codigoGigad : $("#gigad_editar").val(),
-        historicoContrato : $("#observacaoContrato").val(),
+        observacoes : $("#observacaoContrato").val(),
 
 }
 $.ajax({

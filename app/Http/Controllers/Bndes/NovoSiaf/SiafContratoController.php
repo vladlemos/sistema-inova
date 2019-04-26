@@ -46,16 +46,16 @@ class SiafContratoController extends Controller
             case 'EMPREGADO_AG':
                 if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {     
                     $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
-                                        ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
                                         ->where('TBL_SIAF_CONTRATOS.codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
                                         ->where(function($where){
-                                            $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
-                                                ->orWhere('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'A')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CANCELADO', 'EXCLUIDO UD'])
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO')
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.STATUS');
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
                                         })
                                         ->distinct()
                                         ->get();       
@@ -63,48 +63,48 @@ class SiafContratoController extends Controller
                 } else {
                     if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
-                                        ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
                                         ->where('TBL_SIAF_CONTRATOS.codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
-                                            $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
-                                                ->orWhere('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'A')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CANCELADO', 'EXCLUIDO UD'])
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO')
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.STATUS');
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
                                         })
                                         ->distinct()
                                         ->get();        
                         return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                     } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {      
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
-                                        ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
                                         ->where('TBL_SIAF_CONTRATOS.codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
-                                            $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
-                                                ->orWhere('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'A')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CANCELADO', 'EXCLUIDO UD'])
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO')
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.STATUS');
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
                                         })
                                         ->distinct()
                                         ->get(); 
                         return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                     } else {     
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
-                                        ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
                                         ->where('TBL_SIAF_CONTRATOS.codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
-                                            $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
-                                                ->orWhere('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'A')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CANCELADO', 'EXCLUIDO UD'])
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO')
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.STATUS');
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
                                         })
                                         ->distinct()
                                         ->get();     
@@ -115,16 +115,16 @@ class SiafContratoController extends Controller
             case 'EMPREGADO_SR':
                 if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
                     $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
-                                        ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
                                         ->where('TBL_SIAF_CONTRATOS.codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
                                         ->where(function($where){
-                                            $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
-                                                ->orWhere('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'A')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CANCELADO', 'EXCLUIDO UD'])
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO')
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.STATUS');
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
                                         })
                                         ->distinct()
                                         ->get();     
@@ -132,48 +132,48 @@ class SiafContratoController extends Controller
                 } else {
                     if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
-                                        ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
                                         ->where('TBL_SIAF_CONTRATOS.codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
-                                            $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
-                                                ->orWhere('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'A')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CANCELADO', 'EXCLUIDO UD'])
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO')
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.STATUS');
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
                                         })
                                         ->distinct()
                                         ->get();
                         return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                     } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {      
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
-                                        ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
                                         ->where('TBL_SIAF_CONTRATOS.codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
-                                            $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
-                                                ->orWhere('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'A')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CANCELADO', 'EXCLUIDO UD'])
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO')
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.STATUS');
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
                                         })
                                         ->distinct()
                                         ->get();
                         return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                     } else {       
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
-                                        ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
                                         ->where('TBL_SIAF_CONTRATOS.codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
-                                            $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
-                                                ->orWhere('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'A')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CANCELADO', 'EXCLUIDO UD'])
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO')
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.STATUS');
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
                                         })
                                         ->distinct()
                                         ->get();
@@ -184,16 +184,16 @@ class SiafContratoController extends Controller
             case 'GIGAD':
                 if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {      
                     $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
-                                        ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
                                         ->where('TBL_SIAF_CONTRATOS.codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
                                         ->where(function($where){
-                                            $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
-                                                ->orWhere('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'A')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CANCELADO', 'EXCLUIDO UD'])
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO')
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.STATUS');
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
                                         })
                                         ->distinct()
                                         ->get();
@@ -201,48 +201,48 @@ class SiafContratoController extends Controller
                 } else {
                     if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
-                                        ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
                                         ->where('TBL_SIAF_CONTRATOS.codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
-                                            $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
-                                                ->orWhere('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'A')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CANCELADO', 'EXCLUIDO UD'])
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO')
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.STATUS');
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
                                         })
                                         ->distinct()
                                         ->get();
                         return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                     } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
-                                        ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
                                         ->where('TBL_SIAF_CONTRATOS.codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
-                                            $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
-                                                ->orWhere('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'A')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CANCELADO', 'EXCLUIDO UD'])
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO')
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.STATUS');
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
                                         })
                                         ->distinct()
                                         ->get();     
                         return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                     } else {       
                         $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
-                                        ->leftjoin('TBL_SIAF_AMORTIZACOES', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_AMORTIZACOES.CONTRATO_CAIXA')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
                                         ->where('TBL_SIAF_CONTRATOS.codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                         ->where(function($where){
-                                            $where->where('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'L')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
-                                                ->orWhere('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO', '<>', 'A')
-                                                ->whereIn('TBL_SIAF_AMORTIZACOES.STATUS', ['CANCELADO', 'EXCLUIDO UD'])
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.TP_AMORTIZACAO')
-                                                ->orWhereNull('TBL_SIAF_AMORTIZACOES.STATUS');
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
                                         })
                                         ->distinct()
                                         ->get();       
@@ -324,5 +324,233 @@ class SiafContratoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexComConsultaDiretoNoModal()
+    {
+        $usuario = new Ldap;
+        $empregado = Empregado::find($usuario->getMatricula());
+        $empregadoAcesso = DB::table('tbl_EMPREGADOS')
+                            ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
+                            ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADOS.nivelAcesso')
+                            // ->select('tbl_empregados.matricula', 'tbl_empregados.nome_completo', 'tbl_empregados.nome_funcao', 'tbl_empregados.codigo_lotacao_administrativa',  'tbl_ACESSA_EMPREGADOS.nivel_acesso')
+                            ->where('tbl_ACESSA_EMPREGADOS.matricula', '=', $empregado->matricula)
+                            ->get();
+        
+        switch ($empregadoAcesso[0]->nivelAcesso) {
+            case 'EMPREGADO_AG':
+                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {     
+                    $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                                        ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
+                                        ->where('TBL_SIAF_CONTRATOS.codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
+                                        ->where(function($where){
+                                            $where->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
+                                        })
+                                        ->distinct()
+                                        ->get();       
+                    return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
+                } else {
+                    if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
+                        $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                                        ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
+                                        ->where('TBL_SIAF_CONTRATOS.codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                                        ->where(function($where){
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
+                                        })
+                                        ->distinct()
+                                        ->get();        
+                        return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
+                    } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {      
+                        $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                                        ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
+                                        ->where('TBL_SIAF_CONTRATOS.codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                                        ->where(function($where){
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
+                                        })
+                                        ->distinct()
+                                        ->get(); 
+                        return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
+                    } else {     
+                        $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                                        ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
+                                        ->where('TBL_SIAF_CONTRATOS.codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                                        ->where(function($where){
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
+                                        })
+                                        ->distinct()
+                                        ->get();     
+                        return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
+                    }                   
+                }
+                break;
+            case 'EMPREGADO_SR':
+                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
+                    $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                                        ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
+                                        ->where('TBL_SIAF_CONTRATOS.codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
+                                        ->where(function($where){
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
+                                        })
+                                        ->distinct()
+                                        ->get();     
+                    return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
+                } else {
+                    if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
+                        $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                                        ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
+                                        ->where('TBL_SIAF_CONTRATOS.codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                                        ->where(function($where){
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
+                                        })
+                                        ->distinct()
+                                        ->get();
+                        return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
+                    } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {      
+                        $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                                        ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
+                                        ->where('TBL_SIAF_CONTRATOS.codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                                        ->where(function($where){
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
+                                        })
+                                        ->distinct()
+                                        ->get();
+                        return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
+                    } else {       
+                        $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                                        ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
+                                        ->where('TBL_SIAF_CONTRATOS.codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                                        ->where(function($where){
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
+                                        })
+                                        ->distinct()
+                                        ->get();
+                        return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
+                    }                   
+                }
+                break;
+            case 'GIGAD':
+                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {      
+                    $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                                        ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
+                                        ->where('TBL_SIAF_CONTRATOS.codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)
+                                        ->where(function($where){
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
+                                        })
+                                        ->distinct()
+                                        ->get();
+                    return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
+                } else {
+                    if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
+                        $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                                        ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
+                                        ->where('TBL_SIAF_CONTRATOS.codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                                        ->where(function($where){
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
+                                        })
+                                        ->distinct()
+                                        ->get();
+                        return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
+                    } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
+                        $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                                        ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
+                                        ->where('TBL_SIAF_CONTRATOS.codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                                        ->where(function($where){
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
+                                        })
+                                        ->distinct()
+                                        ->get();     
+                        return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
+                    } else {       
+                        $listaContratos = DB::table('TBL_SIAF_CONTRATOS')
+                                        ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
+                                        ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente')
+                                        ->where('TBL_SIAF_CONTRATOS.codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
+                                        ->where(function($where){
+                                            $where->where('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'L')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CADASTRADO', 'RECEBIDO', 'FALTA SIBAN', 'SIBAN OK', 'NA SUMEP', 'EM CALCULO', 'ACATADO', 'CONCLUIDO'])
+                                                ->orWhere('TBL_SIAF_DEMANDAS.tipoOperacao', '<>', 'A')
+                                                ->whereIn('TBL_SIAF_DEMANDAS.status', ['CANCELADO', 'EXCLUIDO UD'])
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.tipoOperacao')
+                                                ->orWhereNull('TBL_SIAF_DEMANDAS.status');
+                                        })
+                                        ->distinct()
+                                        ->get();       
+                        return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
+                    }                   
+                }
+                break;
+            default:    
+                $loteAnterior = "";
+                return json_encode($loteAnterior, JSON_UNESCAPED_SLASHES);
+                break;
+        }
     }
 }

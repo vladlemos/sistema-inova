@@ -18,7 +18,7 @@ class CreateSiafHistoricoDemandasTable extends Migration
             $table->string('contratoCaixa', 20);
             $table->string('loteAmortizacao', 10);
             $table->string('tipoHistorico', 100);
-            $table->text('historico');
+            $table->text('historico')->nullable();
             $table->string('matriculaResponsavel', 7);
             $table->string('unidadeResponsavel', 4);
             $table->timestamps();

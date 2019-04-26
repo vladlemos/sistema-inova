@@ -479,6 +479,7 @@
                             <div>
                                 <select data-placeholder="Selecione o tipo.."  id="status_editar" class="form-control">
 								<option value=""> - </option> 
+                                <option value="CADASTRADO" style="display: none">CADASTRADO</option>
 								<option value="SIBAN OK">SIBAN OK</option>
 								<option value="FALTA SIBAN">FALTA SIBAN</option>
 								<option value="RECEBIDO">RECEBIDO</option>
@@ -519,6 +520,7 @@
                               <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h6 class="panel-title"><i class="icon-coin"></i> Histórico de saldo</h6>
+                                </div>
                                 
                                 <div class="panel-body tabResponsiva">
                                 
@@ -546,7 +548,7 @@
                                 </div>
                             </div>
             
-                        </div>
+                        
                     </form>
                             
                     </div>
@@ -555,7 +557,7 @@
                             <div class="row">
                                 <div class="panel-heading">
                                    <h6 class="panel-title"><i class="icon-vcard"></i> Histórico do contrato</h6>
-                                
+                                </div>
                                
                                <div class="panel-body tabResponsiva">
                                
@@ -580,8 +582,7 @@
                                </div>
                           
                             </div>
-                            </div>
-                          
+  
                 </div>                       
                       
             </div>
@@ -635,12 +636,12 @@
                 </div>
 
                 <div class="modal-body with-padding">
-                    <p>Consulte em seus pedidos os protocolos gerados e acompanhe o processo de amortização na aba acompanhamento.</p>
+                    <p>Consulte em seus pedidos os protocolos gerados e acompanhe o processo de amortização na aba pedidos.</p>
                 </div>
 
                 <div class="modal-footer">
                     
-                    <button class="btn btn-success">OK</button>
+                    <button class="btn btn-success" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
@@ -658,7 +659,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-success" data-dismiss="modal">OK</button>
+                    <button class="btn btn-success center" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
@@ -753,7 +754,7 @@
                 <div class="panel panel-default">
                 <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Contratos da <span id="agenciaContrato"></span> </h6></div>
                     
-                    <div class="tabResponsiva datatable">
+                    <div class="tabResponsiva">
                     <h6 class="panel-title">Data limite para solicitação <span class="dataLimite" id="dataLimiteCadastro"></span></h6>
                     
                         <table id="tabelaContratosLiquidar" class="table table-striped table-hover">
@@ -1226,6 +1227,7 @@
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.proxlote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnt.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoSumep.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/valida.cadastroAmortizacao.js')}}"></script>
         
         <!-- <script src="{{ asset('js/dataTables.responsive.min.js')}}"></script> -->
         <!-- <script src="{{ asset('js/ldap.js')}}"></script> -->

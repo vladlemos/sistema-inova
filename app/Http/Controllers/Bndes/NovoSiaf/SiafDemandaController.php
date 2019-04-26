@@ -59,40 +59,70 @@ class SiafDemandaController extends Controller
     public function store(Request $request)
     {
         $arrayDemanda = [];
-        $contrato = Contrato::find($request->input("data.0.contratoCaixa"));
-        // return $request;
+        // Capturar os dados do contrato
+        $contrato = SiafContrato::find($request->input("data.0.contratoCaixa"));
+        // Capturar os dados do lote de amortizacao
+        $lote = new LoteAmortizacaoLiquidacaoSIAF;
+        // Capturar os dados do usuário da sessão
+        $usuario = Empregado::find(substr($_SERVER["LOGON_USER"],strpos($_SERVER["LOGON_USER"], "\\")+1));
+        // Captura a lotacao do usuario
+        if ($usuario->codigoLotacaoFisica === null) {
+            $lotacao = $usuario->codigoLotacaoAdministrativa;
+        } else {
+            $lotacao = $usuario->codigoLotacaoFisica;
+        }
+        
         for ($i = 0; $i < sizeof($request->input('data')); $i++) { 
             // if (is_null($request->input("data.".$i.".contratoBndes")) && is_null($request->input("data.".$i.".contratoCaixa")) && is_null($request->input("data.".$i.".contaDebito")) && is_null($request->input("data.".$i.".valorAmortizacao")) && is_null($request->input("data.".$i.".observacoes"))) {
             //     return 'não tem nulo';
             // } else {
             //     return 'tem nulo';
             // }
-            $demanda = new Demanda();
+
+            // Instancia o model da Demanda
+            $demanda = new SiafDemanda();
             $demanda->nomeCliente = $contrato->cliente;
-            $demanda->cnpj;
-            $demanda->contratoCaixa;
-            $demanda->contratoBndes;
-            $demanda->valorOperacao;
-            $demanda->tipoOperacao;
-            $demanda->codigoPa;
-            $demanda->nomePa;
-            $demanda->emailPa;
-            $demanda->codigoSr;
-            $demanda->nomeSr;
-            $demanda->emailSr;
-            $demanda->codigoGigad;
-            $demanda->nomeGigad;
-            $demanda->emailGigad;
-            $demanda->dataCadastramento;
-            $demanda->dataLote;
-            $demanda->status;
-            $demanda->matriculaSolicitante;
-            $demanda->contaDebito;
+            $demanda->cnpj = $contrato->cnpj;
+            $demanda->contratoCaixa = $request->input("data." . $i . ".contratoCaixa");
+            $demanda->contratoBndes = $request->input("data." . $i . ".contratoBndes");
+            $demanda->valorOperacao = $request->input("data." . $i . ".valorAmortizacao");
+            $demanda->tipoOperacao = $request->input("data." . $i . ".tipoComando");
+            $demanda->codigoPa = $contrato->codigoPa;
+            $demanda->nomePa = $contrato->nomePa;
+            $demanda->emailPa = $contrato->emailPa;
+            $demanda->codigoSr = $contrato->codigoSr;
+            $demanda->nomeSr = $contrato->nomeSr;
+            $demanda->emailSr = $contrato->emailSr;
+            $demanda->codigoGigad = $contrato->codigoGigad;
+            $demanda->nomeGigad = $contrato->nomeGigad;
+            $demanda->emailGigad = $contrato->emailGigad;
+            $demanda->dataCadastramento = date("Y-m-d H:i:s", time());
+            $demanda->dataLote = $lote->getDataLoteAtual();
+            $demanda->status = 'CADASTRADO';
+            $demanda->matriculaSolicitante = $usuario->matricula;
+            $demanda->contaDebito = $request->input("data." . $i . ".contaDebito");
+            $demanda->save();
+
+            // Recupera os dados da demanda cadastrada
+            $dadosDemandaCadastrada = SiafDemanda::find($demanda->codigoDemanda);
+            
+            // Instancia o model de  Historico da Demanda
+            $historicoDemanda = new SiafHistoricoDemanda;
+            $historicoDemanda->contratoCaixa = $dadosDemandaCadastrada->contratoCaixa;
+            $historicoDemanda->loteAmortizacao = $dadosDemandaCadastrada->dataLote;
+            $historicoDemanda->tipoHistorico = 'CADASTRO';
+            $historicoDemanda->historico = $request->input("data." . $i . ".observacoes");
+            $historicoDemanda->matriculaResponsavel = $dadosDemandaCadastrada->matriculaSolicitante;
+            $historicoDemanda->unidadeResponsavel = $lotacao;
+            $historicoDemanda->save();
+
+            $dadosHistoricoDemanda = SiafHistoricoDemanda::find($historicoDemanda->codigoHistorico);
             
             // $dados = $request->input("data.".$i.".contratoCaixa"); //
-            // array_push($arrayDemanda, $dados);
+            array_push($arrayDemanda, $dadosDemandaCadastrada);
+            array_push($arrayDemanda, $dadosHistoricoDemanda);
         }
-        // return json_encode($arrayDemanda);
+        return json_encode($arrayDemanda);
 
         // for ($i=0; $i < count($request); $i++) { 
         //     if(isset($request->numeroContrato)) {
@@ -144,15 +174,25 @@ class SiafDemandaController extends Controller
     public function update(Request $request, $id)
     {
         $arrayHistorico = [];
-
+        $tipoOperacao = "";
+        
         // Update na tabela TBL_SIAF_DEMANDAS
         $demanda = SiafDemanda::find($id);
-        $demanda->contratoBndes = '64199941238';
-        $demanda->contaDebito = '1234.567.8901234-5';
-        $demanda->valorOperacao = '1234.56';
-        $demanda->tipoOperacao = 'L';
-        $demanda->status = 'CANCELADO';
-        // $demanda->save();
+        switch($demanda->tipoOperacao){
+            case 'LIQUIDACAO':
+                $tipoOperacao = "L";
+                break;
+            case 'AMORTIZACAO':
+                $tipoOperacao = "A";
+                break;
+        }
+
+        $demanda->contratoBndes = $request->contratoBndes;
+        $demanda->contaDebito = $request->contaDebito;
+        $demanda->valorOperacao = $request->valorOperacao;
+        $demanda->tipoOperacao = $tipoOperacao;
+        $demanda->status = $request->status;
+        $demanda->save();
 
         // Capturar os dados do usuário da sessão
         $usuario = Empregado::find(substr($_SERVER["LOGON_USER"],strpos($_SERVER["LOGON_USER"], "\\")+1));
@@ -162,10 +202,10 @@ class SiafDemandaController extends Controller
         $historicoDemanda->contratoCaixa = $demanda->contratoCaixa;
         $historicoDemanda->loteAmortizacao = $demanda->loteAmortizacao;
         $historicoDemanda->tipoHistorico = $demanda->status;
-        $historicoDemanda->historico = $demanda->historicoContrato;
+        $historicoDemanda->historico = $demanda->observacoes;
         $historicoDemanda->matriculaResponsavel = $usuario->matriculaResponsavel;
         $historicoDemanda->unidadeResponsavel = $usuario->codigoLotacaoAdministrativa;
-        // $historicoDemanda->save();
+        $historicoDemanda->save();
 
         // Retorna os dados da demanda atualizada/cadastrada via json
         $historicoDemandaCadastrada = SiafHistoricoDemanda::find($historicoDemanda->codigoHistorico);
@@ -187,7 +227,6 @@ class SiafDemandaController extends Controller
             "status" => $demanda->status,
             "historicoDemanda" => $arrayHistoricoDemanda
         );
-        
         return json_encode($arrayDemanda, JSON_UNESCAPED_SLASHES);
     }
 
