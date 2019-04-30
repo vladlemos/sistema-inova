@@ -201,7 +201,7 @@
                                             <th>Tipo de Comando</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="form_contratos">
+                                    <tbody>
                                         
                                     </tbody>
                                 </table>
@@ -214,7 +214,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
-                                <button class="btn btn-success pull-right cadAmortizacao onclick="enviarSolicitacaoAmortizacao()">Enviar à CEOPC</button>
+                                <button class="btn btn-success pull-right cadAmortizacao" onclick="enviarSolicitacaoAmortizacao()">Enviar à CEOPC</button>
                             </div>
                             </form>
                             </div>
@@ -257,7 +257,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><i class="icon-eye"></i>Visualizar Contrato <span id="nome_cliente"></span>  <span id="cnpj_cliente"></span></h4>
+                    <!-- <h4 class="modal-title"><i class="icon-eye"></i>Visualizar Contrato <span id="nome_cliente_modal"></span>  <span id="cnpj_cliente_modal"></span></h4> -->
+                    <h4 class="modal-title"><i class="icon-file-plus"></i>Visualizar Contrato  <span id="nome_cliente_modal"></span>  <span id="cnpj_cliente_modal"></span></h4>
                 </div>
                                
                 <div class="modal-body with-padding">
@@ -269,7 +270,7 @@
                         
                     </ul>
                 <div class="tab-content">
-                <h5 class=""><span id="nome_cliente_modal"></span> &nbsp &nbsp <span id="cnpj_cliente_modal"></h5>
+                <!-- <h5 ><span id="nome_cliente_modal"></span> <span id="cnpj_cliente_modal"></h5> -->
                     <div class="tab-pane fade in active" id="tabVisualizar">
 
                     <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_visualiza_pedido">
@@ -301,11 +302,37 @@
                             <div class="row">    
                             <div class="col-sm-3">
                                 <label class="control-label">Tipo de Comando</label>
-                                <input placeholder="..." id="tipo_modal" class="form-control" type="text" disabled>
+                                <!-- <input placeholder="..." id="tipo_modal" class="form-control" type="text" disabled> -->
+                                <select data-placeholder="Selecione o tipo.." id="tipo_modal" class=" tipoAmortizacao form-control" disabled>
+                                    <option value="">-</option> 
+                                    <option value="A">AMORTIZAÇÃO</option> 
+                                    <option value="L">LIQUIDAÇÃO</option> 
+                                </select>
                             </div>
                             <div class="col-sm-3">
                                 <label class="control-label">STATUS</label>
-                                <input placeholder="..." id="status_modal" class="form-control" type="text" disabled>
+                                <!-- <input placeholder="..." id="status_modal" class="form-control" type="text" disabled> -->
+                                <div>
+                                    <select data-placeholder="Selecione o tipo.."  id="status_modal" class="form-control" disabled>
+                                        <option value=""> - </option> 
+                                        <option value="CADASTRADO" style="display: none">CADASTRADO</option>
+                                        <option value="SIBAN OK">SIBAN OK</option>
+                                        <option value="FALTA SIBAN">FALTA SIBAN</option>
+                                        <option value="RECEBIDO">RECEBIDO</option>
+                                        <option value="NA SUMEP">À SUMEP</option>
+                                        <option value="NL SEM SALDO">NL SEM SALDO</option>
+                                        <option value="NL EM CA">NL EM CA</option>
+                                        <option value="NL SEM COMANDO">NL SEM COMANDO</option>
+                                        <option value="SUMEP RESIDUO SIFBN">SUMEP - RESIDUO SIFBN</option>
+                                        <option value="SUMEP DEB_PENDENTE">SUMEP DEB_PENDENTE</option>
+                                        <option value="SUMEP NAO LIQUIDADO">SUMEP - NAO LIQUIDADO</option>
+                                        <option value="CANCELADO">CANCELADO</option>
+                                        <option value="ACATADO">ACATADO</option>
+                                        <option value="CONCLUIDO">CONCLUIDO</option>
+                                    </select>
+
+                                </div>
+                                  
                             </div>
                               <div class="col-sm-1">
                                 <label class="control-label">PA</label>
@@ -416,7 +443,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><i class="icon-eye"></i>Editar Contrato <span id="nome_cliente"></span>  <span id="cnpj_cliente"></span></h4>
+                    <!-- <h4 class="modal-title"><i class="icon-eye"></i>Editar Contrato <span id="nome_cliente_editar"></span>  <span id="cnpj_cliente_editar"></span></h4> -->
+                    <h4 class="modal-title"><i class="icon-eye"></i>Editar Contrato  <span id="nome_cliente_editar"></span>  <span id="cnpj_cliente_editar"></span></h4>
                 </div>
                                
                 <div class="modal-body with-padding">
@@ -428,7 +456,7 @@
                         
                     </ul>
                 <div class="tab-content">
-                <h5 class=""><span id="nome_cliente_editar"></span> &nbsp &nbsp <span id="cnpj_cliente_editar"></h5>
+                <!-- <h5 class=""><span id="nome_cliente_editar"></span> &nbsp &nbsp <span id="cnpj_cliente_editar"></h5> -->
                     <div class="tab-pane fade in active" id="tabEditar">
                     <span id="codDemanda"></span>
 
@@ -469,12 +497,16 @@
                             <div class="row">    
                             <div class="col-sm-3">
                                 <label class="control-label">Tipo de Comando</label>
-                                <input placeholder="..." id="tipo_editar" class="form-control" type="text" disabled>
+                                <!-- <input placeholder="..." id="tipo_editar" class="form-control" type="text"> -->
+                                <select data-placeholder="Selecione o tipo.." id="tipo_editar" class=" tipoAmortizacao form-control">
+                                    <option value="">-</option> 
+                                    <option value="A">AMORTIZAÇÃO</option> 
+                                    <option value="L">LIQUIDAÇÃO</option> 
+                                </select>
                             </div>
                             <div class="col-sm-3">
                                 <label class="control-label">STATUS</label>
-                              
-                                
+                                                             
                                 <!-- <div id="form_status_editar"> -->
                             <div>
                                 <select data-placeholder="Selecione o tipo.."  id="status_editar" class="form-control">

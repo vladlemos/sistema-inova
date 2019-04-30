@@ -155,7 +155,7 @@ function enviarSolicitacaoAmortizacao() {
                         contratoBndes: $("#ctrBndes"+[i]).val(),
                         contratoCaixa: $("#ctrCaixa"+[i]).val(),
                         contaDebito: $("#contaDebito"+[i]).val(),
-                        valorAmortizacao: $("#valorAmort"+[i]).val(),
+                        valorAmortizacao: $("#valorAmort"+[i]).val().replace(".","").replace(",","."),
                         tipoComando: $("#tipoAmort"+[i]).val(),
                         observacoes: $("textarea.co_observacoes").val(),      
                     }
@@ -163,24 +163,40 @@ function enviarSolicitacaoAmortizacao() {
                     console.log(pedido);
                     $('#modalCadastramento').modal('hide');
                     $('#confirmacao').modal('show');
+                
+                // Envia dados para o banco de dados
+                $.ajax({
+                    method: 'POST',
+                    cache: false,
+                    url: 'https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_amortizacoes',
+                    data: {'data':cadastro},
+                    async: false,
+                    success: function (jsonStr) {
+                        console.log(jsonStr);           
+                    }
+                });
 
-                }
+            }
+            // else{
+
+            //     var pedido = {
+            //         contratoBndes: $("#ctrBndes"+[i]).val(),
+            //         contratoCaixa: $("#ctrCaixa"+[i]).val(),
+            //         contaDebito: $("#contaDebito"+[i]).val(),
+            //         valorAmortizacao: $("#valorAmort"+[i]).val(),
+            //         tipoComando: $("#tipoAmort"+[i]).val(),
+            //         observacoes: $("textarea.co_observacoes").val(),      
+            //     }
+            //     // alert("Pedido de amortização/liquidação não efetuado.");
+            //     // $('#modalCadastramento').modal('hide');
+            //     console.log(pedido);
+            // }
 
            
         }
 
-    //Envia dados para o banco de dados
-    $.ajax({
-        method: 'POST',
-        cache: false,
-        url: 'https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_amortizacoes',
-        data: {'data':cadastro},
-        async: false,
-        success: function (jsonStr) {
-            console.log(jsonStr);           
-        }
-    });
-    $("#Contratosliquidar").reload();
+ 
+    // $("#tabelaContratosLiquidar").reload();
 }
 // }
     // console.log(cadastro);

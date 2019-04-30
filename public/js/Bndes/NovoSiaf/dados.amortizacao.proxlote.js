@@ -50,8 +50,8 @@ function atualizaTabelaProxLote(json)
                 '<td>' + json.contratoCaixa    + '</td>' +
                 '<td>' + json.contratoBndes    + '</td>' +
                 '<td>' + json.contaDebito    + '</td>' +
-                '<td>' + json.valorOperacao    + '</td>' +
-                '<td>' + json.tipoOperacao   + '</td>' +
+                '<td>' + json.valorOperacao.replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") + '</td>' +
+                '<td>' + json.tipoOperacao.replace("A","AMORTIZAÇÃO").replace("L","LIQUIDAÇÃO")   + '</td>' +
                 '<td>' + json.status	        + '</td>' +
 
 				'<td>'	+				
@@ -123,8 +123,8 @@ function visualizaContratoProxlote(json){
                 
             }
                 
-            $('#nome_cliente_modal').val(dados.nomeCliente);
-            $('#cnpj_cliente_modal').val(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+            $('#nome_cliente_modal').html(dados.nomeCliente);
+            $('#cnpj_cliente_modal').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
             $('#status_modal').val(dados.status);
             $('#contrato_caixa_modal').val(dados.contratoCaixa);
             $('#contrato_bndes_modal').val(dados.contratoBndes);
@@ -203,8 +203,8 @@ function visualizaContratoProxlote(json){
           
 
         $('#codDemanda').val(dados.codigoDemanda);
-        $('#nome_cliente_editar').val(dados.nomeCliente);
-        $('#cnpj_cliente_editar').val(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+        $('#nome_cliente_editar').html(dados.nomeCliente);
+        $('#cnpj_cliente_editar').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
         $('#status_editar').val(dados.status);
         $('#contrato_caixa_editar').val(dados.contratoCaixa);
         $('#contrato_bndes_editar').val(dados.contratoBndes);
@@ -232,14 +232,14 @@ function visualizaContratoProxlote(json){
    
 
 //pega as informações alteradas no modal e envia via post quando clicado no botão enviar a ceopc
-function enviarSolicitação(){
+// function enviarSolicitação(){
 
-    $.getJSON('../api/bndes/v1/siaf_amortizacoes_lote_atual', function(json){
+//     $.getJSON('../api/bndes/v1/siaf_amortizacoes_lote_atual', function(json){
 
 
-    var url = ('../api/bndes/v2/siaf_amortizacoes/' + json.codigoDemanda )
+//     var url = ('../api/bndes/v2/siaf_amortizacoes/' + json.codigoDemanda )
 
-    console.log(url);
+//     console.log(url);
     
     // $.ajax({
         
@@ -275,20 +275,10 @@ function enviarSolicitação(){
       
     // });  
 
-    }); 
-}
+//     }); 
+// }
 function enviarSolicitação(){
 
-    // var url = ('../api/bndes/v2/siaf_amortizacoes/' + json )
-
-// $.ajax({
-  
-//   type: 'POST',
-//   //   url : url,
-//   datatype: 'json',
-
-//   success: function(enviarDadosContratoAnt){
-     
 
 ctrProx = {
         // codigoDemanda : $("#codDemanda").val(),
@@ -310,15 +300,33 @@ $.ajax({
     url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
     context : this,
     data: ctrProx,
-    sucess: function(ctrProx){
-        contrato = JSON.parse(ctrProx);
-        linha = $('#tabConsultaHistoricoEditar>tbody>tr');
-        registroTabela = linha.filter(function(i, element){
-            return (element.cell[0].textContent==$("#codDemanda").val())
-        })
+    sucess: function(data){
+
+        // $("#tabelaAmortizaProx").load(this);
+        // atualizaTabelaProxLote();
+
+//         xmlHttp=new XMLHttpRequest();
+//         $('#tabelaAmortizaProx>tbody>tr').innerHTML=xmlHttp.responseText;
+//         xmlHttp.open("GET","../api/bndes/v1/siaf_amortizacoes_lote_atual",true);
+// //         $('#tabelaAmortizaProx>tbody>tr').load(data);
+//         contrato = JSON.parse(ctrProx);
+//         linha = $('#tabelaAmortizaProx>tbody>tr');
+//         registroTabela = linha.filter(function(i, element){
+//             return (element.cell[0].textContent==$("#codDemanda").val())
+//         })
+//         if (registroTabela) {
+//             registroTabela[0].cells[0].textContent = $("#codDemanda").val();
+//             registroTabela[0].cells[1].textContent = $("#contrato_caixa_editar").val();
+//             registroTabela[0].cells[2].textContent = $("#contrato_bndes_editar").val();
+//             registroTabela[0].cells[3].textContent = $("#conta_corrente_editar").val();
+//             registroTabela[0].cells[4].textContent = $("#valor_editar").val();
+//             registroTabela[0].cells[5].textContent = $("#tipo_editar").val();
+//             registroTabela[0].cells[6].textContent = $("#status_editar").val();
+// }
     }
-//  console.log(contrato.json);
+ 
 });
+// console.log(registroTabela);
 console.log(ctrProx);
 
 // $('#modalConfirmaAlteracao').modal('show');

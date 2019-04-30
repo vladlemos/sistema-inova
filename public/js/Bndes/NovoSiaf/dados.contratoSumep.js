@@ -48,8 +48,8 @@ function atualizaTabelaSumep(json)
                 '<td>' + json.contratoCaixa     + '</td>' +
                 '<td>' + json.contratoBndes     + '</td>' +
                 '<td>' + json.dataLote          + '</td>' +
-                '<td>' + json.valorOperacao     + '</td>' +
-                '<td>' + json.tipoOperacao    + '</td>' +
+                '<td>' + json.valorOperacao.replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")     + '</td>' +
+                '<td>' + json.tipoOperacao.replace("A","AMORTIZAÇÃO").replace("L","LIQUIDAÇÃO")     + '</td>' +
                 '<td>' + json.status	        + '</td>' +
 
 				'<td>'	+				
@@ -117,8 +117,8 @@ function visualizaContratoSumep(json){
                 
                 }
                 
-                $('#nome_cliente_modal').val(dados.nomeCliente);
-                $('#cnpj_cliente_modal').val(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+                $('#nome_cliente_modal').html(dados.nomeCliente);
+                $('#cnpj_cliente_modal').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
                 $('#status_modal').val(dados.status);
                 $('#contrato_caixa_modal').val(dados.contratoCaixa);
                 $('#contrato_bndes_modal').val(dados.contratoBndes);
@@ -196,8 +196,8 @@ function editarContratoSumep(json){
           
 
         $('#codDemanda').val(dados.codigoDemanda);
-        $('#nome_cliente_editar').val(dados.nomeCliente);
-        $('#cnpj_cliente_editar').val(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+        $('#nome_cliente_editar').html(dados.nomeCliente);
+        $('#cnpj_cliente_editar').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
         $('#status_editar').val(dados.status);
         $('#contrato_caixa_editar').val(dados.contratoCaixa);
         $('#contrato_bndes_editar').val(dados.contratoBndes);
