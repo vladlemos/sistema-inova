@@ -3,12 +3,27 @@
 
     if ($("#valorAmort"+[i]).val() !== ""){
 
-        $("#valorAmort"+[i]).attr(required="required");
-        $("#contaDebito"+[i]).attr(required="required");
-        $("#tipoAmort"+[i]).attr(required="required");
-        $("#ctrBndes"+[i]).attr(required="required");
+        $("#valorAmort"+[i]).attr("required", true);
+        $("#contaDebito"+[i]).attr("required", true);
+        $("#tipoAmort"+[i]).attr("required", true);
+        $("#ctrBndes"+[i]).attr("required", true);
 
-        alert("Para solicitar a amortização é necessário preencher os campos Contrato BNDES, Contrato Caixa, Conta Caixa, Valor e Tipo de comando.");
+      
+    
+    // }
+        // if ('input:required:valid', 'select:required:valid'){
+
+        //     return(true);
+
+        //     // enviarPedido();
+
+        // }
+
+       
+      
+        // event.preventDefault();
+
+        // alert("Para solicitar a amortização é necessário preencher os campos Contrato BNDES, Contrato Caixa, Conta Caixa, Valor e Tipo de comando.");
 
         // //valida o valor
         // function validaValorAmortizacao(){
@@ -56,12 +71,12 @@
         }
         else{
             
-            $("#valorAmort"+[i]).attr(required="");
-            $("#contaDebito"+[i]).attr(required="");
-            $("#tipoAmort"+[i]).attr(required="");
-            $("#ctrBndes"+[i]).attr(required="");
+            $("#valorAmort"+[i]).attr("required", false);
+            $("#contaDebito"+[i]).attr("required", false);
+            $("#tipoAmort"+[i]).attr("required", false);
+            $("#ctrBndes"+[i]).attr("required", false);
 
-            return true;
+           return(false);
         }
 
     }

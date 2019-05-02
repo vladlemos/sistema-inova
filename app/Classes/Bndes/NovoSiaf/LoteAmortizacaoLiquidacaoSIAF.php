@@ -15,18 +15,12 @@ class LoteAmortizacaoLiquidacaoSIAF
 	}
 	public function setDataLoteAtual()
 	{
-		if(date("d/m/Y") <= strtotime($this->getDataLimiteParaCadastroDeDemanda()))
-		{
+		if(date("d/m/Y") <= date('d/m/Y', strtotime(str_replace('/', '-', $this->getDataLimiteParaCadastroDeDemanda())))) {
 			$this->dataLoteAtual = date('d/m/Y', strtotime(date("Y") . '-' . sprintf('%02d', date('m')) . '-15'));
-		}
-		else
-		{
-			if(date("m") <= 9)
-			{	
+		} else {
+			if(date("m") <= 9) {	
 				$this->dataLoteAtual = date('d/m/Y', strtotime(date("Y") . '-' . sprintf("%02d", (date('m')+1)) . '-15'));
-			}
-			else	
-			{
+			} else {
 				$this->dataLoteAtual = date('d/m/Y', strtotime(date("Y") . '-' . (date('m')+1) . '-15'));
 			}
 		}
@@ -39,7 +33,7 @@ class LoteAmortizacaoLiquidacaoSIAF
 	}
 	public function setDataLoteAnterior()
 	{
-		if(date("d/m/Y") <= strtotime($this->getDataLimiteParaCadastroDeDemanda())) {
+		if(date("d/m/Y") <= date('d/m/Y', strtotime(str_replace('/', '-', $this->getDataLimiteParaCadastroDeDemanda())))) {
 			if(date("m") == 1) {	
 				$this->dataLoteAnterior = date('d/m/Y', strtotime((date("Y")-1) . '-12-15'));				
 			} else {	
@@ -59,8 +53,7 @@ class LoteAmortizacaoLiquidacaoSIAF
 	{
 		$this->dataLimiteParaCadastroDeDemanda = date('Y-m-d', strtotime(date('Y') . '-' . sprintf("%02d", date('m')) . '-15'));
 		
-		switch (date('w', strtotime($this->dataLimiteParaCadastroDeDemanda))) 
-		{
+		switch (date('w', strtotime($this->dataLimiteParaCadastroDeDemanda))) {
 			case '0':
 			case '1':
 				$this->dataLimiteParaCadastroDeDemanda = date('d/m/Y', strtotime(date('Y') . '-' . sprintf("%02d", date('m')) . '-11'));
@@ -76,8 +69,7 @@ class LoteAmortizacaoLiquidacaoSIAF
 				break;
 		}
 
-		if (date('d/m/Y') >= $this->dataLimiteParaCadastroDeDemanda) 
-		{
+		if (date('d/m/Y') >= $this->dataLimiteParaCadastroDeDemanda) {
 			$this->dataLimiteParaCadastroDeDemanda = date('Y-m-d', strtotime(date('Y') . '-' . sprintf("%02d", (date('m') +1)) . '-15'));
 			switch (date('w', strtotime($this->dataLimiteParaCadastroDeDemanda))) 
 			{

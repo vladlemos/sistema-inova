@@ -214,7 +214,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
-                                <button class="btn btn-success pull-right cadAmortizacao" onclick="enviarSolicitacaoAmortizacao()">Enviar à CEOPC</button>
+                                <button class="btn btn-success pull-right cadAmortizacao">Enviar à CEOPC</button>
                             </div>
                             </form>
                             </div>
@@ -620,7 +620,7 @@
             </div>
                 <div class="modal-footer">
                     <!-- <small class="pull-left"> Cadastrado em : <span id="editarDataCadastramento"></span>, por  <span id="editarSolicitanteNome"></span>  (<span id="editarSolicitanteMatricula"></span>) </small> -->
-                        <button class="btn btn-default btn-success pull-right botaoModal" data-dismiss="modal" onclick="enviarSolicitação()">Enviar a CEOPC </button>
+                        <button class="btn btn-default btn-success pull-right botaoModal" data-dismiss="modal" onclick= enviarSolicitação()>Enviar a CEOPC </button>
                         <span class="pull-right"> </span>
                         <button class="btn btn-default btn-danger pull-right botaoModal" data-dismiss="modal">Fechar</button> 
                             

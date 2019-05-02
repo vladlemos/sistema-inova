@@ -86,7 +86,7 @@ function visualizaContrato(json){
             linhaCadastro = '<tr>' +
 
                                                    
-                                '<td><input placeholder ="..." type="text" name="contratoBndes" class=" contratoBndes form-control" value="' + value.contratoBndes + '" id="ctrBndes' + [i]+'"/></td>' +
+                                '<td><input placeholder ="..." type="text" pattern="[0-9].{10,10}" name="contratoBndes" class=" contratoBndes form-control" value="' + value.contratoBndes + '" id="ctrBndes' + [i]+'"/></td>' +
                                 '<td><input placeholder ="..." type="text" name="contratoCaixa" class="contratoCaixa form-control" value="' + value.contratoCaixa + '" id="ctrCaixa' + [i]+'"/readonly></td>' +
                                 '<td><input placeholder ="..." type="text" name="conta" class="conta form-control" value="' + value.contaDebito	+ '"id="contaDebito' + [i]+'"/></td>' +
                                 '<td><input type="text" placeholder="Informe o valor" name="valorAmortizacao" class="valorAmortizacao dinheiro form-control" id="valorAmort' + [i]+'" /></td>' +
@@ -99,7 +99,7 @@ function visualizaContrato(json){
 
             linhaCadastro = '<tr>' +
 
-                                '<td><input placeholder ="..." type="text" pattern=".{11,}" name="contratoBndes"  class=" contratoBndes form-control" value="' + value.contratoBndesFiname + '" id="ctrBndes' +[i]+'"/></td>' +
+                                '<td><input placeholder ="..." type="text" pattern="[0-9].{10,10}" name="contratoBndes"  class=" contratoBndes form-control" value="' + value.contratoBndesFiname + '" id="ctrBndes' +[i]+'"/></td>' +
                                 '<td><input placeholder ="..." type="text" name="contratoCaixa" class="contratoCaixa form-control" value="' + value.contratoCaixa + '" id="ctrCaixa' +[i]+'"/readonly></td>' +
                                 '<td><input placeholder ="..." type="text" name="conta" class="conta form-control" value="' + value.contaDebito	+ '"id="contaDebito' + [i]+'"/></td>' +
                                 '<td><input type="text" placeholder="Informe o valor" name="valorAmortizacao"  class="valorAmortizacao dinheiro form-control"  id="valorAmort' + [i]+'" /></td>' +
@@ -143,14 +143,16 @@ function enviarSolicitacaoAmortizacao() {
     
         for(i; i < pedidos; i++) {
             //verifica se todos os campos estão preenchidos
-            validaCadastroAmortizacao()
+            validaCadastroAmortizacao();
 
-            if(validaCadastroAmortizacao() == true){
-            // if ($("#valorAmort"+[i]).val() !== ''){
+            // if(validaCadastroAmortizacao() == true){
+            if ($("#valorAmort"+[i]).val() !== ''){
             //     if ($("#ctrBndes"+[i]).val() === "null"){
             //        alert("Favor preencher o nº BNDES do contrato " + $("#ctrCaixa"+[i]).val());
             //     }
             //     else{
+
+            // function enviarPedido(){
                     var pedido = {
                         contratoBndes: $("#ctrBndes"+[i]).val(),
                         contratoCaixa: $("#ctrCaixa"+[i]).val(),
@@ -160,23 +162,31 @@ function enviarSolicitacaoAmortizacao() {
                         observacoes: $("textarea.co_observacoes").val(),      
                     }
                     cadastro.push(pedido);
-                    console.log(pedido);
-                    $('#modalCadastramento').modal('hide');
-                    $('#confirmacao').modal('show');
+                    console.log(cadastro);
+                    
                 
-                // Envia dados para o banco de dados
-                $.ajax({
-                    method: 'POST',
-                    cache: false,
-                    url: 'https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_amortizacoes',
-                    data: {'data':cadastro},
-                    async: false,
-                    success: function (jsonStr) {
-                        console.log(jsonStr);           
-                    }
-                });
-
+                
+            // }
+        // }
+        // Envia dados para o banco de dados
+        $.ajax({
+            method: 'POST',
+            cache: false,
+            url: 'https://inova.ceopc.des.caixa/sistemas/public/api/bndes/v1/siaf_amortizacoes',
+            data: {'data':cadastro},
+            async: false,
+            success: function (jsonStr) {
+                console.log(jsonStr);           
             }
+        });
+    }
+}
+}
+                // $('#modalCadastramento').modal('hide');
+                // $('#confirmacao').modal('show');
+
+
+            // }
             // else{
 
             //     var pedido = {
@@ -193,11 +203,11 @@ function enviarSolicitacaoAmortizacao() {
             // }
 
            
-        }
+        // }
 
  
     // $("#tabelaContratosLiquidar").reload();
-}
+// }
 // }
     // console.log(cadastro);
 // });

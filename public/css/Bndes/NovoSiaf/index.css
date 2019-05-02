@@ -41,3 +41,10 @@ font-size: 15px !important;
     background-color: #1c60ab;
     border-color: #1c60ab;
 }
+
+input:required:invalid, select:required:invalid{
+
+     border-color: red;
+     border-width: 20%;
+
+}
