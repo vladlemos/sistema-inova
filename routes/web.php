@@ -15,6 +15,7 @@
 use App\Models\Bndes\NovoSiaf\AtendimentoWebListaAtividades;
 
 Route::get('/', function () {return 'Hello World';});
+Route::get('/phpinfo', function () {return view('phpinfo');});
 Route::get('/consumo-json-multinivel', function () {return view('consumoJsonMultinivel');});
 
 Route::prefix('bndes')->group(function(){
@@ -28,6 +29,6 @@ Route::prefix('bndes')->group(function(){
     });
 });
 
-Route::fallback(function(){
-    return response()->view('errors.404', [], 404);
-});
+// Route::fallback(function(){
+//     return response()->view('errors.404', [], 404);
+// });

@@ -34,10 +34,13 @@ use App\Classes\Bndes\NovoSiaf\LoteAmortizacaoLiquidacaoSIAF;
         Route::get('bndes/v1/siaf_amortizacoes_lote_atual', 'Bndes\NovoSiaf\SiafDemandaController@loteAtual');
         Route::get('bndes/v1/siaf_amortizacoes_lote_anterior', 'Bndes\NovoSiaf\SiafDemandaController@loteAnterior');
         Route::get('bndes/v1/siaf_contratos_sumep', 'Bndes\NovoSiaf\SiafDemandaController@contratosNaSumep');
-        Route::get('bndes/v1/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@show');
+        Route::get('bndes/v1/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@show')->where('demanda', '[0-9]+');
         Route::post('bndes/v1/siaf_amortizacoes', 'Bndes\NovoSiaf\SiafDemandaController@store');
+        Route::post('bndes/v2/siaf_amortizacoes', 'Bndes\NovoSiaf\SiafDemandaController@storeComValidacao');
         Route::get('bndes/v2/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@showDemandaComHistoricos')->where('demanda', '[0-9]+');
         Route::put('bndes/v2/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@update')->where('demanda', '[0-9]+');
+        Route::get('bndes/v1/lista_solicitacoes_por_lotes', 'Bndes\NovoSiaf\SiafDemandaController@todasSolicitacoesAmortizacaoPorLote');
+        Route::get('bndes/v1/lista_solicitacoes_ultimos_doze_meses', 'Bndes\NovoSiaf\SiafDemandaController@todasSolicitacoesAmortizacaoUltimosDozeMeses');
         Route::get('bndes/v1/dados_lote', function() {
             $lote = new LoteAmortizacaoLiquidacaoSIAF;
             echo $lote;

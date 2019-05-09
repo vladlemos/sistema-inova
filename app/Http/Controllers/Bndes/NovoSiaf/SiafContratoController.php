@@ -335,11 +335,6 @@ class SiafContratoController extends Controller
                 "valorAmortizacao" => $request->input('valorAmortizacao'),
                 "tipoComando" => $request->input('tipoComando'),
             );
-            // $usuario = new Ldap;
-            // $empregado = Empregados::find($usuario->getMatricula());
-            // $demanda = Contratos::find($request->input('contratoCaixa'));
-            // $mensageria = new SiafPhpMailer;
-            // $mensageria->enviarMensageria($empregado, $demanda, 'registroNovaDemanda');
             return json_encode($solicitacao);
         } else {
             return "objeto vazio";
@@ -373,29 +368,6 @@ class SiafContratoController extends Controller
         } else{
             return response('Empresa não encontrada', 404);
         }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     /**

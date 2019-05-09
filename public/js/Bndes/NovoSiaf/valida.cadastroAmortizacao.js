@@ -1,74 +1,21 @@
  //função para validar os campo do formulário antes de efetuar o envio para o banco
  function validaCadastroAmortizacao(){
-
-    if ($("#valorAmort"+[i]).val() !== ""){
-
-        $("#valorAmort"+[i]).attr("required", true);
-        $("#contaDebito"+[i]).attr("required", true);
-        $("#tipoAmort"+[i]).attr("required", true);
-        $("#ctrBndes"+[i]).attr("required", true);
-
-      
+    // var pedidos = $('#tabCadastrar>tbody>tr').length;
+    // i=0;
+   
     
-    // }
-        // if ('input:required:valid', 'select:required:valid'){
+    // for(i; i < pedidos; i++) {
 
-        //     return(true);
+        if ($("#valorAmort"+[i]).val() !== ""){
 
-        //     // enviarPedido();
+            $("#valorAmort"+[i]).attr("required", true);
+            $("#contaDebito"+[i]).attr("required", true);
+            $("#tipoAmort"+[i]).attr("required", true);
+            $("#ctrBndes"+[i]).attr("required", true);
 
-        // }
-
-       
-      
-        // event.preventDefault();
-
-        // alert("Para solicitar a amortização é necessário preencher os campos Contrato BNDES, Contrato Caixa, Conta Caixa, Valor e Tipo de comando.");
-
-        // //valida o valor
-        // function validaValorAmortizacao(){
-
-        //     if ($("#valorAmort"+[i]).val() !== ""){
-        //         return true;
-        //     }
-        //     else{
-        //         return false;
-        //     }
-        // }
-        // //valida o contrato
-        // function validaContratoBndes(){
-
-        //     if ($("#ctrBndes"+[i]).val() !== "" || $("#ctrBndes"+[i]).val() !== "null" || $("#ctrBndes"+[i]).val() !== null) {
-        //         return true;
-        //     }
-        //     else{
-        //         return false;
-        //     }
-        // }
-        // //valida a conta
-        // function validaContaDebito(){
-
-        //     if($("#contaDebito"+[i]).val() !== ""){
-        //         return true;
-        //     }
-        //     else{
-        //         return false;
-        //     }
-        // }
-        // //valida o tipo de comando
-        // function validaTipoComando(){
-
-        //     if($("#tipoAmort"+[i]).val() !== null){
-        //         return true;
-        //     }
-        //     else{
-        //         return false;
-        //     }
-        // }
-        // //se todos os campo retornam true continua a função na pagina dados.contratos.ag
-        // if (validaValorAmortizacao() == true && validaContratoBndes() == true && validaContaDebito() == true && validaTipoComando() == true){
-        //     return true;
+        
         }
+         
         else{
             
             $("#valorAmort"+[i]).attr("required", false);
@@ -76,9 +23,38 @@
             $("#tipoAmort"+[i]).attr("required", false);
             $("#ctrBndes"+[i]).attr("required", false);
 
-           return(false);
+        //    return(false);
         }
 
     }
-   
+ 
+// }
+
+    function check_form(){
+        formulario = $('#tabCadastrar');
+        // formulario.validate();
+
+        if(formulario.valid()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    console.log(formulario);
+    }
+
+    //     var inputs = document.getElementsByClassName('required');
+    //     var len = inputs.length;
+    //     var valid = true;
+    //   for(var i=0; i < len; i++){
+     
+    //     if (!valid){
+    //         //   alert('Por favor preencha todos os campos.');
+    //         return false;
+    //     } 
+    //     else { 
+    //         return true; 
+    //     }
+    // }
+    // console.log(len);
 // }

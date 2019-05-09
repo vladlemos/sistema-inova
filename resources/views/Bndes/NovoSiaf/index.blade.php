@@ -214,7 +214,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
-                                <button class="btn btn-success pull-right cadAmortizacao">Enviar à CEOPC</button>
+                                <button class="btn btn-success pull-right cadAmortizacao" type="submit" value="submit">Enviar à CEOPC</button>
                             </div>
                             </form>
                             </div>
@@ -567,6 +567,7 @@
                                             <th> Limite Cheque Azul </th>
                                             <th> Limite GIM </th>
                                             <th> Saldo Total </th>
+                                            <th> Saldo considerado </th>
                                            
                                         </tr>
                                     </thead>
@@ -1260,7 +1261,7 @@
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnt.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoSumep.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/valida.cadastroAmortizacao.js')}}"></script>
-        
+        <script src="{{ asset('js/Bndes/NovoSiaf/reloadTable.js')}}"></script>
         <!-- <script src="{{ asset('js/dataTables.responsive.min.js')}}"></script> -->
         <!-- <script src="{{ asset('js/ldap.js')}}"></script> -->
         <!-- <script src="{{ asset('js/index.js')}}"></script> -->

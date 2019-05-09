@@ -27,7 +27,8 @@ function carregarTabelaProxLote()
         );
        
         $('#tabelaAmortizaProx').DataTable({
-            responsive: true
+            responsive: true,
+            rowId: 'extn',
         } );
        
   
@@ -122,7 +123,8 @@ function visualizaContratoProxlote(json){
                 return linha;
                 
             }
-                
+            //   i= dados.historicoContrato.length; 
+            // $('#obs_modal').html(dadosHistorico.observacaoHistorico+[i]);
             $('#nome_cliente_modal').html(dados.nomeCliente);
             $('#cnpj_cliente_modal').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
             $('#status_modal').val(dados.status);
@@ -328,6 +330,7 @@ $.ajax({
 });
 // console.log(registroTabela);
 console.log(ctrProx);
+$('#tabelaAmortizaProx').ajax.reload();
 
 // $('#modalConfirmaAlteracao').modal('show');
 }

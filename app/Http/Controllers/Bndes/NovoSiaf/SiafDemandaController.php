@@ -29,26 +29,6 @@ class SiafDemandaController extends Controller
         '2637', '2639', '2640', '2641', '2642', '2645', '2646', '2647', '2648', '2649', '2650', '2651', '2653', '2654',
         '2655', '2656', '2690', '2691', '2692', '2693', '2694', '3222', '3226', '3227'
     ];
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -181,17 +161,6 @@ class SiafDemandaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  App\Models\Bndes\NovoSiaf\SiafDemanda  $siafDemanda
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(SiafDemanda $siafDemanda)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -204,14 +173,6 @@ class SiafDemandaController extends Controller
         try {
             // Update na tabela TBL_SIAF_DEMANDAS
             $demanda = SiafDemanda::find($id);
-            // switch($demanda->tipoOperacao){
-            //     case 'LIQUIDACAO':
-            //         $tipoOperacao = "L";
-            //         break;
-            //     case 'AMORTIZACAO':
-            //         $tipoOperacao = "A";
-            //         break;
-            // }
 
             $demanda->contratoBndes = $request->contratoBndes;
             $demanda->contaDebito = $request->contaDebito;
@@ -231,7 +192,6 @@ class SiafDemandaController extends Controller
                 $lotacao = $usuario->codigoLotacaoFisica;
             }
 
-            // var_dump($dadoDemandaAtualizada);
             // Insert na tabela TBL_SIAF_HISTORICO_DEMANDAS
             $historicoDemanda = new SiafHistoricoDemanda;
             $historicoDemanda->contratoCaixa = $dadoDemandaAtualizada->contratoCaixa;
@@ -267,17 +227,6 @@ class SiafDemandaController extends Controller
             echo 'Exceção capturada: ',  $e->getMessage(), "\n";
         }
         
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  App\Models\Bndes\NovoSiaf\SiafDemanda  $siafDemanda
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(SiafDemanda $siafDemanda)
-    {
-        //
     }
 
     public function loteAnterior()
@@ -692,20 +641,9 @@ class SiafDemandaController extends Controller
                     "observacaoHistorico" => $value['historico']
                 );
                 array_push($arrayHistorico, $dadosHistorico);
-                // var_dump($dadosHistorico);
             }
-            // dd($arrayHistorico);
         }
-        // } else {
-        //     $dadosHistorico = array(
-        //         "codigoHistorico" => null, 
-        //         "dataHistorico" => null,
-        //         "statusHistorico" => null,
-        //         "matriculaResponsavel" => null,
-        //         "unidadeResponsavel" => null,
-        //         "observacaoHistorico" => null
-        //     );
-        // }
+
         if(isset($dadosDemanda[0]->SiafHistoricoSaldoContaAmortizacao)) {
             foreach ($dadosDemanda[0]->SiafHistoricoSaldoContaAmortizacao as $saldo => $value) {             
                 $dadosSaldo = array(
@@ -721,26 +659,7 @@ class SiafDemandaController extends Controller
                 array_push($arraySaldo, $dadosSaldo);
             }
         }
-        // } else {
-        //     $dadosSaldo = array(
-        //         "codigoConsultaSaldo" => null, 
-        //         "dataConsultaSaldo" => null,
-        //         "statusSaldo" => null,
-        //         "saldoDisponivel" => null,
-        //         "saldoBloqueado" => null,
-        //         "LimiteChequeAzul" => null,
-        //         "LimiteGim" => null,
-        //         "saldoTotal" => null,
-        //     );
-        // }
-        // switch($dadosDemanda[0]->tipoOperacao){
-        //     case 'L':
-        //         $tipoOperacao = "LIQUIDACAO";
-        //         break;
-        //     case 'A':
-        //         $tipoOperacao = "AMORTIZACAO";
-        //         break;
-        // }
+
         $jsonDados = [
             "codigoDemanda" => $dadosDemanda[0]->codigoDemanda,
             "nomeCliente" => $dadosDemanda[0]->nomeCliente,
@@ -760,10 +679,145 @@ class SiafDemandaController extends Controller
             "historicoContrato" => $arrayHistorico
         ];
         if (isset($jsonDados)) {
-            // dd($jsonDados);
             return json_encode($jsonDados, JSON_UNESCAPED_SLASHES);
         } else{
             return response('Demanda não encontrada', 404);
         }
+    }
+
+    public function todasSolicitacoesAmortizacaoPorLote() {
+        $solicitadas = DB::select('exec sp_cte_contador_todas_demandas_siaf');
+        return json_encode($solicitadas, JSON_UNESCAPED_SLASHES);      
+    }
+
+    public function todasSolicitacoesAmortizacaoUltimosDozeMeses() {
+        $arrayDemandas = [];
+        $listaDemandas = DB::select('
+            SELECT 
+                [codigoDemanda]
+                ,[nomeCliente]
+                ,[cnpj]
+                ,[contratoCaixa]
+                ,[valorOperacao]
+                ,[dataLote]
+            FROM 
+                [SP5459_DES].[dbo].[TBL_SIAF_DEMANDAS]
+            WHERE 
+                CONVERT(DATETIME, [dataLote], 103) >= CONVERT(DATETIME, CONCAT(DATEPART(YEAR, DATEADD(YEAR, -1, GETDATE())), \'-15-\', RIGHT(\'0\' + RTRIM(MONTH(GETDATE())), 2)), 103)');
+        return json_encode($listaDemandas, JSON_UNESCAPED_SLASHES); 
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeComValidacao(Request $request)
+    {        
+        $arrayDemanda = [];
+        // Capturar os dados do contrato
+        $contrato = SiafContrato::find($request->input("data.0.contratoCaixa"));
+        // Capturar os dados do lote de amortizacao
+        $lote = new LoteAmortizacaoLiquidacaoSIAF;
+        // Capturar os dados do usuário da sessão
+        $usuario = Empregado::find(substr($_SERVER["LOGON_USER"],strpos($_SERVER["LOGON_USER"], "\\")+1));
+        // Captura a lotacao do usuario
+        if ($usuario->codigoLotacaoFisica === null) {
+            $lotacao = $usuario->codigoLotacaoAdministrativa;
+        } else {
+            $lotacao = $usuario->codigoLotacaoFisica;
+        }
+        
+        for ($i = 0; $i < sizeof($request->input('data')); $i++) { 
+            /* 
+                Valida se já existe demanda cadastrada no lote atual e com status de cancelada 
+                para que não seja aberto um novo protocolo e sim a atualização do protocolo cancelado
+            */
+            $demandaJaExiste = SiafDemanda::where('contratoCaixa', $request->input("data." . $i . ".contratoCaixa"))
+                        ->whereIn('status', ['CANCELADO', 'EXCLUIDO UD'])
+                        ->where('dataLote', $lote->getDataLoteAtual())
+                        ->first();
+            if ($demandaJaExiste) {
+                echo "demanda já existe (cancelada)";
+                if (SiafDemanda::where('contratoCaixa', $request->input("data." . $i . ".contratoCaixa"))->whereNotIn('status', ['CANCELADO', 'EXCLUIDO UD'])->where('dataLote', $lote->getDataLoteAtual())->get() > 0) {
+                    return "Já existe demanda para esse contrato em aberto. não podemos abrir nova demanda.";
+                } else {
+                    $demanda = SiafDemanda::where('contratoCaixa', $request->input("data." . $i . ".contratoCaixa"))
+                                        ->where('status', 'CANCELADO')
+                                        ->where('dataLote', $lote->getDataLoteAtual())
+                                        ->first();
+                    $demanda->contratoBndes = $request->input("data." . $i . ".contratoBndes");
+                    $demanda->contaDebito = $request->input("data." . $i . ".contaDebito");
+                    $demanda->valorOperacao = $request->input("data." . $i . ".valorAmortizacao");
+                    $demanda->tipoOperacao = $request->input("data." . $i . ".tipoComando");
+                    $demanda->status = 'CADASTRADO';
+                    $demanda->save();
+
+                    // Recupera os dados da demanda cadastrada
+                    $dadosDemandaCadastrada = SiafDemanda::find($demanda->codigoDemanda);
+                    
+                    // Instancia o model de  Historico da Demanda
+                    $historicoDemanda = new SiafHistoricoDemanda;
+                    $historicoDemanda->contratoCaixa = $dadosDemandaCadastrada->contratoCaixa;
+                    $historicoDemanda->loteAmortizacao = $dadosDemandaCadastrada->dataLote;
+                    $historicoDemanda->tipoHistorico = 'CADASTRO';
+                    $historicoDemanda->historico = preg_replace( "/\r|\n/", "", $request->input("data." . $i . ".observacoes"));
+                    $historicoDemanda->matriculaResponsavel = $usuario->matricula;
+                    $historicoDemanda->unidadeResponsavel = $lotacao;
+                    $historicoDemanda->save();
+
+                    $dadosHistoricoDemanda = SiafHistoricoDemanda::find($historicoDemanda->codigoHistorico);
+                    
+                    // $dados = $request->input("data.".$i.".contratoCaixa"); //
+                    array_push($arrayDemanda, $dadosDemandaCadastrada);
+                    array_push($arrayDemanda, $dadosHistoricoDemanda);
+                }
+            } else {
+                // Instancia o model da Demanda
+                $demanda = new SiafDemanda();
+                $demanda->nomeCliente = $contrato->cliente;
+                $demanda->cnpj = $contrato->cnpj;
+                $demanda->contratoCaixa = $request->input("data." . $i . ".contratoCaixa");
+                $demanda->contratoBndes = $request->input("data." . $i . ".contratoBndes");
+                $demanda->valorOperacao = $request->input("data." . $i . ".valorAmortizacao");
+                $demanda->tipoOperacao = $request->input("data." . $i . ".tipoComando");
+                $demanda->codigoPa = $contrato->codigoPa;
+                $demanda->nomePa = $contrato->nomePa;
+                $demanda->emailPa = $contrato->emailPa;
+                $demanda->codigoSr = $contrato->codigoSr;
+                $demanda->nomeSr = $contrato->nomeSr;
+                $demanda->emailSr = $contrato->emailSr;
+                $demanda->codigoGigad = $contrato->codigoGigad;
+                $demanda->nomeGigad = $contrato->nomeGigad;
+                $demanda->emailGigad = $contrato->emailGigad;
+                $demanda->dataCadastramento = date("Y-m-d H:i:s", time());
+                $demanda->dataLote = $lote->getDataLoteAtual();
+                $demanda->status = 'CADASTRADO';
+                $demanda->matriculaSolicitante = $usuario->matricula;
+                $demanda->contaDebito = $request->input("data." . $i . ".contaDebito");
+                $demanda->save();
+
+                // Recupera os dados da demanda cadastrada
+                $dadosDemandaCadastrada = SiafDemanda::find($demanda->codigoDemanda);
+                
+                // Instancia o model de  Historico da Demanda
+                $historicoDemanda = new SiafHistoricoDemanda;
+                $historicoDemanda->contratoCaixa = $dadosDemandaCadastrada->contratoCaixa;
+                $historicoDemanda->loteAmortizacao = $dadosDemandaCadastrada->dataLote;
+                $historicoDemanda->tipoHistorico = 'CADASTRO';
+                $historicoDemanda->historico = preg_replace( "/\r|\n/", "", $request->input("data." . $i . ".observacoes"));
+                $historicoDemanda->matriculaResponsavel = $dadosDemandaCadastrada->matriculaSolicitante;
+                $historicoDemanda->unidadeResponsavel = $lotacao;
+                $historicoDemanda->save();
+
+                $dadosHistoricoDemanda = SiafHistoricoDemanda::find($historicoDemanda->codigoHistorico);
+                
+                // $dados = $request->input("data.".$i.".contratoCaixa"); //
+                array_push($arrayDemanda, $dadosDemandaCadastrada);
+                array_push($arrayDemanda, $dadosHistoricoDemanda);
+            }
+        }
+        return json_encode($arrayDemanda);
     }
 }
