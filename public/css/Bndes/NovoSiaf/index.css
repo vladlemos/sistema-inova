@@ -48,3 +48,7 @@ input:required:invalid, select:required:invalid{
      border-width: 20%;
 
 }
+.btn-success{
+    background-color: #65B688;
+    border-color:#65B688;
+}

@@ -100,6 +100,7 @@ function visualizaContratoSumep(json){
                     linha = montaLinhaTabelaHistorico(dados.historicoContrato[i]);
                     
                     $('#tabHistoricoContrato>tbody').append(linha);
+                    $('#obs_modal').html(dados.historicoContrato[i].observacaoHistorico);
                 }              
                 function montaLinhaTabelaHistorico(dadosHistorico)
                 {
@@ -223,7 +224,7 @@ $('#editarcontrato').modal('show');
 
 }   
 
-function enviarSolicitação(){
+// function enviarSolicitação(){
 
     // var url = ('../api/bndes/v2/siaf_amortizacoes/' + json )
 
@@ -236,38 +237,38 @@ function enviarSolicitação(){
 //   success: function(enviarDadosContratoAnt){
      
 
-ctrSumep = {
-        // codigoDemanda : $("#codDemanda").val(),
-        contratoBndes : $("#contrato_bndes_editar").val(), 
-        // contratoCaixa : $("#contrato_caixa_editar").val(), 
-        contaDebito : $("#conta_corrente_editar").val(), 
-        valorOperacao : $("#valor_editar").val().replace(".","").replace(",","."), 
-        tipoOperacao : $("#tipo_editar").val(), 
-        status : $("#status_editar").val(),   
-        // codigoPa : $("#pv_editar").val(),  
-        // codigoSr: $("#sr_editar").val(),
-        // codigoGigad : $("#gigad_editar").val(),
-        observacoes : $("#observacaoContrato").val(),
+// ctrSumep = {
+//         // codigoDemanda : $("#codDemanda").val(),
+//         contratoBndes : $("#contrato_bndes_editar").val(), 
+//         // contratoCaixa : $("#contrato_caixa_editar").val(), 
+//         contaDebito : $("#conta_corrente_editar").val(), 
+//         valorOperacao : $("#valor_editar").val().replace(".","").replace(",","."), 
+//         tipoOperacao : $("#tipo_editar").val(), 
+//         status : $("#status_editar").val(),   
+//         // codigoPa : $("#pv_editar").val(),  
+//         // codigoSr: $("#sr_editar").val(),
+//         // codigoGigad : $("#gigad_editar").val(),
+//         observacoes : $("#observacaoContrato").val(),
 
-}
+// }
 
-$.ajax({
+// $.ajax({
 
-    type: 'PUT',
-    url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
-    context : this,
-    data: ctrSumep,
-    sucess: function(ctrSumep){
-        contrato = JSON.parse(ctrSumep);
-        linha = $('#tabConsultaHistoricoEditar>tbody>tr');
-        registroTabela = linha.filter(function(i, element){
-            return (element.cell[0].textContent==$("#codDemanda").val())
-        })
-    }
-//  console.log(contrato.json);
-});
+//     type: 'PUT',
+//     url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
+//     context : this,
+//     data: ctrSumep,
+//     sucess: function(ctrSumep){
+//         contrato = JSON.parse(ctrSumep);
+//         linha = $('#tabConsultaHistoricoEditar>tbody>tr');
+//         registroTabela = linha.filter(function(i, element){
+//             return (element.cell[0].textContent==$("#codDemanda").val())
+//         })
+//     }
+// //  console.log(contrato.json);
+// });
 
-console.log(ctrSumep);
+// console.log(ctrSumep);
 
-// $('#modalConfirmaAlteracao').modal('show');
-}
+// // $('#modalConfirmaAlteracao').modal('show');
+// }

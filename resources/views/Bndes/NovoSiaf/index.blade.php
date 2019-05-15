@@ -316,18 +316,16 @@
                                     <select data-placeholder="Selecione o tipo.."  id="status_modal" class="form-control" disabled>
                                         <option value=""> - </option> 
                                         <option value="CADASTRADO" style="display: none">CADASTRADO</option>
+                                        <option value="RECEBIDO">RECEBIDO</option>
                                         <option value="SIBAN OK">SIBAN OK</option>
                                         <option value="FALTA SIBAN">FALTA SIBAN</option>
-                                        <option value="RECEBIDO">RECEBIDO</option>
-                                        <option value="NA SUMEP">À SUMEP</option>
-                                        <option value="NL SEM SALDO">NL SEM SALDO</option>
-                                        <option value="NL EM CA">NL EM CA</option>
-                                        <option value="NL SEM COMANDO">NL SEM COMANDO</option>
-                                        <option value="SUMEP RESIDUO SIFBN">SUMEP - RESIDUO SIFBN</option>
-                                        <option value="SUMEP DEB_PENDENTE">SUMEP DEB_PENDENTE</option>
-                                        <option value="SUMEP NAO LIQUIDADO">SUMEP - NAO LIQUIDADO</option>
                                         <option value="CANCELADO">CANCELADO</option>
-                                        <option value="ACATADO">ACATADO</option>
+                                        <option value="CONTA DIVERGENTE">CONTA DIVERGENTE</option>
+                                        <option value="VALOR DIVERGENTE ">VALOR DIVERGENTE </option>
+                                        <option value="CONTA PF">CONTA PF</option>
+                                        <option value="CONTRATO EM CA">CONTRATO EM CA</option>
+                                        <option value="SUMEP RESIDUO SIFBN">SUMEP RESIDUO SIFBN</option>
+                                        <option value="SEM SALDO">SEM SALDO</option>
                                         <option value="CONCLUIDO">CONCLUIDO</option>
                                     </select>
 
@@ -352,7 +350,7 @@
                         <br>
                             <!-- <span class="form-control" id="obs_modalAnterior"></span> -->
                             <label>Observações</label>
-                                <span class="form-control" id="obs_modal"></span>
+                                <textarea class="form-control" id="obs_modal" disabled></textarea>
                             
                             <br>
 
@@ -512,19 +510,17 @@
                                 <select data-placeholder="Selecione o tipo.."  id="status_editar" class="form-control">
 								<option value=""> - </option> 
                                 <option value="CADASTRADO" style="display: none">CADASTRADO</option>
-								<option value="SIBAN OK">SIBAN OK</option>
-								<option value="FALTA SIBAN">FALTA SIBAN</option>
-								<option value="RECEBIDO">RECEBIDO</option>
-								<option value="NA SUMEP">À SUMEP</option>
-								<option value="NL SEM SALDO">NL SEM SALDO</option>
-								<option value="NL EM CA">NL EM CA</option>
-								<option value="NL SEM COMANDO">NL SEM COMANDO</option>
-								<option value="SUMEP RESIDUO SIFBN">SUMEP - RESIDUO SIFBN</option>
-								<option value="SUMEP DEB_PENDENTE">SUMEP DEB_PENDENTE</option>
-								<option value="SUMEP NAO LIQUIDADO">SUMEP - NAO LIQUIDADO</option>
-								<option value="CANCELADO">CANCELADO</option>
-								<option value="ACATADO">ACATADO</option>
-								<option value="CONCLUIDO">CONCLUIDO</option>
+                                <option value="RECEBIDO">RECEBIDO</option>
+                                <option value="SIBAN OK">SIBAN OK</option>
+                                <option value="FALTA SIBAN">FALTA SIBAN</option>
+                                <option value="CANCELADO">CANCELADO</option>
+                                <option value="CONTA DIVERGENTE">CONTA DIVERGENTE</option>
+                                <option value="VALOR DIVERGENTE">VALOR DIVERGENTE </option>
+                                <option value="CONTA PF">CONTA PF</option>
+                                <option value="CONTRATO EM CA">CONTRATO EM CA</option>
+                                <option value="SUMEP RESIDUO SIFBN">SUMEP RESIDUO SIFBN</option>
+                                <option value="SEM SALDO">SEM SALDO</option>
+                                <option value="CONCLUIDO">CONCLUIDO</option>
 							    </select>
 
                             </div>
@@ -621,7 +617,7 @@
             </div>
                 <div class="modal-footer">
                     <!-- <small class="pull-left"> Cadastrado em : <span id="editarDataCadastramento"></span>, por  <span id="editarSolicitanteNome"></span>  (<span id="editarSolicitanteMatricula"></span>) </small> -->
-                        <button class="btn btn-default btn-success pull-right botaoModal" data-dismiss="modal" onclick= enviarSolicitação()>Enviar a CEOPC </button>
+                        <button class="btn btn-default btn-success pull-right botaoModal" data-dismiss="modal" onclick= enviarSolicitacao()>Enviar a CEOPC </button>
                         <span class="pull-right"> </span>
                         <button class="btn btn-default btn-danger pull-right botaoModal" data-dismiss="modal">Fechar</button> 
                             
@@ -948,6 +944,8 @@
                                 <th align="center">Lote</th>
                                 <th align="center">Quantidade Solicitada</th>
                                 <th align="center">Quantidade Acatada</th>
+                                <th align="center">Quantidade Cancelada</th>
+                                <th align="center">Quantidade outros Status</th>
                                 <th align="center" class="dinheiro">Valor do Lote</th>
                                 <th></th>
                                 </tr>
@@ -973,12 +971,13 @@
                                     <table id="tabelaPesquisaSolicitacoes" class="table table-striped table-hover">
                                         <thead>
                                             <tr>
+                                                <th align="center">Pedido</th>
                                                 <th align="center">CNPJ</th>
+                                                <th align="center">Contrato Caixa</th>
                                                 <th align="center">Tomador</th>
                                                 <th align="center" class="dinheiro">Valor</th>
-                                                <th align="center">Status</th>
                                                 <th align="center">Lote</th>
-                                            <th></th>
+                                                <th></th>                                           
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1261,7 +1260,10 @@
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnt.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoSumep.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/valida.cadastroAmortizacao.js')}}"></script>
-        <script src="{{ asset('js/Bndes/NovoSiaf/reloadTable.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisaLote.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisa12meses.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/envia.dados.editarContrato_chuman.js')}}"></script>
+        <script src="{{ asset('js/plugins/DataTables/fnReloadAjax.js')}}"></script>
         <!-- <script src="{{ asset('js/dataTables.responsive.min.js')}}"></script> -->
         <!-- <script src="{{ asset('js/ldap.js')}}"></script> -->
         <!-- <script src="{{ asset('js/index.js')}}"></script> -->

@@ -41,10 +41,12 @@ use App\Classes\Bndes\NovoSiaf\LoteAmortizacaoLiquidacaoSIAF;
         Route::put('bndes/v2/siaf_amortizacoes/{demanda}', 'Bndes\NovoSiaf\SiafDemandaController@update')->where('demanda', '[0-9]+');
         Route::get('bndes/v1/lista_solicitacoes_por_lotes', 'Bndes\NovoSiaf\SiafDemandaController@todasSolicitacoesAmortizacaoPorLote');
         Route::get('bndes/v1/lista_solicitacoes_ultimos_doze_meses', 'Bndes\NovoSiaf\SiafDemandaController@todasSolicitacoesAmortizacaoUltimosDozeMeses');
+        Route::get('bndes/v1/exporta_lote_para_excel/{dataLote}', 'Bndes\NovoSiaf\SiafDemandaController@exportToExcel');
         Route::get('bndes/v1/dados_lote', function() {
             $lote = new LoteAmortizacaoLiquidacaoSIAF;
             echo $lote;
         });
+        
         
 
 

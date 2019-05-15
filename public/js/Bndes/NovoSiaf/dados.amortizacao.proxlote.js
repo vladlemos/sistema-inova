@@ -25,10 +25,10 @@ function carregarTabelaProxLote()
         }
         
         );
-       
+        bDestroy : true;
         $('#tabelaAmortizaProx').DataTable({
             responsive: true,
-            rowId: 'extn',
+           
         } );
        
   
@@ -41,7 +41,7 @@ function atualizaTabelaProxLote(json)
 {
    
     // $('#tabelaAmortizaProx').DataTable();
-    bDestroy : true,
+    // bDestroy : true,
 	
 	linhaProxLote = '<tr>' +
 				
@@ -107,6 +107,8 @@ function visualizaContratoProxlote(json){
                 linha = montaLinhaTabelaHistorico(dados.historicoContrato[i]);
                 
                 $('#tabHistoricoContrato>tbody').append(linha);
+                $('#obs_modal').html(dados.historicoContrato[i].observacaoHistorico);
+                
             }              
             function montaLinhaTabelaHistorico(dadosHistorico)
             {
@@ -279,61 +281,61 @@ function visualizaContratoProxlote(json){
 
 //     }); 
 // }
-function enviarSolicitação(){
+// function enviarSolicitação(){
 
 
-ctrProx = {
-        // codigoDemanda : $("#codDemanda").val(),
-        contratoBndes : $("#contrato_bndes_editar").val(), 
-        // contratoCaixa : $("#contrato_caixa_editar").val(), 
-        contaDebito : $("#conta_corrente_editar").val(), 
-        valorOperacao : $("#valor_editar").val().replace(".","").replace(",","."), 
-        tipoOperacao : $("#tipo_editar").val(), 
-        status : $("#status_editar").val(),   
-        // codigoPa : $("#pv_editar").val(),  
-        // codigoSr: $("#sr_editar").val(),
-        // codigoGigad : $("#gigad_editar").val(),
-        observacoes : $("#observacaoContrato").val(),
+// ctrProx = {
+//         // codigoDemanda : $("#codDemanda").val(),
+//         contratoBndes : $("#contrato_bndes_editar").val(), 
+//         // contratoCaixa : $("#contrato_caixa_editar").val(), 
+//         contaDebito : $("#conta_corrente_editar").val(), 
+//         valorOperacao : $("#valor_editar").val().replace(".","").replace(",","."), 
+//         tipoOperacao : $("#tipo_editar").val(), 
+//         status : $("#status_editar").val(),   
+//         // codigoPa : $("#pv_editar").val(),  
+//         // codigoSr: $("#sr_editar").val(),
+//         // codigoGigad : $("#gigad_editar").val(),
+//         observacoes : $("#observacaoContrato").val(),
 
-}
-$.ajax({
-
-    type: 'PUT',
-    url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
-    context : this,
-    data: ctrProx,
-    sucess: function(data){
-
-        // $("#tabelaAmortizaProx").load(this);
-        // atualizaTabelaProxLote();
-
-//         xmlHttp=new XMLHttpRequest();
-//         $('#tabelaAmortizaProx>tbody>tr').innerHTML=xmlHttp.responseText;
-//         xmlHttp.open("GET","../api/bndes/v1/siaf_amortizacoes_lote_atual",true);
-// //         $('#tabelaAmortizaProx>tbody>tr').load(data);
-//         contrato = JSON.parse(ctrProx);
-//         linha = $('#tabelaAmortizaProx>tbody>tr');
-//         registroTabela = linha.filter(function(i, element){
-//             return (element.cell[0].textContent==$("#codDemanda").val())
-//         })
-//         if (registroTabela) {
-//             registroTabela[0].cells[0].textContent = $("#codDemanda").val();
-//             registroTabela[0].cells[1].textContent = $("#contrato_caixa_editar").val();
-//             registroTabela[0].cells[2].textContent = $("#contrato_bndes_editar").val();
-//             registroTabela[0].cells[3].textContent = $("#conta_corrente_editar").val();
-//             registroTabela[0].cells[4].textContent = $("#valor_editar").val();
-//             registroTabela[0].cells[5].textContent = $("#tipo_editar").val();
-//             registroTabela[0].cells[6].textContent = $("#status_editar").val();
 // }
-    }
- 
-});
-// console.log(registroTabela);
-console.log(ctrProx);
-$('#tabelaAmortizaProx').ajax.reload();
+// $.ajax({
 
-// $('#modalConfirmaAlteracao').modal('show');
-}
+//     type: 'PUT',
+//     url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
+//     context : this,
+//     data: ctrProx,
+//     sucess: function(data){
+
+//         // $("#tabelaAmortizaProx").load(this);
+//         // atualizaTabelaProxLote();
+
+// //         xmlHttp=new XMLHttpRequest();
+// //         $('#tabelaAmortizaProx>tbody>tr').innerHTML=xmlHttp.responseText;
+// //         xmlHttp.open("GET","../api/bndes/v1/siaf_amortizacoes_lote_atual",true);
+// // //         $('#tabelaAmortizaProx>tbody>tr').load(data);
+// //         contrato = JSON.parse(ctrProx);
+// //         linha = $('#tabelaAmortizaProx>tbody>tr');
+// //         registroTabela = linha.filter(function(i, element){
+// //             return (element.cell[0].textContent==$("#codDemanda").val())
+// //         })
+// //         if (registroTabela) {
+// //             registroTabela[0].cells[0].textContent = $("#codDemanda").val();
+// //             registroTabela[0].cells[1].textContent = $("#contrato_caixa_editar").val();
+// //             registroTabela[0].cells[2].textContent = $("#contrato_bndes_editar").val();
+// //             registroTabela[0].cells[3].textContent = $("#conta_corrente_editar").val();
+// //             registroTabela[0].cells[4].textContent = $("#valor_editar").val();
+// //             registroTabela[0].cells[5].textContent = $("#tipo_editar").val();
+// //             registroTabela[0].cells[6].textContent = $("#status_editar").val();
+// // }
+//     }
+ 
+// });
+// // console.log(registroTabela);
+// console.log(ctrProx);
+// $('#tabelaAmortizaProx').ajax.reload();
+
+// // $('#modalConfirmaAlteracao').modal('show');
+// }
 
 
   

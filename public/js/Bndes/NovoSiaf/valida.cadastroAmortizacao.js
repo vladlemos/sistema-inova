@@ -1,10 +1,10 @@
  //função para validar os campo do formulário antes de efetuar o envio para o banco
  function validaCadastroAmortizacao(){
-    // var pedidos = $('#tabCadastrar>tbody>tr').length;
-    // i=0;
+    var pedidos = $('#tabCadastrar>tbody>tr').length;
+    i=0;
    
     
-    // for(i; i < pedidos; i++) {
+    for(i; i < pedidos; i++) {
 
         if ($("#valorAmort"+[i]).val() !== ""){
 
@@ -23,38 +23,11 @@
             $("#tipoAmort"+[i]).attr("required", false);
             $("#ctrBndes"+[i]).attr("required", false);
 
-        //    return(false);
+       
         }
 
     }
  
-// }
+}
 
-    function check_form(){
-        formulario = $('#tabCadastrar');
-        // formulario.validate();
-
-        if(formulario.valid()){
-            return true;
-        }
-        else{
-            return false;
-        }
-    console.log(formulario);
-    }
-
-    //     var inputs = document.getElementsByClassName('required');
-    //     var len = inputs.length;
-    //     var valid = true;
-    //   for(var i=0; i < len; i++){
-     
-    //     if (!valid){
-    //         //   alert('Por favor preencha todos os campos.');
-    //         return false;
-    //     } 
-    //     else { 
-    //         return true; 
-    //     }
-    // }
-    // console.log(len);
-// }
+   

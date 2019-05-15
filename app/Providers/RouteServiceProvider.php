@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use App\Exports\Bndes\DemandasLoteExport;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,12 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot();
+
+        //Realiza o bind do lote de amortização no projeto BNDES Siaf Amortização Liquidação
+        // Route::bind('dataLote', function ($dataLote) { //itemExport must match the {itemExport} name in the route definition
+        //     $lote = str_replace("-","/", $dataLote); 
+        //     return app()->makeWith(DemandasLoteExport::class, compact('lote'));   
+        // });
     }
 
     /**

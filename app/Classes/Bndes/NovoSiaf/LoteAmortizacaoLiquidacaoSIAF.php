@@ -59,17 +59,17 @@ class LoteAmortizacaoLiquidacaoSIAF
 				$this->dataLimiteParaCadastroDeDemanda = date('d/m/Y', strtotime(date('Y') . '-' . sprintf("%02d", date('m')) . '-11'));
 				// echo "é fim de semana <br>";
 				break; 
-			case '6':
-				$this->dataLimiteParaCadastroDeDemanda = date('d/m/Y', strtotime(date('Y') . '-' . sprintf("%02d", date('m')) . '-12'));
-				// echo "é fim de semana <br>";
-				break;    
+			// case '6':
+			// 	$this->dataLimiteParaCadastroDeDemanda = date('d/m/Y', strtotime(date('Y') . '-' . sprintf("%02d", date('m')) . '-12'));
+			// 	// echo "é fim de semana <br>";
+			// 	break;    
 			default:
 				$this->dataLimiteParaCadastroDeDemanda = date('d/m/Y', strtotime(date('Y') . '-' . sprintf("%02d", date('m')) . '-13'));
 				// echo "não é fim de semana <br>";
 				break;
 		}
 
-		if (date('d/m/Y') >= $this->dataLimiteParaCadastroDeDemanda) {
+		if (date('d/m/Y') > $this->dataLimiteParaCadastroDeDemanda) {
 			$this->dataLimiteParaCadastroDeDemanda = date('Y-m-d', strtotime(date('Y') . '-' . sprintf("%02d", (date('m') +1)) . '-15'));
 			switch (date('w', strtotime($this->dataLimiteParaCadastroDeDemanda))) 
 			{
@@ -78,10 +78,10 @@ class LoteAmortizacaoLiquidacaoSIAF
 					$this->dataLimiteParaCadastroDeDemanda = date('d/m/Y', strtotime(date('Y') . '-' . sprintf("%02d", date('m')+1) . '-11'));
 					// echo "é fim de semana ou segunda-feira <br>";
 					break;
-				case '6':
-					$this->dataLimiteParaCadastroDeDemanda = date('d/m/Y', strtotime(date('Y') . '-' . sprintf("%02d", date('m')+1) . '-12'));
-					// echo "é fim de semana <br>";
-					break;    
+				// case '6':
+				// 	$this->dataLimiteParaCadastroDeDemanda = date('d/m/Y', strtotime(date('Y') . '-' . sprintf("%02d", date('m')+1) . '-12'));
+				// 	// echo "é fim de semana <br>";
+				// 	break;    
 				default:
 					$this->dataLimiteParaCadastroDeDemanda = date('d/m/Y', strtotime(date('Y') . '-' . sprintf("%02d", date('m')+1) . '-13'));
 					// echo "não é fim de semana <br>";

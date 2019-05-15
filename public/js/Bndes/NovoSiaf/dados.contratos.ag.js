@@ -84,8 +84,7 @@ function visualizaContrato(json){
                 if (value.operacao == '717')
                              
             linhaCadastro = '<tr>' +
-
-                                                   
+                    
                                 '<td><input placeholder ="..." type="text" minlength ="11" maxlength ="11" pattern="[0-9].{10,10}" name="contratoBndes" class=" contratoBndes form-control" value="' + value.contratoBndes + '" id="ctrBndes' + [i]+'"/></td>' +
                                 '<td><input placeholder ="..." type="text" name="contratoCaixa" class="contratoCaixa form-control" value="' + value.contratoCaixa + '" id="ctrCaixa' + [i]+'"/readonly></td>' +
                                 '<td><input placeholder ="..." type="text" name="conta" class="conta form-control" value="' + value.contaDebito	+ '"id="contaDebito' + [i]+'"/></td>' +
@@ -138,15 +137,54 @@ function visualizaContrato(json){
 
 //função para realizar a solicitação de amortização/liquidação
 function enviarSolicitacaoAmortizacao() {
-
+    validaCadastroAmortizacao();
     // check_form();
-    var pedidos = $('#tabCadastrar>tbody>tr').length;
-    var cadastro = []; 
-    i=0;
+   
+    //                  var pedidos = $('#tabCadastrar>tbody>tr').length;
+    // var cadastro = []; 
+    // i=0;
+    
+    //     for(i; i < pedidos; i++) {
+    //         //verifica se todos os campos estão preenchidos
+    //         validaCadastroAmortizacao();
+    //         // check_form();
+    //         // if(check_form() == true){
+    //         if ($("#valorAmort"+[i]).val() !== '' ){
+    //         // && $("#ctrBndes"+[i]).val() !== '' && $("#contaDebito"+[i]).val() !== '' && $("#tipoAmort"+[i]).val() !== ''){
+    //         //     if ($("#ctrBndes"+[i]).val() === "null"){
+    //         //        alert("Favor preencher o nº BNDES do contrato " + $("#ctrCaixa"+[i]).val());
+    //         //     }
+    //         //     else{
+
+    //         // function enviarPedido(){
+    //                 var pedido = {
+    //                     contratoBndes: $("#ctrBndes"+[i]).val(),
+    //                     contratoCaixa: $("#ctrCaixa"+[i]).val(),
+    //                     contaDebito: $("#contaDebito"+[i]).val(),
+    //                     valorAmortizacao: $("#valorAmort"+[i]).val().replace(".","").replace(",","."),
+    //                     tipoComando: $("#tipoAmort"+[i]).val(),
+    //                     observacoes: $("textarea.co_observacoes").val(),      
+    //                 }
+    //                 cadastro.push(pedido);
+    //                 // cadastro.filter(validaCadastroAmortizacao);
+    //                 console.log(cadastro);
+    //         } 
+      
+        }
+
+    $('#formulario_pedido_amortizacao').submit(function(event){
+       
+            event.preventDefault();
+
+                // check_form();
+        try{
+        var pedidos = $('#tabCadastrar>tbody>tr').length;
+        var cadastro = []; 
+        i=0;
     
         for(i; i < pedidos; i++) {
             //verifica se todos os campos estão preenchidos
-            validaCadastroAmortizacao();
+            // validaCadastroAmortizacao();
             // check_form();
             // if(check_form() == true){
             if ($("#valorAmort"+[i]).val() !== '' ){
@@ -172,9 +210,6 @@ function enviarSolicitacaoAmortizacao() {
             } 
       
         }
-        $('#formulario_pedido_amortizacao').submit(function(event){
-       
-            event.preventDefault();
             
         $.ajax({
             method: 'POST',
@@ -189,10 +224,16 @@ function enviarSolicitacaoAmortizacao() {
          $('#modalCadastramento').modal('hide');
         $('#confirmacao').modal('show');
         // refreshTabela();
-        
+        }
+
+    catch(Error){
+    console.log(Error);
+     
+ }
         });  
+        
   
-}
+
 
                 
             // }
@@ -235,9 +276,14 @@ function enviarSolicitacaoAmortizacao() {
 
 // }
 
-function refreshTabela(){
-//     $.getJSON('../api/bndes/v1/siaf_contratos', null, function( json )
-// {
+// function refreshTabela(){
+//     //   var table = $('#tabelaContratosLiquidar').DataTable();
+   
+       
+//     //     table.fnReloadAjax(carregarDadosAgencia());
+    
+//     // $.getJSON('../api/bndes/v1/siaf_contratos', null, function( json )
+// // {
 // table = $('#tabelaContratosLiquidar').dataTable();
 // oSettings = table.fnSettings();
 
@@ -249,9 +295,10 @@ function refreshTabela(){
 // }
 
 // oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-$('#tabelaContratosLiquidar').fnDraw(carregarDadosAgencia());
-// });
-}
+// // $('#tabelaContratosLiquidar>tbody').load(carregarDadosAgencia());
+// $('#tabelaContratosLiquidar>tbody').fnDraw(carregarDadosAgencia()); 
+// // });
+// }
                 // $('#modalCadastramento').modal('hide');
                 // $('#confirmacao').modal('show');
 
