@@ -64,23 +64,32 @@ function atualizaTabela12meses(json){
                 linha = montaLinhaTabelaSaldo(dados.consultaSaldo[i]);
                         
                 $('#tabHistoricoSaldo>tbody').append(linha);
-            }              
+                
+                 //pinta a linha de acordo com o status do historico do saldo
+                 if(dados.consultaSaldo[i].statusSaldo == "Saldo Ok"){
+                    $('.linhaConsulta'+[i]).addClass('corEfeitoSaldoOk');
+                }
+                else{
+                    $('.linhaConsulta'+[i]).addClass('corEfeitoSemSaldo');
+                }
+            }          
+            i=0;
             function montaLinhaTabelaSaldo(dadosSaldo)
             {
                 bDestroy= true;
 
                 linha = '<tr>' +
-                            '<td>' + dadosSaldo.codigoConsultaSaldo + '</td>' +
+                            // '<td>' + dadosSaldo.codigoConsultaSaldo + '</td>' +
                             '<td>' + dadosSaldo.dataConsultaSaldo + '</td>' +
-                            '<td>' + dadosSaldo.statusSaldo + '</td>' +
+                            '<td class="linhaConsulta'+[i]+'">' + dadosSaldo.statusSaldo + '</td>' +
                             '<td>' + dadosSaldo.saldoDisponivel + '</td>' +
                             '<td>' + dadosSaldo.saldoBloqueado + '</td>' +
                             '<td>' + dadosSaldo.LimiteChequeAzul + '</td>' +
                             '<td>' + dadosSaldo.LimiteGim + '</td>' +
-                            '<td>' + dadosSaldo.saldoTotal + '</td>' +
+                            '<td class="linhaConsulta'+[i]+'">' + dadosSaldo.saldoTotal + '</td>' +
                         '</tr>';
                 return linha;
-
+                i++;
         
             }
             

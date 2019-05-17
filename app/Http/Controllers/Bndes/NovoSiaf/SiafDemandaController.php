@@ -264,12 +264,22 @@ class SiafDemandaController extends Controller
                 $mail->enviarMensageria($usuario, $dadoDemandaAtualizada, $tipoEmail);
             }
             
-            // return json_encode($arrayDemanda, JSON_UNESCAPED_SLASHES);
-            return $this->loteAtual();
+            // Verifica o tipo de DataTable que está realizando a requisição, retornando somente o json atualizado dele
+            switch ($request->loteDataTable) {
+                case 'atual':
+                    return $this->loteAtual();
+                    break;
+                case 'anterior':
+                    return $this->loteAnterior();
+                    break;
+                case 'sumep':
+                    return $this->contratosNaSumep();
+                    break;
+            }
+            
         } catch (Exception $e) {
             echo 'Exceção capturada: ',  $e->getMessage(), "\n";
-        }
-        
+        }   
     }
 
     public function loteAnterior()
@@ -555,7 +565,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)              
-                                            ->get();;       
+                                            ->get();    
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
                     } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
                         $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
@@ -563,7 +573,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)               
-                                            ->get();;       
+                                            ->get();       
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
                     } else {
                         $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
@@ -571,7 +581,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)               
-                                            ->get();;       
+                                            ->get();       
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
                     }                   
                 }
@@ -583,7 +593,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)               
-                                            ->get();;       
+                                            ->get();       
                     return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
                 } else {
                     if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
@@ -592,7 +602,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                
-                                            ->get();;       
+                                            ->get();       
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
                     } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
                         $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
@@ -600,7 +610,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                   
-                                            ->get();;       
+                                            ->get();       
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
                     } else {
                         $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
@@ -608,7 +618,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                      
-                                            ->get();;       
+                                            ->get();      
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
                     }                   
                 }
@@ -620,7 +630,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)                       
-                                            ->get();;       
+                                            ->get();       
                     return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
                 } else {
                     if (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
@@ -629,7 +639,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                        
-                                            ->get();;       
+                                            ->get();       
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
                     } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arraySR)) {
                         $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
@@ -637,7 +647,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                          
-                                            ->get();;       
+                                            ->get();      
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES); 
                     } else {      
                         $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
@@ -645,7 +655,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
-                                            ->get();;       
+                                            ->get();       
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);  
                     }                   
                 }
@@ -703,6 +713,19 @@ class SiafDemandaController extends Controller
             }
         }
 
+        // criação de atributo para diferenciar o dataTable a ser atualizado no método update
+        $lote = new LoteAmortizacaoLiquidacaoSIAF;
+        $statusSumep = ['NA SUMEP', 'SUMEP DEB_PENDENTE', 'SUMEP RESIDUO SIFBN', 'SUMEP NAO LIQUIDADO'];
+        if($dadosDemanda[0]->dataLote === $lote->getDataLoteAtual()) {
+            $loteDataTable = "atual";
+        } elseif($dadosDemanda[0]->dataLote === $lote->getDataLoteAnterior()) {
+            $loteDataTable = "anterior";
+        } elseif(in_array($dadosDemanda[0]->status, $statusSumep)) {
+            $loteDataTable = "sumep";
+        } else {
+            $loteDataTable = "concluido";
+        }
+        
         $jsonDados = [
             "codigoDemanda" => $dadosDemanda[0]->codigoDemanda,
             "nomeCliente" => $dadosDemanda[0]->nomeCliente,
@@ -718,6 +741,7 @@ class SiafDemandaController extends Controller
             "codigoPa" => str_pad($dadosDemanda[0]->codigoPa, 4, '0', STR_PAD_LEFT),
             "codigoSr" => $dadosDemanda[0]->codigoSr,
             "codigoGigad" => $dadosDemanda[0]->codigoGigad,
+            "loteDataTable" => $loteDataTable,
             "consultaSaldo" => $arraySaldo,
             "historicoContrato" => $arrayHistorico
         ];
@@ -782,8 +806,11 @@ class SiafDemandaController extends Controller
                         ->where('dataLote', $lote->getDataLoteAtual())
                         ->first();
             if ($demandaJaExiste) {
-                echo "demanda já existe (cancelada)";
-                if (SiafDemanda::where('contratoCaixa', $request->input("data." . $i . ".contratoCaixa"))->whereNotIn('status', ['CANCELADO', 'EXCLUIDO UD'])->where('dataLote', $lote->getDataLoteAtual())->get() > 0) {
+                // echo "demanda já existe (cancelada)";
+                $quantidadeDemandaEmAbertoImpeditiva = SiafDemanda::all()->where('contratoCaixa', $request->input("data." . $i . ".contratoCaixa"))
+                        ->whereNotIn('status', ['CANCELADO', 'EXCLUIDO UD'])
+                        ->where('dataLote', $lote->getDataLoteAtual());
+                if (count($quantidadeDemandaEmAbertoImpeditiva) > 0) {
                     return "Já existe demanda para esse contrato em aberto. não podemos abrir nova demanda.";
                 } else {
                     $demanda = SiafDemanda::where('contratoCaixa', $request->input("data." . $i . ".contratoCaixa"))
@@ -869,7 +896,7 @@ class SiafDemandaController extends Controller
                 $mail->enviarMensageria($usuario, $dadosDemandaCadastrada, $tipoEmail);
             }
         }
-        return json_encode($arrayDemanda);
+        return $this->loteAtual();
     }
 
     /**

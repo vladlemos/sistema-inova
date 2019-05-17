@@ -30,7 +30,8 @@ use App\Classes\Bndes\NovoSiaf\LoteAmortizacaoLiquidacaoSIAF;
 
     /* NOVOSIAF */
         Route::resource('bndes/v1/siaf_contratos', 'Bndes\NovoSiaf\SiafContratoController');
-        Route::get('bndes/v2/siaf_contratos', 'Bndes\NovoSiaf\SiafContratoController@indexComConsultaDiretoNoModal');
+        Route::get('bndes/v3/siaf_contratos', 'Bndes\NovoSiaf\SiafContratoController@indexSimplificadaComQuerySeparada');
+        // Route::get('bndes/v2/siaf_contratos', 'Bndes\NovoSiaf\SiafContratoController@indexComConsultaDiretoNoModal');
         Route::get('bndes/v1/siaf_amortizacoes_lote_atual', 'Bndes\NovoSiaf\SiafDemandaController@loteAtual');
         Route::get('bndes/v1/siaf_amortizacoes_lote_anterior', 'Bndes\NovoSiaf\SiafDemandaController@loteAnterior');
         Route::get('bndes/v1/siaf_contratos_sumep', 'Bndes\NovoSiaf\SiafDemandaController@contratosNaSumep');

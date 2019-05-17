@@ -1,4 +1,9 @@
-function enviarSolicitacao(){
+var idTabelaDataTable = '';
+// let retornoIdTabela = '';
+
+function enviarSolicitacao()
+{
+    idTabela();
     try {
         ctr = {       
             contratoBndes : $("#contrato_bndes_editar").val(), 
@@ -6,79 +11,97 @@ function enviarSolicitacao(){
             valorOperacao : $("#valor_editar").val().replace(".","").replace(",","."), 
             tipoOperacao : $("#tipo_editar").val(), 
             status : $("#status_editar").val(),       
-            observacoes : $("#observacaoContrato").val(),       
+            observacoes : $("#observacaoContrato").val(),    
+            loteDataTable: $("#lote").val(),
         }
-        $.ajax({       
-            type: 'PUT',
-            url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
-            context : this,
-            data: ctr,
-            success: function(ctr){
-                // console.log(ctr);
-                refreshTabela(ctr, 'tabelaAmortizaProx');
-            }
-        });
+        // console.log(ctr);
+        if ($("#status_editar").val() === 'CANCELADO' || $("#status_editar").val() === 'EXCLUIDO UD') {
+            $.ajax({       
+                type: 'PUT',
+                url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
+                context : this,
+                data: ctr,
+                success: function(ctr){
+                    refreshTabela(ctr, idTabelaDataTable);
+                    atualizaDataTableCadastroDemanda(); 
+                    console.log('fim');
+                }
+            });
+        } else {
+            $.ajax({       
+                type: 'PUT',
+                url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
+                context : this,
+                data: ctr,
+                success: function(ctr){
+                    refreshTabela(ctr, idTabelaDataTable); 
+                }
+            });
+        }
+        
     } catch(Error) {
         console.log(Error);   
     }
 }
 
-function refreshTabela(tabelaAtualizada, idTabelaDataTable){
-    $("#" + idTabelaDataTable).dataTable().fnDestroy();
+function refreshTabela(tabelaAtualizada, idTabelaDataTable)
+{
+    $("#" + idTabelaDataTable).DataTable().fnDestroy();
     $("#" + idTabelaDataTable).empty(); 
-    var novaTable = document.createElement('thead');
-    var novaTableTr = document.createElement('tr');
 
-    var novaTableThPedido = document.createElement('th');
-    var tituloPedido = document.createTextNode("Pedido");
+    let novaTable = document.createElement('thead');
+    let novaTableTr = document.createElement('tr');
+
+    let novaTableThPedido = document.createElement('th');
+    let tituloPedido = document.createTextNode("Pedido");
     novaTableThPedido.appendChild(tituloPedido);
     novaTableTr.appendChild(novaTableThPedido);
 
-    var novaTableThTomador = document.createElement('th');
-    var tituloTomador = document.createTextNode("Tomador");
+    let novaTableThTomador = document.createElement('th');
+    let tituloTomador = document.createTextNode("Tomador");
     novaTableThTomador.appendChild(tituloTomador);
     novaTableTr.appendChild(novaTableThTomador);
 
-    var novaTableThCtrCaixa = document.createElement('th');
-    var tituloCtrCaixa = document.createTextNode("Ctr CAIXA");
+    let novaTableThCtrCaixa = document.createElement('th');
+    let tituloCtrCaixa = document.createTextNode("Ctr CAIXA");
     novaTableThCtrCaixa.appendChild(tituloCtrCaixa);
     novaTableTr.appendChild(novaTableThCtrCaixa);
 
-    var novaTableThCtrBndes = document.createElement('th');
-    var tituloCtrBndes = document.createTextNode("Ctr BNDES");
+    let novaTableThCtrBndes = document.createElement('th');
+    let tituloCtrBndes = document.createTextNode("Ctr BNDES");
     novaTableThCtrBndes.appendChild(tituloCtrBndes);
     novaTableTr.appendChild(novaTableThCtrBndes);
 
-    var novaTableThConta = document.createElement('th');
-    var tituloConta = document.createTextNode("Conta");
+    let novaTableThConta = document.createElement('th');
+    let tituloConta = document.createTextNode("Conta");
     novaTableThConta.appendChild(tituloConta);
     novaTableTr.appendChild(novaTableThConta);
 
-    var novaTableThValor = document.createElement('th');
-    var tituloValor = document.createTextNode("Valor");
+    let novaTableThValor = document.createElement('th');
+    let tituloValor = document.createTextNode("Valor");
     novaTableThValor.appendChild(tituloValor);
     novaTableTr.appendChild(novaTableThValor);
 
-    var novaTableThComando = document.createElement('th');
-    var tituloComando = document.createTextNode("Comando");
+    let novaTableThComando = document.createElement('th');
+    let tituloComando = document.createTextNode("Comando");
     novaTableThComando.appendChild(tituloComando);
     novaTableTr.appendChild(novaTableThComando);
 
-    var novaTableThStatus = document.createElement('th');
-    var tituloStatus = document.createTextNode("Status");
+    let novaTableThStatus = document.createElement('th');
+    let tituloStatus = document.createTextNode("Status");
     novaTableThStatus.appendChild(tituloStatus);
     novaTableTr.appendChild(novaTableThStatus);
 
-    var novaTableThObs = document.createElement('th');
-    var tituloObs = document.createTextNode("Obs");
+    let novaTableThObs = document.createElement('th');
+    let tituloObs = document.createTextNode("");
     novaTableThObs.appendChild(tituloObs);
     novaTableTr.appendChild(novaTableThObs);
     
-    var novaTableThEditar = document.createElement('th');
-    var tituloEditar = document.createTextNode("Editar");
+    let novaTableThEditar = document.createElement('th');
+    let tituloEditar = document.createTextNode("");
     novaTableThEditar.appendChild(tituloEditar);
     novaTableTr.appendChild(novaTableThEditar);
-    var novaTableBody = document.createElement('tbody');
+    let novaTableBody = document.createElement('tbody');
     
     novaTable.appendChild(novaTableTr);
 
@@ -87,8 +110,8 @@ function refreshTabela(tabelaAtualizada, idTabelaDataTable){
 
     ObjTabelaAtualizada = JSON.parse(tabelaAtualizada);
     $.each(ObjTabelaAtualizada, function (key, value){         
-        linhaProxLote = atualizaTabelaProxLote(value);
-        $("#" + idTabelaDataTable + ">tbody").append(linhaProxLote);               
+        linha = atualizaTabela(value);
+        $("#" + idTabelaDataTable + ">tbody").append(linha);               
     });
     
     $("#" + idTabelaDataTable).DataTable({
@@ -97,16 +120,11 @@ function refreshTabela(tabelaAtualizada, idTabelaDataTable){
     $("#" + idTabelaDataTable).css("width","100%");    
 }
     
-    //atualiza a tabela para visualizacao dos contrato para o prox lote
-    function atualizaTabelaProxLoteAtualizada(json)
-    {
-    
-    // $('#tabelaAmortizaProx').DataTable();
-    bDestroy : true,
-    
-    linhaProxLote = '<tr>' +
-                
-                
+//atualiza a tabela para visualizacao dos contrato para o prox lote
+function atualizaTabela(json)
+{ 
+    bDestroy : true,  
+    linha = '<tr>' +         
                 '<td>' + json.codigoDemanda        + '</td>' +
                 '<td>' + json.nomeCliente      + '</td>' +
                 '<td>' + json.contratoCaixa    + '</td>' +
@@ -115,20 +133,12 @@ function refreshTabela(tabelaAtualizada, idTabelaDataTable){
                 '<td>' + json.valorOperacao.replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") + '</td>' +
                 '<td>' + json.tipoOperacao.replace("A","AMORTIZAÇÃO").replace("L","LIQUIDAÇÃO")   + '</td>' +
                 '<td>' + json.status	        + '</td>' +
-    
                 '<td>'	+				
-                    '<button class="btn btn-info btn-xs tip visualiza fa fa-binoculars center-block" id="botaoCadastrarProx" onclick ="visualizaContratoProxlote(\'' + json.codigoDemanda + '\')" ></button> ' + 
+                    '<button class="btn btn-info btn-xs tip visualiza fa fa-binoculars center-block" id="botaoCadastrar" onclick ="visualizaDemanda(\'' + json.codigoDemanda + '\')" ></button> ' + 
                 '</td>' +
                 '<td>'	+				
-                    '<button class="btn btn-warning btn-xs tip edita fa fa-edit center-block" id="botaoEditarProx" onclick ="editarContratoProx(\'' + json.codigoDemanda	+ '\')" ></button> ' + 
+                    '<button class="btn btn-warning btn-xs tip edita fa fa-edit center-block" id="botaoEditar" onclick ="editarContrato(\'' + json.codigoDemanda	+ '\')" ></button> ' + 
                 '</td>' +
-                
             '</tr>';
-              
-    return linhaProxLote;
- 
-    }
-
-
-
-
+    return linha;
+}

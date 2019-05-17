@@ -23,13 +23,8 @@ class EmpregadoController extends Controller
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
                             ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
                             ->select('tbl_EMPREGADOS.matricula','tbl_EMPREGADOS.nomeCompleto', 'tbl_EMPREGADOS.nomeFuncao', 'tbl_EMPREGADOS.codigoLotacaoAdministrativa', 'tbl_EMPREGADOS.nomeLotacaoAdministrativa', 'tbl_EMPREGADOS.codigoLotacaoFisica', 'tbl_EMPREGADOS.nomeLotacaoFisica',  'tbl_ACESSA_EMPREGADOS.nivelAcesso')
-                            // ->select('tbl_empregados.matricula', 'tbl_empregados.nome_completo', 'tbl_empregados.nome_funcao', 'tbl_empregados.codigo_lotacao_administrativa',  'tbl_acessa_empregado.nivel_acesso')
                             ->where('tbl_ACESSA_EMPREGADOS.matricula', '=', $empregado->matricula)
                             ->get();
-            // $empregado->acessoEmpregado()
-            // ->with('empregado')
-            // ->join('empregado', 'empregado.matricula', '=', 'acessaEmpregado.matricula')
-            // ->get(['empregado.*', 'acessaEmpregado.nivel_acesso']);
         return json_encode($empregadoAcesso, JSON_UNESCAPED_SLASHES);
     }
 
@@ -66,13 +61,8 @@ class EmpregadoController extends Controller
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
                             ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
                             ->select('tbl_EMPREGADOS.matricula','tbl_EMPREGADOS.nomeCompleto', 'tbl_EMPREGADOS.nomeFuncao', 'tbl_EMPREGADOS.codigoLotacaoAdministrativa', 'tbl_EMPREGADOS.nomeLotacaoAdministrativa', 'tbl_EMPREGADOS.codigoLotacaoFisica', 'tbl_EMPREGADOS.nomeLotacaoFisica',  'tbl_ACESSA_EMPREGADOS.nivelAcesso')
-                            // ->select('tbl_empregados.matricula', 'tbl_empregados.nome_completo', 'tbl_empregados.nome_funcao', 'tbl_empregados.codigo_lotacao_administrativa',  'tbl_acessa_empregado.nivel_acesso')
                             ->where('tbl_ACESSA_EMPREGADOS.matricula', '=', $empregado->matricula)
                             ->get();
-            // $empregado->acessoEmpregado()
-            // ->with('empregado')
-            // ->join('empregado', 'empregado.matricula', '=', 'acessaEmpregado.matricula')
-            // ->get(['empregado.*', 'acessaEmpregado.nivel_acesso']);
         return json_encode($empregadoAcesso, JSON_UNESCAPED_SLASHES);
     }
 

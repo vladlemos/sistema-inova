@@ -19,7 +19,7 @@ try{
         data: ctr,
         sucess: function(data){
 
-            
+           
 
         }
      
@@ -36,7 +36,11 @@ catch(Error){
 }
 
 function refreshTabela(){
+  
     $.getJSON('../api/bndes/v1/siaf_amortizacoes_lote_atual', function(json){
+
+        $('#tabelaAmortizaProx tbody').dataTable().fnDestroy()();
+        // $('#tabelaAmortizaProx>tbody').empty();
 
         $.each(json, function (key, value){
            
@@ -81,7 +85,7 @@ function refreshTabela(){
     //atualiza a tabela para visualizacao dos contrato para o prox lote
     function atualizaTabelaProxLoteAtualizada(json)
     {
-    
+        
     // $('#tabelaAmortizaProx').DataTable();
     bDestroy : true,
     
@@ -98,7 +102,7 @@ function refreshTabela(){
                 '<td>' + json.status	        + '</td>' +
     
                 '<td>'	+				
-                    '<button class="btn btn-info btn-xs tip visualiza fa fa-binoculars center-block" id="botaoCadastrarProx" onclick ="visualizaContratoProxlote(\'' + json.codigoDemanda + '\')" ></button> ' + 
+                    '<button class="btn btn-info btn-xs tip visualiza fa fa-binoculars center-block" id="botaoCadastrarProx" onclick ="visualizaDemanda(\'' + json.codigoDemanda + '\')" ></button> ' + 
                 '</td>' +
                 '<td>'	+				
                     '<button class="btn btn-warning btn-xs tip edita fa fa-edit center-block" id="botaoEditarProx" onclick ="editarContratoProx(\'' + json.codigoDemanda	+ '\')" ></button> ' + 

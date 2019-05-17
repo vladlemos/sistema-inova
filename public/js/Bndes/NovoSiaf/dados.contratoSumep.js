@@ -18,8 +18,8 @@ function carregarTabelaSumep()
 
         $.each(json, function (key, value){
           
-            linhaSumep = atualizaTabelaSumep(value);
-            $('#tabelaSumep>tbody').append(linhaSumep);
+            linha = atualizaTabela(value);
+            $('#tabelaSumep>tbody').append(linha);
 
         }
         
@@ -35,194 +35,194 @@ function carregarTabelaSumep()
     
 }
 
-function atualizaTabelaSumep(json)
-{
+// function atualizaTabelaSumep(json)
+// {
    
-    bDestroy : true,
+//     bDestroy : true,
 	
-	linhaSumep = '<tr>' +
+// 	linhaSumep = '<tr>' +
 				
                 
-                '<td>' + json.codigoDemanda     + '</td>' +
-                '<td>' + json.nomeCliente       + '</td>' +
-                '<td>' + json.contratoCaixa     + '</td>' +
-                '<td>' + json.contratoBndes     + '</td>' +
-                '<td>' + json.dataLote          + '</td>' +
-                '<td>' + json.valorOperacao.replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")     + '</td>' +
-                '<td>' + json.tipoOperacao.replace("A","AMORTIZAÇÃO").replace("L","LIQUIDAÇÃO")     + '</td>' +
-                '<td>' + json.status	        + '</td>' +
+//                 '<td>' + json.codigoDemanda     + '</td>' +
+//                 '<td>' + json.nomeCliente       + '</td>' +
+//                 '<td>' + json.contratoCaixa     + '</td>' +
+//                 '<td>' + json.contratoBndes     + '</td>' +
+//                 '<td>' + json.dataLote          + '</td>' +
+//                 '<td>' + json.valorOperacao.replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")     + '</td>' +
+//                 '<td>' + json.tipoOperacao.replace("A","AMORTIZAÇÃO").replace("L","LIQUIDAÇÃO")     + '</td>' +
+//                 '<td>' + json.status	        + '</td>' +
 
-				'<td>'	+				
-					'<button class="btn btn-info btn-xs tip visualiza fa fa-binoculars center-block" id="botaoCadastrarSumep" onclick ="visualizaContratoSumep(\'' + json.codigoDemanda + '\')" ></button> ' + 
-                '</td>' +
-                '<td>'	+				
-					'<button class="btn btn-warning btn-xs tip edita fa fa-edit center-block" id="botaoEditarSumep" onclick ="editarContratoSumep(\'' + json.codigoDemanda + '\')" ></button> ' + 
-				'</td>' +
+// 				'<td>'	+				
+// 					'<button class="btn btn-info btn-xs tip visualiza fa fa-binoculars center-block" id="botaoCadastrarSumep" onclick ="visualizaContratoSumep(\'' + json.codigoDemanda + '\')" ></button> ' + 
+//                 '</td>' +
+//                 '<td>'	+				
+// 					'<button class="btn btn-warning btn-xs tip edita fa fa-edit center-block" id="botaoEditarSumep" onclick ="editarContratoSumep(\'' + json.codigoDemanda + '\')" ></button> ' + 
+// 				'</td>' +
                 
-            '</tr>';
+//             '</tr>';
             
-    return linhaSumep;
+//     return linhaSumep;
    
-}
+// }
 
-function visualizaContratoSumep(json){
+// function visualizaContratoSumep(json){
 
            
-            $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
+//             $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
 
-                var dados = JSON.parse(dados);
-                console.log(dados);
-                for(i = 0; i < dados.consultaSaldo.length; i++){
-                    linha = montaLinhaTabelaSaldo(dados.consultaSaldo[i]);
+//                 var dados = JSON.parse(dados);
+//                 console.log(dados);
+//                 for(i = 0; i < dados.consultaSaldo.length; i++){
+//                     linha = montaLinhaTabelaSaldo(dados.consultaSaldo[i]);
                                
-                    $('#tabHistoricoSaldo>tbody').append(linha);
-                }              
-                function montaLinhaTabelaSaldo(dadosSaldo)
-                {
-                    bDestroy= true;
+//                     $('#tabHistoricoSaldo>tbody').append(linha);
+//                 }              
+//                 function montaLinhaTabelaSaldo(dadosSaldo)
+//                 {
+//                     bDestroy= true;
 
-                    linha = '<tr>' +
-                                '<td>' + dadosSaldo.codigoConsultaSaldo + '</td>' +
-                                '<td>' + dadosSaldo.dataConsultaSaldo + '</td>' +
-                                '<td>' + dadosSaldo.statusSaldo + '</td>' +
-                                '<td>' + dadosSaldo.saldoDisponivel + '</td>' +
-                                '<td>' + dadosSaldo.saldoBloqueado + '</td>' +
-                                '<td>' + dadosSaldo.LimiteChequeAzul + '</td>' +
-                                '<td>' + dadosSaldo.LimiteGim + '</td>' +
-                                '<td>' + dadosSaldo.saldoTotal + '</td>' +
-                            '</tr>';
-                    return linha;
+//                     linha = '<tr>' +
+//                                 '<td>' + dadosSaldo.codigoConsultaSaldo + '</td>' +
+//                                 '<td>' + dadosSaldo.dataConsultaSaldo + '</td>' +
+//                                 '<td>' + dadosSaldo.statusSaldo + '</td>' +
+//                                 '<td>' + dadosSaldo.saldoDisponivel + '</td>' +
+//                                 '<td>' + dadosSaldo.saldoBloqueado + '</td>' +
+//                                 '<td>' + dadosSaldo.LimiteChequeAzul + '</td>' +
+//                                 '<td>' + dadosSaldo.LimiteGim + '</td>' +
+//                                 '<td>' + dadosSaldo.saldoTotal + '</td>' +
+//                             '</tr>';
+//                     return linha;
 
             
-                }
+//                 }
                 
-                for(i = 0; i < dados.historicoContrato.length; i++){
-                    linha = montaLinhaTabelaHistorico(dados.historicoContrato[i]);
+//                 for(i = 0; i < dados.historicoContrato.length; i++){
+//                     linha = montaLinhaTabelaHistorico(dados.historicoContrato[i]);
                     
-                    $('#tabHistoricoContrato>tbody').append(linha);
-                    $('#obs_modal').html(dados.historicoContrato[i].observacaoHistorico);
-                }              
-                function montaLinhaTabelaHistorico(dadosHistorico)
-                {
-                    bDestroy= true;
-                    linha = '<tr>' +
-                                '<td>' + dadosHistorico.codigoHistorico + '</td>' +
-                                '<td>' + dadosHistorico.dataHistorico + '</td>' +
-                                '<td>' + dadosHistorico.statusHistorico + '</td>' +
-                                '<td>' + dadosHistorico.observacaoHistorico + '</td>' +
-                                '<td>' + dadosHistorico.matriculaResponsavel + '</td>' +
-                                '<td>' + dadosHistorico.unidadeResponsavel + '</td>' +
+//                     $('#tabHistoricoContrato>tbody').append(linha);
+//                     $('#obs_modal').html(dados.historicoContrato[i].observacaoHistorico);
+//                 }              
+//                 function montaLinhaTabelaHistorico(dadosHistorico)
+//                 {
+//                     bDestroy= true;
+//                     linha = '<tr>' +
+//                                 '<td>' + dadosHistorico.codigoHistorico + '</td>' +
+//                                 '<td>' + dadosHistorico.dataHistorico + '</td>' +
+//                                 '<td>' + dadosHistorico.statusHistorico + '</td>' +
+//                                 '<td>' + dadosHistorico.observacaoHistorico + '</td>' +
+//                                 '<td>' + dadosHistorico.matriculaResponsavel + '</td>' +
+//                                 '<td>' + dadosHistorico.unidadeResponsavel + '</td>' +
                             
-                            '</tr>';
-                    return linha;
+//                             '</tr>';
+//                     return linha;
                 
-                }
+//                 }
                 
-                $('#nome_cliente_modal').html(dados.nomeCliente);
-                $('#cnpj_cliente_modal').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-                $('#status_modal').val(dados.status);
-                $('#contrato_caixa_modal').val(dados.contratoCaixa);
-                $('#contrato_bndes_modal').val(dados.contratoBndes);
-                $('#conta_corrente_modal').val(dados.contaDebito);
-                $('#tipo_modal').val(dados.tipoOperacao);
-                $('#valor_modal').val(dados.valorOperacao);
-                $('#pv_modal').val(dados.codigoPa);
-                $('#sr_modal').val(dados.codigoSr);
-                $('#gigad_modal').val(dados.codigoGigad);
+//                 $('#nome_cliente_modal').html(dados.nomeCliente);
+//                 $('#cnpj_cliente_modal').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+//                 $('#status_modal').val(dados.status);
+//                 $('#contrato_caixa_modal').val(dados.contratoCaixa);
+//                 $('#contrato_bndes_modal').val(dados.contratoBndes);
+//                 $('#conta_corrente_modal').val(dados.contaDebito);
+//                 $('#tipo_modal').val(dados.tipoOperacao);
+//                 $('#valor_modal').val(dados.valorOperacao);
+//                 $('#pv_modal').val(dados.codigoPa);
+//                 $('#sr_modal').val(dados.codigoSr);
+//                 $('#gigad_modal').val(dados.codigoGigad);
 
         
-            jQuery('#visualizarcontrato').on('hidden.bs.modal', function (e) {
-            jQuery(this).removeData('#tabHistoricoSaldo>tbody');
-            jQuery(this).find('#tabHistoricoSaldo>tbody').empty();
-            jQuery(this).removeData('#tabHistoricoContrato>tbody');
-            jQuery(this).find('#tabHistoricoContrato>tbody').empty();
-            })
-        });  
+//             jQuery('#visualizarcontrato').on('hidden.bs.modal', function (e) {
+//             jQuery(this).removeData('#tabHistoricoSaldo>tbody');
+//             jQuery(this).find('#tabHistoricoSaldo>tbody').empty();
+//             jQuery(this).removeData('#tabHistoricoContrato>tbody');
+//             jQuery(this).find('#tabHistoricoContrato>tbody').empty();
+//             })
+//         });  
 
-            $('#visualizarcontrato').modal('show');
-}
+//             $('#visualizarcontrato').modal('show');
+// }
 
 
-function editarContratoSumep(json){
+// function editarContratoSumep(json){
 
-    $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
+//     $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
 
-        var dados = JSON.parse(dados);
-        console.log(dados);
-        for(i = 0; i < dados.consultaSaldo.length; i++){
-            linha = montaLinhaTabelaSaldo(dados.consultaSaldo[i]);
+//         var dados = JSON.parse(dados);
+//         console.log(dados);
+//         for(i = 0; i < dados.consultaSaldo.length; i++){
+//             linha = montaLinhaTabelaSaldo(dados.consultaSaldo[i]);
             
        
-            $('#tabConsultaSaldoEditar>tbody').append(linha);
-        }              
-        function montaLinhaTabelaSaldo(dadosSaldo)
-        {
-            bDestroy= true;
+//             $('#tabConsultaSaldoEditar>tbody').append(linha);
+//         }              
+//         function montaLinhaTabelaSaldo(dadosSaldo)
+//         {
+//             bDestroy= true;
 
-            linha = '<tr>' +
-                        '<td>' + dadosSaldo.codigoConsultaSaldo + '</td>' +
-                        '<td>' + dadosSaldo.dataConsultaSaldo + '</td>' +
-                        '<td>' + dadosSaldo.statusSaldo + '</td>' +
-                        '<td>' + dadosSaldo.saldoDisponivel + '</td>' +
-                        '<td>' + dadosSaldo.saldoBloqueado + '</td>' +
-                        '<td>' + dadosSaldo.LimiteChequeAzul + '</td>' +
-                        '<td>' + dadosSaldo.LimiteGim + '</td>' +
-                        '<td>' + dadosSaldo.saldoTotal + '</td>' +
-                    '</tr>';
-            return linha;
+//             linha = '<tr>' +
+//                         '<td>' + dadosSaldo.codigoConsultaSaldo + '</td>' +
+//                         '<td>' + dadosSaldo.dataConsultaSaldo + '</td>' +
+//                         '<td>' + dadosSaldo.statusSaldo + '</td>' +
+//                         '<td>' + dadosSaldo.saldoDisponivel + '</td>' +
+//                         '<td>' + dadosSaldo.saldoBloqueado + '</td>' +
+//                         '<td>' + dadosSaldo.LimiteChequeAzul + '</td>' +
+//                         '<td>' + dadosSaldo.LimiteGim + '</td>' +
+//                         '<td>' + dadosSaldo.saldoTotal + '</td>' +
+//                     '</tr>';
+//             return linha;
 
        
-        }
+//         }
          
-        for(i = 0; i < dados.historicoContrato.length; i++){
-            linha = montaLinhaTabelaHistorico(dados.historicoContrato[i]);
+//         for(i = 0; i < dados.historicoContrato.length; i++){
+//             linha = montaLinhaTabelaHistorico(dados.historicoContrato[i]);
             
-            $('#tabConsultaHistoricoEditar>tbody').append(linha);
-        }              
-        function montaLinhaTabelaHistorico(dadosHistorico)
-        {
-            bDestroy= true;
-            linha = '<tr>' +
-                        '<td>' + dadosHistorico.codigoHistorico + '</td>' +
-                        '<td>' + dadosHistorico.dataHistorico + '</td>' +
-                        '<td>' + dadosHistorico.statusHistorico + '</td>' +
-                        '<td>' + dadosHistorico.observacaoHistorico + '</td>' +
-                        '<td>' + dadosHistorico.matriculaResponsavel + '</td>' +
-                        '<td>' + dadosHistorico.unidadeResponsavel + '</td>' +
+//             $('#tabConsultaHistoricoEditar>tbody').append(linha);
+//         }              
+//         function montaLinhaTabelaHistorico(dadosHistorico)
+//         {
+//             bDestroy= true;
+//             linha = '<tr>' +
+//                         '<td>' + dadosHistorico.codigoHistorico + '</td>' +
+//                         '<td>' + dadosHistorico.dataHistorico + '</td>' +
+//                         '<td>' + dadosHistorico.statusHistorico + '</td>' +
+//                         '<td>' + dadosHistorico.observacaoHistorico + '</td>' +
+//                         '<td>' + dadosHistorico.matriculaResponsavel + '</td>' +
+//                         '<td>' + dadosHistorico.unidadeResponsavel + '</td>' +
                        
-                    '</tr>';
-            return linha;
+//                     '</tr>';
+//             return linha;
          
-        }
+//         }
           
 
-        $('#codDemanda').val(dados.codigoDemanda);
-        $('#nome_cliente_editar').html(dados.nomeCliente);
-        $('#cnpj_cliente_editar').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-        $('#status_editar').val(dados.status);
-        $('#contrato_caixa_editar').val(dados.contratoCaixa);
-        $('#contrato_bndes_editar').val(dados.contratoBndes);
-        $('#conta_corrente_editar').val(dados.contaDebito);
-        $('#tipo_editar').val(dados.tipoOperacao);
-        $('#valor_editar').val(dados.valorOperacao);
-        $('#pv_editar').val(dados.codigoPa);
-        $('#sr_editar').val(dados.codigoSr);
-        $('#gigad_editar').val(dados.codigoGigad);
+//         $('#codDemanda').val(dados.codigoDemanda);
+//         $('#nome_cliente_editar').html(dados.nomeCliente);
+//         $('#cnpj_cliente_editar').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
+//         $('#status_editar').val(dados.status);
+//         $('#contrato_caixa_editar').val(dados.contratoCaixa);
+//         $('#contrato_bndes_editar').val(dados.contratoBndes);
+//         $('#conta_corrente_editar').val(dados.contaDebito);
+//         $('#tipo_editar').val(dados.tipoOperacao);
+//         $('#valor_editar').val(dados.valorOperacao);
+//         $('#pv_editar').val(dados.codigoPa);
+//         $('#sr_editar').val(dados.codigoSr);
+//         $('#gigad_editar').val(dados.codigoGigad);
 
 
-            jQuery('#editarcontrato').on('hidden.bs.modal', function (e) {
-            jQuery(this).removeData('#tabConsultaSaldoEditar>tbody');
-            jQuery(this).find('#tabConsultaSaldoEditar>tbody').empty();
-            jQuery(this).removeData('#tabConsultaHistoricoEditar>tbody');
-            jQuery(this).find('#tabConsultaHistoricoEditar>tbody').empty();
-            })
-        });  
+//             jQuery('#editarcontrato').on('hidden.bs.modal', function (e) {
+//             jQuery(this).removeData('#tabConsultaSaldoEditar>tbody');
+//             jQuery(this).find('#tabConsultaSaldoEditar>tbody').empty();
+//             jQuery(this).removeData('#tabConsultaHistoricoEditar>tbody');
+//             jQuery(this).find('#tabConsultaHistoricoEditar>tbody').empty();
+//             })
+//         });  
 
 
 
-$('#editarcontrato').modal('show');
+// $('#editarcontrato').modal('show');
 
-}   
+// }   
 
 // function enviarSolicitação(){
 

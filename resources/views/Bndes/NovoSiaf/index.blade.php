@@ -311,8 +311,8 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="control-label">STATUS</label>
-                                <!-- <input placeholder="..." id="status_modal" class="form-control" type="text" disabled> -->
-                                <div>
+                                <input placeholder="..." id="status_modal" class="form-control" type="text" disabled>
+                                <!-- <div>
                                     <select data-placeholder="Selecione o tipo.."  id="status_modal" class="form-control" disabled>
                                         <option value=""> - </option> 
                                         <option value="CADASTRADO" style="display: none">CADASTRADO</option>
@@ -329,7 +329,7 @@
                                         <option value="CONCLUIDO">CONCLUIDO</option>
                                     </select>
 
-                                </div>
+                                </div> -->
                                   
                             </div>
                               <div class="col-sm-1">
@@ -364,14 +364,15 @@
                                   <table id="tabHistoricoSaldo"class="table table-bordered table-striped datatable">
                                     <thead>
                                         <tr>
-                                            <th> consulta </th>
+                                            <th hidden> consulta </th>
                                             <th> Data e Hora</th>
                                             <th> Status </th>
                                             <th> Saldo Disponível </th>
                                             <th> Saldo Bloqueado </th>
                                             <th> Limite Cheque Azul </th>
                                             <th> Limite GIM </th>
-                                            <th> Saldo Total </th>
+                                            <!-- <th> Saldo Total </th> -->
+                                            <th> Saldo considerado </th>  
                                            
                                         </tr>
                                     </thead>
@@ -470,7 +471,8 @@
                             
                         <br>             
                         <div class="row">  
-                                    <div id="conteudoModal"></div>
+                        <div id="conteudoModal"></div>
+                        
                             <div class="col-sm-3">
                                 <label class="control-label">N Contrato BNDES</label>
                                  <input placeholder="..."  data-mask="99999999999" name="contrato_bndes_editar" id="contrato_bndes_editar"class="form-control" type="text" >
@@ -480,7 +482,7 @@
                                  <input placeholder="..." name="contrato_caixa_editar" id="contrato_caixa_editar" data-mask="9999.999.9999999-99" class="form-control" type="text" disabled>
                             </div>
                            
-                            
+                            <input id="lote" hidden>
                             
                             <div class="col-sm-3">
                                 <label class="control-label">Conta para Débito</label>
@@ -506,7 +508,7 @@
                                 <label class="control-label">STATUS</label>
                                                              
                                 <!-- <div id="form_status_editar"> -->
-                            <div>
+                            <div id="editarCEOPC">
                                 <select data-placeholder="Selecione o tipo.."  id="status_editar" class="form-control">
 								<option value=""> - </option> 
                                 <option value="CADASTRADO" style="display: none">CADASTRADO</option>
@@ -519,8 +521,29 @@
                                 <option value="CONTA PF">CONTA PF</option>
                                 <option value="CONTRATO EM CA">CONTRATO EM CA</option>
                                 <option value="SUMEP RESIDUO SIFBN">SUMEP RESIDUO SIFBN</option>
+                                <option value="SUMEP DEB PENDENTE">SUMEP DEBITO PENDENTE</option>
                                 <option value="SEM SALDO">SEM SALDO</option>
                                 <option value="CONCLUIDO">CONCLUIDO</option>
+							    </select>
+
+                            </div>
+
+                            <div id="editarAg">
+                                <select data-placeholder="Selecione o tipo.."  id="status_editar" class="form-control">
+								<option value=""> - </option> 
+                                <option value="CADASTRADO" style="display: none">CADASTRADO</option>
+                                <option value="RECEBIDO" style="display: none">RECEBIDO</option>
+                                <option value="SIBAN OK" style="display: none">SIBAN OK</option>
+                                <option value="FALTA SIBAN" style="display: none">FALTA SIBAN</option>
+                                <option value="CANCELADO">CANCELADO</option>
+                                <option value="CONTA DIVERGENTE" style="display: none">CONTA DIVERGENTE</option>
+                                <option value="VALOR DIVERGENTE" style="display: none">VALOR DIVERGENTE </option>
+                                <option value="CONTA PF" style="display: none">CONTA PF</option>
+                                <option value="CONTRATO EM CA" style="display: none">CONTRATO EM CA</option>
+                                <option value="SUMEP RESIDUO SIFBN" style="display: none">SUMEP RESIDUO SIFBN</option>
+                                <option value="SUMEP DEB PENDENTE" style="display: none">SUMEP DEBITO PENDENTE</option>
+                                <option value="SEM SALDO" style="display: none">SEM SALDO</option>
+                                <option value="CONCLUIDO" style="display: none">CONCLUIDO</option>
 							    </select>
 
                             </div>
@@ -552,24 +575,21 @@
                                 
                                 <div class="panel-body tabResponsiva">
                                 
-                                  <table id= "tabConsultaSaldoEditar"class="table table-bordered table-striped datatable">
+                                <table id= "tabConsultaSaldoEditar"class="table table-bordered table-striped datatable">
                                     <thead>
                                         <tr>
-                                            <th> Consulta </th>
+                                            <th hidden> Consulta </th>
                                             <th> Data e Hora</th>
                                             <th> Status </th>
                                             <th> Saldo Disponível </th>
                                             <th> Saldo Bloqueado </th>
                                             <th> Limite Cheque Azul </th>
                                             <th> Limite GIM </th>
-                                            <th> Saldo Total </th>
-                                            <th> Saldo considerado </th>
-                                           
+                                            <!-- <th> Saldo Total </th> -->
+                                            <th> Saldo considerado </th>                                          
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
+                                    <tbody>  </tbody>
                                 </table>
                                 
                                 
@@ -761,13 +781,13 @@
 
          
     <div class="tabbable page-tabs">
-        <ul class="nav nav-tabs">
-            <li class="active">
-            <a id="abaContratosLiquidar" href="#contratosliquidar" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Solicitar Liquidação/Amortização  </a></li>
-            <li id="abaAmortizaprox"><a href="#amortizaprox" data-toggle="tab"><i class="icon-exit4"></i> Pedidos lote dia <span id="dataLoteAtual"></span>  </a></li>
-            <li><a href="#amortizaant" data-toggle="tab"><i class="icon-exit3"></i> Pedidos Lote dia <span id="dataLoteAnterior"></span></a></li>
-            <li><a href="#SUMEP" data-toggle="tab"><i class="icon-hammer"></i>Contratos na SUMEP</a></li>
-            <li><a href="#amortizatodas" data-toggle="tab"><i class="icon-file4"></i>Pedidos Anteriores </a></li>
+        <ul class="nav nav-tabs" id="abasDasTabelas">
+            <li class="active" id="abaContratosLiquidar">
+            <a  href="#contratosliquidar" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Solicitar Liquidação/Amortização  </a></li>
+            <li id="abaLoteAtual"><a href="#LoteAtual" data-toggle="tab"><i class="icon-exit4"></i> Pedidos lote dia <span id="dataLoteAtual"></span>  </a></li>
+            <li id="abaAmortizaant"><a href="#amortizaant" data-toggle="tab"><i class="icon-exit3"></i> Pedidos Lote dia <span id="dataLoteAnterior"></span></a></li>
+            <li id="abaSUMEP"><a href="#SUMEP" data-toggle="tab"><i class="icon-hammer"></i>Contratos na SUMEP</a></li>
+            <li id="abaAmortizaTodas"><a href="#amortizatodas" data-toggle="tab"><i class="icon-file4"></i>Pedidos Anteriores </a></li>
         </ul>
 
     <!-- conteudo tabelas -->
@@ -810,7 +830,7 @@
 
      <!-- tabela contratos tratamento ceopc -->
         
-            <div class="tab-pane" id="amortizaprox">
+            <div class="tab-pane" id="LoteAtual">
             <!-- <p><strong>Amortizações referentes ao lote: </strong></p> -->
                 <!-- Default datatable inside panel -->
                 <div class="panel panel-default">
@@ -818,7 +838,7 @@
                         <h6 class="panel-title"><i class="icon-table"></i> Lista de solicitações referentes ao lote : <span id ="proxLote"></span></h6>
                     </div>
                     <div class="tabResponsiva">
-                        <table id="tabelaAmortizaProx" class="table table-striped table-hover">
+                        <table id="tabelaLoteAtual" class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>Pedido</th>
@@ -870,7 +890,7 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody></tbody>
+                                        <tbody id="tabelaLoteAnterioBody"></tbody>
                                     </table>
                             </div>
                     </div>
@@ -1256,14 +1276,17 @@
         <!-- <script src="{{ asset('js/carrega_dados_dos_contratos.js')}}"></script> -->
         <script src="{{ asset('js/Bndes/NovoSiaf/data.lote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratos.ag.js')}}"></script>
-        <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.proxlote.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAtual.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnt.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoSumep.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/valida.cadastroAmortizacao.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisaLote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisa12meses.js')}}"></script>
+        <!-- <script src="{{ asset('js/Bndes/NovoSiaf/envia.dados.editarContrato.js')}}"></script> -->
         <script src="{{ asset('js/Bndes/NovoSiaf/envia.dados.editarContrato_chuman.js')}}"></script>
         <script src="{{ asset('js/plugins/DataTables/fnReloadAjax.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/carrega.idTabela.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/funcoesModal.js')}}"></script>
         <!-- <script src="{{ asset('js/dataTables.responsive.min.js')}}"></script> -->
         <!-- <script src="{{ asset('js/ldap.js')}}"></script> -->
         <!-- <script src="{{ asset('js/index.js')}}"></script> -->
