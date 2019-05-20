@@ -55,6 +55,7 @@ function visualizaContratoParaCadastrarDemanda(json){
         success: function(carregaContratos){         
             var contratos = JSON.parse(carregaContratos);
             var i = 0;
+           
             $.each(contratos, function(key, value){
                 //coloca os dados do cliente na parte de cima do modal
                 $("#cnpj_cliente").html(value.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
@@ -82,8 +83,15 @@ function visualizaContratoParaCadastrarDemanda(json){
                 $('#tabCadastrar>tbody').append(linhaCadastro);
                 //coloca mascara de valor 
                 $("input.dinheiro").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+                
+                //altera os contratos nulos para ''
+                if ($("#ctrBndes" +[i]).val() == 'null'){
+                    $("#ctrBndes" +[i]).val('');
+                    console.log($("#ctrBndes" +[i]).val());
+               }
                 i++;
             });
+         
         }             
     });  
     $('#modalCadastramento').modal('show');
