@@ -45,7 +45,7 @@ function atualizaTabelaLotes(json){
                 '<td align="center">' + json.outros  + '</td>' +
                 '<td align="center">' + json.valorLote.replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")  + '</td>' +
 				'<td>'	+				
-					'<button class="btn btn-btn-box-tool btn-xs btn-success tip center-block btn-excel" data-widget="tooltip" title="Exportar dados do lote para Excel" onclick ="location.href="../api/bndes/v1/exporta_lote_para_excel/' + json.dataLote.replace("/","-").replace("/","-") + '"><i class="fa fa-file-excel-o"></i></button> ' + 
+					'<button class="btn btn-btn-box-tool btn-xs btn-success tip center-block btn-excel" data-widget="tooltip" title="Exportar dados do lote para Excel" onclick ="geraExcel(\'' + json.dataLote.replace("/","-").replace("/","-") + '\')"><i class="fa fa-file-excel-o"></i></button> ' + 
                
             '</tr>';
     return linha;
@@ -57,7 +57,7 @@ function geraExcel(json){
     try{
     var url = ('../api/bndes/v1/exporta_lote_para_excel/'+ json);
 
-    Workbooks.open(url);
+    window.open(url,"_self");
     
     }
     catch(Error){
