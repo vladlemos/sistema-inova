@@ -13,28 +13,15 @@
     <link href="{{ asset('css/template.css') }}" rel="stylesheet" type="text/css">  
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/icons.css') }}" rel="stylesheet" type="text/css">
-    <!-- <link href="{{ asset('css//wysihtml5/wysiwyg-color.css') }}" rel="stylesheet" type="text/css"> -->
     <link href="{{ asset('css/font-awesome-4.5.0/font-awesome-4.5.0/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/Bndes/NovoSiaf/index.css') }}" rel="stylesheet" type="text/css">
-    <!-- <link href="{{ asset('css/responsive.dataTables.min.css') }}" rel="stylesheet" type="text/css">  -->
-    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css"> -->
-
+    
     <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js')}}"></script>
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js')}}"></script>
     <script src="{{ asset('js/plugins/forms/jquery.maskMoney.min.js')}}"></script>
-    <!-- <script src="{{ asset('js/plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.css')}}"></script> -->
-
-
-    <!-- <style>
-  
-  .table-hover > tbody > tr:hover{
-  color: #1c60ab;  
     
-  }
-  
 
 
-</style> -->
 </head>
 
 <body>
@@ -70,8 +57,8 @@
 	</div>
 
 
-	<!-- Page container -->
- 	<div class="page-container">
+<!-- Page container -->
+<div class="page-container">
 
 
 <!-- Sidebar -->
@@ -91,6 +78,7 @@
                 </li>
             </ul>
         </div>
+
     </div>
         
         <!-- /user dropdown -->
@@ -143,7 +131,7 @@
         <li id="menu-convenios"><a href="http://www.sumep.mz.caixa/convenios/"><span>Acompanhamento de Convênios</span><i class="icon-truck"></i></a></li>
         <li id="menu-amortizacao"><a href="http://www.geopc.mz.caixa/sumep.mz.caixa/novosiaf/"><span>Amortização \ Liquidação</span><i class="icon-stackoverflow"></i></a></li>
     </ul>
-        <!-- /main navigation -->
+    <!-- /main navigation -->
         
     </div>
 </div>
@@ -159,41 +147,39 @@
 
 -->
 <!-- Large modal -->
-
- <div id="modalCadastramento" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" >
+<!-- modal de solicitação de cadastro -->
+<div id="modalCadastramento" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" >
         
-        <div class="modal-dialog modal-danger modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><i class="icon-file-plus"></i>Solicitação de Amortização \ Liquidação  <span id="nome_cliente"></span>  <span id="cnpj_cliente"></span></h4>
-                </div>
+    <div class="modal-dialog modal-danger modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><i class="icon-file-plus"></i>Solicitação de Amortização \ Liquidação  <span id="nome_cliente"></span>  <span id="cnpj_cliente"></span></h4>
+            </div>
                 
                
-                <div class="modal-body with-padding">
-                    <div class="tabbable">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tabSelecionar" data-toggle="tab"><i class="icon-checkbox-checked"></i>Selecionar Contratos</a></li>
-                            <li><a href="#tabInstrucoes" data-toggle="tab"><i class="icon-book"></i>Instruções </a></li>
-                            
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane fade in active" id="tabSelecionar">
+            <div class="modal-body with-padding">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tabSelecionar" data-toggle="tab"><i class="icon-checkbox-checked"></i>Selecionar Contratos</a></li>
+                        <li><a href="#tabInstrucoes" data-toggle="tab"><i class="icon-book"></i>Instruções </a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tabSelecionar">
                             <div class="row"><small class="display-block " id="avisoAgencia"><strong> RATIFICAR AS INFORMAÇÕES CARREGADAS! No caso de dúvidas consulte as instruções de preenchimento no menu acima ! &nbsp &nbsp &nbsp </small></div></strong>
                             
                             <div class="row"><small class="display-block text-danger active avisoAgencia" id ="avisoAgencia"> Para solicitar, Informe abaixo o nº BNDES, valor, confirme a conta, contrato e o tipo de comando dos contratos desejados e envie à CEOPC!  </small></div>
-                            
+                        
                             <h6 class=""><span id="nome_cliente2"></span>  <span id="cnpj_cliente2"></span></h6>
+                        
                             
-                                
-                                <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_pedido_amortizacao">
-                                                            
-                                <div class="form-group">
-                            
+                            <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_pedido_amortizacao">
+                                                        
+                            <div class="form-group">
+                        
                                 <table id ="tabCadastrar" class="table table-bordered table-striped datatable">
                                     <thead>
                                         <tr>
-                                            
                                             <th>N Contrato BNDES</th>
                                             <th>N Contrato CAIXA</th>
                                             <th>Conta para Débito</th>
@@ -201,240 +187,200 @@
                                             <th>Tipo de Comando</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
+                                    <tbody> </tbody>
                                 </table>
                             
                                 <br>
-                                
-                             
-                            <label>Observações</label>
-                            <textarea class="form-control co_observacoes" rows="3" name="co_observacoes" placeholder="Digite as observações da solicitação aqui...."></textarea>  
+                           
+                                <label>Observações</label>
+                                <textarea class="form-control co_observacoes" rows="3" name="co_observacoes" placeholder="Digite as observações da solicitação aqui...."></textarea>  
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-danger pull-left" data-dismiss="modal">Fechar</button>
                                 <button class="btn btn-success pull-right cadAmortizacao" type="submit" value="submit">Enviar à CEOPC</button>
                             </div>
-                            </form>
-                            </div>
-                            
-                            <div class="tab-pane body fade" id="tabInstrucoes">
-                            <div class="row">
-                            <div class="col-sm-12">
-                                <h5 class="text-error">Passo a passo</h5>
-                                <p> - Certifique-se que a amortização é referente ao cliente selecionado.</p>
-                                <p> - Selecione o contrato que deseja solicitar amortização ou liquidação.</p>
-                                <p> - <strong>Não é necessário preencher nada nos contratos que não serão amortizados/liquidados</strong>.</p>
-                                <p> - <strong>Verifique se os dados dos contratos selecionados estão corretos, ajuste se necessário.</strong></p>
-                                <p> - Informe o valor a amortizar.</p>
-                                <p> - Ao valor da liquidação não deve ser somado a prestação do dia </p>
-                                <p> - Selecione o tipo de comando.</p>
-                                <p> - Preencha as observações pertinentes.</p>
-                                <p> - Envie o pedido à CEOPC.</p>
-                                <hr>
-                                
 
-                            </div>
-                            </div>
-                            </div>                       
+                            </form>
+                        </div>
                         
+                        <div class="tab-pane body fade" id="tabInstrucoes">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h5 class="text-error">Passo a passo</h5>
+                                    <p> - Certifique-se que a amortização é referente ao cliente selecionado.</p>
+                                    <p> - Selecione o contrato que deseja solicitar amortização ou liquidação.</p>
+                                    <p> - <strong>Não é necessário preencher nada nos contratos que não serão amortizados/liquidados</strong>.</p>
+                                    <p> - <strong>Verifique se os dados dos contratos selecionados estão corretos, ajuste se necessário.</strong></p>
+                                    <p> - Informe o valor a amortizar.</p>
+                                    <p> - Ao valor da liquidação não deve ser somado a prestação do dia.</p>
+                                    <p> - Selecione o tipo de comando.</p>
+                                    <p> - Preencha as observações pertinentes.</p>
+                                    <p> - Envie o pedido à CEOPC.</p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>                       
+                    
                     </div>
                 </div>
-                </div>
-
-                
             </div>
         </div>
     </div>
+</div>
     <!-- /large modal -->
     
-    <!-- /Modal para visualizar contrato -->
+<!-- Modal para visualizar contrato -->
 
-    <div id="visualizarcontrato" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" >
-        
-        <div class="modal-dialog modal-danger modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <!-- <h4 class="modal-title"><i class="icon-eye"></i>Visualizar Contrato <span id="nome_cliente_modal"></span>  <span id="cnpj_cliente_modal"></span></h4> -->
-                    <h4 class="modal-title"><i class="icon-file-plus"></i>Visualizar Contrato  <span id="nome_cliente_modal"></span>  <span id="cnpj_cliente_modal"></span></h4>
-                </div>
-                               
-                <div class="modal-body with-padding">
-                <div class="tabbable">
+<div id="visualizarcontrato" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" >
+    
+    <div class="modal-dialog modal-danger modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><i class="icon-file-plus"></i>Visualizar Contrato  <span id="nome_cliente_modal"></span>  <span id="cnpj_cliente_modal"></span></h4>
+            </div>
+                            
+            <div class="modal-body with-padding">
+                <div class="tabbable page-tabs">
                     <ul class="nav nav-tabs">
                 
                         <li class="active"><a href="#tabVisualizar" data-toggle="tab"><i class="icon-eye"></i>Visualizar Contrato</a></li>
                         <li><a href="#tabHistorico" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
                         
                     </ul>
-                <div class="tab-content">
-                <!-- <h5 ><span id="nome_cliente_modal"></span> <span id="cnpj_cliente_modal"></h5> -->
-                    <div class="tab-pane fade in active" id="tabVisualizar">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tabVisualizar">
 
-                    <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_visualiza_pedido">
-                                                            
-                                <div class="form-group">
+                        <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_visualiza_pedido">
+                                                                
+                            <div class="form-group">
+                                <div class="row">  
+                                <div id="conteudoModal"></div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label">N Contrato BNDES</label>
+                                            <input placeholder="..."  id="contrato_bndes_modal"class="form-control" type="text" disabled>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label">N Contrato CAIXA</label>
+                                            <input placeholder="..." id="contrato_caixa_modal" class="form-control" type="text" disabled>
+                                    </div>
+                                    
+                                    <div class="col-sm-3">
+                                        <label class="control-label">Conta para Débito</label>
+                                            <input placeholder="..." id="conta_corrente_modal"class="form-control" type="text" disabled>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label">Valor da Amortização</label>
+                                            <input placeholder="..." id="valor_modal" class="form-control dinheiro" type="text" disabled>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">    
+                                    <div class="col-sm-3">
+                                        <label class="control-label">Tipo de Comando</label>
                             
-                        <br>             
-                             <div class="row">  
-                        <div id="conteudoModal"></div>
-                            <div class="col-sm-3">
-                                <label class="control-label">N Contrato BNDES</label>
-                                 <input placeholder="..."  id="contrato_bndes_modal"class="form-control" type="text" disabled>
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="control-label">N Contrato CAIXA</label>
-                                 <input placeholder="..." id="contrato_caixa_modal" class="form-control" type="text" disabled>
-                            </div>
-                           
-                            <div class="col-sm-3">
-                                <label class="control-label">Conta para Débito</label>
-                                 <input placeholder="..." id="conta_corrente_modal"class="form-control" type="text" disabled>
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="control-label">Valor da Amortização</label>
-                                 <input placeholder="..." id="valor_modal" class="form-control dinheiro" type="text" disabled>
-                            </div>
-                            </div>
-                            <br>
-                            <div class="row">    
-                            <div class="col-sm-3">
-                                <label class="control-label">Tipo de Comando</label>
-                                <!-- <input placeholder="..." id="tipo_modal" class="form-control" type="text" disabled> -->
-                                <select data-placeholder="Selecione o tipo.." id="tipo_modal" class=" tipoAmortizacao form-control" disabled>
-                                    <option value="">-</option> 
-                                    <option value="A">AMORTIZAÇÃO</option> 
-                                    <option value="L">LIQUIDAÇÃO</option> 
-                                </select>
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="control-label">STATUS</label>
-                                <input placeholder="..." id="status_modal" class="form-control" type="text" disabled>
-                                <!-- <div>
-                                    <select data-placeholder="Selecione o tipo.."  id="status_modal" class="form-control" disabled>
-                                        <option value=""> - </option> 
-                                        <option value="CADASTRADO" style="display: none">CADASTRADO</option>
-                                        <option value="RECEBIDO">RECEBIDO</option>
-                                        <option value="SIBAN OK">SIBAN OK</option>
-                                        <option value="FALTA SIBAN">FALTA SIBAN</option>
-                                        <option value="CANCELADO">CANCELADO</option>
-                                        <option value="CONTA DIVERGENTE">CONTA DIVERGENTE</option>
-                                        <option value="VALOR DIVERGENTE ">VALOR DIVERGENTE </option>
-                                        <option value="CONTA PF">CONTA PF</option>
-                                        <option value="CONTRATO EM CA">CONTRATO EM CA</option>
-                                        <option value="SUMEP RESIDUO SIFBN">SUMEP RESIDUO SIFBN</option>
-                                        <option value="SEM SALDO">SEM SALDO</option>
-                                        <option value="CONCLUIDO">CONCLUIDO</option>
-                                    </select>
+                                        <select data-placeholder="Selecione o tipo.." id="tipo_modal" class=" tipoAmortizacao form-control" disabled>
+                                            <option value="">-</option> 
+                                            <option value="A">AMORTIZAÇÃO</option> 
+                                            <option value="L">LIQUIDAÇÃO</option> 
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label">STATUS</label>
+                                        <input placeholder="..." id="status_modal" class="form-control" type="text" disabled>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label class="control-label">PA</label>
+                                            <input placeholder="..." id="pv_modal" class="form-control" type="text" disabled>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label class="control-label">SR</label>
+                                            <input placeholder="..." id="sr_modal" class="form-control" type="text" disabled>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <label class="control-label">GIGAD</label>
+                                        <input placeholder="..." id="gigad_modal" class="form-control" type="text" disabled>
+                                    </div>
+                                </div>
+                                            
+                                <br>
+                            
+                                <label>Observações</label>
+                                    <textarea class="form-control" id="obs_modal" disabled></textarea>
+                                
+                                <br>
 
-                                </div> -->
-                                  
-                            </div>
-                              <div class="col-sm-1">
-                                <label class="control-label">PA</label>
-                                 <input placeholder="..." id="pv_modal" class="form-control" type="text" disabled>
-                            </div>
-                              <div class="col-sm-1">
-                                <label class="control-label">SR</label>
-                                 <input placeholder="..." id="sr_modal" class="form-control" type="text" disabled>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title"><i class="icon-coin"></i> Histórico de saldo</h6>
+                                    </div>
+                                    
+                                    <div class="panel-body tabResponsiva" >
+                                    
+                                        <table id="tabHistoricoSaldo"class="table table-bordered table-striped datatable">
+                                        <thead>
+                                            <tr>
+                                                <th hidden> consulta </th>
+                                                <th> Data e Hora</th>
+                                                <th> Status </th>
+                                                <th> Saldo Disponível </th>
+                                                <th> Saldo Bloqueado </th>
+                                                <th> Limite Cheque Azul </th>
+                                                <th> Limite GIM </th>
+                                                <th> Saldo considerado </th>  
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                        </table>
+                                    
+                                    
+                                    </div>
                                 </div>
-                              <div class="col-sm-1">
-                                <label class="control-label">GIGAD</label>
-                                 <input placeholder="..." id="gigad_modal" class="form-control" type="text" disabled>
-                                </div>
-                         
                             </div>
-                                     
-                        <br>
-                            <!-- <span class="form-control" id="obs_modalAnterior"></span> -->
-                            <label>Observações</label>
-                                <textarea class="form-control" id="obs_modal" disabled></textarea>
-                            
-                            <br>
+                        </form>
+                                
+                        </div>
 
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h6 class="panel-title"><i class="icon-coin"></i> Histórico de saldo</h6>
-                                </div>
-                                
-                                <div class="panel-body tabResponsiva" >
-                                
-                                  <table id="tabHistoricoSaldo"class="table table-bordered table-striped datatable">
-                                    <thead>
-                                        <tr>
-                                            <th hidden> consulta </th>
-                                            <th> Data e Hora</th>
-                                            <th> Status </th>
-                                            <th> Saldo Disponível </th>
-                                            <th> Saldo Bloqueado </th>
-                                            <th> Limite Cheque Azul </th>
-                                            <th> Limite GIM </th>
-                                            <!-- <th> Saldo Total </th> -->
-                                            <th> Saldo considerado </th>  
-                                           
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
-                                
-                                
+                            <div class="tab-pane body fade" id="tabHistorico">
+                                <div class="row">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title"><i class="icon-vcard"></i> Histórico do contrato</h6>
+                                    </div>
+                                    
+                                    <div class="panel-body tabResponsiva">
+                                    
+                                    <table id= "tabHistoricoContrato" class="table table-bordered table-striped table-responsive datatable">
+                                        <thead>
+                                            <tr>
+                                                <th> Pedido </th>
+                                                <th> Data e Hora</th>
+                                                <th> Status </th>
+                                                <th> Observações </th>
+                                                <th> Responsável </th>
+                                                <th> Unidade </th>
+                                                                                        
+                                            </tr>
+                                        </thead>
+                                        <tbody ></tbody>
+                                    </table>
+                                    </div>
                                 </div>
                             </div>
-                            </div>
-                    </form>
-                            
+                                
+                        </div>                       
                     </div>
-
-                             <div class="tab-pane body fade" id="tabHistorico">
-                            <div class="row">
-                                <div class="panel-heading">
-                                   <h6 class="panel-title"><i class="icon-vcard"></i> Histórico do contrato</h6>
-                                </div>
-                               
-                               <div class="panel-body tabResponsiva">
-                               
-                                <table id= "tabHistoricoContrato" class="table table-bordered table-striped table-responsive datatable">
-                                   <thead>
-                                       <tr>
-                                            <th> Pedido </th>
-                                            <th> Data e Hora</th>
-                                            <th> Status </th>
-                                            <th> Observações </th>
-                                            <th> Responsável </th>
-                                            <th> Unidade </th>
-                                                                                    
-                                       </tr>
-                                   </thead>
-                                   <tbody >
-                                       
-                                   </tbody>
-								</table>
-                               
-                               
-                               </div>
-                          
-                            </div>
-                            </div>
-                          
-                </div>                       
-                      
-            </div>
-                    <div class="modal-footer">
-                        <!-- <small class="pull-left"> Cadastrado em : <span id="datacadastramento"></span>, por  <span id="solicitante_nome"></span>  (<span id="solicitante_matricula"></span>) </small> -->
-                        <button class="btn btn-danger pull-right" data-dismiss="modal">Fechar</button>
-                                
-                    </div>
-                </div>                
-            </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger pull-right" data-dismiss="modal">Fechar</button>
+                                    
+                        </div>
+            </div>                
         </div>
     </div>
-   
-    <!-- /Modal para visualizar contrato -->
-    
+</div>
+
+<!-- /Modal para visualizar contrato -->
+
     <!-- /Modal para editar status -->
     <div id="editarcontrato" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" >
         
@@ -442,7 +388,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <!-- <h4 class="modal-title"><i class="icon-eye"></i>Editar Contrato <span id="nome_cliente_editar"></span>  <span id="cnpj_cliente_editar"></span></h4> -->
+                   
                     <h4 class="modal-title"><i class="icon-eye"></i>Editar Contrato  <span id="nome_cliente_editar"></span>  <span id="cnpj_cliente_editar"></span></h4>
                 </div>
                                
@@ -455,18 +401,12 @@
                         
                     </ul>
                 <div class="tab-content">
-                <!-- <h5 class=""><span id="nome_cliente_editar"></span> &nbsp &nbsp <span id="cnpj_cliente_editar"></h5> -->
+
                     <div class="tab-pane fade in active" id="tabEditar">
                     <span id="codDemanda"></span>
 
                     <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_editar_amortizacao">
-                        <!-- <input type="hidden" id="protocolo_alterar_dados"  name="protocolo_alterar_dados">        
-                        <input type="hidden" id="editar_contrato_bndes_antigo" name="editar_contrato_bndes_antigo">   
-                        <input type="hidden" id="editar_contrato_caixa_antigo" name="editar_contrato_caixa_antigo">   
-                        <input type="hidden" id="editar_conta_antigo" name="editar_conta_antigo">   
-                        <input type="hidden" id="editar_valor_antigo" name="editar_valor_antigo">   
-                        <input type="hidden" id="editar_status_antigo" name="editar_status_antigo">    -->
-                                                            
+                                                                                   
                         <div class="form-group">
                             
                         <br>             
@@ -497,7 +437,7 @@
                             <div class="row">    
                             <div class="col-sm-3">
                                 <label class="control-label">Tipo de Comando</label>
-                                <!-- <input placeholder="..." id="tipo_editar" class="form-control" type="text"> -->
+                               
                                 <select data-placeholder="Selecione o tipo.." id="tipo_editar" class=" tipoAmortizacao form-control">
                                     <option value="">-</option> 
                                     <option value="A">AMORTIZAÇÃO</option> 
@@ -507,7 +447,7 @@
                             <div class="col-sm-3">
                                 <label class="control-label">STATUS</label>
                                                              
-                                <!-- <div id="form_status_editar"> -->
+                               
                             <div id="editarCEOPC">
                                 <select data-placeholder="Selecione o tipo.."  id="status_editar" class="form-control">
 								<option value=""> - </option> 
@@ -520,8 +460,8 @@
                                 <option value="VALOR DIVERGENTE">VALOR DIVERGENTE </option>
                                 <option value="CONTA PF">CONTA PF</option>
                                 <option value="CONTRATO EM CA">CONTRATO EM CA</option>
-                                <option value="SUMEP RESIDUO SIFBN">SUMEP RESIDUO SIFBN</option>
-                                <option value="SUMEP DEB PENDENTE">SUMEP DEBITO PENDENTE</option>
+                                <option value="SUMEP RESIDUO SIFBN">RESIDUO SIFBN</option>
+                                <option value="SUMEP DEB PENDENTE">DEBITO PENDENTE</option>
                                 <option value="SEM SALDO">SEM SALDO</option>
                                 <option value="CONCLUIDO">CONCLUIDO</option>
 							    </select>
@@ -541,7 +481,7 @@
                                 <option value="CONTA PF" style="display: none">CONTA PF</option>
                                 <option value="CONTRATO EM CA" style="display: none">CONTRATO EM CA</option>
                                 <option value="SUMEP RESIDUO SIFBN" style="display: none">SUMEP RESIDUO SIFBN</option>
-                                <option value="SUMEP DEB PENDENTE" style="display: none">SUMEP DEBITO PENDENTE</option>
+                                <option value="SUMEP DEB PENDENTE" style="display: none">SUMEP DEB PENDENTE</option>
                                 <option value="SEM SALDO" style="display: none">SEM SALDO</option>
                                 <option value="CONCLUIDO" style="display: none">CONCLUIDO</option>
 							    </select>
@@ -564,7 +504,7 @@
                             </div>
                             
                         <br>
-                             <!-- <span class="form-control" id="obs_editarAnt"></span> -->
+                            
                             <label>Observações</label>
                             <textarea class="form-control" rows="3" name="co_observacoes" id="observacaoContrato" placeholder="Digite as observações da solicitação aqui...."></textarea> 
                               <br>
@@ -585,7 +525,6 @@
                                             <th> Saldo Bloqueado </th>
                                             <th> Limite Cheque Azul </th>
                                             <th> Limite GIM </th>
-                                            <!-- <th> Saldo Total </th> -->
                                             <th> Saldo considerado </th>                                          
                                         </tr>
                                     </thead>
@@ -602,7 +541,7 @@
                             
                     </div>
                             
-                            <div class="tab-pane body fade" id="tabHistoricoEditar">
+                        <div class="tab-pane body fade" id="tabHistoricoEditar">
                             <div class="row">
                                 <div class="panel-heading">
                                    <h6 class="panel-title"><i class="icon-vcard"></i> Histórico do contrato</h6>
@@ -622,24 +561,22 @@
                                                                                     
                                        </tr>
                                    </thead>
-                                   <tbody >
-                                       
-                                   </tbody>
+                                   <tbody ></tbody>
 								</table>
                                
                                 </div>
-                               </div>
-                          
                             </div>
+                          
+                        </div>
   
                 </div>                       
                       
             </div>
                 <div class="modal-footer">
-                    <!-- <small class="pull-left"> Cadastrado em : <span id="editarDataCadastramento"></span>, por  <span id="editarSolicitanteNome"></span>  (<span id="editarSolicitanteMatricula"></span>) </small> -->
-                        <button class="btn btn-default btn-success pull-right botaoModal" data-dismiss="modal" onclick= enviarSolicitacao()>Enviar a CEOPC </button>
-                        <span class="pull-right"> </span>
-                        <button class="btn btn-default btn-danger pull-right botaoModal" data-dismiss="modal">Fechar</button> 
+                   
+                    <button class="btn btn-default btn-success pull-right botaoModal" data-dismiss="modal" onclick= enviarSolicitacao()>Enviar a CEOPC </button>
+                    <span class="pull-right"> </span>
+                    <button class="btn btn-default btn-danger pull-right botaoModal" data-dismiss="modal">Fechar</button> 
                             
             </div>
                 </div>                
@@ -648,33 +585,8 @@
     </div>
     <!-- /Modal para editar status -->
     
-    <!-- /Modal para excluir-->
-    
-    <!-- <div id="excluirpedido" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><i class="icon-accessibility"></i> Excluir </h4>
-                </div>
-
-                <div class="modal-body with-padding">
-                    <p>Deseja Excluir o pedido #<span id="confirma_excluir_protocolo"></span> <br>do contrato <span id="contrato_cliente_modal_excluir"></span><br>  do cliente <span id="nome_cliente_modal_excluir"></span> &nbsp ?</p>
-                </div>
-                <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_excluir">
-                <input type="hidden" id="excluir_protocolo"  name="exluirestepedido">
-                <div class="modal-footer">
-                    <button class="btn btn-warning" data-dismiss="modal">Fechar</button>
-                    <button class="btn btn-success exclui_apos_confirmacao" >Excluir </button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div> -->
-    <!-- /Modal para excluir -->
-    
-    
-      <!-- Modal para confirmar cadastro-->
+     
+    <!-- Modal para confirmar cadastro-->
     
     <div id="confirmacao" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm">
@@ -743,48 +655,12 @@
         </ul>
     </div>
     
-    <!-- <div class="block">
-    <div class="row">
-            
-                <div class="col-md-3">
-                <button class="btn btn-info active animated bounce" data-toggle="collapse" data-target="#abrircnpj"> <b class="icon icon-file-plus  "> </b>  Solicitar Amortização \ Liquidação </button>
-                </div> 
-    </div>
-    
-     
-    <div class="row">
-    <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_cnpj">
-                        <div class="form-group active animated bounce collapse" id="abrircnpj">
-                            <br>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                <span class="input-group-addon"><b>CNPJ : </b></span>
-                                <b><input maxlength="18" data-mask="99.999.999/9999-99" data-original-title="Digite o cnpj e pressione OK" id="cnpj" name="cnpj" class="form-control tip" data-toggle="tooltip" data-trigger="focus" title="" type="text"></b>
-                                    
-                                    <span class="input-group-btn">
-                                    
-                                    <button class="btn btn-info tip carregadadoscnpj " title="Enviar"  type="button">OK <b class="fa fa-chevron-right animated flash infinite "> </b><b class="fa fa-chevron-right animated flash infinite "> </b></button>
-                                    
-                                    </span>
-                                </div>
-                            </div>
-                        </div>	
-                        </form>
-    
-    </div>
-    
-    <br>
-     -->
-    <!-- tabelas -->
-
-    <!-- cabecalho tabela -->
-
-         
+   
     <div class="tabbable page-tabs">
         <ul class="nav nav-tabs" id="abasDasTabelas">
             <li class="active" id="abaContratosLiquidar">
             <a  href="#contratosliquidar" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Solicitar Liquidação/Amortização  </a></li>
-            <li id="abaLoteAtual"><a href="#LoteAtual" data-toggle="tab"><i class="icon-exit4"></i> Pedidos lote dia <span id="dataLoteAtual"></span>  </a></li>
+            <li id="abaLoteAtual"><a href="#loteAtual" data-toggle="tab"><i class="icon-exit4"></i> Pedidos lote dia <span id="dataLoteAtual"></span>  </a></li>
             <li id="abaAmortizaant"><a href="#amortizaant" data-toggle="tab"><i class="icon-exit3"></i> Pedidos Lote dia <span id="dataLoteAnterior"></span></a></li>
             <li id="abaSUMEP"><a href="#SUMEP" data-toggle="tab"><i class="icon-hammer"></i>Contratos na SUMEP</a></li>
             <li id="abaAmortizaTodas"><a href="#amortizatodas" data-toggle="tab"><i class="icon-file4"></i>Pedidos Anteriores </a></li>
@@ -809,19 +685,16 @@
                         <table id="tabelaContratosLiquidar" class="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <!-- <th>Contrato CAIXA</th> -->
+                                   
                                     <th>Tomador</th>                             
                                     <th>CNPJ</th>
                                     <th class= "text-center">Solicitar liquidação/amortização</th>
-                                    <!-- <th></th> -->
+                                   
                                 </tr>
                                         
                             </thead>
 
-                                <tbody>
-
-                                        
-                                </tbody>
+                                <tbody></tbody>
                         </table>
                      </div>
                 </div>
@@ -830,9 +703,7 @@
 
      <!-- tabela contratos tratamento ceopc -->
         
-            <div class="tab-pane" id="LoteAtual">
-            <!-- <p><strong>Amortizações referentes ao lote: </strong></p> -->
-                <!-- Default datatable inside panel -->
+            <div class="tab-pane" id="loteAtual">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h6 class="panel-title"><i class="icon-table"></i> Lista de solicitações referentes ao lote : <span id ="proxLote"></span></h6>
@@ -853,10 +724,7 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                                <tbody>
-                                   
-                                    
-                                </tbody>
+                                <tbody> </tbody>
                         </table>
                     </div>
                 </div>
@@ -866,7 +734,7 @@
 
             <!-- contratos lote anterior -->
             <div class="tab-pane" id="amortizaant">
-            <!-- <p><strong>Amortizações referentes ao lote: </strong></p> -->
+            
                     <!-- Default datatable inside panel -->
                     <div class="panel panel-default">
                             <div class="panel-heading">
@@ -890,7 +758,7 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody id="tabelaLoteAnterioBody"></tbody>
+                                        <tbody></tbody>
                                     </table>
                             </div>
                     </div>
@@ -925,34 +793,30 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            
-                                         
-                                        
-                                        </tbody>
+                                        <tbody> </tbody>
                                     </table>
                             </div>
                     </div>
                     
             </div>
             
-<!-- fim do teste inclusão da aba da SUMEP -->
+<!-- fim da aba da SUMEP -->
 
 
-            
-            <div class="tab-pane" id="amortizatodas">
+    <!-- tabela onde constam todas as solicitações         -->
+    <div class="tab-pane" id="amortizatodas">
 
-            <div class="tabbable page-tabs">
-        <ul class="nav nav-tabs" id="tabela-pesquisa">
-            <li class="active">
-            <a href="#listasolicitacoes" data-toggle="tab"><i class="icon-table"></i>Lista de solicitações por Lote</a></li>
-            <li><a href="#pesquisasolicitacoes" data-toggle="tab"><i class="icon-table"></i>Pesquisa liquidação/amortização</a></li>
+    <div class="tabbable page-tabs">
+        <ul class="nav nav-pills" id="tabela-pesquisa">
+            <li class="nav-item active">
+            <a class="nav-link active" href="#listasolicitacoes" data-toggle="tab"><i class="icon-table"></i>Lista de solicitações por Lote</a></li>
+            <li class="nav-item"><a class="nav-link" href="#pesquisasolicitacoes" data-toggle="tab"><i class="icon-table"></i>Pesquisa liquidação/amortização</a></li>
                       
         </ul>
 
         <div class="tab-content">
         
-            <div class="tab-pane active fade in" id="listasolicitacoes">
+            <div class="tab-pane fade active in" id="listasolicitacoes">
 
             <!-- Default datatable inside panel -->
                 <div class="panel panel-default">
@@ -972,17 +836,14 @@
                                         
                             </thead>
 
-                                <tbody>
-
-                                        
-                                </tbody>
+                                <tbody> </tbody>
                         </table>
                     </div>
                 </div>
                 
             </div>
 
-            <div class="tab-pane" id="pesquisasolicitacoes">
+            <div class="tab-pane fade" id="pesquisasolicitacoes">
 
                         <!-- Default datatable inside panel -->
                         <div class="panel panel-default">
@@ -1000,27 +861,15 @@
                                                 <th></th>                                           
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            
-                                        
-                                        
-                                        </tbody>
+                                        <tbody> </tbody>
                                     </table>
                             </div>
                         </div>
                         
             </div>
-
-          
-                 
+         
         </div> 
     </div>
-
-
-
-
-
-
 
         </div>
     </div>
@@ -1170,62 +1019,11 @@
                                 </div>
                             </div>
                             </div>
-                            
-                            
-        
-        
-        
-        
-        
-        
-        
+  
         </div>
-           
-        
-        
-        
-        
-               
-        
+   
     </div>
     
-    <!-- /breadcrumbs line -->
-
-
-    <!-- Info blocks -->
-    
-    <!-- /info blocks -->
-
-    <!-- Alert -->
-    
-    <!-- /alert -->
-
-
-    <!-- Questions and contact -->
-    
-    <!-- /questions and contact -->
-
-
-    <!-- Newest team members -->
-    
-    <!-- /newest team members -->
-
-
-    <!-- Alert -->
-    
-    <!-- /alert -->
-
-
-    <!-- Tasks table -->
-    
-    <!-- /tasks table -->
-
-
-    <!-- Recent activity -->
-    
-    <!-- /recent activity -->
-
-
     <!-- Footer -->
     <div class="footer clearfix">
         <div class="pull-left">&copy; 2019. Equipe TI CEOPC </div>
@@ -1243,7 +1041,7 @@
 </body>
 </html>
 
-        <script src="{{ asset('js/Bndes/NovoSiaf/ldap.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/carrega.perfil.js')}}"></script>
         <script src="{{ asset('js/plugins/forms/wysihtml5/wysihtml5.min.js')}}"></script>
         <script src="{{ asset('js/plugins/forms/wysihtml5/toolbar.js')}}"></script>
         <script src="{{ asset('js/plugins/charts/sparkline.min.js')}}"></script>
@@ -1273,25 +1071,19 @@
         <script src="{{ asset('js/plugins/forms/autosize.js')}}"></script>
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
         <script src="{{ asset('js/application.js')}}"></script>
-        <!-- <script src="{{ asset('js/carrega_dados_dos_contratos.js')}}"></script> -->
         <script src="{{ asset('js/Bndes/NovoSiaf/data.lote.js')}}"></script>
-        <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratos.ag.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratos.Ag.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAtual.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnt.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoSumep.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/valida.cadastroAmortizacao.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisaLote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisa12meses.js')}}"></script>
-        <!-- <script src="{{ asset('js/Bndes/NovoSiaf/envia.dados.editarContrato.js')}}"></script> -->
-        <script src="{{ asset('js/Bndes/NovoSiaf/envia.dados.editarContrato_chuman.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.editarContrato.js')}}"></script>
         <script src="{{ asset('js/plugins/DataTables/fnReloadAjax.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/carrega.idTabela.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/funcoesModal.js')}}"></script>
-        <!-- <script src="{{ asset('js/dataTables.responsive.min.js')}}"></script> -->
-        <!-- <script src="{{ asset('js/ldap.js')}}"></script> -->
-        <!-- <script src="{{ asset('js/index.js')}}"></script> -->
-        <!-- <script src="{{ asset('js/incluirDataTableLotes.js')}}"></script> -->
-
+        
 </body>
 
 </html>

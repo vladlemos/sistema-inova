@@ -1,9 +1,10 @@
 var idTabelaDataTable = '';
-// let retornoIdTabela = '';
-
+//função para enviar dados para o banco
 function enviarSolicitacao()
 {
+    //verifica a tabela ativa
     idTabela();
+    //captura os dados para enviar para o banco
     try {
         ctr = {       
             contratoBndes : $("#contrato_bndes_editar").val(), 
@@ -14,8 +15,8 @@ function enviarSolicitacao()
             observacoes : $("#observacaoContrato").val(),    
             loteDataTable: $("#lote").val(),
         }
-        // console.log(ctr);
-        if ($("#status_editar").val() === 'CANCELADO' || $("#status_editar").val() === 'EXCLUIDO UD') {
+        //se o status for cancelado, atualiza a tabela de cadastro da demanda e a tabela ativa
+        if ($("#status_editar").val() === 'CANCELADO') {
             $.ajax({       
                 type: 'PUT',
                 url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
@@ -27,6 +28,7 @@ function enviarSolicitacao()
                     console.log('fim');
                 }
             });
+        //se o status for diferente de cancelado atualiza a tabela ativa    
         } else {
             $.ajax({       
                 type: 'PUT',
@@ -38,12 +40,12 @@ function enviarSolicitacao()
                 }
             });
         }
-        
+    //retorna o erro    
     } catch(Error) {
         console.log(Error);   
     }
 }
-
+//atualiza a tabela 
 function refreshTabela(tabelaAtualizada, idTabelaDataTable)
 {
     $("#" + idTabelaDataTable).DataTable().fnDestroy();
@@ -120,7 +122,7 @@ function refreshTabela(tabelaAtualizada, idTabelaDataTable)
     $("#" + idTabelaDataTable).css("width","100%");    
 }
     
-//atualiza a tabela para visualizacao dos contrato para o prox lote
+//atualiza a tabela para visualizacao dos contratos
 function atualizaTabela(json)
 { 
     bDestroy : true,  

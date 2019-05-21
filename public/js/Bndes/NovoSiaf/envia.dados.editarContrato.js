@@ -1,3 +1,5 @@
+
+//não estamos usando essa
 function enviarSolicitacao(){
 try{
 
@@ -19,8 +21,6 @@ try{
         data: ctr,
         sucess: function(data){
 
-           
-
         }
      
     });
@@ -40,16 +40,10 @@ function refreshTabela(){
     $.getJSON('../api/bndes/v1/siaf_amortizacoes_lote_atual', function(json){
 
         $('#tabelaAmortizaProx tbody').dataTable().fnDestroy()();
-        // $('#tabelaAmortizaProx>tbody').empty();
+
 
         $.each(json, function (key, value){
-           
-            // $('#tabelaAmortizaProx>tbody').destroy();
-            // table = $('#tabelaAmortizaProx').dataTable();
-            // oSettings = table.fnSettings();
-
-            // table.fnClearTable(this);
-            
+        
             linhaProxLote = atualizaTabelaProxLoteAtualizada(value);
             $('#tabelaAmortizaProx>tbody').append(linhaProxLote);
             
@@ -61,23 +55,7 @@ function refreshTabela(){
             responsive: true,
            
         } );
-        // $('#tabelaAmortizaProx').fnClearTable();
-        // $('#tabelaAmortizaProx').fnDraw();
-       
-    
-// table = $('#tabelaAmortizaProx').dataTable();
-// oSettings = table.fnSettings();
 
-// table.fnClearTable(this);
-
-// for (var i=0; i<json.aaData.length; i++)
-// {
-//   table.oApi._fnAddData(oSettings, json.aaData[i]);
-// }
-
-// oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-// // $('#tabelaContratosLiquidar>tbody').load(carregarDadosAgencia());
-// $('#tabelaAmortizaProx').fnDraw();
     });
     
     }
@@ -85,8 +63,7 @@ function refreshTabela(){
     //atualiza a tabela para visualizacao dos contrato para o prox lote
     function atualizaTabelaProxLoteAtualizada(json)
     {
-        
-    // $('#tabelaAmortizaProx').DataTable();
+    //destroi a tabela anterior e cria uma nova    
     bDestroy : true,
     
     linhaProxLote = '<tr>' +

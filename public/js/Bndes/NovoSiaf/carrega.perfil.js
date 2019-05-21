@@ -2,11 +2,9 @@ $(document).ready(function(){
    
     carregaDadosEmpregado();
     
-
- });
+});
 
 //  carrega os dados da pessoa logada na sessão
-
 function carregaDadosEmpregado(json){
     var url = ('../api/sistemas/v1/dados_empregado')
     
@@ -22,7 +20,7 @@ function carregaDadosEmpregado(json){
           
           $.each(empregado, function(key, value){
 
-// verificao perfil e desabilita a aba da agência caso perfil CEOPC
+            // verificao perfil e desabilita a aba da agência caso perfil CEOPC
           
             if(value.codigoLotacaoFisica !== null){
                 
@@ -36,19 +34,8 @@ function carregaDadosEmpregado(json){
                 $("#nomeSessaoBemVindo").html(value.nomeCompleto);  
                 $("#agenciaContrato").html(value.nomeLotacaoFisica);
                 // $('#editarCEOPC').remove();
-	
-	for (var i = 0; i < combo.options.length; i++)
-	{
-		if (combo.options[i].value == uf)
-		{
-			combo.options[i].selected = "true";
-			break;
-		}
-	}
-               
+	     
             }
-
-        
 
             else{
             
@@ -62,8 +49,7 @@ function carregaDadosEmpregado(json){
                 $("#nomeSessaoBemVindo").html(value.nomeCompleto);  
                 $("#agenciaContrato").html(value.nomeLotacaoAdministrativa);
                 // $('#editarCEOPC').remove();
-            
-            
+           
             }
 
             if(value.nivelAcesso == 'CEOPC'){
@@ -71,16 +57,12 @@ function carregaDadosEmpregado(json){
                 $("ul.nav-tabs li").removeClass("active");  
                 $("#abaContratosLiquidar").hide();
                 $("#contratosliquidar").hide();
-                $("#abaAmortizaprox").addClass("active").show(); 
-                $("#amortizaprox").show();
+                $("#abaLoteAtual").addClass("active").show(); 
+                $("#loteAtual").addClass("active").show();
                 $(".perfilVisualizacao").html('Visualizando Todos Pedidos');
                 $('#editarAg').remove();
             }
           });
-
-          
-       
-      }
-    
-  });  
+        }
+    });  
 }

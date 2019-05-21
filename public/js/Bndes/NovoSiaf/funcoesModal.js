@@ -1,16 +1,17 @@
-//carrega as informações do contrato para visulaizar
-function visualizaDemanda(json){ //Dê, eu alterei o nome dessa função pois ela estava dando conflito com a de visualizar dados do contrato para cadastro de demanda
+//carrega as informações do contrato para visulaizar nas abas lote atual, anterior, sumep e pesquisa
+function visualizaDemanda(json){ 
        
     $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
 
             var dados = JSON.parse(dados);
-            // console.log(dados);
+            
             for(i = 0; i < dados.consultaSaldo.length; i++){
+
                 linha = montaLinhaTabelaSaldo(dados.consultaSaldo[i]);
                 
                 $('#tabHistoricoSaldo>tbody').append(linha);
                
-                 //pinta a linha de acordo com o status do historico do saldo
+                 //adiciona classe css para pintar a linha de acordo com o status do historico do saldo
                  if(dados.consultaSaldo[i].statusSaldo == "Saldo Ok"){
                     $('.linhaConsulta'+[i]).addClass('corEfeitoSaldoOk');
                 }
@@ -18,13 +19,14 @@ function visualizaDemanda(json){ //Dê, eu alterei o nome dessa função pois el
                     $('.linhaConsulta'+[i]).addClass('corEfeitoSemSaldo');
                 }
             
-            }              
+            }     
+            //monta as linhas da tabela de saldos         
             function montaLinhaTabelaSaldo(dadosSaldo)
             {
                 bDestroy= true;
 
                 linha = '<tr>' +
-                            // '<td hidden>' + dadosSaldo.codigoConsultaSaldo + '</td>' +
+                           
                             '<td>' + dadosSaldo.dataConsultaSaldo + '</td>' +
                             '<td class="linhaConsulta'+[i]+'">' + dadosSaldo.statusSaldo + '</td>' +
                             '<td>' + dadosSaldo.saldoDisponivel + '</td>' +
@@ -35,9 +37,8 @@ function visualizaDemanda(json){ //Dê, eu alterei o nome dessa função pois el
                         '</tr>';
                 return linha;
 
-           
             }
-             
+            //monta a linha da tabela de histórico das solicitações e tratamento 
             for(i = 0; i < dados.historicoContrato.length; i++){
                 linha = montaLinhaTabelaHistorico(dados.historicoContrato[i]);
                 
@@ -61,7 +62,7 @@ function visualizaDemanda(json){ //Dê, eu alterei o nome dessa função pois el
                 return linha;
              
             }
-              
+            //preenche os campos do modal  
             $('#nome_cliente_modal').html(dados.nomeCliente);
             $('#cnpj_cliente_modal').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
             $('#status_modal').val(dados.status);
@@ -75,7 +76,7 @@ function visualizaDemanda(json){ //Dê, eu alterei o nome dessa função pois el
             $('#gigad_modal').val(dados.codigoGigad);
             $('#gigad_modal').val(dados.codigoGigad);
 
-     
+//limpa o modal para carregar as informações do novo modal    
 jQuery('#visualizarcontrato').on('hidden.bs.modal', function (e) {
 jQuery(this).removeData('#tabHistoricoSaldo>tbody');
 jQuery(this).find('#tabHistoricoSaldo>tbody').empty();
@@ -84,25 +85,34 @@ jQuery(this).find('#tabHistoricoContrato>tbody').empty();
 })
 });  
 
-
-
 $('#visualizarcontrato').modal('show');
 
 }   
 
-//carrega as informações do contrato para editar
+
+//carrega as informações do contrato para visulaizar nas abas lote atual, anterior e sumep 
 function editarContrato(json){
     
 $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
 
     var dados = JSON.parse(dados);
-    // console.log(dados);
+    
     for(i = 0; i < dados.consultaSaldo.length; i++){
         linha = montaLinhaTabelaSaldo(dados.consultaSaldo[i]);
         
-   
         $('#tabConsultaSaldoEditar>tbody').append(linha);
-    }              
+          
+            //adiciona classe css para pintar a linha de acordo com o status do historico do saldo
+            if(dados.consultaSaldo[i].statusSaldo == "Saldo Ok"){
+            $('.linhaConsulta'+[i]).addClass('corEfeitoSaldoOk');
+            }
+            else{
+                $('.linhaConsulta'+[i]).addClass('corEfeitoSemSaldo');
+            }
+            
+    }     
+    
+    //monta as linhas da tabela de saldos  
     function montaLinhaTabelaSaldo(dadosSaldo)
     {
         bDestroy= true;
@@ -126,24 +136,25 @@ $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
         linha = montaLinhaTabelaHistorico(dados.historicoContrato[i]);
         
         $('#tabConsultaHistoricoEditar>tbody').append(linha);
-    }              
-    function montaLinhaTabelaHistorico(dadosHistorico)
-    {
-        bDestroy= true;
-        linha = '<tr>' +
-                    '<td>' + dadosHistorico.codigoHistorico + '</td>' +
-                    '<td>' + dadosHistorico.dataHistorico + '</td>' +
-                    '<td>' + dadosHistorico.statusHistorico + '</td>' +
-                    '<td>' + dadosHistorico.observacaoHistorico + '</td>' +
-                    '<td>' + dadosHistorico.matriculaResponsavel + '</td>' +
-                    '<td>' + dadosHistorico.unidadeResponsavel + '</td>' +
-                   
-                '</tr>';
-        return linha;
-     
-    }
-      
-
+    }    
+        //monta a linha da tabela de histórico das solicitações e tratamento           
+        function montaLinhaTabelaHistorico(dadosHistorico)
+        {
+            bDestroy= true;
+            linha = '<tr>' +
+                        '<td>' + dadosHistorico.codigoHistorico + '</td>' +
+                        '<td>' + dadosHistorico.dataHistorico + '</td>' +
+                        '<td>' + dadosHistorico.statusHistorico + '</td>' +
+                        '<td>' + dadosHistorico.observacaoHistorico + '</td>' +
+                        '<td>' + dadosHistorico.matriculaResponsavel + '</td>' +
+                        '<td>' + dadosHistorico.unidadeResponsavel + '</td>' +
+                    
+                    '</tr>';
+            return linha;
+        
+        }
+    
+    //preenche os campos do modal 
     $('#codDemanda').val(dados.codigoDemanda);
     $('#nome_cliente_editar').html(dados.nomeCliente);
     $('#cnpj_cliente_editar').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
@@ -158,18 +169,15 @@ $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
     $('#gigad_editar').val(dados.codigoGigad);
     $('#lote').val(dados.loteDataTable);
 
-
-        jQuery('#editarcontrato').on('hidden.bs.modal', function (e) {
-        jQuery(this).removeData('#tabConsultaSaldoEditar>tbody');
-        jQuery(this).find('#tabConsultaSaldoEditar>tbody').empty();
-        jQuery(this).removeData('#tabConsultaHistoricoEditar>tbody');
-        jQuery(this).find('#tabConsultaHistoricoEditar>tbody').empty();
-        jQuery(this).find('textarea#observacaoContrato').val('');
-        })
-    });  
-
-
+//limpa o modal para carregar as informações do novo modal    
+jQuery('#editarcontrato').on('hidden.bs.modal', function (e) {
+jQuery(this).removeData('#tabConsultaSaldoEditar>tbody');
+jQuery(this).find('#tabConsultaSaldoEditar>tbody').empty();
+jQuery(this).removeData('#tabConsultaHistoricoEditar>tbody');
+jQuery(this).find('#tabConsultaHistoricoEditar>tbody').empty();
+jQuery(this).find('textarea#observacaoContrato').val('');
+})
+});  
 
 $('#editarcontrato').modal('show');
-
 }   

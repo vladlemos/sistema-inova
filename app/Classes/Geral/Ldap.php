@@ -167,7 +167,7 @@ class Ldap
     {
         if(!isset($_SESSION['aut_matricula']) or strtoupper($_SESSION['aut_matricula'])!=strtoupper(substr($_SERVER["AUTH_USER"],10)))
         {
-            $simularMatricula='c112346';
+            $simularMatricula='c094256';
             //echo $simularMatricula;
             $matricula = $_SERVER["AUTH_USER"];
             if ($simularMatricula != "") {

@@ -68,3 +68,16 @@ input:required:invalid, select:required:invalid{
 .DataTable{
     width: 100%;
 }
+.nav-pills > li.active> a {
+    background-color: #fff;
+    color: #1c60ab !important;
+    border-color: #c7c4be !important;
+    border-top-color: #D65C4F !important;
+    
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
+    background-color: #fff;
+}
+
+
