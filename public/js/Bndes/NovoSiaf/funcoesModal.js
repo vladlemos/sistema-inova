@@ -82,6 +82,11 @@ jQuery(this).removeData('#tabHistoricoSaldo>tbody');
 jQuery(this).find('#tabHistoricoSaldo>tbody').empty();
 jQuery(this).removeData('#tabHistoricoContrato>tbody');
 jQuery(this).find('#tabHistoricoContrato>tbody').empty();
+//seleciona a aba visualizar como primeira, mesmo após abrir e fechar o modal
+$('#abaTabHistorico').removeClass("active");
+$('#tabHistorico').removeClass("active");
+$('#abaTabVisualizar').addClass("active").show();
+$('#tabVisualizar').addClass("active in").show();
 })
 });  
 
@@ -176,6 +181,11 @@ jQuery(this).find('#tabConsultaSaldoEditar>tbody').empty();
 jQuery(this).removeData('#tabConsultaHistoricoEditar>tbody');
 jQuery(this).find('#tabConsultaHistoricoEditar>tbody').empty();
 jQuery(this).find('textarea#observacaoContrato').val('');
+//seleciona a aba visualizar como primeira, mesmo após abrir e fechar o modal
+$('#abaTabHistoricoEditar').removeClass("active");
+$('#tabHistoricoEditar').removeClass("active");
+$('#abaTabEditar').addClass("active").show();
+$('#tabEditar').addClass("active in").show();
 })
 });  
 

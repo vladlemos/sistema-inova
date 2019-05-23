@@ -161,18 +161,17 @@
             <div class="modal-body with-padding">
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tabSelecionar" data-toggle="tab"><i class="icon-checkbox-checked"></i>Selecionar Contratos</a></li>
-                        <li><a href="#tabInstrucoes" data-toggle="tab"><i class="icon-book"></i>Instruções </a></li>
+                        <li class="active" id="modalCadastrar"><a href="#tabSelecionar" data-toggle="tab"><i class="icon-checkbox-checked"></i>Selecionar Contratos</a></li>
+                        <li id="modalInstrucoes"><a href="#tabInstrucoes" data-toggle="tab"><i class="icon-book"></i>Instruções </a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="tabSelecionar">
                             <div class="row"><small class="display-block " id="avisoAgencia"><strong> RATIFICAR AS INFORMAÇÕES CARREGADAS! No caso de dúvidas consulte as instruções de preenchimento no menu acima ! &nbsp &nbsp &nbsp </small></div></strong>
                             
                             <div class="row"><small class="display-block text-danger active avisoAgencia" id ="avisoAgencia"> Para solicitar, Informe abaixo o nº BNDES, valor, confirme a conta, contrato e o tipo de comando dos contratos desejados e envie à CEOPC!  </small></div>
-                        
-                            <h6 class=""><span id="nome_cliente2"></span>  <span id="cnpj_cliente2"></span></h6>
-                        
-                            
+
+                            <div class="row"><small class="display-block" id="contratoBNDESnumero">O nº BNDES pode ser verificado no SIFBN/SIBAN > funções > Consulta de Número do BNDES</small></div>
+                            <br>
                             <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_pedido_amortizacao">
                                                         
                             <div class="form-group">
@@ -211,6 +210,7 @@
                                     <p> - Selecione o contrato que deseja solicitar amortização ou liquidação.</p>
                                     <p> - <strong>Não é necessário preencher nada nos contratos que não serão amortizados/liquidados</strong>.</p>
                                     <p> - <strong>Verifique se os dados dos contratos selecionados estão corretos, ajuste se necessário.</strong></p>
+                                    <p> - <strong>Informe o nº do contrato BNDES, você pode vericar esse nº no SIFBN/SIBAN > funções > Consulta de Número do BNDES.</strong></p>
                                     <p> - Informe o valor a amortizar.</p>
                                     <p> - Ao valor da liquidação não deve ser somado a prestação do dia.</p>
                                     <p> - Selecione o tipo de comando.</p>
@@ -244,8 +244,8 @@
                 <div class="tabbable page-tabs">
                     <ul class="nav nav-tabs">
                 
-                        <li class="active"><a href="#tabVisualizar" data-toggle="tab"><i class="icon-eye"></i>Visualizar Contrato</a></li>
-                        <li><a href="#tabHistorico" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
+                        <li id="abaTabVisualizar"class="active"><a href="#tabVisualizar" data-toggle="tab"><i class="icon-eye"></i>Visualizar Contrato</a></li>
+                        <li id ="abaTabHistorico"><a href="#tabHistorico" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
                         
                     </ul>
                     <div class="tab-content">
@@ -396,8 +396,8 @@
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
                 
-                        <li class="active"><a href="#tabEditar" data-toggle="tab"><i class="icon-eye"></i>Editar Contrato</a></li>
-                        <li><a href="#tabHistoricoEditar" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
+                        <li id="abaTabEditar"class="active"><a href="#tabEditar" data-toggle="tab"><i class="icon-eye"></i>Editar Contrato</a></li>
+                        <li id="abaTabHistoricoEditar"><a href="#tabHistoricoEditar" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
                         
                     </ul>
                 <div class="tab-content">
@@ -1074,7 +1074,7 @@
         <script src="{{ asset('js/Bndes/NovoSiaf/data.lote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratos.Ag.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAtual.js')}}"></script>
-        <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnt.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnterior.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoSumep.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/valida.cadastroAmortizacao.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisaLote.js')}}"></script>

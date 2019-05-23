@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Classes\Bndes\NovoSiaf\LoteAmortizacaoLiquidacaoSIAF;
+use App\Classes\Bndes\NovoSiaf\TransfereDadosBaseSiga;
 
 /*
 |--------------------------------------------------------------------------
