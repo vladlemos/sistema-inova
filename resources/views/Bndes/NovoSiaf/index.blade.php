@@ -464,6 +464,7 @@
                                 <option value="SUMEP DEB PENDENTE">DEBITO PENDENTE</option>
                                 <option value="SEM SALDO">SEM SALDO</option>
                                 <option value="CONCLUIDO">CONCLUIDO</option>
+                                <option value="CORRIGIDO" style="display: none">CORRIGIDO</option>
 							    </select>
 
                             </div>
@@ -484,6 +485,7 @@
                                 <option value="SUMEP DEB PENDENTE" style="display: none">SUMEP DEB PENDENTE</option>
                                 <option value="SEM SALDO" style="display: none">SEM SALDO</option>
                                 <option value="CONCLUIDO" style="display: none">CONCLUIDO</option>
+                                <option value="CORRIGIDO">CORRIGIDO</option>
 							    </select>
 
                             </div>
@@ -574,7 +576,7 @@
             </div>
                 <div class="modal-footer">
                    
-                    <button class="btn btn-default btn-success pull-right botaoModal" data-dismiss="modal" onclick= enviarSolicitacao()>Enviar a CEOPC </button>
+                    <button class="btn btn-default btn-success pull-right botaoModal" data-dismiss="modal" onclick= enviarSolicitacao()> Enviar </button>
                     <span class="pull-right"> </span>
                     <button class="btn btn-default btn-danger pull-right botaoModal" data-dismiss="modal">Fechar</button> 
                             
