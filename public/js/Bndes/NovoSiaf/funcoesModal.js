@@ -191,3 +191,6 @@ $('#tabEditar').addClass("active in").show();
 
 $('#editarcontrato').modal('show');
 }   
+
+//coloca mascara de valor 
+$("input.dinheiro").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});

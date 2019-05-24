@@ -460,8 +460,8 @@
                                 <option value="VALOR DIVERGENTE">VALOR DIVERGENTE </option>
                                 <option value="CONTA PF">CONTA PF</option>
                                 <option value="CONTRATO EM CA">CONTRATO EM CA</option>
-                                <option value="SUMEP RESIDUO SIFBN">RESIDUO SIFBN</option>
-                                <option value="SUMEP DEB PENDENTE">DEBITO PENDENTE</option>
+                                <option value="GEPOD RESIDUO SIFBN">RESIDUO SIFBN</option>
+                                <option value="GEPOD DEB PENDENTE">DEBITO PENDENTE</option>
                                 <option value="SEM SALDO">SEM SALDO</option>
                                 <option value="CONCLUIDO">CONCLUIDO</option>
                                 <option value="CORRIGIDO" style="display: none">CORRIGIDO</option>
@@ -481,8 +481,8 @@
                                 <option value="VALOR DIVERGENTE" style="display: none">VALOR DIVERGENTE </option>
                                 <option value="CONTA PF" style="display: none">CONTA PF</option>
                                 <option value="CONTRATO EM CA" style="display: none">CONTRATO EM CA</option>
-                                <option value="SUMEP RESIDUO SIFBN" style="display: none">SUMEP RESIDUO SIFBN</option>
-                                <option value="SUMEP DEB PENDENTE" style="display: none">SUMEP DEB PENDENTE</option>
+                                <option value="GEPOD RESIDUO SIFBN" style="display: none">RESIDUO SIFBN</option>
+                                <option value="GEPOD DEB PENDENTE" style="display: none">DEB PENDENTE</option>
                                 <option value="SEM SALDO" style="display: none">SEM SALDO</option>
                                 <option value="CONCLUIDO" style="display: none">CONCLUIDO</option>
                                 <option value="CORRIGIDO">CORRIGIDO</option>
