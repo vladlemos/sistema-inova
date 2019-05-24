@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 2',
+    'title' => 'Esteira Comex',
 
     'title_prefix' => '',
 
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Esteira</b>Comex',
 
-    'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<b>X<b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -108,81 +108,85 @@ return [
     */
 
     'menu' => [
-        'MAIN NAVIGATION',
+        'MENU INICIAL',
         [
-            'text' => 'Blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-            'text'        => 'Pages',
+            'text'        => 'Introdução',
             'url'         => 'admin/pages',
-            'icon'        => 'file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        'ACCOUNT SETTINGS',
+            'icon'        => 'home',
+                    ],
+        'SOLICITAÇÕES E ACOMPANHAMENTOS',
+        
         [
-            'text' => 'Profile',
-            'url'  => 'admin/settings',
-            'icon' => 'user',
-        ],
-        [
-            'text' => 'Change Password',
-            'url'  => 'admin/settings',
-            'icon' => 'lock',
-        ],
-        [
-            'text'    => 'Multilevel',
-            'icon'    => 'share',
+            'text'    => 'Solicitar Atendimento',
+            'icon'    => 'sign-in',
             'submenu' => [
                 [
-                    'text' => 'Level One',
+                    'text' => 'Atualizar e-mail cliente',
                     'url'  => '#',
                 ],
+                
                 [
-                    'text'    => 'Level One',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Level Two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'Level Two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'Level Three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'Level Three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text' => 'Conformidade Antecipados',
+                    'url'  => '#',
                 ],
+
                 [
-                    'text' => 'Level One',
+                    'text' => 'Contratação - Pronto',
+                    'url'  => '#',
+                    'icon_color' => 'yellow',
+                ],
+
+                [
+                    'text' => 'Liquidação ACC/ACE',
                     'url'  => '#',
                 ],
             ],
         ],
-        'LABELS',
+       
+
         [
-            'text'       => 'Important',
-            'icon_color' => 'red',
+            'text'    => 'Acompanhamentos',
+            'icon'    => 'files-o',
+            'submenu' => [
+                [
+                    'text' => 'ACC/ACE',
+                    'url'  => '#',
+                ],
+                
+                [
+                    'text' => 'ACC/ACE - Liquidadas',
+                    'url'  => '#',
+                ],
+
+                [
+                    'text' => 'Operações Antecipadas',
+                    'url'  => '#',
+                ],
+
+                [
+                    'text' => 'Minhas Demandas',
+                    'icon'    => 'envelope-o',
+                    'url'  => '#',
+                ],
+
+                [
+                    'text' => 'Ordens de Pagamento',
+                    'url'  => '#',
+                ],
+
+
+            ],
         ],
+       
+        'GERENCIAL',
         [
-            'text'       => 'Warning',
-            'icon_color' => 'yellow',
+            'text'        => 'Distribuição',
+            'url'         => 'admin/pages',
+            'icon'        => 'share',
         ],
-        [
-            'text'       => 'Information',
-            'icon_color' => 'aqua',
-        ],
+
+
+
     ],
 
     /*
