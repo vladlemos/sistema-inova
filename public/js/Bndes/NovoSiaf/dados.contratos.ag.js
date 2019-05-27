@@ -133,12 +133,12 @@ $('#formulario_pedido_amortizacao').submit(function(event){
                     contratoBndes: $("#ctrBndes"+[i]).val(),
                     contratoCaixa: $("#ctrCaixa"+[i]).val(),
                     contaDebito: $("#contaDebito"+[i]).val(),
-                    valorAmortizacao: $("#valorAmort"+[i]).val().replace(".","").replace(",","."),
+                    valorAmortizacao: $("#valorAmort"+[i]).val().replace(/[\.]/g, "").replace(",","."),
                     tipoComando: $("#tipoAmort"+[i]).val(),
                     observacoes: $("textarea.co_observacoes").val(),      
                 }
                 cadastro.push(pedido);
-
+                console.log(pedido);
             } 
         }
 

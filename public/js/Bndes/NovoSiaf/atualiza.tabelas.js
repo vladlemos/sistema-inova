@@ -85,9 +85,9 @@ function atualizaTabela(json)
                 '<td>' + json.contratoCaixa    + '</td>' +
                 '<td>' + json.contratoBndes    + '</td>' +
                 '<td>' + json.contaDebito    + '</td>' +
-                '<td>' + json.valorOperacao + '</td>' +
+                '<td>' + json.valorOperacao.replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") + '</td>' +
                 '<td>' + json.tipoOperacao.replace("A","AMORTIZAÇÃO").replace("L","LIQUIDAÇÃO")   + '</td>' +
-                '<td>' + json.status.replace("GEPOD RESIDUO SIFBN","RESIDUO SIFBN")	        + '</td>' +
+                '<td>' + json.status.replace("GEPOD RESIDUO SIFBN","RESIDUO SIFBN")		        + '</td>' +
                 '<td>'	+				
                     '<button class="btn btn-info btn-xs tip visualiza fa fa-binoculars center-block" id="botaoCadastrar" onclick ="visualizaDemanda(\'' + json.codigoDemanda + '\')" ></button> ' + 
                 '</td>' +

@@ -33,8 +33,7 @@ function carregaDadosEmpregado(json){
                 $("#perfilSessao").html(value.nivelAcesso);  
                 $("#nomeSessaoBemVindo").html(value.nomeCompleto);  
                 $("#agenciaContrato").html(value.nomeLotacaoFisica);
-                // $("#abaAmortizaTodas").hide();
-                // $('#editarCEOPC').remove();
+         
 	     
             }
 
@@ -49,8 +48,7 @@ function carregaDadosEmpregado(json){
                 $("#perfilSessao").html(value.nivelAcesso);  
                 $("#nomeSessaoBemVindo").html(value.nomeCompleto);  
                 $("#agenciaContrato").html(value.nomeLotacaoAdministrativa);
-                // $("#abaAmortizaTodas").hide();
-                // $('#editarCEOPC').remove();
+               
            
             }
                   
@@ -61,6 +59,7 @@ function carregaDadosEmpregado(json){
 
                     $("#abaContratosLiquidar").hide();
                     $("#contratosliquidar").hide();
+                    $("#abaContratosLiquidar").removeClass("active")
                     $("#abaLoteAtual").addClass("active").show(); 
                     $("#loteAtual").addClass("active").show();
                     $(".perfilVisualizacao").html('Visualizando Todos Pedidos');

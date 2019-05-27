@@ -65,7 +65,7 @@ function visualizaDemanda(json){
             //preenche os campos do modal  
             $('#nome_cliente_modal').html(dados.nomeCliente);
             $('#cnpj_cliente_modal').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-            $('#status_modal').val(dados.status);
+            $('#status_modal').val(dados.status.replace("GEPOD RESIDUO SIFBN","RESIDUO SIFBN"));
             $('#contrato_caixa_modal').val(dados.contratoCaixa);
             $('#contrato_bndes_modal').val(dados.contratoBndes);
             $('#conta_corrente_modal').val(dados.contaDebito);

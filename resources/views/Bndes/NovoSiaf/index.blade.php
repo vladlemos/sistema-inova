@@ -453,15 +453,15 @@
 								<option value=""> - </option> 
                                 <option value="CADASTRADO" style="display: none">CADASTRADO</option>
                                 <option value="RECEBIDO">RECEBIDO</option>
-                                <option value="SIBAN OK">SIBAN OK</option>
-                                <option value="FALTA SIBAN">FALTA SIBAN</option>
+                                <option value="SIFBN OK">SIFBN OK</option>
+                                <option value="SEM COMANDO SIFBN">SEM COMANDO SIFBN</option>
                                 <option value="CANCELADO">CANCELADO</option>
                                 <option value="CONTA DIVERGENTE">CONTA DIVERGENTE</option>
                                 <option value="VALOR DIVERGENTE">VALOR DIVERGENTE </option>
                                 <option value="CONTA PF">CONTA PF</option>
                                 <option value="CONTRATO EM CA">CONTRATO EM CA</option>
                                 <option value="GEPOD RESIDUO SIFBN">RESIDUO SIFBN</option>
-                                <option value="GEPOD DEB PENDENTE">DEBITO PENDENTE</option>
+                                <option value="GEPOD">GEPOD</option>
                                 <option value="SEM SALDO">SEM SALDO</option>
                                 <option value="CONCLUIDO">CONCLUIDO</option>
                                 <option value="CORRIGIDO" style="display: none">CORRIGIDO</option>
@@ -474,15 +474,15 @@
 								<option value=""> - </option> 
                                 <option value="CADASTRADO" style="display: none">CADASTRADO</option>
                                 <option value="RECEBIDO" style="display: none">RECEBIDO</option>
-                                <option value="SIBAN OK" style="display: none">SIBAN OK</option>
-                                <option value="FALTA SIBAN" style="display: none">FALTA SIBAN</option>
+                                <option value="SIFBN OK" style="display: none">SIFBN OK</option>
+                                <option value="SEM COMANDO SIFBN" style="display: none">SEM COMANDO SIFBN</option>
                                 <option value="CANCELADO">CANCELADO</option>
                                 <option value="CONTA DIVERGENTE" style="display: none">CONTA DIVERGENTE</option>
                                 <option value="VALOR DIVERGENTE" style="display: none">VALOR DIVERGENTE </option>
                                 <option value="CONTA PF" style="display: none">CONTA PF</option>
                                 <option value="CONTRATO EM CA" style="display: none">CONTRATO EM CA</option>
                                 <option value="GEPOD RESIDUO SIFBN" style="display: none">RESIDUO SIFBN</option>
-                                <option value="GEPOD DEB PENDENTE" style="display: none">DEB PENDENTE</option>
+                                <option value="GEPOD" style="display: none">GEPOD</option>
                                 <option value="SEM SALDO" style="display: none">SEM SALDO</option>
                                 <option value="CONCLUIDO" style="display: none">CONCLUIDO</option>
                                 <option value="CORRIGIDO">CORRIGIDO</option>
@@ -921,7 +921,7 @@
                             </p>		
                             <hr>							
                             <p><strong>Ao clicar no botão de solicitação você deve prosseguir preenchendo os campos solicitados.</strong></p>
-                            Os campos solicitados são Contrato CAIXA, Contrato BNDES, Nome do Tomador, Conta para débito e valor de amortização.
+                            Os campos solicitados são Contrato CAIXA, Contrato BNDES, Nome do Tomador, Conta para débito, valor de amortização e o tipo de comando(amortização/liquidação).
                             Ficou mais facil né!
                         </div>
                     </div>
@@ -942,7 +942,6 @@
                             <hr>							
                             <p><strong>...mas efetivamente o que mudou?</strong></p>
                             Agora o processo cadastrado terá mais transparência pois poderá ser acompanhado pelo SIAF neste módulo.<br>
-                            Além disso suprimir rotinas de e-mail darão celeridade ao processo...
                         </div>
                     </div>
                 </div>
@@ -960,8 +959,8 @@
                                 Essa é facil.
                             </p>		
                             <hr>							
-                            <p><strong>Ali em cima , clique no visualizar, ali no botão azul!</strong></p>
-                            Você pode visualizar o histórico do pedido, data da entrada , data das verificações de saldo e da conclusão do processo.
+                            <p><strong>Ali em cima , clique na aba corresponde ao mês da liquidação.</strong></p>
+                            Você pode visualizar o histórico do pedido, as datas das verificações de saldo, a conclusão do processo, além de verificar possíveis pendências e corrigi-las.
                         </div>
                     </div>
                 </div>
@@ -977,20 +976,21 @@
                                 <button type="button" class="close" data-dismiss="alert">×</button>
                                 É simples, veja a legenda abaixo.
                             </p>		
-                            <hr>							
-                            <p><strong>CADASTRADO - </strong>  Demanda cadastrada pela AG SR OU GIGAD.</p>
-                            <p><strong>EXCLUIDA UD - </strong>  Demanda excluida pela Unidade Demandante.</p>
-                            <p><strong>CANCELADO - </strong>  Demanda cancelada pela CEOPC.</p>
-                            <p><strong>RECEBIDO - </strong>  Demanda em processamaneto aguardando dia de débito (dia 15).</p>
-                            <p><strong>FALTA SIBAN - </strong>  Demanda com pendência no SIBAN.</p>
-                            <p><strong>SIBAN OK  - </strong>  Demanda analisada no siban, pronto para verificação automática de saldo.</p>
-                            <p><strong>NA SUMEP - </strong>  Demanda enviada À SUMEP para tratamento .</p>
-                            <p><strong>INCONFORME - </strong>  Demanda com impossibilidade de continuidade (FALTA SIBAN OU SEM SALDO).</p>
-                            <p><strong>EM CALCULO - </strong>  Efetuando cálculos.</p>
-                            <p><strong>ACATADO - </strong>  Demanda acatada no BNDES.</p>
-                            <p><strong>CONCLUIDO - </strong>  Demanda de amortização\liquidação conferida e concluída.</p>
-                            
-                            
+                            <hr>	
+                            <p><strong>CADASTRADO - </strong> Demanda cadastrada pela AG, SR ou GIGAD.</p>
+                            <p><strong>CANCELADO - </strong> Demanda cancelada pela AG, SR, GIGAD ou CEOPC.</p>
+                            <p><strong>RECEBIDO - </strong> Demanda em processamento aguardando dia de débito (dia 15).</p>
+                            <p><strong>SIFBN OK - </strong> Demanda comandada no SIFBN/SIBAN, pronta para verificação automática de saldo.</p>
+                            <p><strong>GEPOD - </strong> Demanda enviada à GEPOD para tratamento .</p>
+                            <p><strong>CONTA DIVERGENTE - </strong> Demanda com pendência. </p>
+                            <p><strong>VALOR DIVERGENTE - </strong> Demanda com pendência.</p>
+                            <p><strong>CONTA PF - </strong> Demanda com pendência.</p>
+                            <p><strong>CONTRATO EM CA - </strong> Demanda cancelada pela CEOPC.</p>
+                            <p><strong>CONCLUIDO - </strong> Demanda de amortização\liquidação efetivada.</p>
+                            <p><strong>RESÍDUO SIFBN - </strong> Demanda liquidada com pendência no SIFBN enviada para GEPOD para tratamento.</p>
+                            <p><strong>SEM SALDO - </strong> Demanda cancelada pela CEOPC por falta de saldo na conta de débito.</p>
+                            <p><strong>SEM COMANDO SIFBN - </strong> Demanda cancelada pela CEOPC por falta de comando por parte da agência.</p>
+						
                         </div>
                     </div>
                 </div>
@@ -1077,14 +1077,16 @@
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratos.Ag.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAtual.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnterior.js')}}"></script>
-        <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoSumep.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoGepod.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/valida.cadastroAmortizacao.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisaLote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisa12meses.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.editarContrato.js')}}"></script>
-        <script src="{{ asset('js/plugins/DataTables/fnReloadAjax.js')}}"></script>
+        <!-- <script src="{{ asset('js/plugins/DataTables/fnReloadAjax.js')}}"></script> -->
         <script src="{{ asset('js/Bndes/NovoSiaf/carrega.idTabela.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/funcoesModal.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/atualiza.tabelas.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/valida.cadastroAmortizacao.js')}}"></script>
         
 </body>
 
