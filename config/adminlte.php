@@ -132,7 +132,7 @@ return [
 
                 [
                     'text' => 'Contratação - Pronto',
-                    'url'  => '#',
+                    'url'  => 'esteiracomex/contratacao',
                     'icon_color' => 'yellow',
                 ],
 
@@ -151,17 +151,19 @@ return [
                 [
                     'text' => 'ACC/ACE',
                     'url'  => '#',
+                    'icon' => 'ship',
                 ],
                 
                 [
                     'text' => 'ACC/ACE - Liquidadas',
                     'url'  => '#',
+                    'icon' => 'ship',
                 ],
 
                 [
                     'text' => 'Contratação',
                     'url'  => '#',
-                    'icon_color' => 'yellow',
+                    'icon' => 'file',
                 ],
 
                 [
@@ -173,11 +175,13 @@ return [
                 [
                     'text' => 'Operações Antecipadas',
                     'url'  => '#',
+                    'icon' => 'fast-forward',
                 ],
 
                 [
                     'text' => 'Ordens de Pagamento',
                     'url'  => '#',
+                    'icon'    => 'money',
                 ],
 
 
@@ -191,12 +195,35 @@ return [
             'icon'        => 'share-square',
         ],
 
-        'INDICADORES',
         [
-            'text'        => 'Conquiste',
-            'url'         => 'admin/pages',
-            'icon'        => 'bar-chart',
-        ],
+            'text'    => 'Indicadores',
+            'icon'    => 'bar-chart',
+            'submenu' => [
+
+                [    'text'        => 'Antecipados',
+                    'url'         => 'admin/pages',
+                    'icon'        => 'bar-chart',
+                ],
+
+                [
+                    'text'        => 'COMEX',
+                    'url'         => 'admin/pages',
+                    'icon'        => 'bar-chart',
+                ],
+
+                [
+                    'text'        => 'Conquiste',
+                    'url'         => 'admin/pages',
+                    'icon'        => 'bar-chart',
+                ],
+
+                [
+                    'text'        => 'Middle Office',
+                    'url'         => 'admin/pages',
+                    'icon'        => 'bar-chart',
+                ],
+                ]
+            ],
 
 
         'WIKI / MANUAL ',
@@ -213,8 +240,7 @@ return [
             'icon_color' => 'yellow',
         ],
 
-
-
+   
     ],
 
     /*

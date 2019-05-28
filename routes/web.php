@@ -20,15 +20,21 @@ Route::get('/phpinfo', function () {return view('phpinfo');});
 Route::get('/consumo-json-multinivel', function () {return view('consumoJsonMultinivel');});
 Route::fallback(function(){return response()->view('errors.404', [], 404);});
 
-/* ROTAS COMEX */
+/* ROTAS ESTEIRA COMEX */
 Route::prefix('esteiracomex')->group(function(){
+    
+    // HOME
+    Route::get('home', function () {
+        return view('Comex.Home.index');
+    });
+    
     /* ESTEIRA CONTRATACAO */
     Route::get('contratacao', function () {
         return view('Comex.Contratacao.index');
     });
 });
 
-/* ROTAS BNDES */
+/* ROTAS BNDES SIAF */
     Route::prefix('bndes')->group(function(){
     /* NOVOSIAF */
     

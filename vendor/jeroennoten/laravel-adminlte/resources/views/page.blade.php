@@ -170,6 +170,15 @@
         </div>
         <!-- /.content-wrapper -->
 
+        <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                  <b>Versão</b> 2.0
+                </div>
+                <strong> 2019 - CEOPC </strong> Equipe de desenvolvimento.
+        </footer>
+
+
+
     </div>
     <!-- ./wrapper -->
 @stop
