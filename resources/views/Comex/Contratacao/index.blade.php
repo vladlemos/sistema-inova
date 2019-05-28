@@ -1,7 +1,7 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'EsteiraComex - Solicitar Contratação')
 
 @section('content_header')
     <h1>Esteira de Contratação</h1>

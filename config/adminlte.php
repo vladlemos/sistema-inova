@@ -111,7 +111,7 @@ return [
         'MENU INICIAL',
         [
             'text'        => 'Introdução',
-            'url'         => 'admin/pages',
+            'url'         => 'esteiracomex/home',
             'icon'        => 'home',
                     ],
         'SOLICITAÇÕES E ACOMPANHAMENTOS',
@@ -159,13 +159,19 @@ return [
                 ],
 
                 [
-                    'text' => 'Operações Antecipadas',
+                    'text' => 'Contratação',
                     'url'  => '#',
+                    'icon_color' => 'yellow',
                 ],
 
                 [
                     'text' => 'Minhas Demandas',
                     'icon'    => 'envelope-o',
+                    'url'  => '#',
+                ],
+
+                [
+                    'text' => 'Operações Antecipadas',
                     'url'  => '#',
                 ],
 
@@ -182,7 +188,29 @@ return [
         [
             'text'        => 'Distribuição',
             'url'         => 'admin/pages',
-            'icon'        => 'share',
+            'icon'        => 'share-square',
+        ],
+
+        'INDICADORES',
+        [
+            'text'        => 'Conquiste',
+            'url'         => 'admin/pages',
+            'icon'        => 'bar-chart',
+        ],
+
+
+        'WIKI / MANUAL ',
+        [
+            'text'        => 'Manual Esteira',
+            'url'         => 'admin/pages',
+            'icon'        => 'book',
+        ],
+
+        [
+            'text'        => 'Autorização E-mail Cliente',
+            'url'         => 'admin/pages',
+            'icon'        => 'download',
+            'icon_color' => 'yellow',
         ],
 
 
