@@ -823,7 +823,7 @@ class SiafDemandaController extends Controller
                 ,[valorOperacao]
                 ,[dataLote]
             FROM 
-                [SP5459_DES].[dbo].[TBL_SIAF_DEMANDAS]
+                [dbo].[TBL_SIAF_DEMANDAS]
             WHERE 
                 CONVERT(DATETIME, [dataLote], 103) >= CONVERT(DATETIME, CONCAT(DATEPART(YEAR, DATEADD(YEAR, -1, GETDATE())), \'-15-\', RIGHT(\'0\' + RTRIM(MONTH(GETDATE())), 2)), 103)');
         return json_encode($listaDemandas, JSON_UNESCAPED_SLASHES); 

@@ -1057,10 +1057,7 @@
         <script src="{{ asset('js/plugins/forms/tags.min.js')}}"></script>
         <script src="{{ asset('js/plugins/forms/switch.min.js')}}"></script>
         <script src="{{ asset('js/plugins/forms/uploader/plupload.full.min.js')}}"></script>
-        <script src="{{ asset('js/plugins/forms/uploader/plupload.queue.min.js')}}"></script>
-        
-        
-        
+        <script src="{{ asset('js/plugins/forms/uploader/plupload.queue.min.js')}}"></script>       
         <script src="{{ asset('js/plugins/interface/daterangepicker.js')}}"></script>
         <script src="{{ asset('js/plugins/interface/fancybox.min.js')}}"></script>
         <script src="{{ asset('js/plugins/interface/moment.js')}}"></script>
@@ -1068,8 +1065,7 @@
         <script src="{{ asset('js/plugins/interface/datatables.min.js')}}"></script>
         <script src="{{ asset('js/plugins/interface/colorpicker.js')}}"></script>
         <script src="{{ asset('js/plugins/interface/fullcalendar.min.js')}}"></script>
-        <script src="{{ asset('js/plugins/interface/timepicker.min.js')}}"></script>
-      
+        <script src="{{ asset('js/plugins/interface/timepicker.min.js')}}"></script>    
         <script src="{{ asset('js/plugins/forms/autosize.js')}}"></script>
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
         <script src="{{ asset('js/application.js')}}"></script>
@@ -1082,12 +1078,9 @@
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisaLote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisa12meses.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.editarContrato.js')}}"></script>
-        <!-- <script src="{{ asset('js/plugins/DataTables/fnReloadAjax.js')}}"></script> -->
         <script src="{{ asset('js/Bndes/NovoSiaf/carrega.idTabela.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/funcoesModal.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/atualiza.tabelas.js')}}"></script>
-        <script src="{{ asset('js/Bndes/NovoSiaf/valida.cadastroAmortizacao.js')}}"></script>
-        
 </body>
 
 </html>
