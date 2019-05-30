@@ -24,7 +24,7 @@ Route::fallback(function(){return response()->view('errors.404', [], 404);});
 Route::prefix('esteiracomex')->group(function(){
     
     // HOME
-    Route::get('home', function () {
+    Route::get('/', function () {
         return view('Comex.Home.index');
     });
     
@@ -32,6 +32,11 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('contratacao', function () {
         return view('Comex.Contratacao.index');
     });
+
+    Route::get('indicadores/antecipados', function () {
+        return view('Comex.Indicadores.antecipados');
+    });
+
 });
 
 /* ROTAS BNDES SIAF */
