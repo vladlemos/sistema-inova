@@ -111,7 +111,7 @@ return [
         'MENU INICIAL',
         [
             'text'        => 'Introdução',
-            'url'         => 'esteiracomex/home',
+            'url'         => 'esteiracomex/',
             'icon'        => 'home',
                     ],
         'SOLICITAÇÕES E ACOMPANHAMENTOS',
@@ -169,7 +169,7 @@ return [
                 [
                     'text' => 'Minhas Demandas',
                     'icon'    => 'envelope-o',
-                    'url'  => '#',
+                    'url'  => 'esteiracomex/distribuir/demandas',
                 ],
 
                 [
@@ -191,7 +191,7 @@ return [
         'GERENCIAL',
         [
             'text'        => 'Distribuição',
-            'url'         => 'admin/pages',
+            'url'         => 'esteiracomex/distribuir',
             'icon'        => 'share-square',
         ],
 
