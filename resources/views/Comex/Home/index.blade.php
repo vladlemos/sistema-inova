@@ -30,5 +30,5 @@
 
 
 @section('js')
-    <script> console.log('####################### OLAH #####################'); </script>
+    <script> alert("funciona") </script>
 @stop
