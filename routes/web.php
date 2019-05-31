@@ -28,13 +28,26 @@ Route::prefix('esteiracomex')->group(function(){
         return view('Comex.Home.index');
     });
     
+    
+
     /* ESTEIRA CONTRATACAO */
     Route::get('contratacao', function () {
         return view('Comex.Contratacao.index');
     });
-
+    
+    // Indicadores Antecipados
     Route::get('indicadores/antecipados', function () {
         return view('Comex.Indicadores.antecipados');
+    });
+
+    // Distribuir demandas
+    Route::get('distribuir', function () {
+        return view('Comex.Distribuir.index');
+    });
+
+    // ACOMPANHAMENTOS
+    Route::get('distribuir/demandas', function () {
+        return view('Comex.Distribuir.demandas');
     });
 
 });
