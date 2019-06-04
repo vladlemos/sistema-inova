@@ -122,7 +122,8 @@ return [
             'submenu' => [
                 [
                     'text' => 'Atualizar e-mail cliente',
-                    'url'  => '#',
+                    'url'  => 'esteiracomex/solicitacoes/cadastraemailop',
+                    'icon_color' => 'yellow',
                 ],
                 
                 [

@@ -50,6 +50,11 @@ Route::prefix('esteiracomex')->group(function(){
         return view('Comex.Distribuir.demandas');
     });
 
+     // Cadastra email para envio notificação de chegada de OP
+     Route::get('solicitacoes/cadastraemailop', function () {
+        return view('Comex.CadastraEmailOp.index');
+    });
+
 });
 
 /* ROTAS BNDES SIAF */
