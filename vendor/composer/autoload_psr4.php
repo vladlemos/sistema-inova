@@ -59,9 +59,11 @@ return array(
     'Cron\\' => array($vendorDir . '/dragonmantank/cron-expression/src/Cron'),
     'Complex\\' => array($vendorDir . '/markbaker/complex/classes/src'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
+    'App\\Models\\Comex\\' => array($baseDir . '/app/Models/Comex'),
     'App\\Models\\Bndes\\NovoSiaf\\' => array($baseDir . '/app/Models/Bndes/NovoSiaf'),
     'App\\Http\\Controllers\\Sistemas\\' => array($baseDir . '/App/Http/Controllers/Sistemas'),
     'App\\Classes\\Geral\\' => array($baseDir . '/app/Classes/Geral'),
+    'App\\Classes\\Comex\\' => array($baseDir . '/app/Classes/Comex'),
     'App\\Classes\\Bndes\\NovoSiaf\\' => array($baseDir . '/app/Classes/Bndes/NovoSiaf'),
     'App\\' => array($baseDir . '/app'),
 );

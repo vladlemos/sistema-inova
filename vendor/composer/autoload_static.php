@@ -186,9 +186,11 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         ),
         'A' => 
         array (
+            'App\\Models\\Comex\\' => 17,
             'App\\Models\\Bndes\\NovoSiaf\\' => 26,
             'App\\Http\\Controllers\\Sistemas\\' => 30,
             'App\\Classes\\Geral\\' => 18,
+            'App\\Classes\\Comex\\' => 18,
             'App\\Classes\\Bndes\\NovoSiaf\\' => 27,
             'App\\' => 4,
         ),
@@ -409,6 +411,10 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'App\\Models\\Comex\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Models/Comex',
+        ),
         'App\\Models\\Bndes\\NovoSiaf\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/Models/Bndes/NovoSiaf',
@@ -420,6 +426,10 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Classes\\Geral\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/Classes/Geral',
+        ),
+        'App\\Classes\\Comex\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Classes/Comex',
         ),
         'App\\Classes\\Bndes\\NovoSiaf\\' => 
         array (
@@ -463,6 +473,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\AcessaEmpregado' => __DIR__ . '/../..' . '/app/AcessaEmpregado.php',
         'App\\Classes\\Bndes\\NovoSiaf\\LoteAmortizacaoLiquidacaoSIAF' => __DIR__ . '/../..' . '/app/Classes/Bndes/NovoSiaf/LoteAmortizacaoLiquidacaoSIAF.php',
         'App\\Classes\\Bndes\\NovoSiaf\\SiafPhpMailer' => __DIR__ . '/../..' . '/app/Classes/Bndes/NovoSiaf/SiafPhpMailer.php',
+        'App\\Classes\\Comex\\CadastraAcessoEsteiraComex' => __DIR__ . '/../..' . '/app/Classes/Comex/CadastraAcessoEsteiraComex.php',
         'App\\Classes\\Geral\\Ldap' => __DIR__ . '/../..' . '/app/Classes/Geral/Ldap.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Empregado' => __DIR__ . '/../..' . '/app/Empregado.php',
@@ -490,6 +501,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Models\\Bndes\\NovoSiaf\\SiafDemanda' => __DIR__ . '/../..' . '/app/Models/Bndes/NovoSiaf/SiafDemanda.php',
         'App\\Models\\Bndes\\NovoSiaf\\SiafHistoricoDemanda' => __DIR__ . '/../..' . '/app/Models/Bndes/NovoSiaf/SiafHistoricoDemanda.php',
         'App\\Models\\Bndes\\NovoSiaf\\SiafHistoricoSaldoContaAmortizacao' => __DIR__ . '/../..' . '/app/Models/Bndes/NovoSiaf/SiafHistoricoSaldoContaAmortizacao.php',
+        'App\\Models\\Comex\\AcessaEsteiraComex' => __DIR__ . '/../..' . '/app/Models/Comex/AcessaEsteiraComex.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
