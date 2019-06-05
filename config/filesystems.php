@@ -45,13 +45,13 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => '\\\\sp0000sr055\diretoriovirtual$/',
         ],
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => '\\\\sp0000sr055\diretoriovirtual$/',
+            'url' => '\\\\sp0000sr055\diretoriovirtual$/',
             'visibility' => 'public',
         ],
 

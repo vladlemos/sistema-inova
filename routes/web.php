@@ -34,6 +34,10 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('contratacao', function () {
         return view('Comex.Contratacao.index');
     });
+
+    // Route::get('contratacao/upload', function () {
+    //     return view('Comex.Contratacao.uploadfile');
+    // });
     
     // Indicadores Antecipados
     Route::get('indicadores/antecipados', function () {
@@ -49,6 +53,9 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('distribuir/demandas', function () {
         return view('Comex.Distribuir.demandas');
     });
+
+    Route::get('/uploadfile','UploadFileController@index');
+    Route::post('/uploadfile','UploadFileController@showUploadFile');
 
 });
 
