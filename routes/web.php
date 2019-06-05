@@ -34,6 +34,10 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('contratacao', function () {
         return view('Comex.Contratacao.index');
     });
+    Route::get('contratacao/analise', function () {
+        return view('Comex.Contratacao.analise');
+    });
+
     
     // Indicadores Antecipados
     Route::get('indicadores/antecipados', function () {
