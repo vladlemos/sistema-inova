@@ -28,33 +28,33 @@ class CadastraAcessoEsteiraComex
         '5174', '5175', '5176', '5177', '5178', '5179', '5181', '5182' // DIRES
     ];
     public $arrayMiddle = [
-        'C091639', // Bruno
-        'C117210', // Carolina
-        'C116287', // Celia
-        'C086812', // Daniela
-        'C106407', // Nantes
-        'C063490', // Erica
-        'C111697', // Guilherme
-        'C114783', // Juliane
-        'C077793', // Leticia
-        'C095053', // Marina
-        'C121708', // Thais
-        'C113591'  // Thiago
+        'c091639', // Bruno
+        'c117210', // Carolina
+        'c116287', // Celia
+        'c086812', // Daniela
+        'c106407', // Nantes
+        'c063490', // Erica
+        'c111697', // Guilherme
+        'c114783', // Juliane
+        'c077793', // Leticia
+        'c095053', // Marina
+        'c121708', // Thais
+        'c113591'  // Thiago
     ];
     public $arrayGestor = [
         /* GESTORES */
-        'C121472', // Claudia
-        'C113608', // Daniele
-        'C084683', // Eidi
-        'C061940', // Eliana
-        'C052617', // Lucyenne
-        'C086282', // Ricardo
-        'C058725', // Thais Jomah
+        'c121472', // Claudia
+        'c113608', // Daniele
+        'c084683', // Eidi
+        'c061940', // Eliana
+        'c052617', // Lucyenne
+        'c086282', // Ricardo
+        'c058725', // Thais Jomah
         /* DESENVOLVIMENTO */
-        'C142765', // Carlos
-        'C111710', // Chuman
-        'C095060', // Denise
-        'C079436'  // Vladimir
+        'c142765', // Carlos
+        'c111710', // Chuman
+        'c095060', // Denise
+        'c079436'  // Vladimir
     ];
 
     /**
@@ -90,13 +90,8 @@ class CadastraAcessoEsteiraComex
      *
      * @return  self
      */ 
-    public function setNivelAcesso($objEmpregado)
+    public function setNivelAcesso()
     {
-        if ($objEmpregado->codigoLotacaoFisica === null) {
-            $this->setUnidade($objEmpregado->codigoLotacaoAdministrativa);
-        } else {
-            $this->setUnidade($objEmpregado->codigoLotacaoFisica);
-        }
         if(in_array($this->getUnidade(), $this->arraySr)) {
             $this->nivelAcesso = 'SR';
         } elseif (in_array($this->getUnidade(), $this->arrayAudir)) {
@@ -104,12 +99,14 @@ class CadastraAcessoEsteiraComex
         } elseif (in_array($this->getUnidade(), $this->arrayMatriz)) {
             $this->nivelAcesso = 'MATRIZ';
         } elseif ($this->getUnidade() == '5459') {
-            $this->nivelAcesso = 'CEOPC';
-        } elseif (in_array($this->getUnidade(), $this->arrayMiddle)) {
-            $this->nivelAcesso = 'MIDDLE';
-        } elseif (in_array($this->getUnidade(), $this->arrayGestor)) {
-            $this->nivelAcesso = 'GESTOR';
-        } elseif ($this->getUnidade() == '5424') {
+            if (in_array($this->getMatricula(), $this->arrayMiddle)) {
+                $this->nivelAcesso = 'MIDDLE';
+            } elseif (in_array($this->getMatricula(), $this->arrayGestor)) {
+                $this->nivelAcesso = 'GESTOR';
+            } else {
+                $this->nivelAcesso = 'CEOPC';
+            }
+        } elseif ($this->getUnidade() == '5434') {
             $this->nivelAcesso = 'GECAM';
         } elseif ($this->getUnidade() == '5510') {
             $this->nivelAcesso = 'GELIT';
@@ -134,18 +131,31 @@ class CadastraAcessoEsteiraComex
      *
      * @return  self
      */ 
-    public function setUnidade($unidade)
+    public function setUnidade($objEmpregado)
     {
-        $this->unidade = $unidade;
-
+        if ($objEmpregado->getCodicoLotacaoFisica() === null) {
+            $this->unidade = $objEmpregado->getCodigoLotacaoAdministrativa();
+        } else {
+            $this->unidade = $objEmpregado->getCodicoLotacaoFisica();
+        }
         return $this;
     }
 
     public function __construct($objEmpregado)
     {
         $this->setMatricula($objEmpregado->getMatricula());
-        $this->setNivelAcesso($objEmpregado);
-        $this->atualizarPerfilAcessoEsteira();
+        $this->setUnidade($objEmpregado);
+        $this->setNivelAcesso();
+        // $this->atualizarPerfilAcessoEsteira();
+    }
+
+    public function __toString()
+    {
+        return json_encode(array(
+            "matricula" => $this->getMatricula(),
+            "nivelAcesso" => $this->getNivelAcesso(),
+            "unidade" => $this->getUnidade(),
+        ), JSON_UNESCAPED_SLASHES);
     }
 
     public function atualizaPerfilAcessoEsteira()

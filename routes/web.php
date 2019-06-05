@@ -27,6 +27,9 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('/', function () {
         return view('Comex.Home.index');
     });
+    Route::get('/perfil-acesso-esteira', function () {
+        return view('Comex.cadastroPerfil');
+    });
     
     
 
