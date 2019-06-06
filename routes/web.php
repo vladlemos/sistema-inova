@@ -27,6 +27,9 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('/', function () {
         return view('Comex.Home.index');
     });
+    Route::get('/perfil-acesso-esteira', function () {
+        return view('Comex.cadastroPerfil');
+    });
     
     
 
@@ -61,6 +64,12 @@ Route::prefix('esteiracomex')->group(function(){
 
     Route::get('/uploadfile','UploadFileController@index');
     Route::post('/uploadfile','UploadFileController@showUploadFile');
+
+     // Cadastra email para envio notificação de chegada de OP
+     Route::get('solicitacoes/cadastraemailop', function () {
+        return view('Comex.CadastraEmailOp.index');
+    });
+
 
 });
 

@@ -37,7 +37,7 @@
                 }
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "DaveJamesMiller\\Breadcrumbs\\": "src/"

@@ -167,13 +167,13 @@ class Ldap
     {
         if(!isset($_SESSION['aut_matricula']) or strtoupper($_SESSION['aut_matricula'])!=strtoupper(substr($_SERVER["AUTH_USER"],10)))
         {
-            $simularMatricula='';
+            $simularMatricula='P596149';
             //echo $simularMatricula;
             $matricula = $_SERVER["AUTH_USER"];
             if ($simularMatricula != "") {
-                $this->setMatricula($simularMatricula);
+                $this->setMatricula(str_replace('C', 'c', $simularMatricula));
             } else {
-                $this->setMatricula(substr($matricula, 10));
+                $this->setMatricula(str_replace('C', 'c', substr($matricula, 10)));
             }
                 
             $ldap_handle = ldap_connect('ldap://ldapcluster.corecaixa:489');

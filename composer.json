@@ -30,10 +30,11 @@
         "psr-4": {
             "App\\": "app/",
             "App\\Models\\Bndes\\NovoSiaf\\": "app/Models/Bndes/NovoSiaf/",
+            "App\\Models\\Comex\\": "app/Models/Comex/",
             "App\\Classes\\Bndes\\NovoSiaf\\": "app/Classes/Bndes/NovoSiaf/",
             "App\\Classes\\Geral\\": "app/Classes/Geral/",
+            "App\\Classes\\Comex\\": "app/Classes/Comex/",
             "App\\Http\\Controllers\\Sistemas\\": "App/Http/Controllers/Sistemas"
-            
         }
     },
     "autoload-dev": {
