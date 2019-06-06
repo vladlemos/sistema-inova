@@ -20,23 +20,23 @@
 $(document).ready(function() {
 
 //Declaração de variáveis dos inputs de arquivos, para carregar múltiplos como array.
-    var invoiceImpAnt = [];
-    var dadosImpAnt = [];
-    var autSrImpAnt = [];
+    var invoiceImpAnt = '';
+    var dadosImpAnt = '';
+    var autSrImpAnt = '';
 
-    var invoiceImp = [];
-    var embarqueImp = [];
-    var di = [];
-    var dadosImp = [];
-    var autSrImp = [];
+    var invoiceImp = '';
+    var embarqueImp = '';
+    var di = '';
+    var dadosImp = '';
+    var autSrImp = '';
 
-    var invoiceExpAnt = [];
-    var autSrExpAnt = [];
+    var invoiceExpAnt = '';
+    var autSrExpAnt = '';
    
-    var invoiceExp = [];
-    var embarqueExp = [];
-    var due = [];
-    var autSrExp = [];
+    var invoiceExp = '';
+    var embarqueExp = '';
+    var due = '';
+    var autSrExp = '';
 
 
 
