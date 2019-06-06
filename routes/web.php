@@ -35,9 +35,10 @@ Route::prefix('esteiracomex')->group(function(){
         return view('Comex.Contratacao.index');
     });
 
-    // Route::get('contratacao/upload', function () {
-    //     return view('Comex.Contratacao.uploadfile');
-    // });
+    Route::get('contratacao/upload', function () {
+        return view('Comex.Contratacao.uploadfile');
+    });
+
     Route::get('contratacao/analise', function () {
         return view('Comex.Contratacao.analise');
     });
