@@ -37,6 +37,11 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('contratacao', function () {
         return view('Comex.Contratacao.index');
     });
+
+    Route::get('contratacao/upload', function () {
+        return view('Comex.Contratacao.uploadfile');
+    });
+
     Route::get('contratacao/analise', function () {
         return view('Comex.Contratacao.analise');
     });
@@ -57,10 +62,14 @@ Route::prefix('esteiracomex')->group(function(){
         return view('Comex.Distribuir.demandas');
     });
 
+    Route::get('/uploadfile','UploadFileController@index');
+    Route::post('/uploadfile','UploadFileController@showUploadFile');
+
      // Cadastra email para envio notificação de chegada de OP
      Route::get('solicitacoes/cadastraemailop', function () {
         return view('Comex.CadastraEmailOp.index');
     });
+
 
 });
 
