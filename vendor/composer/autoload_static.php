@@ -193,9 +193,12 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         ),
         'A' => 
         array (
+            'App\\Models\\Comex\\AccAceLiquidacao\\' => 34,
             'App\\Models\\Comex\\' => 17,
             'App\\Models\\Bndes\\NovoSiaf\\' => 26,
             'App\\Http\\Controllers\\Sistemas\\' => 30,
+            'App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\' => 44,
+            'App\\Http\\Controllers\\Bndes\\NovoSiaf\\' => 36,
             'App\\Classes\\Geral\\' => 18,
             'App\\Classes\\Comex\\' => 18,
             'App\\Classes\\Bndes\\NovoSiaf\\' => 27,
@@ -438,6 +441,10 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'App\\Models\\Comex\\AccAceLiquidacao\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app/Models/Comex/AccAceLiquidacao',
+        ),
         'App\\Models\\Comex\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/Models/Comex',
@@ -449,6 +456,14 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Http\\Controllers\\Sistemas\\' => 
         array (
             0 => __DIR__ . '/../..' . '/App/Http/Controllers/Sistemas',
+        ),
+        'App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/App/Http/Controllers/Comex/AccAceLiquidacao',
+        ),
+        'App\\Http\\Controllers\\Bndes\\NovoSiaf\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf',
         ),
         'App\\Classes\\Geral\\' => 
         array (
@@ -518,10 +533,11 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
-        'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafContratoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Bndes/NovoSiaf/SiafContratoController.php',
-        'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafDemandaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Bndes/NovoSiaf/SiafDemandaController.php',
-        'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafHistoricoDemandaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Bndes/NovoSiaf/SiafHistoricoDemandaController.php',
-        'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafHistoricoSaldoContaAmortizacaoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Bndes/NovoSiaf/SiafHistoricoSaldoContaAmortizacaoController.php',
+        'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafContratoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf/SiafContratoController.php',
+        'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafDemandaController' => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf/SiafDemandaController.php',
+        'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafHistoricoDemandaController' => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf/SiafHistoricoDemandaController.php',
+        'App\\Http\\Controllers\\Bndes\\NovoSiaf\\SiafHistoricoSaldoContaAmortizacaoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Bndes/NovoSiaf/SiafHistoricoSaldoContaAmortizacaoController.php',
+        'App\\Http\\Controllers\\Comex\\AccAceLiquidacao\\AccAceLiquidacaoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Comex/AccAceLiquidacao/AccAceLiquidacaoController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Sistemas\\AcessaEmpregadoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Sistemas/AcessaEmpregadoController.php',
         'App\\Http\\Controllers\\Sistemas\\EmpregadoController' => __DIR__ . '/../..' . '/App/Http/Controllers/Sistemas/EmpregadoController.php',
@@ -536,6 +552,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Models\\Bndes\\NovoSiaf\\SiafDemanda' => __DIR__ . '/../..' . '/app/Models/Bndes/NovoSiaf/SiafDemanda.php',
         'App\\Models\\Bndes\\NovoSiaf\\SiafHistoricoDemanda' => __DIR__ . '/../..' . '/app/Models/Bndes/NovoSiaf/SiafHistoricoDemanda.php',
         'App\\Models\\Bndes\\NovoSiaf\\SiafHistoricoSaldoContaAmortizacao' => __DIR__ . '/../..' . '/app/Models/Bndes/NovoSiaf/SiafHistoricoSaldoContaAmortizacao.php',
+        'App\\Models\\Comex\\AccAceLiquidacao\\AccAceLiquidacao' => __DIR__ . '/../..' . '/app/Models/Comex/AccAceLiquidacao/AccAceLiquidacao.php',
         'App\\Models\\Comex\\AcessaEsteiraComex' => __DIR__ . '/../..' . '/app/Models/Comex/AcessaEsteiraComex.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
