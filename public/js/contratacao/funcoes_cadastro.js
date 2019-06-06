@@ -7,21 +7,37 @@ $(document).ready(function(){
     $('.mascaracnpj').mask('00.000.000/0000-00');
 });
 
+// ####################### FUNÇÃO QUE ZERA O VALOR DE CPF E CNPJ QUANDO O OUTRO FOR SELECIONADO #######################
+
+$(function() {
+    $('#radioCpf').click(function() {
+        $('#radioCnpj').removeAttr('checked');
+        $('#cnpj').val('');
+        $('#cpfCnpj2').show();
+        $('#cpfCnpj3').hide();
+    });
+    $('#radioCnpj').click(function() {
+        $('#radioCpf').removeAttr('checked');
+        $('#cpf').val('');
+        $('#cpfCnpj2').hide();
+        $('#cpfCnpj3').show();
+    });
+
+});
 
 
 // ####################### FUNÇÃO QUE MOSTRA CAMPO CPF OU CNPJ DEPENDENDO DO SELECIONADO #######################
 
-$(document).ready(function() {
-    $("input[name$='escolheTipoPessoa']").click(function() {
-        var test = $(this).val();
-        $("div.desc").hide();
-        $("#cpfCnpj" + test).show();
-    });
-
-    $('input[#radioCpf').click(function() {
+// $(document).ready(function() {
+//     $("input[name$='escolheTipoPessoa']").click(function() {
+//         var test = $(this).val();
         
-    });
-});
+//         $("div.desc").hide();
+//         $("#cpfCnpj" + test).show();
+//     });
+
+// });
+
 
 // ####################### FUNÇÃO QUE MOSTRA DOCUMENTACAO DEPENDENDO DA OPERACAO SELECIONADA #######################
 
@@ -30,6 +46,8 @@ $(function() {
         $('.desc3').hide();
         $('#' + $(this).val()).show();
 
+// ####################### FUNÇÃO DE REQUIRED NOS ARQUIVOS #######################
+        
     tipoOperacao = $('#tipoOperacao').val();
         switch (tipoOperacao) {
 
@@ -189,7 +207,7 @@ $(document).ready(function() {
 // ####################### NÃO TESTADO - FUNÇÃO QUE PROIBE DAR SUBMIT COM O CAMPO MODALIDADE VAZIO #######################
 
 
-$('#formTipoOperacao').submit(function(e) {
+$('#formCadastroContratacao').submit(function(e) {
     e.preventDefault();
     $("#tipoOperacao").each(function(){
         if($.trim(this.value) == ""){
@@ -231,7 +249,6 @@ $(function() {
   });
 
 
-// ####################### FUNÇÃO DE REQUIRED NOS ARQUIVOS #######################
 
   
 

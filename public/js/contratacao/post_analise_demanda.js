@@ -27,7 +27,7 @@ $(document).ready(function() {
     // var conhecimento = {
         
     // };
-    var urlInvoice ='';
+    var urlInvoice = '';
     var fileInvoice = '';
     var typeInvoice = '';
     var urlDi = '';

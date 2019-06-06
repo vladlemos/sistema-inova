@@ -39,21 +39,21 @@
                 <label class="col-sm-2 control-label">Tipo de Cliente:</label>
                 <div class="col-sm-10">
                     <label class="radio-inline">PF</label>
-                    <input class="radio-inline" name="escolheTipoPessoa" id="radioCpf" value="2" type="radio">
+                    <input class="radio-inline" name="tipoPessoa" id="radioCpf" type="radio" value="PF">
 
                     <label class="radio-inline">PJ</label>
-                    <input class="radio-inline" name="escolheTipoPessoa" id="radioCnpj" value="3" type="radio" checked="checked" >
+                    <input class="radio-inline" name="tipoPessoa" id="radioCnpj" type="radio" value="PJ">
                 </div>  <!--/col-->
         </fieldset>
 
-        <div id="cpfCnpj2" class="form-group row desc" style="display: none;">
+        <div id="cpfCnpj2" class="form-group row" style="display: none;">
             <label class="col-sm-2 control-label">CPF:</label>
             <div class="col-sm-2">
                 <input class="form-control mascaracpf" name="cpf" id="cpf" placeholder="CPF" maxlength="14" type="text">
             </div>
         </div>  <!--/cpfCnpj2-->
 
-        <div id="cpfCnpj3" class="form-group row desc">
+        <div id="cpfCnpj3" class="form-group row" style="display: none;">
             <label class="col-sm-2 control-label">CNPJ:</label>
             <div class="col-sm-2">
                 <input class="form-control mascaracnpj" name="cnpj" id="cnpj" placeholder="CNPJ" maxlength="18" type="text">
@@ -73,7 +73,7 @@
             <label class="col-sm-2 control-label">Tipo de Operação:</label>
             <div class="col-sm-4">
                 <select class="form-control" id="tipoOperacao" placeholder="Selecione uma modalidade">
-                    <option value="1">Nenhum</option>
+                    <option value="0">Nenhum</option>
                     <option value="2">Pronto Importação Antecipado</option>
                     <option value="3">Pronto Importação</option>
                     <option value="4">Pronto Exportação Antecipado</option>
@@ -122,7 +122,7 @@
 
         <hr>
         
-        <div id="2" class="form-group desc3" style="display: none;"> <!---->
+        <div id="2" class="form-group desc3" style="display: none;"> <!-- -->
 
             <div class="form-group">
                 <fieldset class="form-group row">
@@ -147,53 +147,7 @@
                     </div>
                 </div>  <!--/contaBeneficiarioAnt-->
             </div>  <!--/form-group-->
-                   
-            <div class="form-group row">
-                <label class="col-sm-2 control-label">Documentação Necessária:</label>
-                <div class="col-sm-3">
-                    <ul class="list-group">
-                        <li class="list-group-item padding17">- Invoice assinada</li>
-                        <li class="list-group-item padding17">- Dados bancários</li>
-                        <li class="list-group-item padding17">- Autorização SR</li>
-                    </ul>
-                </div>  <!--/col-->
-
-                <div class="col-sm-6">
-                    <ul class="list-group">
-                        <li class="list-group-item"> 
-                            <div class="input-group">
-                                <label class="input-group-btn">
-                                    <span class="btn btn-primary"> <i class="fa fa-lg fa-cloud-upload"></i>
-                                        Carregar arquivo&hellip; <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="invoice_[]" id="invoiceImpAnt" multiple>
-                                    </span>
-                                </label>
-                                <input type="text" class="form-control" readonly>
-                            </div> 
-                        </li>
-                        <li class="list-group-item"> 
-                            <div class="input-group">
-                                <label class="input-group-btn">
-                                    <span class="btn btn-primary"> <i class="fa fa-lg fa-cloud-upload"></i>
-                                        Carregar arquivo&hellip; <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="invoice_[]" id="invoiceImpAnt" multiple>
-                                    </span>
-                                </label>
-                                <input type="text" class="form-control" readonly>
-                            </div> 
-                        </li>
-                        <li class="list-group-item"> <div class="input-group">
-                                <label class="input-group-btn">
-                                    <span class="btn btn-primary"> <i class="fa fa-lg fa-cloud-upload"></i>
-                                        Carregar arquivo&hellip; <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="invoice_[]" id="invoiceImpAnt" multiple>
-                                    </span>
-                                </label>
-                                <input type="text" class="form-control" readonly>
-                            </div>
-                        </li>
-                    </ul>
-                </div>  <!--/col-->
-
-            </div><!--/form-group row-->
-            
+                        
         </div>  <!--/#2-->
 
         <div id="3" class="form-group desc3" style="display: none;"> <!---->
@@ -222,144 +176,147 @@
                 </div>  <!--/contaBeneficiarioNormal-->
             </div>  <!--/form-group-->                    
 
-            <div class="form-group row">
-                <label class="col-sm-2 control-label">Documentação Necessária:</label>
-                <div class="col-sm-3">
-                    <ul class="list-group">
-                        <li class="list-group-item padding17">- Invoice</li>
-                        <li class="list-group-item padding17">- Conhecimento de Embarque</li>
-                        <li class="list-group-item padding17">- Declaração de Importação (DI)</li>
-                        <li class="list-group-item padding17">- Dados bancários</li>
-                        <li class="list-group-item padding17">- Autorização SR</li>
-                    </ul>
-                </div>  <!--/col-->
-
-            <div class="col-sm-6">
-                <ul class="list-group">
-                    <li class="list-group-item"> 
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary"> <i class="fa fa-lg fa-cloud-upload"></i>
-                                    Carregar arquivo&hellip; <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="invoice_[]" id="invoiceImpAnt" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div> 
-                    </li>
-                    <li class="list-group-item"> 
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary"> <i class="fa fa-lg fa-cloud-upload"></i>
-                                    Carregar arquivo&hellip; <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="invoice_[]" id="invoiceImpAnt" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div> 
-                    </li>
-                    <li class="list-group-item"> <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary"> <i class="fa fa-lg fa-cloud-upload"></i>
-                                    Carregar arquivo&hellip; <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="invoice_[]" id="invoiceImpAnt" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>
-                    </li>
-                    <li class="list-group-item"> 
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary"> <i class="fa fa-lg fa-cloud-upload"></i>
-                                    Carregar arquivo&hellip; <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="invoice_[]" id="invoiceImpAnt" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>  
-                    </li>
-                    <li class="list-group-item">
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary"> <i class="fa fa-lg fa-cloud-upload"></i>
-                                    Carregar arquivo&hellip; <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="invoice_[]" id="invoiceImpAnt" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div> 
-                    </li>
-                </ul>
-            </div>  <!--/col-->
-
-            </div><!--/form-group row-->
-
         </div>  <!--/#3-->
 
-        <div id="4" class="form-group row desc3" style="display: none;"> <!---->          
-            <label class="col-sm-2 control-label">Documentação Necessária:</label>
-            <div class="col-sm-3">
-                <ul class="list-group">
-                    <li class="list-group-item padding17">- Invoice assinada</li>
-                    <li class="list-group-item padding17">- Autorização SR</li>
-                </ul>
-            </div>  <!--/col-->
-
-            <div class="col-sm-6">
-                <ul class="list-group">
-                    <li class="list-group-item"> 
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary"> <i class="fa fa-lg fa-cloud-upload"></i>
-                                    Carregar arquivo&hellip; <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="invoice_[]" id="invoiceImpAnt" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>  
-                    </li>
-                    <li class="list-group-item">
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary"> <i class="fa fa-lg fa-cloud-upload"></i>
-                                    Carregar arquivo&hellip; <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="invoice_[]" id="invoiceImpAnt" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div> 
-                    </li>
-                </ul>
-            </div>  <!--/col-->
+        <div id="4" class="form-group row desc3"> <!---->          
 
         </div>  <!--/#4-->
 
-        <div id="5" class="form-group row desc3" style="display: none;"> <!---->          
-            <label class="col-sm-2 control-label">Documentação Necessária:</label>
-            <div class="col-sm-3">
-                <ul class="list-group">
-                    <li class="list-group-item padding17">- Invoice</li>
-                    <li class="list-group-item padding17">- Conhecimento de Embarque</li>
-                    <li class="list-group-item padding17">- Declaração Única de Exportação (DU-E)</li>
-                    <li class="list-group-item padding17">- Autorização SR</li>
-                </ul>
-            </div>  <!--/col-->
+        <div id="5" class="form-group row desc3"> <!---->          
 
-            <div class="col-sm-6">
+        </div>  <!--/#5-->
+
+    <hr>
+
+        <!-- <div class="form-group row">
+            <label class="col-sm-2 control-label">Documentação Necessária:</label>
+            <div class="col-sm-4">
                 <ul class="list-group">
-                    <li class="list-group-item"> 
-                        <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary"> <i class="fa fa-lg fa-cloud-upload"></i>
-                                    Carregar arquivo&hellip; <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="invoice_[]" id="invoiceImpAnt" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div> 
-                    </li>
-                    <li class="list-group-item"> <div class="input-group">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary"> <i class="fa fa-lg fa-cloud-upload"></i>
-                                    Carregar arquivo&hellip; <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="invoice_[]" id="invoiceImpAnt" multiple>
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>
-                    </li>
+                    <li class="list-group-item padding17" id="uploadInvoice">- Invoice</li>
+                    <li class="list-group-item padding17" id="uploadConhecimento">- Conhecimento de Embarque</li>
+                    <li class="list-group-item padding17" id="uploadDi">- Declaração de Importação (DI)</li>
+                    <li class="list-group-item padding17" id="uploadDue">- Declaração Única de Exportação (DU-E)</li>
+                    <li class="list-group-item padding17" id="uploadDadosBancarios">- Dados bancários</li>
+                    <li class="list-group-item padding17" id="uploadAutorizacaoSr">- Autorização SR</li>
+                </ul>
+            </div> 
+        </div> -->
+
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">Documentação Necessária:</label>
+            </div><!--/form-group row-->
+
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <p class="form-control">Invoice</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                            <i class="fa fa-lg fa-cloud-upload"></i>
+                            Carregar arquivo&hellip; 
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadInvoice_[]" id="uploadInvoice" multiple>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>  <!--/col-->
+                </div>  <!--/col-->
+            </div><!--/form-group-->
+
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <p class="form-control">Conhecimento de Embarque</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                            <i class="fa fa-lg fa-cloud-upload"></i>
+                            Carregar arquivo&hellip; 
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadConhecimento_[]" id="uploadConhecimento" multiple>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>  <!--/col-->
+                </div>  <!--/col-->
+            </div><!--/form-group-->
+
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <p class="form-control">Declaração de Importação (DI)</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                            <i class="fa fa-lg fa-cloud-upload"></i>
+                            Carregar arquivo&hellip; 
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDi_[]" id="uploadDi" multiple>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>  <!--/col-->
+                </div>  <!--/col-->
+            </div><!--/form-group-->
+
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <p class="form-control">Declaração Única de Exportação (DU-E)</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                            <i class="fa fa-lg fa-cloud-upload"></i>
+                            Carregar arquivo&hellip; 
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDue_[]" id="uploadDue" multiple>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>  <!--/col-->
+                </div>  <!--/col-->
+            </div><!--/form-group-->
+
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <p class="form-control">Dados bancários</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                            <i class="fa fa-lg fa-cloud-upload"></i>
+                            Carregar arquivo&hellip; 
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDadosBancarios_[]" id="uploadDadosBancarios" multiple>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>  <!--/col-->
+                </div>  <!--/col-->
+            </div><!--/form-group-->
+
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <p class="form-control">Autorização SR</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-primary">
+                            <i class="fa fa-lg fa-cloud-upload"></i>
+                            Carregar arquivo&hellip; 
+                            <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadAutorizacaoSr_[]" id="uploadAutorizacaoSr" multiple>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" readonly>
+                    </div>  <!--/col-->
+                </div>  <!--/col-->
+            </div><!--/form-group-->
+
+
+            <!-- <div class="col-sm-6">
+                <ul class="list-group">
                     <li class="list-group-item"> 
                         <div class="input-group">
                             <label class="input-group-btn">
@@ -381,23 +338,24 @@
                         </div> 
                     </li>
                 </ul>
-            </div>  <!--/col-->
+            </div>  /col -->
 
-        </div>  <!--/#5-->
+
+
             
 
         <input id="matricula" name="matricula" type="hidden"> 
         
-        <!-- <br>
+        <br>
             
-        <div class="file-loading">
+        <!-- <div class="file-loading">
             <input id="invoiceImpAnt" name="invoice_[]" type="file" multiple="multiple">
-        </div>
+        </div> -->
 
-        <br> -->
+        <br>
 
 
-        <div class="form-group row">
+        <div class="form-group">
             <div class="col-sm-2">
                 <button type="submit" name="submit" id="submitBtn" class="btn btn-primary">Enviar</button>
             </div>
