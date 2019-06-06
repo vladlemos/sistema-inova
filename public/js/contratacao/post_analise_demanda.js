@@ -182,9 +182,28 @@ $(":file").fileinput({
 
     // removeFromPreviewOnError: true,
     purifyHtml: true,
-    uploadExtraData: {
-        img_key: "1000",
-        img_keywords: "happy, nature"
+    uploadExtraData: { 
+        function() {
+            return {
+            userid: $("#matricula").val(),
+            username: $("#matricula").val(),
+            responsavelAtual: $('#matricula').val(),
+
+            dataLiquidacao: $('#dataLiquidacao').val(),
+            numeroBoleto: $('#numeroBoleto').val(),
+            statusGeral: $('#statusGeral').val(),
+
+                    // fazer if
+
+            statusInvoice: $('#statusInvoice').val(),
+            statusConhecimento: $('#statusConhecimento').val(),
+            statusDiDue: $('#statusDiDue').val(),
+            statusDadosBancarios: $('#statusDadosBancarios').val(),
+            statusAutorizacaoSr: $('#statusAutorizacaoSr').val(),
+            
+            observacoesCeopc: $('#observacoesCeopc').val(),
+            }; 
+        }    
     },
     preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
          previewFileIconSettings: { // configure your icon file extensions
@@ -237,5 +256,8 @@ $(":file").fileinput({
 },
 });
 
-})
+
+
+
+}) // fim do doc ready
 
