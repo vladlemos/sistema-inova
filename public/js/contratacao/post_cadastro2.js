@@ -73,7 +73,7 @@ $('input[name="temContaBeneficiarioNormal"]').click(function() {
         allowedFileExtensions: ["jpg", "jpeg", "png","pdf", "zip", "rar", "7z"],
         msgInvalidFileExtension: "O tipo de arquivo selecionado não é suportado. Favor selecionar um arquivo de imagem, PDF ou ZIP." ,
         purifyHtml: true,
-        uploadExtraData: function() {
+        uploadExtraData:{ function() {
             return {
 
             userid: $("#matricula").val(),
@@ -99,7 +99,7 @@ $('input[name="temContaBeneficiarioNormal"]').click(function() {
 
         //     img_key: "1000",
         //     img_keywords: "happy, nature"
-        }; 
+        }}
     },
         preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
              previewFileIconSettings: { // configure your icon file extensions

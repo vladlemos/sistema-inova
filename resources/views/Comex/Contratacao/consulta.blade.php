@@ -33,12 +33,12 @@
 
 
     <div class="page-bar">
-        <h3>Contratação - Análise de Demanda - Protocolo #  <p class="inline" name="id_demanda" id="idDemanda">546654</p></h3>
+        <h3>Contratação - Consulta de Demanda - Protocolo #  <p class="inline" name="id_demanda" id="idDemanda">546654</p></h3>
     </div>
 
 <br>
 
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formAnaliseDemanda">
+    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formUploadComplemento">
 
         <div class="form-group">
 
@@ -112,128 +112,170 @@
 
             <label class="col-sm-1 control-label">Data de Liquidação:</label>
             <div class="col-sm-2">
-                <input class="form-control" name="dataLiquidacao" id="dataLiquidacao" type="date" placeholder="DD/MM/AAAA">
+                <p class="form-control" id="dataLiquidacao">10/10/1010</p>
             </div>
 
             <label class="col-sm-1 control-label">Número do Boleto:</label>
             <div class="col-sm-1">
-                <input class="form-control" name="numeroBoleto" id="numeroBoleto" type="number">
+                <p class="form-control" id="numeroBoleto">10101010</p>
             </div>
 
             <label class="col-sm-1 control-label">Status:</label>
             <div class="col-sm-3">
-                    <select class="form-control" name="statusGeral" id="statusGeral">
-                        <option value="0">Selecione</option>
-                        <option value="1">Inconforme</option>
-                        <option value="2">Conforme</option>
-                        <option value="3">Conta OK</option>
-                        <option value="4">Conferido</option>
-                        <option value="5">Cancelar</option>
-                    </select>
+                <p class="form-control" id="statusGeral">Inconforme</p>
             </div>
 
         </div>  <!--/form-group-->
 
     <hr>
 
-    <div class="page-bar">
-        <h3>Check-list</h3>
-    </div>
-
-    <div class="row">
-
-    <div class="col-md-6">
-
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Invoice:</label>
-            <div class="col-sm-3">
-                    <select class="form-control" name="statusInvoice" id="statusInvoice">
-                        <option value="0">Selecione</option>
-                        <option value="1">Conforme</option>
-                        <option value="2">Inconforme</option>
-                        <option value="3">N/A</option>
-                    </select>
-            </div>
+        <div class="page-bar">
+            <h3>Check-list</h3>
         </div>
 
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Conhecimento:</label>
-            <div class="col-sm-3">
-                    <select class="form-control" name="statusConhecimento" id="statusConhecimento">
-                        <option value="0">Selecione</option>
-                        <option value="1">Conforme</option>
-                        <option value="2">Inconforme</option>
-                        <option value="3">N/A</option>
-                    </select>
+        <div class="row">
+
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Invoice:</label>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="conforme" disabled>Conforme
+                    </label>
+                </div>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="inconforme" disabled>Inconforme
+                    </label>
+                </div>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="naoSeAplica" disabled>N/A
+                    </label>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="col-sm-3 control-label">DI / DU-E:</label>
-            <div class="col-sm-3">
-                    <select class="form-control" name="statusDiDue" id="statusDiDue">
-                        <option value="0">Selecione</option>
-                        <option value="1">Conforme</option>
-                        <option value="2">Inconforme</option>
-                        <option value="3">N/A</option>
-                    </select>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Conhecimento:</label>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="conforme" disabled>Conforme
+                    </label>
+                </div>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="inconforme" disabled>Inconforme
+                    </label>
+                </div>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="naoSeAplica" disabled>N/A
+                    </label>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Dados Bancários:</label>
-            <div class="col-sm-3">
-                    <select class="form-control" name="statusDadosBancarios" id="statusDadosBancarios">
-                        <option value="0">Selecione</option>
-                        <option value="1">Conforme</option>
-                        <option value="2">Inconforme</option>
-                        <option value="3">N/A</option>
-                    </select>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">DI / DU-E:</label>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="conforme" disabled>Conforme
+                    </label>
+                </div>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="inconforme" disabled>Inconforme
+                    </label>
+                </div>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="naoSeAplica" disabled>N/A
+                    </label>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Autorização SR:</label>
-            <div class="col-sm-3">
-                    <select class="form-control" name="statusAutorizacaoSr" id="statusAutorizacaoSr">
-                        <option value="0">Selecione</option>
-                        <option value="1">Conforme</option>
-                        <option value="2">Inconforme</option>
-                        <option value="3">N/A</option>
-                    </select>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Dados Bancários:</label>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="conforme" disabled>Conforme
+                    </label>
+                </div>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="inconforme" disabled>Inconforme
+                    </label>
+                </div>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="naoSeAplica" disabled>N/A
+                    </label>
+                </div>
             </div>
-        </div>
 
-    </div>  <!--/col-md-6-->
-
-    <div class="col-md-6">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Observações:</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" rows="10" name="observacoesCeopc" id="observacoesCeopc"></textarea>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Autorização SR:</label>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="conforme" disabled>Conforme
+                    </label>
+                </div>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="inconforme" disabled>Inconforme
+                    </label>
+                </div>
+                <div class="radio col-sm-2">
+                    <label>
+                        <input type="radio" name="analiseInvoice" value="naoSeAplica" disabled>N/A
+                    </label>
+                </div>
             </div>
-        </div>
-    </div>  <!--/col-md-6-->
 
-    </div> <!--/row-->
+        </div>  <!--/col-md-6-->
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Observações:</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="10" name="observacoesAgencia" id="observacoesAgencia">Minha justificativa.</textarea>
+                </div>
+            </div>
+        </div>  <!--/col-md-6-->
+
+        </div> <!--/row-->
 
 <hr>
 
-    <div class="margin10">
+            <div class="page-bar">
+                <h3>Histórico</h3>
+            </div>
 
-        <div class="file-loading">
-            <input id="input-iconic" name="analise" type="file" multiple>
-        </div>
-            
-    </div><!--/margin10-->
+
+            <div class="form-group">
+                <div class="col-sm-8">
+                    <p class="form-control" id="historico">c142765 - Status: Inconforme - 14/06 - Observação: Campo X do documento Y inconforme.</p>
+                </div>
+            </div>
 
 <hr>
+
+        <div class="margin10">
+
+            <div class="file-loading">
+                <input id="input-iconic" name="analise" type="file" multiple>
+            </div>
+                
+        </div><!--/margin10-->
+
+<br>
 
         <div class="form-group row">
             <div class="col-sm-1">
             <button type="submit" id="submitBtn" class="btn btn-primary">Gravar</button>
             </div>
         </div>
+
 
     </form>
 
@@ -272,7 +314,11 @@
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fa/theme.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fas/theme.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script>
-    <script src="{{ asset('js/contratacao/post_analise_demanda.js') }}"></script>
+    <script src="{{ asset('js/contratacao/post_upload_complemento.js') }}"></script>
+
+
+
+
 
 
 

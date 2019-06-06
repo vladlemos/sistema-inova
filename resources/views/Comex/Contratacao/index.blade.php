@@ -32,17 +32,17 @@
         <h3>Contratação - Cadastro de Demanda</h3>
     </div>
 <br>
-    <form method="POST" action="/esteira-contratacao/backend/post_teste.php" enctype="multipart/form-data" id="formTipoOperacao">
+    <form method="POST" action="/esteira-contratacao/backend/post_teste.php" enctype="multipart/form-data" id="formCadastroContratacao">
 
         <fieldset class="form-group row">
            
                 <label class="col-sm-2 control-label">Tipo de Cliente:</label>
                 <div class="col-sm-10">
                     <label class="radio-inline">PF</label>
-                    <input class="radio-inline" name="escolheTipoPessoa" value="2" type="radio">
+                    <input class="radio-inline" name="escolheTipoPessoa" id="radioCpf" value="2" type="radio">
 
                     <label class="radio-inline">PJ</label>
-                    <input class="radio-inline" name="escolheTipoPessoa" value="3" type="radio" checked="checked" >
+                    <input class="radio-inline" name="escolheTipoPessoa" id="radioCnpj" value="3" type="radio" checked="checked" >
                 </div>  <!--/col-->
         </fieldset>
 
