@@ -14,7 +14,7 @@ class CreateEmpregadosTable extends Migration
     public function up()
     {
         Schema::create('TBL_EMPREGADOS', function (Blueprint $table) {
-            $table->string('matricula', 7);
+            $table->string('matricula', 7)->unique();
             $table->string('nomeCompleto', 50);
             $table->string('primeiroNome', 15);
             $table->string('dataNascimento', 10)->nullable();
