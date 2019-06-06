@@ -44,6 +44,11 @@ jQuery('#modalCadastramento').on('hidden.bs.modal', function (e) {
     jQuery(this).removeData('#tabCadastrar>tbody');
     jQuery(this).find('textarea.co_observacoes').val('');
     jQuery(this).find('#tabCadastrar>tbody').empty();
+//seleciona a aba selecionar contrato como primeira, mesmo após abrir e fechar o modal
+$('#modalInstrucoes').removeClass("active");
+$('#tabInstrucoes').removeClass("active");
+$('#modalCadastrar').addClass("active").show();
+$('#tabSelecionar').addClass("active in").show();
 })
 
 // carrega o modal com todos os contratos dos clientes por CNPJ para solicitar amortização
@@ -87,7 +92,7 @@ function visualizaContratoParaCadastrarDemanda(json){
                 //altera os contratos nulos para vazio
                 if ($("#ctrBndes" +[i]).val() == 'null'){
                     $("#ctrBndes" +[i]).val('');
-                    console.log($("#ctrBndes" +[i]).val());
+                   
                }
                 i++;
             });
@@ -128,12 +133,12 @@ $('#formulario_pedido_amortizacao').submit(function(event){
                     contratoBndes: $("#ctrBndes"+[i]).val(),
                     contratoCaixa: $("#ctrCaixa"+[i]).val(),
                     contaDebito: $("#contaDebito"+[i]).val(),
-                    valorAmortizacao: $("#valorAmort"+[i]).val().replace(".","").replace(",","."),
+                    valorAmortizacao: $("#valorAmort"+[i]).val().replace(/[\.]/g, "").replace(",","."),
                     tipoComando: $("#tipoAmort"+[i]).val(),
                     observacoes: $("textarea.co_observacoes").val(),      
                 }
                 cadastro.push(pedido);
-
+                console.log(pedido);
             } 
         }
 
@@ -147,14 +152,17 @@ $('#formulario_pedido_amortizacao').submit(function(event){
                 refreshTabela(jsonStr, 'tabelaLoteAtual'); 
                 // Destroi o DataTable de Contratos a Liquidar
                 atualizaDataTableCadastroDemanda();
+
+                $('#modalCadastramento').modal('hide');
+                $('#confirmacao').modal('show');
             }
         });
-        $('#modalCadastramento').modal('hide');
-        $('#confirmacao').modal('show');
+        
     //retorna se erro e não efetua o cadastro    
     } catch(Error) {
-        console.log(Error);   
+       console.error(Error);           
     }
+    $('#modalCadastramento').modal('hide');
 });
 
 //atualiza a tabela depois de cadastrar o contrato

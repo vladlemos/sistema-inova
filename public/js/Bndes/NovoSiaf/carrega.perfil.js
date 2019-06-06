@@ -13,12 +13,12 @@ function carregaDadosEmpregado(json){
       type: 'GET',
       url : url,
       
-           success: function(carregaEmpregado){
+        success: function(carregaEmpregado){
          
             
-          var empregado = JSON.parse(carregaEmpregado);
+        var empregado = JSON.parse(carregaEmpregado);
           
-          $.each(empregado, function(key, value){
+        $.each(empregado, function(key, value){
 
             // verificao perfil e desabilita a aba da agência caso perfil CEOPC
           
@@ -33,7 +33,7 @@ function carregaDadosEmpregado(json){
                 $("#perfilSessao").html(value.nivelAcesso);  
                 $("#nomeSessaoBemVindo").html(value.nomeCompleto);  
                 $("#agenciaContrato").html(value.nomeLotacaoFisica);
-                // $('#editarCEOPC').remove();
+         
 	     
             }
 
@@ -48,21 +48,47 @@ function carregaDadosEmpregado(json){
                 $("#perfilSessao").html(value.nivelAcesso);  
                 $("#nomeSessaoBemVindo").html(value.nomeCompleto);  
                 $("#agenciaContrato").html(value.nomeLotacaoAdministrativa);
-                // $('#editarCEOPC').remove();
+               
            
             }
+                  
 
-            if(value.nivelAcesso == 'CEOPC'){
-                
-                $("ul.nav-tabs li").removeClass("active");  
-                $("#abaContratosLiquidar").hide();
-                $("#contratosliquidar").hide();
-                $("#abaLoteAtual").addClass("active").show(); 
-                $("#loteAtual").addClass("active").show();
-                $(".perfilVisualizacao").html('Visualizando Todos Pedidos');
-                $('#editarAg').remove();
+            switch (value.nivelAcesso){
+
+                case 'CEOPC':
+
+                    $("#abaContratosLiquidar").hide();
+                    $("#contratosliquidar").hide();
+                    $("#abaContratosLiquidar").removeClass("active")
+                    $("#abaLoteAtual").addClass("active").show(); 
+                    $("#loteAtual").addClass("active").show();
+                    $(".perfilVisualizacao").html('Visualizando Todos Pedidos');
+                    $('#editarAg').remove();
+                    break;
+
+                case 'EMPREGADO_AG':
+                case 'EMPREGADO_SR':
+                case 'EMPREGADO_MATRIZ':
+                case 'GIGAD':
+
+                    $("#abaAmortizaTodas").hide();
+                    $('#editarCEOPC').remove(); 
+                    break;
+
+                case 'AUDITOR':
+
+                    $(".perfilVisualizacao").html('Auditoria Visualizando Todos Pedidos');
+                    $('#editarCEOPC').remove(); 
+                    break;
+
+                case 'MASTER':
+                    $(".perfilVisualizacao").html('MASTER: Visualizando Todos Pedidos');
+                    break;
+                default:
+                console.log(Error);
+
             }
-          });
+        });
         }
     });  
 }

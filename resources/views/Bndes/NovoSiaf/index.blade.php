@@ -161,18 +161,17 @@
             <div class="modal-body with-padding">
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tabSelecionar" data-toggle="tab"><i class="icon-checkbox-checked"></i>Selecionar Contratos</a></li>
-                        <li><a href="#tabInstrucoes" data-toggle="tab"><i class="icon-book"></i>Instruções </a></li>
+                        <li class="active" id="modalCadastrar"><a href="#tabSelecionar" data-toggle="tab"><i class="icon-checkbox-checked"></i>Selecionar Contratos</a></li>
+                        <li id="modalInstrucoes"><a href="#tabInstrucoes" data-toggle="tab"><i class="icon-book"></i>Instruções </a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="tabSelecionar">
                             <div class="row"><small class="display-block " id="avisoAgencia"><strong> RATIFICAR AS INFORMAÇÕES CARREGADAS! No caso de dúvidas consulte as instruções de preenchimento no menu acima ! &nbsp &nbsp &nbsp </small></div></strong>
                             
                             <div class="row"><small class="display-block text-danger active avisoAgencia" id ="avisoAgencia"> Para solicitar, Informe abaixo o nº BNDES, valor, confirme a conta, contrato e o tipo de comando dos contratos desejados e envie à CEOPC!  </small></div>
-                        
-                            <h6 class=""><span id="nome_cliente2"></span>  <span id="cnpj_cliente2"></span></h6>
-                        
-                            
+
+                            <div class="row"><small class="display-block" id="contratoBNDESnumero">O nº BNDES pode ser verificado no SIFBN/SIBAN > funções > Consulta de Número do BNDES</small></div>
+                            <br>
                             <form class="form-group has-feedback" action="" method="post" role="form" id="formulario_pedido_amortizacao">
                                                         
                             <div class="form-group">
@@ -211,6 +210,7 @@
                                     <p> - Selecione o contrato que deseja solicitar amortização ou liquidação.</p>
                                     <p> - <strong>Não é necessário preencher nada nos contratos que não serão amortizados/liquidados</strong>.</p>
                                     <p> - <strong>Verifique se os dados dos contratos selecionados estão corretos, ajuste se necessário.</strong></p>
+                                    <p> - <strong>Informe o nº do contrato BNDES, você pode vericar esse nº no SIFBN/SIBAN > funções > Consulta de Número do BNDES.</strong></p>
                                     <p> - Informe o valor a amortizar.</p>
                                     <p> - Ao valor da liquidação não deve ser somado a prestação do dia.</p>
                                     <p> - Selecione o tipo de comando.</p>
@@ -244,8 +244,8 @@
                 <div class="tabbable page-tabs">
                     <ul class="nav nav-tabs">
                 
-                        <li class="active"><a href="#tabVisualizar" data-toggle="tab"><i class="icon-eye"></i>Visualizar Contrato</a></li>
-                        <li><a href="#tabHistorico" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
+                        <li id="abaTabVisualizar"class="active"><a href="#tabVisualizar" data-toggle="tab"><i class="icon-eye"></i>Visualizar Contrato</a></li>
+                        <li id ="abaTabHistorico"><a href="#tabHistorico" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
                         
                     </ul>
                     <div class="tab-content">
@@ -396,8 +396,8 @@
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
                 
-                        <li class="active"><a href="#tabEditar" data-toggle="tab"><i class="icon-eye"></i>Editar Contrato</a></li>
-                        <li><a href="#tabHistoricoEditar" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
+                        <li id="abaTabEditar"class="active"><a href="#tabEditar" data-toggle="tab"><i class="icon-eye"></i>Editar Contrato</a></li>
+                        <li id="abaTabHistoricoEditar"><a href="#tabHistoricoEditar" data-toggle="tab"><i class="icon-book"></i>Histórico do contrato </a></li>
                         
                     </ul>
                 <div class="tab-content">
@@ -453,17 +453,18 @@
 								<option value=""> - </option> 
                                 <option value="CADASTRADO" style="display: none">CADASTRADO</option>
                                 <option value="RECEBIDO">RECEBIDO</option>
-                                <option value="SIBAN OK">SIBAN OK</option>
-                                <option value="FALTA SIBAN">FALTA SIBAN</option>
+                                <option value="SIFBN OK">SIFBN OK</option>
+                                <option value="SEM COMANDO SIFBN">SEM COMANDO SIFBN</option>
                                 <option value="CANCELADO">CANCELADO</option>
                                 <option value="CONTA DIVERGENTE">CONTA DIVERGENTE</option>
                                 <option value="VALOR DIVERGENTE">VALOR DIVERGENTE </option>
                                 <option value="CONTA PF">CONTA PF</option>
                                 <option value="CONTRATO EM CA">CONTRATO EM CA</option>
-                                <option value="SUMEP RESIDUO SIFBN">RESIDUO SIFBN</option>
-                                <option value="SUMEP DEB PENDENTE">DEBITO PENDENTE</option>
+                                <option value="GEPOD RESIDUO SIFBN">RESIDUO SIFBN</option>
+                                <option value="GEPOD">GEPOD</option>
                                 <option value="SEM SALDO">SEM SALDO</option>
                                 <option value="CONCLUIDO">CONCLUIDO</option>
+                                <option value="CORRIGIDO" style="display: none">CORRIGIDO</option>
 							    </select>
 
                             </div>
@@ -473,17 +474,18 @@
 								<option value=""> - </option> 
                                 <option value="CADASTRADO" style="display: none">CADASTRADO</option>
                                 <option value="RECEBIDO" style="display: none">RECEBIDO</option>
-                                <option value="SIBAN OK" style="display: none">SIBAN OK</option>
-                                <option value="FALTA SIBAN" style="display: none">FALTA SIBAN</option>
+                                <option value="SIFBN OK" style="display: none">SIFBN OK</option>
+                                <option value="SEM COMANDO SIFBN" style="display: none">SEM COMANDO SIFBN</option>
                                 <option value="CANCELADO">CANCELADO</option>
                                 <option value="CONTA DIVERGENTE" style="display: none">CONTA DIVERGENTE</option>
                                 <option value="VALOR DIVERGENTE" style="display: none">VALOR DIVERGENTE </option>
                                 <option value="CONTA PF" style="display: none">CONTA PF</option>
                                 <option value="CONTRATO EM CA" style="display: none">CONTRATO EM CA</option>
-                                <option value="SUMEP RESIDUO SIFBN" style="display: none">SUMEP RESIDUO SIFBN</option>
-                                <option value="SUMEP DEB PENDENTE" style="display: none">SUMEP DEB PENDENTE</option>
+                                <option value="GEPOD RESIDUO SIFBN" style="display: none">RESIDUO SIFBN</option>
+                                <option value="GEPOD" style="display: none">GEPOD</option>
                                 <option value="SEM SALDO" style="display: none">SEM SALDO</option>
                                 <option value="CONCLUIDO" style="display: none">CONCLUIDO</option>
+                                <option value="CORRIGIDO">CORRIGIDO</option>
 							    </select>
 
                             </div>
@@ -574,7 +576,7 @@
             </div>
                 <div class="modal-footer">
                    
-                    <button class="btn btn-default btn-success pull-right botaoModal" data-dismiss="modal" onclick= enviarSolicitacao()>Enviar a CEOPC </button>
+                    <button class="btn btn-default btn-success pull-right botaoModal" data-dismiss="modal" onclick= enviarSolicitacao()> Enviar </button>
                     <span class="pull-right"> </span>
                     <button class="btn btn-default btn-danger pull-right botaoModal" data-dismiss="modal">Fechar</button> 
                             
@@ -919,7 +921,7 @@
                             </p>		
                             <hr>							
                             <p><strong>Ao clicar no botão de solicitação você deve prosseguir preenchendo os campos solicitados.</strong></p>
-                            Os campos solicitados são Contrato CAIXA, Contrato BNDES, Nome do Tomador, Conta para débito e valor de amortização.
+                            Os campos solicitados são Contrato CAIXA, Contrato BNDES, Nome do Tomador, Conta para débito, valor de amortização e o tipo de comando(amortização/liquidação).
                             Ficou mais facil né!
                         </div>
                     </div>
@@ -940,7 +942,6 @@
                             <hr>							
                             <p><strong>...mas efetivamente o que mudou?</strong></p>
                             Agora o processo cadastrado terá mais transparência pois poderá ser acompanhado pelo SIAF neste módulo.<br>
-                            Além disso suprimir rotinas de e-mail darão celeridade ao processo...
                         </div>
                     </div>
                 </div>
@@ -958,8 +959,8 @@
                                 Essa é facil.
                             </p>		
                             <hr>							
-                            <p><strong>Ali em cima , clique no visualizar, ali no botão azul!</strong></p>
-                            Você pode visualizar o histórico do pedido, data da entrada , data das verificações de saldo e da conclusão do processo.
+                            <p><strong>Ali em cima , clique na aba corresponde ao mês da liquidação.</strong></p>
+                            Você pode visualizar o histórico do pedido, as datas das verificações de saldo, a conclusão do processo, além de verificar possíveis pendências e corrigi-las.
                         </div>
                     </div>
                 </div>
@@ -975,20 +976,21 @@
                                 <button type="button" class="close" data-dismiss="alert">×</button>
                                 É simples, veja a legenda abaixo.
                             </p>		
-                            <hr>							
-                            <p><strong>CADASTRADO - </strong>  Demanda cadastrada pela AG SR OU GIGAD.</p>
-                            <p><strong>EXCLUIDA UD - </strong>  Demanda excluida pela Unidade Demandante.</p>
-                            <p><strong>CANCELADO - </strong>  Demanda cancelada pela CEOPC.</p>
-                            <p><strong>RECEBIDO - </strong>  Demanda em processamaneto aguardando dia de débito (dia 15).</p>
-                            <p><strong>FALTA SIBAN - </strong>  Demanda com pendência no SIBAN.</p>
-                            <p><strong>SIBAN OK  - </strong>  Demanda analisada no siban, pronto para verificação automática de saldo.</p>
-                            <p><strong>NA SUMEP - </strong>  Demanda enviada À SUMEP para tratamento .</p>
-                            <p><strong>INCONFORME - </strong>  Demanda com impossibilidade de continuidade (FALTA SIBAN OU SEM SALDO).</p>
-                            <p><strong>EM CALCULO - </strong>  Efetuando cálculos.</p>
-                            <p><strong>ACATADO - </strong>  Demanda acatada no BNDES.</p>
-                            <p><strong>CONCLUIDO - </strong>  Demanda de amortização\liquidação conferida e concluída.</p>
-                            
-                            
+                            <hr>	
+                            <p><strong>CADASTRADO - </strong> Demanda cadastrada pela AG, SR ou GIGAD.</p>
+                            <p><strong>CANCELADO - </strong> Demanda cancelada pela AG, SR, GIGAD ou CEOPC.</p>
+                            <p><strong>RECEBIDO - </strong> Demanda em processamento aguardando dia de débito (dia 15).</p>
+                            <p><strong>SIFBN OK - </strong> Demanda comandada no SIFBN/SIBAN, pronta para verificação automática de saldo.</p>
+                            <p><strong>GEPOD - </strong> Demanda enviada à GEPOD para tratamento .</p>
+                            <p><strong>CONTA DIVERGENTE - </strong> Demanda com pendência. </p>
+                            <p><strong>VALOR DIVERGENTE - </strong> Demanda com pendência.</p>
+                            <p><strong>CONTA PF - </strong> Demanda com pendência.</p>
+                            <p><strong>CONTRATO EM CA - </strong> Demanda cancelada pela CEOPC.</p>
+                            <p><strong>CONCLUIDO - </strong> Demanda de amortização\liquidação efetivada.</p>
+                            <p><strong>RESÍDUO SIFBN - </strong> Demanda liquidada com pendência no SIFBN enviada para GEPOD para tratamento.</p>
+                            <p><strong>SEM SALDO - </strong> Demanda cancelada pela CEOPC por falta de saldo na conta de débito.</p>
+                            <p><strong>SEM COMANDO SIFBN - </strong> Demanda cancelada pela CEOPC por falta de comando por parte da agência.</p>
+						
                         </div>
                     </div>
                 </div>
@@ -1055,10 +1057,7 @@
         <script src="{{ asset('js/plugins/forms/tags.min.js')}}"></script>
         <script src="{{ asset('js/plugins/forms/switch.min.js')}}"></script>
         <script src="{{ asset('js/plugins/forms/uploader/plupload.full.min.js')}}"></script>
-        <script src="{{ asset('js/plugins/forms/uploader/plupload.queue.min.js')}}"></script>
-        
-        
-        
+        <script src="{{ asset('js/plugins/forms/uploader/plupload.queue.min.js')}}"></script>       
         <script src="{{ asset('js/plugins/interface/daterangepicker.js')}}"></script>
         <script src="{{ asset('js/plugins/interface/fancybox.min.js')}}"></script>
         <script src="{{ asset('js/plugins/interface/moment.js')}}"></script>
@@ -1066,24 +1065,22 @@
         <script src="{{ asset('js/plugins/interface/datatables.min.js')}}"></script>
         <script src="{{ asset('js/plugins/interface/colorpicker.js')}}"></script>
         <script src="{{ asset('js/plugins/interface/fullcalendar.min.js')}}"></script>
-        <script src="{{ asset('js/plugins/interface/timepicker.min.js')}}"></script>
-      
+        <script src="{{ asset('js/plugins/interface/timepicker.min.js')}}"></script>    
         <script src="{{ asset('js/plugins/forms/autosize.js')}}"></script>
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
         <script src="{{ asset('js/application.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/data.lote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratos.Ag.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAtual.js')}}"></script>
-        <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnt.js')}}"></script>
-        <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoSumep.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnterior.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoGepod.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/valida.cadastroAmortizacao.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisaLote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisa12meses.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.editarContrato.js')}}"></script>
-        <script src="{{ asset('js/plugins/DataTables/fnReloadAjax.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/carrega.idTabela.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/funcoesModal.js')}}"></script>
-        
+        <script src="{{ asset('js/Bndes/NovoSiaf/atualiza.tabelas.js')}}"></script>
 </body>
 
 </html>

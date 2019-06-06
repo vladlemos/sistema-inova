@@ -65,7 +65,7 @@ function visualizaDemanda(json){
             //preenche os campos do modal  
             $('#nome_cliente_modal').html(dados.nomeCliente);
             $('#cnpj_cliente_modal').html(dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5"));
-            $('#status_modal').val(dados.status);
+            $('#status_modal').val(dados.status.replace("GEPOD RESIDUO SIFBN","RESIDUO SIFBN"));
             $('#contrato_caixa_modal').val(dados.contratoCaixa);
             $('#contrato_bndes_modal').val(dados.contratoBndes);
             $('#conta_corrente_modal').val(dados.contaDebito);
@@ -82,6 +82,11 @@ jQuery(this).removeData('#tabHistoricoSaldo>tbody');
 jQuery(this).find('#tabHistoricoSaldo>tbody').empty();
 jQuery(this).removeData('#tabHistoricoContrato>tbody');
 jQuery(this).find('#tabHistoricoContrato>tbody').empty();
+//seleciona a aba visualizar como primeira, mesmo após abrir e fechar o modal
+$('#abaTabHistorico').removeClass("active");
+$('#tabHistorico').removeClass("active");
+$('#abaTabVisualizar').addClass("active").show();
+$('#tabVisualizar').addClass("active in").show();
 })
 });  
 
@@ -176,8 +181,16 @@ jQuery(this).find('#tabConsultaSaldoEditar>tbody').empty();
 jQuery(this).removeData('#tabConsultaHistoricoEditar>tbody');
 jQuery(this).find('#tabConsultaHistoricoEditar>tbody').empty();
 jQuery(this).find('textarea#observacaoContrato').val('');
+//seleciona a aba visualizar como primeira, mesmo após abrir e fechar o modal
+$('#abaTabHistoricoEditar').removeClass("active");
+$('#tabHistoricoEditar').removeClass("active");
+$('#abaTabEditar').addClass("active").show();
+$('#tabEditar').addClass("active in").show();
 })
 });  
 
 $('#editarcontrato').modal('show');
 }   
+
+//coloca mascara de valor 
+$("input.dinheiro").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});

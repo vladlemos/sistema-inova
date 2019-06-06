@@ -8,14 +8,37 @@ use PHPMailer\PHPMailer\Exception;
 
 class SiafPhpMailer
 {
+    protected $urlSiteSiafLiquidacaoAmortizacao = 'https://inova.ceopc.des.caixa/bndes/siaf-amortizacao-liquidacao';
+
+    /**
+     * Get the value of urlSiteSiafLiquidacaoAmortizacao
+     */ 
+    public function getUrlSiteSiafLiquidacaoAmortizacao()
+    {
+        return $this->urlSiteSiafLiquidacaoAmortizacao;
+    }
+
+    /**
+     * Set the value of urlSiteSiafLiquidacaoAmortizacao
+     *
+     * @return  self
+     */ 
+    public function setUrlSiteSiafLiquidacaoAmortizacao($urlSiteSiafLiquidacaoAmortizacao)
+    {
+        $this->urlSiteSiafLiquidacaoAmortizacao = $urlSiteSiafLiquidacaoAmortizacao;
+
+        return $this;
+    }
+
+
     function enviarMensageria($objEmpregado, $objSiafDemanda, $tipoEmail){
         $mail = new PHPMailer(true);
-        $this->carregarDadosEmail($objEmpregado, $mail);
+        $this->carregarDadosEmail($objEmpregado, $objSiafDemanda, $mail);
         $this->carregarConteudoEmail($objEmpregado, $objSiafDemanda, $mail, $tipoEmail);
         $this->enviarEmail($mail);
     }
     
-    function carregarDadosEmail($objEmpregado, $mail){
+    function carregarDadosEmail($objEmpregado, $objSiafDemanda, $mail){
         //Server settings
         $mail->isSMTP();  
         $mail->CharSet = 'UTF-8';                                          
@@ -24,21 +47,25 @@ class SiafPhpMailer
         $mail->Port = 25;                                    
 
         //Recipients
-        $mail->setFrom('ceopc08@caixa.gov.br', 'CAIXA - ROTINAS AUTOMATICAS');
-        $mail->addAddress('c111710@mail.caixa');     // Add a 
-        $mail->addAddress('c095060@mail.caixa');
-        $mail->addAddress('c079436@mail.caixa');
-        // $mail->addAddress('ellen@example.com');               // Name is optional
-        // $mail->addReplyTo('info@example.com', 'Information');
+        $mail->setFrom('ceopc10@caixa.gov.br', 'CEOPC10 - Liquidação e Amortização BNDES');
+        $mail->addAddress($objSiafDemanda->matriculaSolicitante . '@mail.caixa');
+        // $mail->addAddress($objSiafDemanda->emailPa);
+        // $mail->addAddress($objSiafDemanda->emailSr);
+        // $mail->addAddress($objSiafDemanda->emailGigad);
+        $mail->addBCC('c111710@mail.caixa');    
+        $mail->addBCC('c095060@mail.caixa');
+        // $mail->addBCC('c063809@mail.caixa');
+        // $mail->addBCC('c084941@mail.caixa');
+        // $mail->addAddress('c079436@mail.caixa');    
+        $mail->addReplyTo('ceopc10@caixa.gov.br');
         // $mail->addCC('c079436@mail.caixa');
-        // $mail->addBCC('c095060@mail.caixa');
         return $mail; 
     }
 
     function carregarConteudoEmail($objEmpregado, $objSiafDemanda, $mail, $etapaDoProcesso){
         switch ($etapaDoProcesso) {
-            case 'registroNovaDemanda':
-                return $this->registroNovaDemanda($objEmpregado, $objSiafDemanda, $mail);
+            case 'demandaRecebidaConforme':
+                return $this->demandaRecebidaConforme($objEmpregado, $objSiafDemanda, $mail);
             break;
             case 'pendenciaContaDivergente':
                 return $this->pendenciaContaDivergente($objEmpregado, $objSiafDemanda, $mail);
@@ -61,6 +88,12 @@ class SiafPhpMailer
             case 'pendenciaContratoNaoLiquidadoPorAusenciaSaldo':
                 return $this->pendenciaContratoNaoLiquidadoPorAusenciaSaldo($objEmpregado, $objSiafDemanda, $mail);
             break;
+            case 'registroNovaDemanda':
+                return $this->registroNovaDemanda($objEmpregado, $objSiafDemanda, $mail);
+            break;
+            case 'pendenciaSemComandoNoSifbn':
+                return $this->pendenciaSemComandoNoSifbn($objEmpregado, $objSiafDemanda, $mail);
+            break;
         }
     }
 
@@ -73,7 +106,7 @@ class SiafPhpMailer
         }
     }
 
-    function registroNovaDemanda($objEmpregado, $objSiafDemanda, $mail) {
+    function demandaRecebidaConforme($objEmpregado, $objSiafDemanda, $mail) {
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = "#CONFIDENCIAL10 - Solicitação de liquidação/Amortização SIAF #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa";
@@ -81,22 +114,27 @@ class SiafPhpMailer
             <head>
                 <meta charset=\"UTF-8\">
                 <style>
-                    body{
+                    body {
                         font-family: arial,verdana,sans serif;
                     }
-                    p{
+                    p {
                         line-height: 1.0;
                     }
                     ol {
-                        counter-reset: item
+                        counter-reset: item;
                     }
                     li {
-                    display: block
+                        display: block;
+                        padding: 0 0 5px;
                     }
                     li:before {
-                    content: counters(item, '.') ' ';
-                    counter-increment: item
+                        content: counters(item, '.') ' ';
+                        counter-increment: item
                     }
+                    .referencia {
+                        font-size: 15px;
+                        font-weight: bold;
+                      }
                 </style>
             </head>
             <p>À<br>
@@ -106,10 +144,12 @@ class SiafPhpMailer
           
             <p>Prezado(a) Gerente</p>
 
+            <p class='referencia'>REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa<p>
+
             <ol>
                 <li>Comunicamos que recebemos o pedido de liquidação e/ou amortização e informamos que será processado no próximo dia 15 ou no 1º dia útil seguinte.</li>  
                 <li>Orientamos realizar no SIBAN o comando de liquidação/amortização conforme descrito na norma do produto.</li>  
-                <li>Considerando que a posição de dívida dos contratos com custo SELIC só é verificada na data do vencimento, o comando de amortização/liquidação é realizado pela agência no dia 15, impreterivelmente até às 11hs.</li>   
+                <li>Considerando que a posição de dívida dos contratos com custo SELIC só é verificada na data do vencimento, o comando de amortização/liquidação é realizado pela agência no dia 15, impreterivelmente <u>até às 11hs</u>.</li>   
                 <li>A conferência da liquidação poderá ser realizada pela agência no dia útil posterior a liquidação conforme procedimento descrito, na norma do produto, para verificação do saldo devedor.</li>  
                 <li>Em caso de não liquidação por ausência de saldo em conta do cliente, a agência deverá efetuar nova solicitação de liquidação no mês subsequente.</li>   
                 <li>Dúvidas sobre o procedimento de liquidação/amortização devem ser encaminhadas para a Caixa postal CEOPC10.</li>  
@@ -127,6 +167,8 @@ class SiafPhpMailer
             $objSiafDemanda->nomeGigad\n 
 
             Prezado(a) Gerente\n
+
+            REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa\n
             
             1. Comunicamos que recebemos o pedido de liquidação e/ou amortização e informamos que será processado no próximo dia 15 ou no 1º dia útil seguinte.\n
             2. Orientamos realizar no SIBAN o comando de liquidação/amortização conforme descrito na norma do produto.\n  
@@ -150,34 +192,41 @@ class SiafPhpMailer
             <head>
                 <meta charset=\"UTF-8\">
                 <style>
-                    body{
+                    body {
                         font-family: arial,verdana,sans serif;
                     }
-                    p{
-                        line-height: 1.5;
+                    p {
+                        line-height: 1.0;
                     }
                     ol {
-                        counter-reset: item
+                        counter-reset: item;
                     }
                     li {
-                    display: block
+                        display: block;
+                        padding: 0 0 5px;
                     }
                     li:before {
-                    content: counters(item, '.') ' ';
-                    counter-increment: item
+                        content: counters(item, '.') ' ';
+                        counter-increment: item
                     }
+                    .referencia {
+                        font-size: 15px;
+                        font-weight: bold;
+                      }
                 </style>
             </head>
             <p>À<br>
             $objSiafDemanda->nomePa<br/>
             $objSiafDemanda->nomeSr<br/>
             $objSiafDemanda->nomeGigad</p>
-
+          
             <p>Prezado(a) Gerente</p>
-            
+
+            <p class='referencia'>REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa<p>
+
             <ol>
                 <li>Recebemos através do SIAF a solicitação de LIQUIDAÇÃO/AMORTIZAÇÃO referente ao contrato $objSiafDemanda->contratoCaixa.</li>
-                <li>Entretanto verificamos que a conta cadastrada no SIAF ($objSiafDemanda->CONTA_CORRENTE) diverge da conta cadastrada no SIBAN.</li>
+                <li>Entretanto verificamos que a conta cadastrada no SIAF ($objSiafDemanda->contaDebito) diverge da conta cadastrada no SIBAN.</li>
                 <li>Informamos que a alteração da conta no SIBAN é feita pela agência no seguinte caminho:</li>
                     <ul>
                         <li>módulo empréstimo,</li>
@@ -200,10 +249,12 @@ class SiafPhpMailer
             $objSiafDemanda->nomeGigad\n 
 
             Prezado(a) Gerente\n
+
+            REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa\n
             
             1. Recebemos através do SIAF a solicitação de LIQUIDAÇÃO/AMORTIZAÇÃO referente ao contrato $objSiafDemanda->contratoCaixa.\n
 
-            2. Entretanto verificamos que a conta cadastrada no SIAF ($objSiafDemanda->CONTA_CORRENTE) diverge da conta cadastrada no SIBAN (9999.000.00000000-0).\n
+            2. Entretanto verificamos que a conta cadastrada no SIAF ($objSiafDemanda->contaDebito) diverge da conta cadastrada no SIBAN (9999.000.00000000-0).\n
 
             3. Informamos que a alteração da conta no SIBAN é feita pela agência no seguinte caminho: módulo empréstimo, função, contrato, cadastramento de contratos - na tela principal -  conta corrente de débito.\n
 
@@ -225,31 +276,38 @@ class SiafPhpMailer
             <head>
                 <meta charset=\"UTF-8\">
                 <style>
-                    body{
+                    body {
                         font-family: arial,verdana,sans serif;
                     }
-                    p{
-                        line-height: 1.5;
+                    p {
+                        line-height: 1.0;
                     }
                     ol {
-                        counter-reset: item
+                        counter-reset: item;
                     }
                     li {
-                    display: block
+                        display: block;
+                        padding: 0 0 5px;
                     }
                     li:before {
-                    content: counters(item, '.') ' ';
-                    counter-increment: item
+                        content: counters(item, '.') ' ';
+                        counter-increment: item
                     }
+                    .referencia {
+                        font-size: 15px;
+                        font-weight: bold;
+                      }
                 </style>
             </head>
             <p>À<br>
             $objSiafDemanda->nomePa<br/>
             $objSiafDemanda->nomeSr<br/>
             $objSiafDemanda->nomeGigad</p>
-
+          
             <p>Prezado(a) Gerente</p>
-            
+
+            <p class='referencia'>REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa<p>
+
             <ol>
                 <li>Recebemos através do SIAF a solicitação de LIQUIDAÇÃO referente ao contrato $objSiafDemanda->contratoCaixa.
 
@@ -278,6 +336,8 @@ class SiafPhpMailer
 
             Prezado(a) Gerente\n
             
+            REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa\n
+
             1. Recebemos através do SIAF a solicitação de LIQUIDAÇÃO referente ao contrato $objSiafDemanda->contratoCaixa.\n
 
             2. Entretanto verificamos que o valor cadastrado no SIAF (R$ $objSiafDemanda->valorOperacao) diverge do valor do saldo devedor calculado pelo SIBAN.\n
@@ -302,31 +362,38 @@ class SiafPhpMailer
             <head>
                 <meta charset=\"UTF-8\">
                 <style>
-                    body{
+                    body {
                         font-family: arial,verdana,sans serif;
                     }
-                    p{
-                        line-height: 1.5;
+                    p {
+                        line-height: 1.0;
                     }
                     ol {
-                        counter-reset: item
+                        counter-reset: item;
                     }
                     li {
-                    display: block
+                        display: block;
+                        padding: 0 0 5px;
                     }
                     li:before {
-                    content: counters(item, '.') ' ';
-                    counter-increment: item
+                        content: counters(item, '.') ' ';
+                        counter-increment: item
                     }
+                    .referencia {
+                        font-size: 15px;
+                        font-weight: bold;
+                      }
                 </style>
             </head>
             <p>À<br>
             $objSiafDemanda->nomePa<br/>
             $objSiafDemanda->nomeSr<br/>
             $objSiafDemanda->nomeGigad</p>
-
+          
             <p>Prezado(a) Gerente</p>
-            
+
+            <p class='referencia'>REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa<p>
+
             <ol>
                 <li>Recebemos através do SIAF a solicitação de LIQUIDAÇÃO referente ao contrato $objSiafDemanda->contratoCaixa.</li>
 
@@ -350,6 +417,8 @@ class SiafPhpMailer
             $objSiafDemanda->nomeGigad\n 
 
             Prezado(a) Gerente\n
+
+            REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa\n
             
             1. Recebemos através do SIAF a solicitação de LIQUIDAÇÃO referente ao contrato $objSiafDemanda->contratoCaixa.\n 
 
@@ -375,31 +444,38 @@ class SiafPhpMailer
             <head>
                 <meta charset=\"UTF-8\">
                 <style>
-                    body{
+                    body {
                         font-family: arial,verdana,sans serif;
                     }
-                    p{
-                        line-height: 1.5;
+                    p {
+                        line-height: 1.0;
                     }
                     ol {
-                        counter-reset: item
+                        counter-reset: item;
                     }
                     li {
-                    display: block
+                        display: block;
+                        padding: 0 0 5px;
                     }
                     li:before {
-                    content: counters(item, '.') ' ';
-                    counter-increment: item
+                        content: counters(item, '.') ' ';
+                        counter-increment: item
                     }
+                    .referencia {
+                        font-size: 15px;
+                        font-weight: bold;
+                      }
                 </style>
             </head>
             <p>À<br>
             $objSiafDemanda->nomePa<br/>
             $objSiafDemanda->nomeSr<br/>
             $objSiafDemanda->nomeGigad</p>
-
+          
             <p>Prezado(a) Gerente</p>
-            
+
+            <p class='referencia'>REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa<p>
+
             <ol>
                 <li>Recebemos através do SIAF a solicitação de LIQUIDAÇÃO/AMORTIZAÇÃO referente ao contrato $objSiafDemanda->contratoCaixa, no entanto o SIBAN informa que o contrato está com o status de Crédito em atraso.</li>
                 <li>Haja vista que o contrato encontra-se em CA não é possível efetuarmos a liquidação do mesmo, conforme disposto na norma do produto.</li>
@@ -418,6 +494,8 @@ class SiafPhpMailer
             $objSiafDemanda->nomeGigad\n 
 
             Prezado(a) Gerente\n
+
+            REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa\n
             
             1. Recebemos através do SIAF a solicitação de LIQUIDAÇÃO/AMORTIZAÇÃO referente ao contrato $objSiafDemanda->contratoCaixa, no entanto o SIBAN informa que o contrato está com o status de Crédito em atraso.\n
 
@@ -441,31 +519,38 @@ class SiafPhpMailer
             <head>
                 <meta charset=\"UTF-8\">
                 <style>
-                    body{
+                    body {
                         font-family: arial,verdana,sans serif;
                     }
-                    p{
-                        line-height: 1.5;
+                    p {
+                        line-height: 1.0;
                     }
                     ol {
-                        counter-reset: item
+                        counter-reset: item;
                     }
                     li {
-                    display: block
+                        display: block;
+                        padding: 0 0 5px;
                     }
                     li:before {
-                    content: counters(item, '.') ' ';
-                    counter-increment: item
+                        content: counters(item, '.') ' ';
+                        counter-increment: item
                     }
+                    .referencia {
+                        font-size: 15px;
+                        font-weight: bold;
+                      }
                 </style>
             </head>
             <p>À<br>
             $objSiafDemanda->nomePa<br/>
             $objSiafDemanda->nomeSr<br/>
             $objSiafDemanda->nomeGigad</p>
-
+          
             <p>Prezado(a) Gerente</p>
-            
+
+            <p class='referencia'>REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa<p>
+
             <ol>
                 <li>Comunicamos que a liquidação/amortização do contrato $objSiafDemanda->contratoCaixa ocorreu com sucesso.</li>
                 <li>Orientamos que a Agência/PA/PLAT/SGE efetue a verificação no SIBAN, conforme abaixo:
@@ -491,6 +576,8 @@ class SiafPhpMailer
             $objSiafDemanda->nomeGigad\n 
 
             Prezado(a) Gerente\n
+
+            REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa\n
             
             1. Comunicamos que a liquidação/amortização do contrato $objSiafDemanda->contratoCaixa ocorreu com sucesso.\n 
             
@@ -524,31 +611,38 @@ class SiafPhpMailer
             <head>
                 <meta charset=\"UTF-8\">
                 <style>
-                    body{
+                    body {
                         font-family: arial,verdana,sans serif;
                     }
-                    p{
-                        line-height: 1.5;
+                    p {
+                        line-height: 1.0;
                     }
                     ol {
-                        counter-reset: item
+                        counter-reset: item;
                     }
                     li {
-                    display: block
+                        display: block;
+                        padding: 0 0 5px;
                     }
                     li:before {
-                    content: counters(item, '.') ' ';
-                    counter-increment: item
+                        content: counters(item, '.') ' ';
+                        counter-increment: item
                     }
+                    .referencia {
+                        font-size: 15px;
+                        font-weight: bold;
+                      }
                 </style>
             </head>
             <p>À<br>
             $objSiafDemanda->nomePa<br/>
             $objSiafDemanda->nomeSr<br/>
             $objSiafDemanda->nomeGigad</p>
-
+          
             <p>Prezado(a) Gerente</p>
-            
+
+            <p class='referencia'>REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa<p>
+
             <ol>
                 <li>Comunicamos que o contrato foi liquidado junto ao BNDES, mas devido a saldo residual, no SIBAN, não ocorreu a liquidação do contrato na CAIXA.</li>
                 <li>Desta forma, o contrato permanece com o status ATIVO no SIBAN.</li>
@@ -568,6 +662,8 @@ class SiafPhpMailer
             $objSiafDemanda->nomeGigad\n 
 
             Prezado(a) Gerente\n
+
+            REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa\n
             
             Comunicamos que o contrato foi liquidado junto ao BNDES, mas devido a saldo residual, no SIBAN, não ocorreu a liquidação do contrato na CAIXA.\n
             
@@ -593,31 +689,38 @@ class SiafPhpMailer
             <head>
                 <meta charset=\"UTF-8\">
                 <style>
-                    body{
+                    body {
                         font-family: arial,verdana,sans serif;
                     }
-                    p{
-                        line-height: 1.5;
+                    p {
+                        line-height: 1.0;
                     }
                     ol {
-                        counter-reset: item
+                        counter-reset: item;
                     }
                     li {
-                    display: block
+                        display: block;
+                        padding: 0 0 5px;
                     }
                     li:before {
-                    content: counters(item, '.') ' ';
-                    counter-increment: item
+                        content: counters(item, '.') ' ';
+                        counter-increment: item
                     }
+                    .referencia {
+                        font-size: 15px;
+                        font-weight: bold;
+                      }
                 </style>
             </head>
             <p>À<br>
             $objSiafDemanda->nomePa<br/>
             $objSiafDemanda->nomeSr<br/>
             $objSiafDemanda->nomeGigad</p>
-
+          
             <p>Prezado(a) Gerente</p>
-            
+
+            <p class='referencia'>REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa<p>
+
             <ol>
                 <li>Comunicamos que o contrato $objSiafDemanda->contratoCaixa  não foi liquidado/amortizado devido a ausência de saldo suficiente na conta do cliente no momento da efetivação da liquidação e/ou amortização, entretanto, a caixa honrou o pagamento junto ao BNDES.</li>
                 <li>Assim, para liquidação junto a CAIXA, orientamos manter o saldo em conta no próximo dia 15 ou no 1º dia útil seguinte para que possamos efetuar o débito.</li>
@@ -636,6 +739,8 @@ class SiafPhpMailer
             $objSiafDemanda->nomeGigad\n 
 
             Prezado(a) Gerente\n
+
+            REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa\n
             
             Comunicamos que o contrato $objSiafDemanda->contratoCaixa  não foi liquidado/amortizado devido a ausência de saldo suficiente na conta do cliente no momento da efetivação da liquidação e/ou amortização, entretanto, a caixa honrou o pagamento junto ao BNDES.\n
             
@@ -644,6 +749,147 @@ class SiafPhpMailer
             Lembramos que também deve ser efetuado um novo comando de amortização e/ou liquidação no SIBAN, conforme  disposto na norma do produto.\n
 
             Caso não seja mais de interesse do cliente efetuar liquidação e/ou amortização do contrato, solicitamos formalizar de imediato para a caixa postal CEOPC10 para que possamos ter tempo hábil de recuperar o valor pago junto ao BNDES.\n
+
+            Atenciosamente,\n
+
+            CEOPC - CN Operações do Corporativo";
+        return $mail;
+    }
+
+    function registroNovaDemanda($objEmpregado, $objSiafDemanda, $mail) {
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = "#CONFIDENCIAL10 - Cadastro de demanda - SIAF Liquidação/Amortização #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa";
+        $mail->Body = "
+            <head>
+                <meta charset=\"UTF-8\">
+                <style>
+                    body {
+                        font-family: arial,verdana,sans serif;
+                    }
+                    p {
+                        line-height: 1.0;
+                    }
+                    ol {
+                        counter-reset: item;
+                    }
+                    li {
+                        display: block;
+                        padding: 0 0 5px;
+                    }
+                    li:before {
+                        content: counters(item, '.') ' ';
+                        counter-increment: item
+                    }
+                    .referencia {
+                        font-size: 15px;
+                        font-weight: bold;
+                      }
+                </style>
+            </head>
+            <p>À<br>
+            $objSiafDemanda->nomePa<br/>
+            $objSiafDemanda->nomeSr<br/>
+            $objSiafDemanda->nomeGigad</p>
+          
+            <p>Prezado(a) Gerente</p>
+
+            <p class='referencia'>REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa<p>
+
+            <ol>
+                <li>Comunicamos que recebemos a solicitação de liquidação/amortização <b><u>#$objSiafDemanda->codigoDemanda.</u></b></li>
+                <li>Informamos que quando a demanda for analisada a agência receberá uma mensagem com as informações pertinentes.</li>
+                <li>O andamento do pedido pode ser acompanhado <a href='" . $this->urlSiteSiafLiquidacaoAmortizacao . "'>aqui</a>. </li>
+            </ol>
+
+            <p>Atenciosamente,</p>
+   
+            <p>CEOPC - CN Operações do Corporativo</p>";
+        
+        $mail->AltBody = "
+            À
+            $objSiafDemanda->nomePa
+            $objSiafDemanda->nomeSr
+            $objSiafDemanda->nomeGigad\n 
+
+            Prezado(a) Gerente\n
+
+            REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa\n
+            
+            1.	Comunicamos que recebemos a solicitação de liquidação/amortização #$objSiafDemanda->codigoDemanda.\n
+            
+            2. 	Informamos que quando a demanda for analisada a agência receberá uma mensagem com as informações pertinentes.\n
+
+            3.  O andamento do pedido pode ser acompanhado na página do SIAF: " . $this->urlSiteSiafLiquidacaoAmortizacao . ". \n
+
+            Atenciosamente,\n
+
+            CEOPC - CN Operações do Corporativo";
+        return $mail;
+    }
+
+    function pendenciaSemComandoNoSifbn($objEmpregado, $objSiafDemanda, $mail) {
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = "#CONFIDENCIAL10 - Demanda #$objSiafDemanda->codigoDemanda cancelada - Sem Comando de liquidação/amortização no SIFBN - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa";
+        $mail->Body = "
+            <head>
+                <meta charset=\"UTF-8\">
+                <style>
+                    body {
+                        font-family: arial,verdana,sans serif;
+                    }
+                    p {
+                        line-height: 1.0;
+                    }
+                    ol {
+                        counter-reset: item;
+                    }
+                    li {
+                        display: block;
+                        padding: 0 0 5px;
+                    }
+                    li:before {
+                        content: counters(item, '.') ' ';
+                        counter-increment: item
+                    }
+                    .referencia {
+                        font-size: 15px;
+                        font-weight: bold;
+                      }
+                </style>
+            </head>
+            <p>À<br>
+            $objSiafDemanda->nomePa<br/>
+            $objSiafDemanda->nomeSr<br/>
+            $objSiafDemanda->nomeGigad</p>
+          
+            <p>Prezado(a) Gerente</p>
+
+            <p class='referencia'>REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa<p>
+
+            <ol>
+                <li>Comunicamos que o contrato $objSiafDemanda->contratoCaixa não foi liquidado/amortizado, pois não foi efetuado pela agência o comando de amortização/liquidação conforme definido nas normas do produto.</li>
+                <li>Para que possamos efetivar a liquidação/amortização do referido contrato no próximo dia 15 ou 1º dia útil posterior, a agência deverá efetuar nova solicitação no SIAF, além de comandar a amortização/liquidação no SIFBN.</li>
+            </ol>
+
+            <p>Atenciosamente,</p>
+   
+            <p>CEOPC - CN Operações do Corporativo</p>";
+        
+        $mail->AltBody = "
+            À
+            $objSiafDemanda->nomePa
+            $objSiafDemanda->nomeSr
+            $objSiafDemanda->nomeGigad\n 
+
+            Prezado(a) Gerente\n
+
+            REF. DEMANDA #$objSiafDemanda->codigoDemanda - Empresa: $objSiafDemanda->nomeCliente - Contrato Caixa: $objSiafDemanda->contratoCaixa\n
+            
+            1. Comunicamos que o contrato $objSiafDemanda->contratoCaixa não foi liquidado/amortizado, pois não foi efetuado pela agência o comando de amortização/liquidação conforme definido nas normas do produto.\n
+            
+            2.	Para que possamos efetivar a liquidação/amortização do referido contrato no próximo dia 15 ou 1º dia útil posterior, a agência deverá efetuar nova solicitação no SIAF, além de comandar a amortização/liquidação no SIFBN.\n
 
             Atenciosamente,\n
 
