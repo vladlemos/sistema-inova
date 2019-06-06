@@ -98,7 +98,7 @@
             <div class="col-sm-3">
                 <p class="form-control" name="dadosContaBeneficiario2" id="dadosContaBeneficiario2">Banco Beneficiário</p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <p class="form-control" name="dadosContaBeneficiario3" id="dadosContaBeneficiario3">IBAN IBAN IBAN 00000</p>
             </div>
             <div class="col-sm-2">
@@ -116,7 +116,7 @@
             </div>
 
             <label class="col-sm-1 control-label">Número do Boleto:</label>
-            <div class="col-sm-1">
+            <div class="col-sm-2">
                 <p class="form-control" id="numeroBoleto">10101010</p>
             </div>
 
@@ -135,130 +135,98 @@
 
         <div class="row">
 
-        <div class="col-md-6">
+<div class="col-md-6">
 
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Invoice:</label>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="conforme" disabled>Conforme
-                    </label>
-                </div>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="inconforme" disabled>Inconforme
-                    </label>
-                </div>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="naoSeAplica" disabled>N/A
-                    </label>
-                </div>
-            </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Invoice:</label>
+        <div class="col-md-3">
+                <select class="form-control" name="statusInvoice" id="statusInvoice" disabled>
+                    <option value="0">Selecione</option>
+                    <option value="1" selected>Conforme</option>
+                    <option value="2">Inconforme</option>
+                    <option value="3">N/A</option>
+                </select>
+        </div>
+    </div>
 
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Conhecimento:</label>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="conforme" disabled>Conforme
-                    </label>
-                </div>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="inconforme" disabled>Inconforme
-                    </label>
-                </div>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="naoSeAplica" disabled>N/A
-                    </label>
-                </div>
-            </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Conhecimento:</label>
+        <div class="col-sm-3">
+                <select class="form-control col-sm-3" name="statusConhecimento" id="statusConhecimento" disabled>
+                    <option value="0">Selecione</option>
+                    <option value="1">Conforme</option>
+                    <option value="2" selected>Inconforme</option>
+                    <option value="3">N/A</option>
+                </select>
+        </div>
+    </div>
 
-            <div class="form-group">
-                <label class="col-sm-3 control-label">DI / DU-E:</label>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="conforme" disabled>Conforme
-                    </label>
-                </div>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="inconforme" disabled>Inconforme
-                    </label>
-                </div>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="naoSeAplica" disabled>N/A
-                    </label>
-                </div>
-            </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">DI / DU-E:</label>
+        <div class="col-sm-3">
+                <select class="form-control" name="statusDiDue" id="statusDiDue" disabled>
+                    <option value="0">Selecione</option>
+                    <option value="1" selected>Conforme</option>
+                    <option value="2">Inconforme</option>
+                    <option value="3">N/A</option>
+                </select>
+        </div>
+    </div>
 
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Dados Bancários:</label>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="conforme" disabled>Conforme
-                    </label>
-                </div>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="inconforme" disabled>Inconforme
-                    </label>
-                </div>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="naoSeAplica" disabled>N/A
-                    </label>
-                </div>
-            </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Dados Bancários:</label>
+        <div class="col-sm-3">
+                <select class="form-control" name="statusDadosBancarios" id="statusDadosBancarios" disabled>
+                    <option value="0">Selecione</option>
+                    <option value="1" selected>Conforme</option>
+                    <option value="2">Inconforme</option>
+                    <option value="3">N/A</option>
+                </select>
+        </div>
+    </div>
 
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Autorização SR:</label>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="conforme" disabled>Conforme
-                    </label>
-                </div>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="inconforme" disabled>Inconforme
-                    </label>
-                </div>
-                <div class="radio col-sm-2">
-                    <label>
-                        <input type="radio" name="analiseInvoice" value="naoSeAplica" disabled>N/A
-                    </label>
-                </div>
-            </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Autorização SR:</label>
+        <div class="col-sm-3">
+                <select class="form-control" name="statusAutorizacaoSr" id="statusAutorizacaoSr" disabled>
+                    <option value="0">Selecione</option>
+                    <option value="1" selected>Conforme</option>
+                    <option value="2">Inconforme</option>
+                    <option value="3">N/A</option>
+                </select>
+        </div>
+    </div>
 
-        </div>  <!--/col-md-6-->
+</div>  <!--/col-md-6-->
 
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Observações:</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" rows="10" name="observacoesAgencia" id="observacoesAgencia">Minha justificativa.</textarea>
-                </div>
-            </div>
-        </div>  <!--/col-md-6-->
+<div class="col-md-6">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Observações:</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" rows="10" name="observacoesCeopc" id="observacoesCeopc">Insira uma justificativa.</textarea>
+        </div>
+    </div>
+</div>  <!--/col-md-6-->
 
-        </div> <!--/row-->
+</div> <!--/row-->
 
 <hr>
 
-            <div class="page-bar">
-                <h3>Histórico</h3>
-            </div>
+        <div class="page-bar">
+            <h3>Histórico</h3>
+        </div>
 
-
-            <div class="form-group">
-                <div class="col-sm-8">
-                    <p class="form-control" id="historico">c142765 - Status: Inconforme - 14/06 - Observação: Campo X do documento Y inconforme.</p>
-                </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <p class="form-control" id="historico">c142765 - Status: Inconforme - 14/06 - Observação: Campo X do documento Y inconforme.</p>
             </div>
+        </div>
 
 <hr>
+
+        <div class="page-bar">
+                <h3>Documentação digitalizada</h3>
+        </div>
 
         <div class="margin10">
 

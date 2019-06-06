@@ -98,7 +98,7 @@
             <div class="col-sm-3">
                 <p class="form-control" name="dadosContaBeneficiario2" id="dadosContaBeneficiario2">Banco Beneficiário</p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <p class="form-control" name="dadosContaBeneficiario3" id="dadosContaBeneficiario3">IBAN IBAN IBAN 00000</p>
             </div>
             <div class="col-sm-2">
@@ -116,7 +116,7 @@
             </div>
 
             <label class="col-sm-1 control-label">Número do Boleto:</label>
-            <div class="col-sm-1">
+            <div class="col-sm-2">
                 <input class="form-control" name="numeroBoleto" id="numeroBoleto" type="number">
             </div>
 
@@ -136,96 +136,112 @@
 
     <hr>
 
-    <div class="page-bar">
-        <h3>Check-list</h3>
-    </div>
+        <div class="page-bar">
+            <h3>Check-list</h3>
+        </div>
 
-    <div class="row">
+        <div class="row">
 
-    <div class="col-md-6">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Invoice:</label>
+                <div class="col-sm-3">
+                        <select class="form-control" name="statusInvoice" id="statusInvoice">
+                            <option value="0">Selecione</option>
+                            <option value="1">Conforme</option>
+                            <option value="2">Inconforme</option>
+                            <option value="3">N/A</option>
+                        </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Conhecimento:</label>
+                <div class="col-sm-3">
+                        <select class="form-control" name="statusConhecimento" id="statusConhecimento">
+                            <option value="0">Selecione</option>
+                            <option value="1">Conforme</option>
+                            <option value="2">Inconforme</option>
+                            <option value="3">N/A</option>
+                        </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">DI / DU-E:</label>
+                <div class="col-sm-3">
+                        <select class="form-control" name="statusDiDue" id="statusDiDue">
+                            <option value="0">Selecione</option>
+                            <option value="1">Conforme</option>
+                            <option value="2">Inconforme</option>
+                            <option value="3">N/A</option>
+                        </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Dados Bancários:</label>
+                <div class="col-sm-3">
+                        <select class="form-control" name="statusDadosBancarios" id="statusDadosBancarios">
+                            <option value="0">Selecione</option>
+                            <option value="1">Conforme</option>
+                            <option value="2">Inconforme</option>
+                            <option value="3">N/A</option>
+                        </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Autorização SR:</label>
+                <div class="col-sm-3">
+                        <select class="form-control" name="statusAutorizacaoSr" id="statusAutorizacaoSr">
+                            <option value="0">Selecione</option>
+                            <option value="1">Conforme</option>
+                            <option value="2">Inconforme</option>
+                            <option value="3">N/A</option>
+                        </select>
+                </div>
+            </div>
+
+        </div>  <!--/col-md-6-->
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Observações:</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="10" name="observacoesCeopc" id="observacoesCeopc"></textarea>
+                </div>
+            </div>
+        </div>  <!--/col-md-6-->
+
+        </div> <!--/row-->
+
+    <hr>
+
+        <div class="page-bar">
+            <h3>Histórico</h3>
+        </div>
+
 
         <div class="form-group">
-            <label class="col-sm-3 control-label">Invoice:</label>
-            <div class="col-sm-3">
-                    <select class="form-control" name="statusInvoice" id="statusInvoice">
-                        <option value="0">Selecione</option>
-                        <option value="1">Conforme</option>
-                        <option value="2">Inconforme</option>
-                        <option value="3">N/A</option>
-                    </select>
+            <div class="col-sm-12">
+                <p class="form-control" id="historico">c142765 - Status: Inconforme - 14/06 - Observação: Campo X do documento Y inconforme.</p>
             </div>
         </div>
+    <hr>
 
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Conhecimento:</label>
-            <div class="col-sm-3">
-                    <select class="form-control" name="statusConhecimento" id="statusConhecimento">
-                        <option value="0">Selecione</option>
-                        <option value="1">Conforme</option>
-                        <option value="2">Inconforme</option>
-                        <option value="3">N/A</option>
-                    </select>
+        <div class="page-bar">
+            <h3>Documentação digitalizada</h3>
+        </div>
+
+        <div class="margin10">
+
+            <div class="file-loading">
+                <input id="input-iconic" name="analise" type="file" multiple>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-3 control-label">DI / DU-E:</label>
-            <div class="col-sm-3">
-                    <select class="form-control" name="statusDiDue" id="statusDiDue">
-                        <option value="0">Selecione</option>
-                        <option value="1">Conforme</option>
-                        <option value="2">Inconforme</option>
-                        <option value="3">N/A</option>
-                    </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Dados Bancários:</label>
-            <div class="col-sm-3">
-                    <select class="form-control" name="statusDadosBancarios" id="statusDadosBancarios">
-                        <option value="0">Selecione</option>
-                        <option value="1">Conforme</option>
-                        <option value="2">Inconforme</option>
-                        <option value="3">N/A</option>
-                    </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Autorização SR:</label>
-            <div class="col-sm-3">
-                    <select class="form-control" name="statusAutorizacaoSr" id="statusAutorizacaoSr">
-                        <option value="0">Selecione</option>
-                        <option value="1">Conforme</option>
-                        <option value="2">Inconforme</option>
-                        <option value="3">N/A</option>
-                    </select>
-            </div>
-        </div>
-
-    </div>  <!--/col-md-6-->
-
-    <div class="col-md-6">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Observações:</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" rows="10" name="observacoesCeopc" id="observacoesCeopc"></textarea>
-            </div>
-        </div>
-    </div>  <!--/col-md-6-->
-
-    </div> <!--/row-->
-
-<hr>
-
-    <div class="margin10">
-
-        <div class="file-loading">
-            <input id="input-iconic" name="analise" type="file" multiple>
-        </div>
-            
-    </div><!--/margin10-->
+                
+        </div><!--/margin10-->
 
 <hr>
 
