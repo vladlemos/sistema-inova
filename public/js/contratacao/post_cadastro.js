@@ -189,15 +189,38 @@ $(document).ready(function() {
 }; // fecha switch
 
 
-// $('#upload').on('click', function () {
-// });
 
-
-$.post('backend/post_teste.php', submit, function(postCadastro){
-    // submit = JSON.parse(postCadastro);
-    console.log (submit);
-    alert("Demanda cadastrada com sucesso.");
+$('#formCadastroContratacao').on('submit', function(e){
+    e.preventDefault();
+    var formData = new FormData($(this).get(0)); // Creating a formData using the form.
+    $.ajax({
+        method: 'POST',
+        url: 'backend/post_teste2.php',
+        dataType: 'json',
+        cache: false,
+        processData: false, // Important!
+        contentType: false, // Important! I set dataType above as Json
+        data: formData, // Important! The formData should be sent this way and not as a dict.
+        // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
+        success: function(data, textStatus) {
+            console.log(data);
+            console.log(formData);
+            console.log(textStatus);
+        },
+        error: function (textStatus, errorThrown) {
+            console.log(errorThrown);
+            console.log(textStatus);
+            console.log(errorThrown);
+        }
+    });
 });
+
+
+// $.post('backend/post_teste.php', submit, function(postCadastro){
+//     // submit = JSON.parse(postCadastro);
+//     console.log (submit);
+//     alert("Demanda cadastrada com sucesso.");
+// });
 
 
     // var form_data = new FormData();

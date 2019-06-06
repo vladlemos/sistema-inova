@@ -14,9 +14,12 @@ $(document).ready(function(){
 $(document).ready(function() {
     $("input[name$='escolheTipoPessoa']").click(function() {
         var test = $(this).val();
-
         $("div.desc").hide();
         $("#cpfCnpj" + test).show();
+    });
+
+    $('input[#radioCpf').click(function() {
+        
     });
 });
 
