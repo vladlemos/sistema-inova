@@ -55,7 +55,7 @@ class ControleDemandasEsteira
             WHERE 
                 [CO_STATUS] = 'CADASTRADA'
             ");
-        $this->contagemDemandasCadastradasLiquidacao = $contador[0]['QUANTIDADE_CAD_LIQ'];
+        $this->contagemDemandasCadastradasLiquidacao = $contador[0]->QUANTIDADE_CAD_LIQ;
     }
 
     //$contagemDemandasCadastradasAntecipadosCambioPronto;
@@ -73,7 +73,7 @@ class ControleDemandasEsteira
             WHERE 
                 [CO_STATUS] = 'CADASTRADA'
             ");
-        $this->contagemDemandasCadastradasAntecipadosCambioPronto = $contador[0]['QUANTIDADE_CAD_ANT'];
+        $this->contagemDemandasCadastradasAntecipadosCambioPronto = $contador[0]->QUANTIDADE_CAD_ANT;
     }
 
     //$contagemDemandasDistribuidasLiquidacao;
@@ -92,7 +92,7 @@ class ControleDemandasEsteira
                 [CO_STATUS] = 'DISTRIBUIDA' 
                 AND [CO_MATRICULA_CEOPC] = '" . $objEmpregado->getMatricula() . "'
             ");
-        $this->contagemDemandasDistribuidasLiquidacao = $contador[0]['QUANTIDADE_DISTR_EMPREG_LIQ'];
+        $this->contagemDemandasDistribuidasLiquidacao = $contador[0]->QUANTIDADE_DISTR_EMPREG_LIQ;
     }
 
     //$contagemDemandasEmAnaliseLiquidacao;
@@ -111,7 +111,7 @@ class ControleDemandasEsteira
                 [CO_STATUS] = 'EM ANALISE' 
                 AND [CO_MATRICULA_CEOPC] = '" . $objEmpregado->getMatricula() . "'
             ");
-        $this->contagemDemandasEmAnaliseLiquidacao = $contador[0]['QUANTIDADE_EM_ANALISE_EMPREG_LIQ'];
+        $this->contagemDemandasEmAnaliseLiquidacao = $contador[0]->QUANTIDADE_EM_ANALISE_EMPREG_LIQ;
     }
 
     // $contademDemandasDistribuidasAntecipadoCambioPronto;
@@ -130,6 +130,6 @@ class ControleDemandasEsteira
                 [CO_STATUS] = 'DISTRIBUIDA' 
                 AND [CO_MATRICULA_CEOPC] = '" . $objEmpregado->getMatricula() . "'
             ");
-        $this->contademDemandasDistribuidasAntecipadoCambioPronto = $contador[0]['QUANTIDADE_DISTR_EMPREG_ANTEC'];
+        $this->contademDemandasDistribuidasAntecipadoCambioPronto = $contador[0]->QUANTIDADE_DISTR_EMPREG_ANTEC;
     }
 }
