@@ -837,7 +837,7 @@
         "extra": {
             "class": "UpdateHelper\\ComposerPlugin"
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-0": {
                 "UpdateHelper\\": "src/"
@@ -1105,7 +1105,7 @@
                 }
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Collective\\Html\\": "src/"

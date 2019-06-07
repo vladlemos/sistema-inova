@@ -10,6 +10,7 @@ return array(
     'App\\Classes\\Bndes\\NovoSiaf\\LoteAmortizacaoLiquidacaoSIAF' => $baseDir . '/app/Classes/Bndes/NovoSiaf/LoteAmortizacaoLiquidacaoSIAF.php',
     'App\\Classes\\Bndes\\NovoSiaf\\SiafPhpMailer' => $baseDir . '/app/Classes/Bndes/NovoSiaf/SiafPhpMailer.php',
     'App\\Classes\\Comex\\CadastraAcessoEsteiraComex' => $baseDir . '/app/Classes/Comex/CadastraAcessoEsteiraComex.php',
+    'App\\Classes\\Comex\\ControleDemandasEsteira' => $baseDir . '/app/Classes/Comex/ControleDemandasEsteira.php',
     'App\\Classes\\Geral\\Ldap' => $baseDir . '/app/Classes/Geral/Ldap.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Empregado' => $baseDir . '/app/Empregado.php',

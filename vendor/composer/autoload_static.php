@@ -523,6 +523,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Classes\\Bndes\\NovoSiaf\\LoteAmortizacaoLiquidacaoSIAF' => __DIR__ . '/../..' . '/app/Classes/Bndes/NovoSiaf/LoteAmortizacaoLiquidacaoSIAF.php',
         'App\\Classes\\Bndes\\NovoSiaf\\SiafPhpMailer' => __DIR__ . '/../..' . '/app/Classes/Bndes/NovoSiaf/SiafPhpMailer.php',
         'App\\Classes\\Comex\\CadastraAcessoEsteiraComex' => __DIR__ . '/../..' . '/app/Classes/Comex/CadastraAcessoEsteiraComex.php',
+        'App\\Classes\\Comex\\ControleDemandasEsteira' => __DIR__ . '/../..' . '/app/Classes/Comex/ControleDemandasEsteira.php',
         'App\\Classes\\Geral\\Ldap' => __DIR__ . '/../..' . '/app/Classes/Geral/Ldap.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Empregado' => __DIR__ . '/../..' . '/app/Empregado.php',
