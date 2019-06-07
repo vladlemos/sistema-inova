@@ -1,22 +1,3 @@
-// function postCadastro()
-// tipoOperacao = $('#tipoOperacao').val();
-// {
-//     submit = {
-//         cpf: $('#cpf').val(),
-//         cnpj: $('#cnpj').val(),
-//         nomeCliente: $('#nomeCliente').val(),
-//         tipoOperacao: $('#tipoOperacao').val(),
-//         tipoMoeda: $('#tipoMoeda').val(),
-//         valorOperacao: $('#valorOperacao').val(),
-//         dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
-//         responsavelAtual: $('#matricula').val(),
-
-// function postCadastro() 
-// tipoOperacao = $('#tipoOperacao').val()
-// $('#tipoOperacao').change(function trocaTipoOperacao()
-// {
-    
-    
 $(document).ready(function() {
 
 //Declaração de variáveis dos inputs de arquivos, para carregar múltiplos como array.
@@ -38,28 +19,6 @@ $(document).ready(function() {
     var due = '';
     var autSrExp = '';
 
-
-
-
-
-    $('input[name="temContaBeneficiarioAntecipado"]').click(function() {
-        if ($('#temContaBeneficiarioAntecipadoSim').is(':checked')) {
-        $('#dadosImpAnt').attr('required', true);
-        }
-        else {
-        $('#dadosImpAnt').attr('required', false);
-        }
-    });
-    $('input[name="temContaBeneficiarioNormal"]').click(function() {
-        if ($('#temContaBeneficiarioNormalSim').is(':checked')) {
-        $('#dadosImp').attr('required', true);
-        }
-        else{
-        $('#dadosImp').attr('required', false);
-        }
-    
-});
-
     $('input[type="file"]').change(function () {
         var ext = this.value.split('.').pop().toLowerCase();
         switch (ext) {
@@ -77,7 +36,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#formTipoOperacao").submit(function postCadastro() {
+    $("#formCadastroContratacao").submit(function postCadastro() {
 
     tipoOperacao = $('#tipoOperacao').val();
     switch (tipoOperacao) {
@@ -101,15 +60,15 @@ $(document).ready(function() {
         responsavelAtual: $('#matricula').val(),
 
         //-puxa dados bancarios beneficiário Antecipado
-        nomeBeneficiario: $('#nomeBeneficiarioAnt').val(),
-        nomeBanco: $('#nomeBancoAnt').val(),
-        iban: $('#ibanAnt').val(),
-        AgContaBeneficiario: $('#AgContaBeneficiarioAnt').val(),
+        nomeBeneficiario: $('#iban1').val(),
+        nomeBanco: $('#iban2').val(),
+        iban: $('#iban3').val(),
+        agContaBeneficiario: $('#iban4').val(),
         //
         //-puxa arquivos de Pronto Importação Antecipado
-        invoiceImpAnt: $('#invoiceImpAnt').map(function(){return $(this).val();}).get(),
-        dadosImpAnt: $('#dadosImpAnt').map(function(){return $(this).val();}).get(),
-        autSrImpAnt: $('#autSrImpAnt').map(function(){return $(this).val();}).get(),
+        invoiceImpAnt: $('#uploadInvoice').map(function(){return $(this).val();}).get(),
+        dadosImpAnt: $('#uploadDadosBancarios').map(function(){return $(this).val();}).get(),
+        autSrImpAnt: $('#uploadAutorizacaoSr').map(function(){return $(this).val();}).get(),
         //
         } //- Fecha submit case 2
 
@@ -129,18 +88,18 @@ $(document).ready(function() {
 
 
         //-puxa dados bancarios beneficiário 
-        nomeBeneficiario: $('#nomeBeneficiario').val(),
-        nomeBanco: $('#nomeBanco').val(),
-        iban: $('#iban').val(),
-        AgContaBeneficiario: $('#AgContaBeneficiario').val(),
+        nomeBeneficiario: $('#iban1').val(),
+        nomeBanco: $('#iban2').val(),
+        iban: $('#iban3').val(),
+        agContaBeneficiario: $('#iban4').val(),
         //        
 
         //-puxa arquivos de Pronto Importação
-        invoiceImp: $('#invoiceImp').val(),
-        embarqueImp: $('#embarqueImp').val(),
-        di: $('#di').val(),
-        dadosImp: $('#dadosImp').val(),
-        autSrImp: $('#autSrImp').val(),
+        invoiceImp: $('#uploadInvoice').val(),
+        embarqueImp: $('#uploadConhecimento').val(),
+        di: $('#uploadDi').val(),
+        dadosImp: $('#uploadDadosBancarios').val(),
+        autSrImp: $('#uploadAutorizacaoSr').val(),
         //
         }//- Fecha submit case 3
 
@@ -159,8 +118,8 @@ $(document).ready(function() {
         responsavelAtual: $('#matricula').val(),
 
         //-puxa arquivos de Pronto Exportação Antecipado
-        invoiceExpAnt: $('#invoiceExpAnt').val(),
-        autSrExpAnt: $('#autSrExpAnt').val(),
+        invoiceExpAnt: $('#uploadInvoice').val(),
+        autSrExpAnt: $('#uploadAutorizacaoSr').val(),
         //
         }//- Fecha submit case 4
 
@@ -179,10 +138,10 @@ $(document).ready(function() {
         responsavelAtual: $('#matricula').val(),
 
         //-puxa arquivos de Pronto Exportação
-        invoiceExp: $('#invoiceExp').val(),
-        embarqueExp: $('#embarqueExp').val(),
-        due: $('#due').val(),
-        autSrExp: $('#autSrExp').val(),
+        invoiceExp: $('#uploadInvoice').val(),
+        embarqueExp: $('#uploadConhecimento').val(),
+        due: $('#uploadDue').val(),
+        autSrExp: $('#uploadAutorizacaoSr').val(),
         //
         } // fecha submit case 5
 

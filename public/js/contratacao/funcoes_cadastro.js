@@ -25,184 +25,149 @@ $(function() {
 
 });
 
-
-// ####################### FUNÇÃO QUE MOSTRA CAMPO CPF OU CNPJ DEPENDENDO DO SELECIONADO #######################
-
-// $(document).ready(function() {
-//     $("input[name$='escolheTipoPessoa']").click(function() {
-//         var test = $(this).val();
-        
-//         $("div.desc").hide();
-//         $("#cpfCnpj" + test).show();
-//     });
-
-// });
-
-
 // ####################### FUNÇÃO QUE MOSTRA DOCUMENTACAO DEPENDENDO DA OPERACAO SELECIONADA #######################
-
-$(function() {
-    $('#tipoOperacao').change(function(){
-        $('.desc3').hide();
-        $('#' + $(this).val()).show();
-
 // ####################### FUNÇÃO DE REQUIRED NOS ARQUIVOS #######################
+$(document).ready(function() {
+    $('#tipoOperacao').on('change',function(){
         
-    tipoOperacao = $('#tipoOperacao').val();
-        switch (tipoOperacao) {
+    // var val = parseInt($(this).val(), 10);
 
-            case '2': //-Tipo 2 é Pronto Importação Antecipado
+        switch($('#tipoOperacao option:selected').val()) {
 
-            $('#invoiceImpAnt').attr('required', true);
-            $('#autSrImpAnt').attr('required', true);
-    
-            $('#invoiceImp').attr('required', false);
-            $('#invoiceImp').val('');
-            // this.value = '';
-            $('#embarqueImp').attr('required', false);
-            $('#embarqueImp').val('');
-            $('#di').attr('required', false);
-            $('#di').val('');
-            $('#autSrImp').attr('required', false);
-            $('#autSrImp').val('');
-    
-            $('#invoiceExpAnt').attr('required', false);
-            $('#invoiceExpAnt').val('');
-            $('#autSrExpAnt').attr('required', false);
-            $('#autSrExpAnt').val('');
+            case "1": //-Tipo 1 é Nenhum
 
-            $('#invoiceExp').attr('required', false);
-            $('#invoiceExp').val('');
-            $('#embarqueExp').attr('required', false);
-            $('#embarqueExp').val('');
-            $('#due').attr('required', false);
-            $('#due').val('');
-            $('#autSrExp').attr('required', false);
-            $('#autSrExp').val('');      
-    
+            $('input[type="file"]').val('');
+
+            $('#divRadioDadosBancarios').hide();
+            $('#temDadosBancariosSim').attr('checked', false);
+            $('#temDadosBancariosNao').attr('checked', false);
+            $('input.iban[type=text]').val('');
+           
+            $('#divInvoice').hide();
+            $('#divConhecimento').hide();
+            $('#divDi').hide();
+            $('#divDue').hide();
+            $('#divAutorizacao').hide();
+
             break;
-
-            case '3': //-Tipo 3 é Pronto Importação
             
-            $('#invoiceImpAnt').attr('required', false);
-            $('#invoiceImpAnt').val('');
-            $('#autSrImpAnt').attr('required', false);
-            $('#autSrImpAnt').val('');
+            case "2": //-Tipo 2 é Pronto Importação Antecipado
 
-            $('#invoiceImp').attr('required', true);
-            $('#embarqueImp').attr('required', true);
-            $('#di').attr('required', true);
-            $('#autSrImp').attr('required', true);
+            $('input[type="file"]').val('');
 
-            $('#invoiceExpAnt').attr('required', false);
-            $('#invoiceExpAnt').val('');
-            $('#autSrExpAnt').attr('required', false);
-            $('#autSrExpAnt').val('');
+            $('#divRadioDadosBancarios').show();
+            $('#temDadosBancariosSim').attr('checked', false);
+            $('#temDadosBancariosNao').attr('checked', false);
+            $('input.iban[type=text]').val('');
 
-            $('#invoiceExp').attr('required', false);
-            $('#invoiceExp').val('');
-            $('#embarqueExp').attr('required', false);
-            $('#embarqueExp').val('');
-            $('#due').attr('required', false);
-            $('#due').val('');
-            $('#autSrExp').attr('required', false);      
-            $('#autSrExp').val('');      
+            $('#uploadInvoice').attr('required', true);
+            $('#divInvoice').show();
+            $('#uploadConhecimento').attr('required', false);
+            $('#divConhecimento').hide();
+            $('#uploadDi').attr('required', false);
+            $('#divDi').hide();
+            $('#uploadDue').attr('required', false);
+            $('#divDue').hide();
+            $('#uploadAutorizacaoSr').attr('required', true);
+            $('#divAutorizacao').show();
+    
+            break;
+
+            case "3": //-Tipo 3 é Pronto Importação
+            
+            $('input[type="file"]').val('');
+
+            $('#divRadioDadosBancarios').show();
+            $('#temDadosBancariosSim').attr('checked', false);
+            $('#temDadosBancariosNao').attr('checked', false);
+            $('input.iban[type=text]').val('');
+
+            $('#uploadInvoice').attr('required', true);
+            $('#divInvoice').show();
+            $('#uploadConhecimento').attr('required', true);
+            $('#divConhecimento').show();
+            $('#uploadDi').attr('required', true);
+            $('#divDi').show();
+            $('#uploadDue').attr('required', false);
+            $('#divDue').hide();
+            $('#uploadAutorizacaoSr').attr('required', true);
+            $('#divAutorizacao').show();
 
             break;
 
-            case '4': //-Tipo 3 é Pronto Exportação Antecipado
+            case "4": //-Tipo 4 é Pronto Exportação Antecipado
 
-            $('#invoiceImpAnt').attr('required', false);
-            $('#invoiceImpAnt').val('');
-            $('#autSrImpAnt').attr('required', false);
-            $('#autSrImpAnt').val('');
-        
-            $('#invoiceImp').attr('required', false);
-            $('#invoiceImp').val('');
-            $('#embarqueImp').attr('required', false);
-            $('#embarqueImp').val('');
-            $('#di').attr('required', false);
-            $('#di').val('');
-            $('#autSrImp').attr('required', false);
-            $('#autSrImp').val('');
-        
-            $('#invoiceExpAnt').attr('required', true);
-            $('#autSrExpAnt').attr('required', true);
-        
-            $('#invoiceExp').attr('required', false);
-            $('#invoiceExp').val('');
-            $('#embarqueExp').attr('required', false);
-            $('#embarqueExp').val('');
-            $('#due').attr('required', false);
-            $('#due').val('');
-            $('#autSrExp').attr('required', false);
-            $('#autSrExp').val('');
+            $('input[type="file"]').val('');
+
+            $('#divRadioDadosBancarios').hide();
+            $('#temDadosBancariosSim').attr('checked', false);
+            $('#temDadosBancariosNao').attr('checked', false);
+            $('input.iban[type=text]').val('');
+
+            $('#uploadInvoice').attr('required', true);
+            $('#divInvoice').show();
+            $('#uploadConhecimento').attr('required', false);
+            $('#divConhecimento').hide();
+            $('#uploadDi').attr('required', false);
+            $('#divDi').hide();
+            $('#uploadDue').attr('required', false);
+            $('#divDue').hide();
+            $('#uploadAutorizacaoSr').attr('required', true);
+            $('#divAutorizacao').show();
      
         
             break;
 
-            case '5': //-Tipo 3 é Pronto Exportação
+            case "5": //-Tipo 5 é Pronto Exportação
 
-            $('#invoiceImpAnt').attr('required', false);
-            $('#invoiceImpAnt').val('');
-            $('#autSrImpAnt').attr('required', false);
-            $('#autSrImpAnt').val('');
+            $('input[type="file"]').val('');
 
-            $('#invoiceImp').attr('required', false);
-            $('#invoiceImp').val('');
-            $('#embarqueImp').attr('required', false);
-            $('#embarqueImp').val('');
-            $('#di').attr('required', false);
-            $('#di').val('');
-            $('#autSrImp').attr('required', false);
-            $('#autSrImp').val('');
+            $('#divRadioDadosBancarios').hide();
+            $('#temDadosBancariosSim').attr('checked', false);
+            $('#temDadosBancariosNao').attr('checked', false);
+            $('input.iban[type=text]').val('');
 
-            $('#invoiceExpAnt').attr('required', false);
-            $('#invoiceExpAnt').val('');
-            $('#autSrExpAnt').attr('required', false);
-            $('#autSrExpAnt').val('');
+            $('#uploadInvoice').attr('required', true);
+            $('#divInvoice').show();
+            $('#uploadConhecimento').attr('required', true);
+            $('#divConhecimento').show();
+            $('#uploadDi').attr('required', false);
+            $('#divDi').hide();
+            $('#uploadDue').attr('required', true);
+            $('#divDue').show();
+            $('#uploadAutorizacaoSr').attr('required', true);
+            $('#divAutorizacao').show();
 
-            $('#invoiceExp').attr('required', true);
-            $('#embarqueExp').attr('required', true);
-            $('#due').attr('required', true);
-            $('#autSrExp').attr('required', true);      
-
-        }; // fecha switch
-
+        } // fecha switch
     });
 });
 
 
-// $(document).ready(function() {
-//     $("option[id$='tipoOperacao']").click(function() {
-//         var test = $(this).val();
+// FAZER AQUI UMA FUNC QUE DA HIDE / SHOW E REQUIRED NOS DADOS BANCARIOS
+// $('#uploadDadosBancarios').attr('required', false);
 
-//         $("div.desc3").hide();
-//         $("#tipoOperacao" + test).show();
-//     });
-// });
 
 // ####################### FUNÇÃO QUE ESCONDE CAMPO IBAN DEPENDENDO DO SELECIONADO #######################
 
 
 $(document).ready(function() {
-    $("input[name$='temContaBeneficiarioAntecipado']").click(function() {
+    $("input[name$='temDadosBancarios']").click(function() {
         var test = $(this).val();
 
         $("div.desc2").hide();
-        $("#contaBeneficiarioAntecipado" + test).show();
+        $("#divInformaDadosBancarios" + test).show();
+
+        if ($('#temDadosBancariosSim').is(':checked')) {
+            $('#divDados').show();
+            $('#uploadDadosBancarios').attr('required', true);
+        }
+        else {
+            $('#divDados').hide();
+            $('#uploadDadosBancarios').attr('required', false);
+        }
+    
     });
 });
-
-$(document).ready(function() {
-  $("input[name$='temContaBeneficiarioNormal']").click(function() {
-      var test = $(this).val();
-
-      $("div.desc2").hide();
-      $("#contaBeneficiarioNormal" + test).show();
-  });
-});
-
 
 // ####################### NÃO TESTADO - FUNÇÃO QUE PROIBE DAR SUBMIT COM O CAMPO MODALIDADE VAZIO #######################
 
