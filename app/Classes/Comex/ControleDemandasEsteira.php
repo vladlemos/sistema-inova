@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 class ControleDemandasEsteira
 {
-    private $dataAtualizacaoBaseSuint = '30/08/2018'; //$datadeatualizacao
+    private $dataAtualizacaoBaseSuint = '30/05/2019'; //$datadeatualizacao
     private $contagemDemandasCadastradasLiquidacao; //$badget_cadastrada
     private $contagemDemandasCadastradasAntecipadosCambioPronto; //$badget_cadastrada_antecipados
     private $contagemDemandasDistribuidasLiquidacao; //$badget_usuario
