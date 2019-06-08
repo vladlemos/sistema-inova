@@ -82,15 +82,11 @@ Route::prefix('esteiracomex')->group(function(){
 });
 
 /* ROTAS BNDES SIAF */
-    Route::prefix('bndes')->group(function(){
-    /* NOVOSIAF */
-    
-        Route::get('siaf-amortizacao-liquidacao', function () {
-            return view('Bndes.NovoSiaf.index');
-        });
-        Route::get('siaf-amortizacao-liquidacao/teste-de-email', function () {
-            return view('Bndes.NovoSiaf.envio-de-email');
-        });
+Route::prefix('bndes')->group(function(){
+    /* NOVOSIAF */   
+    Route::get('siaf-amortizacao-liquidacao', function () {
+        return view('Bndes.NovoSiaf.index');
     });
+});
 
 
