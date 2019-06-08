@@ -69,11 +69,15 @@ Route::prefix('esteiracomex')->group(function(){
     Route::get('/uploadfile','UploadFileController@index');
     Route::post('/uploadfile','UploadFileController@showUploadFile');
 
-     // Cadastra email para envio notificação de chegada de OP
-     Route::get('solicitacoes/cadastraemailop', function () {
+    // Cadastra email para envio notificação de chegada de OP
+    Route::get('solicitacoes/cadastraemailop', function () {
         return view('Comex.CadastraEmailOp.index');
     });
 
+    // Indicadores comex CEOPC
+    Route::get('indicadores/comex', function () {
+        return view('Comex.Indicadores.comex');
+    });
 
 });
 
