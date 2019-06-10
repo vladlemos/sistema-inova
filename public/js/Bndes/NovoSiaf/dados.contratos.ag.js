@@ -163,6 +163,7 @@ $('#formulario_pedido_amortizacao').submit(function(event){
        console.error(Error);           
     }
     $('#modalCadastramento').modal('hide');
+    $('#modalErro').modal('show');
 });
 
 //atualiza a tabela depois de cadastrar o contrato
