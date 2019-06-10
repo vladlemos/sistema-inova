@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AcessaEmpregadoTableSeeder' => $baseDir . '/database/seeds/AcessaEmpregadoTableSeeder.php',
     'App\\AcessaEmpregado' => $baseDir . '/app/AcessaEmpregado.php',
     'App\\Classes\\Bndes\\NovoSiaf\\LoteAmortizacaoLiquidacaoSIAF' => $baseDir . '/app/Classes/Bndes/NovoSiaf/LoteAmortizacaoLiquidacaoSIAF.php',
     'App\\Classes\\Bndes\\NovoSiaf\\SiafPhpMailer' => $baseDir . '/app/Classes/Bndes/NovoSiaf/SiafPhpMailer.php',
@@ -35,6 +36,7 @@ return array(
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
     'App\\Http\\Middleware\\RedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/RedirectIfAuthenticated.php',
+    'App\\Http\\Middleware\\SetCookiesBySession' => $baseDir . '/app/Http/Middleware/SetCookiesBySession.php',
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
@@ -185,6 +187,7 @@ return array(
     'Egulias\\EmailValidator\\Warning\\QuotedString' => $vendorDir . '/egulias/email-validator/EmailValidator/Warning/QuotedString.php',
     'Egulias\\EmailValidator\\Warning\\TLD' => $vendorDir . '/egulias/email-validator/EmailValidator/Warning/TLD.php',
     'Egulias\\EmailValidator\\Warning\\Warning' => $vendorDir . '/egulias/email-validator/EmailValidator/Warning/Warning.php',
+    'EmpregadosTableSeeder' => $baseDir . '/database/seeds/EmpregadosTableSeeder.php',
     'Faker\\Calculator\\Iban' => $vendorDir . '/fzaninotto/faker/src/Faker/Calculator/Iban.php',
     'Faker\\Calculator\\Inn' => $vendorDir . '/fzaninotto/faker/src/Faker/Calculator/Inn.php',
     'Faker\\Calculator\\Luhn' => $vendorDir . '/fzaninotto/faker/src/Faker/Calculator/Luhn.php',

@@ -539,6 +539,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
     );
 
     public static $classMap = array (
+        'AcessaEmpregadoTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AcessaEmpregadoTableSeeder.php',
         'App\\AcessaEmpregado' => __DIR__ . '/../..' . '/app/AcessaEmpregado.php',
         'App\\Classes\\Bndes\\NovoSiaf\\LoteAmortizacaoLiquidacaoSIAF' => __DIR__ . '/../..' . '/app/Classes/Bndes/NovoSiaf/LoteAmortizacaoLiquidacaoSIAF.php',
         'App\\Classes\\Bndes\\NovoSiaf\\SiafPhpMailer' => __DIR__ . '/../..' . '/app/Classes/Bndes/NovoSiaf/SiafPhpMailer.php',
@@ -568,6 +569,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
+        'App\\Http\\Middleware\\SetCookiesBySession' => __DIR__ . '/../..' . '/app/Http/Middleware/SetCookiesBySession.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
@@ -718,6 +720,7 @@ class ComposerStaticInit0aff5618190917b6c3282dfa6730bb2d
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/Warning.php',
+        'EmpregadosTableSeeder' => __DIR__ . '/../..' . '/database/seeds/EmpregadosTableSeeder.php',
         'Faker\\Calculator\\Iban' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Iban.php',
         'Faker\\Calculator\\Inn' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Inn.php',
         'Faker\\Calculator\\Luhn' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Luhn.php',

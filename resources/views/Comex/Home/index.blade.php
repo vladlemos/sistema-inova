@@ -20,7 +20,6 @@
 
 @section('content')
 
-
 @stop
 
 

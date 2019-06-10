@@ -100,7 +100,7 @@
                             <img src="https://permissoes.correio.corp.caixa.gov.br/ThumbPhoto/C079436_AD.jpg" class="user-image" alt="User Image" onError="this.src='dist/img/user2-160x160.jpg';">
                               -->
                                 <!-- <img src="http://www.sr2576.sp.caixa/2017/foto.asp?matricula=C079436" class="user-image" alt="User Image" onerror="this.src='dist/img/user2-160x160.jpg';"> -->
-                                <span class="hidden-xs">VLADIMIR</span>
+                                <span class="hidden-xs">{{session()->get('primeiroNome')}}</span>
                             </a>
                             <ul class="dropdown-menu">
 
@@ -108,7 +108,12 @@
                                 <li class="user-header">
                                     <p>
                                         <small>
-                                            VLADIMIR PEREIRA DE LEMOS               <br>C079436 <br>Empregado CAIXA desde 05/09/2005<br>												5459<br>												PERFIL700<br>												ASSISTENTE SENIOR       <br>											</small>
+                                            {{session()->get('nomeCompleto')}}<br/>
+                                            {{session()->get('matricula')}}<br/>												
+                                            {{session()->get('codigoLotacaoAdministrativa')}}<br/>												
+                                            {{session()->get('acessoEmpregado')}}<br/>												
+                                            {{session()->get('nomeFuncao')}}<br/>											
+                                        </small>
                                     </p>
                                 </li>
 
