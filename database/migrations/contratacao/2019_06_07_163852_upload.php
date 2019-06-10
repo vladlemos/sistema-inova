@@ -13,7 +13,17 @@ class Upload extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('TBL_EST_CONTRATACAO_LINK_UPLOADS', function (Blueprint $table) {
+            
+            $table->increments('idUploadLink');
+            $table->date('dataInclusao');
+            $table->integer('idDemanda'); //chave estrangeira
+            $table->string('cpf',11);
+            $table->string('cnpj',14);
+            $table->string('tipoDoDocumento',50);
+            $table->string('excluido',3);
+            $table->date('dataExcluido');
+        }
     }
 
     /**
@@ -23,6 +33,6 @@ class Upload extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('TBL_EST_CONTRATACAO_LINK_UPLOADS');
     }
 }
