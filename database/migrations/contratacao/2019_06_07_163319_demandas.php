@@ -16,6 +16,7 @@ class Demandas extends Migration
         //
         Schema::create('TBL_EST_CONTRATACAO_DEMANDAS', function (Blueprint $table) {
             
+            $table->increments('idDemanda');
             $table->string('tipoPessoa',2);
             $table->string('cpf',11)->nullable($value = true);
             $table->string('cnpj',14)->nullable($value = true);
@@ -34,7 +35,7 @@ class Demandas extends Migration
             $table->string('numeroBoleto',4)->nullable($value = true);
            });
     }
-    }
+    
 
     /**
      * Reverse the migrations.
