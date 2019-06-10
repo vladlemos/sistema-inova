@@ -460,8 +460,8 @@
                                 <option value="VALOR DIVERGENTE">VALOR DIVERGENTE </option>
                                 <option value="CONTA PF">CONTA PF</option>
                                 <option value="CONTRATO EM CA">CONTRATO EM CA</option>
-                                <option value="GEPOD RESIDUO SIFBN">RESIDUO SIFBN</option>
-                                <option value="GEPOD">GEPOD</option>
+                                <option value="GESTOR RESIDUO SIFBN">RESIDUO SIFBN</option>
+                                <option value="GESTOR">GESTOR</option>
                                 <option value="SEM SALDO">SEM SALDO</option>
                                 <option value="CONCLUIDO">CONCLUIDO</option>
                                 <option value="CORRIGIDO" style="display: none">CORRIGIDO</option>
@@ -481,8 +481,8 @@
                                 <option value="VALOR DIVERGENTE" style="display: none">VALOR DIVERGENTE </option>
                                 <option value="CONTA PF" style="display: none">CONTA PF</option>
                                 <option value="CONTRATO EM CA" style="display: none">CONTRATO EM CA</option>
-                                <option value="GEPOD RESIDUO SIFBN" style="display: none">RESIDUO SIFBN</option>
-                                <option value="GEPOD" style="display: none">GEPOD</option>
+                                <option value="GESTOR RESIDUO SIFBN" style="display: none">RESIDUO SIFBN</option>
+                                <option value="GESTOR" style="display: none">GESTOR</option>
                                 <option value="SEM SALDO" style="display: none">SEM SALDO</option>
                                 <option value="CONCLUIDO" style="display: none">CONCLUIDO</option>
                                 <option value="CORRIGIDO">CORRIGIDO</option>
@@ -613,12 +613,12 @@
 
          <!-- /Modal confimar edição-->
     
-         <div id="modalConfirmaAlteracao" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm">
+         <div id="modalErro" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm alert">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><i class="icon-checkmark"></i>Dados alterados com sucesso!!</h4>
+                    <h4 class="modal-title"><i class="icon-checkmark"></i>Não foi possível efetuar o cadastro, favor tentar novamente!</h4>
                 </div>
 
                 <div class="modal-footer">
@@ -664,7 +664,7 @@
             <a  href="#contratosliquidar" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Solicitar Liquidação/Amortização  </a></li>
             <li id="abaLoteAtual"><a href="#loteAtual" data-toggle="tab"><i class="icon-exit4"></i> Pedidos lote dia <span id="dataLoteAtual"></span>  </a></li>
             <li id="abaAmortizaant"><a href="#amortizaant" data-toggle="tab"><i class="icon-exit3"></i> Pedidos Lote dia <span id="dataLoteAnterior"></span></a></li>
-            <li id="abaSUMEP"><a href="#SUMEP" data-toggle="tab"><i class="icon-hammer"></i>Contratos na SUMEP</a></li>
+            <li id="abaSUMEP"><a href="#SUMEP" data-toggle="tab"><i class="icon-hammer"></i>Contratos no GESTOR</a></li>
             <li id="abaAmortizaTodas"><a href="#amortizatodas" data-toggle="tab"><i class="icon-file4"></i>Pedidos Anteriores </a></li>
         </ul>
 
@@ -981,13 +981,13 @@
                             <p><strong>CANCELADO - </strong> Demanda cancelada pela AG, SR, GIGAD ou CEOPC.</p>
                             <p><strong>RECEBIDO - </strong> Demanda em processamento aguardando dia de débito (dia 15).</p>
                             <p><strong>SIFBN OK - </strong> Demanda comandada no SIFBN/SIBAN, pronta para verificação automática de saldo.</p>
-                            <p><strong>GEPOD - </strong> Demanda enviada à GEPOD para tratamento .</p>
+                            <p><strong>GESTOR - </strong> Demanda enviada à GESTOR para tratamento .</p>
                             <p><strong>CONTA DIVERGENTE - </strong> Demanda com pendência. </p>
                             <p><strong>VALOR DIVERGENTE - </strong> Demanda com pendência.</p>
                             <p><strong>CONTA PF - </strong> Demanda com pendência.</p>
                             <p><strong>CONTRATO EM CA - </strong> Demanda cancelada pela CEOPC.</p>
                             <p><strong>CONCLUIDO - </strong> Demanda de amortização\liquidação efetivada.</p>
-                            <p><strong>RESÍDUO SIFBN - </strong> Demanda liquidada com pendência no SIFBN enviada para GEPOD para tratamento.</p>
+                            <p><strong>RESÍDUO SIFBN - </strong> Demanda liquidada com pendência no SIFBN enviada para GESTOR para tratamento.</p>
                             <p><strong>SEM SALDO - </strong> Demanda cancelada pela CEOPC por falta de saldo na conta de débito.</p>
                             <p><strong>SEM COMANDO SIFBN - </strong> Demanda cancelada pela CEOPC por falta de comando por parte da agência.</p>
 						
@@ -1073,7 +1073,7 @@
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratos.Ag.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAtual.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.amortizacao.loteAnterior.js')}}"></script>
-        <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoGepod.js')}}"></script>
+        <script src="{{ asset('js/Bndes/NovoSiaf/dados.contratoGestor.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/valida.cadastroAmortizacao.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisaLote.js')}}"></script>
         <script src="{{ asset('js/Bndes/NovoSiaf/dados.pesquisa12meses.js')}}"></script>
