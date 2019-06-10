@@ -815,7 +815,7 @@ class SiafDemandaController extends Controller
     public function todasSolicitacoesAmortizacaoUltimosDozeMeses() {
         $arrayDemandas = [];
         $listaDemandas = DB::select('
-            SELECT 
+            SELECT
                 [codigoDemanda]
                 ,[nomeCliente]
                 ,[cnpj]
@@ -857,13 +857,13 @@ class SiafDemandaController extends Controller
                 para que não seja aberto um novo protocolo e sim a atualização do protocolo cancelado
             */
             $demandaJaExiste = SiafDemanda::where('contratoCaixa', $request->input("data." . $i . ".contratoCaixa"))
-                        ->whereIn('status', ['CANCELADO', 'EXCLUIDO UD'])
+                        ->whereIn('status', ['CANCELADO', 'EXCLUIDO UD', 'CADASTRADO'])
                         ->where('dataLote', $lote->getDataLoteAtual())
                         ->first();
             if ($demandaJaExiste) {
                 // echo "demanda já existe (cancelada)";
                 $quantidadeDemandaEmAbertoImpeditiva = SiafDemanda::all()->where('contratoCaixa', $request->input("data." . $i . ".contratoCaixa"))
-                        ->whereNotIn('status', ['CANCELADO', 'EXCLUIDO UD'])
+                        ->whereNotIn('status', ['CANCELADO', 'EXCLUIDO UD', 'CADASTRADO'])
                         ->where('dataLote', $lote->getDataLoteAtual());
                 if (count($quantidadeDemandaEmAbertoImpeditiva) > 0) {
                     return "Já existe demanda para esse contrato em aberto. não podemos abrir nova demanda.";
