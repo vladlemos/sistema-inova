@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Classes\Geral\Ldap;
 use App\Empregado;
 
-class SetCookiesBySession
+class SetCookiesSession
 {
     /**
      * Handle an incoming request.
