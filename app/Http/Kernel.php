@@ -36,14 +36,14 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\SetCookiesBySession::class,
+            \App\Http\Middleware\SetCookiesSession::class,
         ],
 
         'api' => [
             'throttle:60,1',
             'bindings',
-            'teste',
-            \App\Http\Middleware\SetCookiesBySession::class,
+            'api.session',
+            \App\Http\Middleware\SetCookiesSession::class,
         ],
     ];
 
@@ -63,7 +63,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'teste' => \Illuminate\Session\Middleware\StartSession::class,
+        'api.session' => \Illuminate\Session\Middleware\StartSession::class,
         // 'cookie.set' =>\App\Http\Middleware\SetCookiesBySession::class,
     ];
 }

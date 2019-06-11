@@ -13,7 +13,16 @@ class Historico extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('TBL_EST_CONTRATACAO_HISTORICO', function (Blueprint $table) {
+
+            $table->increments('idHistorico');
+            $table->integer('idDemanda'); // chave estrangeira
+            $table->string('tipoStatus',30);
+            $table->date('dataStatus');
+            $table->string('responsavelStatus',7);
+            $table->string('area',4);
+            $table->text('analiseHistorico');
+        }
     }
 
     /**
@@ -23,6 +32,6 @@ class Historico extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('TBL_EST_CONTRATACAO_HISTORICO');
     }
 }

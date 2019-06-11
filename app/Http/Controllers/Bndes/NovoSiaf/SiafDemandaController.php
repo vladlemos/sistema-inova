@@ -815,7 +815,7 @@ class SiafDemandaController extends Controller
     public function todasSolicitacoesAmortizacaoUltimosDozeMeses() {
         $arrayDemandas = [];
         $listaDemandas = DB::select('
-            SELECT 
+            SELECT
                 [codigoDemanda]
                 ,[nomeCliente]
                 ,[cnpj]
@@ -857,13 +857,13 @@ class SiafDemandaController extends Controller
                 para que não seja aberto um novo protocolo e sim a atualização do protocolo cancelado
             */
             $demandaJaExiste = SiafDemanda::where('contratoCaixa', $request->input("data." . $i . ".contratoCaixa"))
-                        ->whereIn('status', ['CANCELADO', 'EXCLUIDO UD'])
+                        ->whereIn('status', ['CANCELADO', 'EXCLUIDO UD', 'CADASTRADO'])
                         ->where('dataLote', $lote->getDataLoteAtual())
                         ->first();
             if ($demandaJaExiste) {
                 // echo "demanda já existe (cancelada)";
                 $quantidadeDemandaEmAbertoImpeditiva = SiafDemanda::all()->where('contratoCaixa', $request->input("data." . $i . ".contratoCaixa"))
-                        ->whereNotIn('status', ['CANCELADO', 'EXCLUIDO UD'])
+                        ->whereNotIn('status', ['CANCELADO', 'EXCLUIDO UD', 'CADASTRADO'])
                         ->where('dataLote', $lote->getDataLoteAtual());
                 if (count($quantidadeDemandaEmAbertoImpeditiva) > 0) {
                     return "Já existe demanda para esse contrato em aberto. não podemos abrir nova demanda.";
@@ -903,23 +903,26 @@ class SiafDemandaController extends Controller
                     $mail->enviarMensageria($usuario, $dadosDemandaCadastrada, $tipoEmail);
                 }
             } else {
+                // Capturar os dados do contrato
+                $contratoSiaf = SiafContrato::find($request->input("data." . $i . ".contratoCaixa"));
+
                 // Instancia o model da Demanda
                 $demanda = new SiafDemanda();
-                $demanda->nomeCliente = $contrato->cliente;
-                $demanda->cnpj = $contrato->cnpj;
+                $demanda->nomeCliente = $contratoSiaf->cliente;
+                $demanda->cnpj = $contratoSiaf->cnpj;
                 $demanda->contratoCaixa = $request->input("data." . $i . ".contratoCaixa");
                 $demanda->contratoBndes = $request->input("data." . $i . ".contratoBndes");
                 $demanda->valorOperacao = $request->input("data." . $i . ".valorAmortizacao");
                 $demanda->tipoOperacao = $request->input("data." . $i . ".tipoComando");
-                $demanda->codigoPa = $contrato->codigoPa;
-                $demanda->nomePa = $contrato->nomePa;
-                $demanda->emailPa = $contrato->emailPa;
-                $demanda->codigoSr = $contrato->codigoSr;
-                $demanda->nomeSr = $contrato->nomeSr;
-                $demanda->emailSr = $contrato->emailSr;
-                $demanda->codigoGigad = $contrato->codigoGigad;
-                $demanda->nomeGigad = $contrato->nomeGigad;
-                $demanda->emailGigad = $contrato->emailGigad;
+                $demanda->codigoPa = $contratoSiaf->codigoPa;
+                $demanda->nomePa = $contratoSiaf->nomePa;
+                $demanda->emailPa = $contratoSiaf->emailPa;
+                $demanda->codigoSr = $contratoSiaf->codigoSr;
+                $demanda->nomeSr = $contratoSiaf->nomeSr;
+                $demanda->emailSr = $contratoSiaf->emailSr;
+                $demanda->codigoGigad = $contratoSiaf->codigoGigad;
+                $demanda->nomeGigad = $contratoSiaf->nomeGigad;
+                $demanda->emailGigad = $contratoSiaf->emailGigad;
                 $demanda->dataCadastramento = date("Y-m-d H:i:s", time());
                 $demanda->dataLote = $lote->getDataLoteAtual();
                 $demanda->status = 'CADASTRADO';
