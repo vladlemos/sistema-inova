@@ -58,7 +58,7 @@ class SiafContratoController extends Controller
      */
     public function show($id, Request $request)
     {
-        if ($request->session()->get('codigoLotacaoFisica') === null) {
+        if ($request->session()->get('codigoLotacaoFisica') == 'NULL') {
             $lotacaoUsuario = $request->session()->get('codigoLotacaoAdministrativa');
         } else {
             $lotacaoUsuario = $request->session()->get('codigoLotacaoFisica');
@@ -110,11 +110,12 @@ class SiafContratoController extends Controller
 
     public function indexSimplificadaComQuerySeparada(Request $request)
     {
-        $empregadoAcesso = json_decode(app('App\Http\Controllers\Sistemas\EmpregadoController')->index($request));
+        $empregadoAcesso = json_decode(app('App\Http\Controllers\Sistemas\EmpregadoController')->index($request));     
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {     
-                    $listaContratos = $this->selectListaContratos('TBL_SIAF_CONTRATOS.codigoPa', $empregadoAcesso[0]->codigoLotacaoAdministrativa);                       
+                if ($empregadoAcesso[0]->codigoLotacaoFisica === 'NULL') {   
+                    // dd($empregadoAcesso[0]->codigoLotacaoFisica);
+                    $listaContratos = $this->selectListaContratos('TBL_SIAF_CONTRATOS.codigoPa', $empregadoAcesso[0]->codigoLotacaoAdministrativa);                            
                     return json_encode($listaContratos, JSON_UNESCAPED_SLASHES);
                 } elseif (in_array($empregadoAcesso[0]->codigoLotacaoFisica, $this->arrayGigad)) {
                     $listaContratos = $this->selectListaContratos('TBL_SIAF_CONTRATOS.codigoGigad', $empregadoAcesso[0]->codigoLotacaoFisica);

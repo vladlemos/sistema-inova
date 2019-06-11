@@ -145,7 +145,7 @@ $('#formulario_pedido_amortizacao').submit(function(event){
         $.ajax({
             method: 'POST',
             cache: false,
-            url: 'https://inova.ceopc.des.caixa/api/bndes/v2/siaf_amortizacoes',
+            url: '../api/bndes/v2/siaf_amortizacoes',
             data: {'data':cadastro},
             async: false,
             success: function (jsonStr) {
