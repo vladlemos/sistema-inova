@@ -178,7 +178,7 @@ $(document).ready(function() {
 $('#formCadastroContratacao').on('submit', function(e){
     e.preventDefault();
     $("#tipoOperacao").each(function(){
-        if($.trim(this.value) == "1"){
+        if($.trim(this.value) == ""){
             alert('É necessário selecionar uma modalidade de demanda.');
         } 
         else {
