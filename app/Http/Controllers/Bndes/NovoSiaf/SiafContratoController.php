@@ -53,16 +53,24 @@ class SiafContratoController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
+     *  @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
+        if ($request->session()->get('codigoLotacaoFisica') === null) {
+            $lotacaoUsuario = $request->session()->get('codigoLotacaoAdministrativa');
+        } else {
+            $lotacaoUsuario = $request->session()->get('codigoLotacaoFisica');
+        }
+        
         // $dadosContrato = Contratos::find($id);
         $dataLote = new LoteAmortizacaoLiquidacaoSIAF;
         $dadosContrato = DB::table('TBL_SIAF_CONTRATOS')
                         ->leftjoin('TBL_SIAF_DEMANDAS', 'TBL_SIAF_CONTRATOS.contratoCaixa', '=', 'TBL_SIAF_DEMANDAS.contratoCaixa')
                         ->select('TBL_SIAF_CONTRATOS.cnpj', 'TBL_SIAF_CONTRATOS.cliente', 'TBL_SIAF_CONTRATOS.contratoBndes', 'TBL_SIAF_CONTRATOS.contratoBndesFiname', 'TBL_SIAF_CONTRATOS.contratoCaixa', 'TBL_SIAF_CONTRATOS.contaDebito', 'TBL_SIAF_CONTRATOS.contaDebito')
                         ->where('TBL_SIAF_CONTRATOS.cnpj', '=', $id)
+                        ->where('TBL_SIAF_CONTRATOS.codigoPa', $lotacaoUsuario)
                         ->where(function($where) use($dataLote) {
                             $where
                                 ->where('TBL_SIAF_DEMANDAS.dataLote', '=', $dataLote->getDataLoteAtual())
