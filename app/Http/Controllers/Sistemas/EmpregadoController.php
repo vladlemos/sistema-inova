@@ -14,9 +14,10 @@ class EmpregadoController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $usuario = new Ldap;
         $empregado = Empregado::find($usuario->getMatricula());

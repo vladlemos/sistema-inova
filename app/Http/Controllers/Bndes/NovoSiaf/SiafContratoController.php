@@ -100,9 +100,9 @@ class SiafContratoController extends Controller
         return $listaContratos;
     }
 
-    public function indexSimplificadaComQuerySeparada()
+    public function indexSimplificadaComQuerySeparada(Request $request)
     {
-        $empregadoAcesso = json_decode(app('App\Http\Controllers\Sistemas\EmpregadoController')->index());
+        $empregadoAcesso = json_decode(app('App\Http\Controllers\Sistemas\EmpregadoController')->index($request));
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
                 if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {     
