@@ -234,14 +234,66 @@
         <div class="page-bar">
             <h3>Documentação digitalizada</h3>
         </div>
+<br>
 
-        <div class="margin10">
+    <div id="divModais">
 
-            <div class="file-loading">
-                <input id="input-iconic" name="analise" type="file" multiple>
+        <!-- <div id="divModalInvoice1">
+
+            <a rel="tooltip" class="btn btn-primary btn-lg" title="Visualizar arquivo." data-toggle="modal" data-target="#modalInvoice1">
+                <span class="glyphicon glyphicon-file">    Invoice 1</span>
+            </a> 
+
+            <div class="modal fade" id="modalInvoice1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Invoice 1</h4>
+                        </div>
+                        <div class="modal-body">
+                            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="btn_fecha_modal"></a>
+                            <embed src="../../js/contratacao/upload-teste/10222222000188/546654/invoice_546654.jpg" width="100%" height="100%" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-                
-        </div><!--/margin10-->
+
+        </div>
+
+<br>
+
+        <div id="divModalDi1">
+
+            <a rel="tooltip" class="btn btn-primary btn-lg" title="Visualizar arquivo." data-toggle="modal" data-target="#modalDi1">
+            <span class="glyphicon glyphicon-file">    DI 1</span>
+            </a> 
+
+            
+            <div class="modal fade" id="modalDi1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">DI 1</h4>
+                        </div>
+                        <div class="modal-body">
+                            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="btn_fecha_modal"></a>
+                            <embed src="../../js/contratacao/upload-teste/10222222000188/546654/di_546654.pdf" width="100%" height="600px" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>  -->
+
+    </div>
 
 <hr>
 
@@ -266,8 +318,8 @@
 
 
 @section('css')
-    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/css/fileinput.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.css') }}" rel="stylesheet"/>
+    <!-- <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/css/fileinput.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.css') }}" rel="stylesheet"/> -->
     <link href="{{ asset('css/contratacao/cadastro.css') }}" rel="stylesheet">
      
 
@@ -282,14 +334,14 @@
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
 
 
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/piexif.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/piexif.min.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/plugins/sortable.min.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/fileinput.min.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/js/locales/pt-BR.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fa/theme.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fas/theme.js') }}"></script>
-    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script>
-    <script src="{{ asset('js/contratacao/post_analise_demanda2.js') }}"></script>
+    <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script> -->
+    <script src="{{ asset('js/contratacao/post_analise_demanda3.js') }}"></script>
 
 
 
