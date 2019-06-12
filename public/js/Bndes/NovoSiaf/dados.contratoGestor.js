@@ -1,6 +1,6 @@
 $(document).ready(function(){
    
-    carregarTabelaSumep();
+    carregarTabelaGestor();
    
  });	
 
@@ -10,21 +10,21 @@ $.ajaxSetup({
     }
 });
 
-// //carrega tabela com os contratos pendentes na SUMEP
-function carregarTabelaSumep()
+// //carrega tabela com os contratos pendentes no Gestor
+function carregarTabelaGestor()
 {
-    $.getJSON('../api/bndes/v1/siaf_contratos_sumep', function(json){
+    $.getJSON('../api/bndes/v1/siaf_contratos_gestor', function(json){
 
         $.each(json, function (key, value){
           
             linha = atualizaTabela(value);
-            $('#tabelaSumep>tbody').append(linha);
+            $('#tabelaGestor>tbody').append(linha);
 
         }
         
         );
        
-        $('#tabelaSumep').DataTable({
+        $('#tabelaGestor').DataTable({
             responsive: true,
         } );
            
