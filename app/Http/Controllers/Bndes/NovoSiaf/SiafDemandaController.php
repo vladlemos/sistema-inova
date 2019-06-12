@@ -580,7 +580,7 @@ class SiafDemandaController extends Controller
         }
     }
 
-    public function contratosNaGepod()
+    public function contratosComGestor()
     {
         $usuario = new Ldap;
         $empregado = Empregado::find($usuario->getMatricula());
@@ -598,6 +598,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)              
                                             ->get();      
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
@@ -608,6 +609,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)              
                                             ->get();    
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
@@ -617,6 +619,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)               
                                             ->get();       
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
@@ -626,6 +629,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)               
                                             ->get();       
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
@@ -639,6 +643,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)               
                                             ->get();       
                     return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
@@ -649,6 +654,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                
                                             ->get();       
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
@@ -658,6 +664,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                   
                                             ->get();       
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
@@ -667,6 +674,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                      
                                             ->get();      
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
@@ -680,6 +688,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoAdministrativa)                       
                                             ->get();       
                     return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
@@ -690,6 +699,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoGigad', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                        
                                             ->get();       
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
@@ -699,6 +709,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoSr', '=', $empregadoAcesso[0]->codigoLotacaoFisica)                          
                                             ->get();      
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES); 
@@ -708,6 +719,7 @@ class SiafDemandaController extends Controller
                                             DB::raw("'lote' = 'sumep'"))
                                             ->where('status', 'like', '%SUMEP%')
                                             ->orWhere('status', 'like', '%GEPOD%')
+                                            ->orWhere('status', 'like', '%GESTOR%')
                                             ->where('codigoPa', '=', $empregadoAcesso[0]->codigoLotacaoFisica)
                                             ->get();       
                         return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);  
@@ -720,6 +732,7 @@ class SiafDemandaController extends Controller
                                 DB::raw("'lote' = 'sumep'"))
                                 ->where('status', 'like', '%SUMEP%')
                                 ->orWhere('status', 'like', '%GEPOD%')
+                                ->orWhere('status', 'like', '%GESTOR%')
                                 ->get();
             return json_encode($contratosSumep, JSON_UNESCAPED_SLASHES);
                 break;

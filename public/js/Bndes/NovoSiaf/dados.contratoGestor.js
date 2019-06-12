@@ -13,7 +13,7 @@ $.ajaxSetup({
 // //carrega tabela com os contratos pendentes na SUMEP
 function carregarTabelaSumep()
 {
-    $.getJSON('../api/bndes/v1/siaf_contratos_sumep', function(json){
+    $.getJSON('../api/bndes/v1/siaf_contratos_gestor', function(json){
 
         $.each(json, function (key, value){
           
