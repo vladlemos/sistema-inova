@@ -289,7 +289,7 @@
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fa/theme.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/fas/theme.js') }}"></script>
     <script src="{{ asset('js/plugins/kartik-v-bootstrap-fileinput-226d7e0/themes/explorer/theme.js') }}"></script>
-    <script src="{{ asset('js/contratacao/post_analise_demanda.js') }}"></script>
+    <script src="{{ asset('js/contratacao/post_analise_demanda2.js') }}"></script>
 
 
 
