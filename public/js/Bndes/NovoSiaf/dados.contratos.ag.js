@@ -155,7 +155,7 @@ $('#formulario_pedido_amortizacao').submit(function(event){
 
                 $('#modalCadastramento').modal('hide');
                 $('#confirmacao').modal('show');
-            }
+            },
            //retorna se erro e não efetua o cadastro  
             error: function () {
                 $('#modalErro').modal('show');

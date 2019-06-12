@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'api.session' => \Illuminate\Session\Middleware\StartSession::class,
         // 'cookie.set' =>\App\Http\Middleware\SetCookiesBySession::class,
+        // 'controleDemandasEsteira' => \App\Http\Middleware\ControleDemandaEsteiraMiddleware::class,
     ];
 }
