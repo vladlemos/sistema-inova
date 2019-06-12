@@ -47,9 +47,9 @@ class SiafDemandaController extends Controller
         // Capturar os dados do lote de amortizacao
         $lote = new LoteAmortizacaoLiquidacaoSIAF;
         // Capturar os dados do usuário da sessão
-        $usuario = Empregado::find(substr($_SERVER["LOGON_USER"],strpos($_SERVER["LOGON_USER"], "\\")+1));
+        $usuario = Empregado::find($request->session()->get('matricula'));
         // Captura a lotacao do usuario
-        if ($usuario->codigoLotacaoFisica === null) {
+        if ($usuario->codigoLotacaoFisica == 'NULL') {
             $lotacao = $usuario->codigoLotacaoAdministrativa;
         } else {
             $lotacao = $usuario->codigoLotacaoFisica;
@@ -184,9 +184,9 @@ class SiafDemandaController extends Controller
         $tipoOperacao = "";
         try {
             // Capturar os dados do usuário da sessão
-            $usuario = Empregado::find(substr($_SERVER["LOGON_USER"],strpos($_SERVER["LOGON_USER"], "\\")+1));
+            $usuario = Empregado::find($request->session()->get('matricula'));
             // $usuario = Empregado::find('c112346'); // Necessário forçar matricula da rede para verificar a troca de status para "CORRIGIDO"
-            if ($usuario->codigoLotacaoFisica === null) {
+            if ($usuario->codigoLotacaoFisica == 'NULL') {
                 $lotacao = $usuario->codigoLotacaoAdministrativa;
             } else {
                 $lotacao = $usuario->codigoLotacaoFisica;
@@ -283,13 +283,13 @@ class SiafDemandaController extends Controller
             // Verifica o tipo de DataTable que está realizando a requisição, retornando somente o json atualizado dele
             switch ($request->loteDataTable) {
                 case 'atual':
-                    return $this->loteAtual();
+                    return $this->loteAtual($request);
                     break;
                 case 'anterior':
-                    return $this->loteAnterior();
+                    return $this->loteAnterior($request);
                     break;
                 case 'sumep':
-                    return $this->contratosNaSumep();
+                    return $this->contratosNaSumep($request);
                     break;
             }
             
@@ -298,10 +298,15 @@ class SiafDemandaController extends Controller
         }   
     }
 
-    public function loteAnterior()
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * 
+     */
+    public function loteAnterior(Request $request)
     {
-        $usuario = new Ldap;
-        $empregado = Empregado::find($usuario->getMatricula());
+        $empregado = Empregado::find($request->session()->get('matricula'));
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
                             ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
                             ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADOS.nivelAcesso')
@@ -310,7 +315,7 @@ class SiafDemandaController extends Controller
         $lote = new LoteAmortizacaoLiquidacaoSIAF; 
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {      
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
@@ -349,7 +354,7 @@ class SiafDemandaController extends Controller
                 }                   
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {       
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {       
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                         DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
@@ -388,7 +393,7 @@ class SiafDemandaController extends Controller
                 }                   
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {    
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {    
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                         DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
@@ -438,10 +443,14 @@ class SiafDemandaController extends Controller
         }
     }
 
-    public function loteAtual()
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function loteAtual(Request  $request)
     {
-        $usuario = new Ldap;
-        $empregado = Empregado::find($usuario->getMatricula());
+        $empregado = Empregado::find($request->session()->get('matricula'));
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
                             ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
                             ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADOS.nivelAcesso')
@@ -450,7 +459,7 @@ class SiafDemandaController extends Controller
         $lote = new LoteAmortizacaoLiquidacaoSIAF;
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
@@ -489,7 +498,7 @@ class SiafDemandaController extends Controller
                 }
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {      
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
@@ -530,7 +539,7 @@ class SiafDemandaController extends Controller
                 }
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {      
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
@@ -580,10 +589,14 @@ class SiafDemandaController extends Controller
         }
     }
 
-    public function contratosNaGepod()
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function contratosNaGepod(Request  $request)
     {
-        $usuario = new Ldap;
-        $empregado = Empregado::find($usuario->getMatricula());
+        $empregado = Empregado::find($request->session()->get('matricula'));
         $empregadoAcesso = DB::table('tbl_EMPREGADOS')
                             ->join('tbl_ACESSA_EMPREGADOS', 'tbl_EMPREGADOS.matricula', '=', 'tbl_ACESSA_EMPREGADOS.matricula')
                             ->select('tbl_EMPREGADOS.*', 'tbl_ACESSA_EMPREGADOS.nivelAcesso')
@@ -592,7 +605,7 @@ class SiafDemandaController extends Controller
         
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {
                     $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
                                             DB::raw("'lote' = 'sumep'"))
@@ -633,7 +646,7 @@ class SiafDemandaController extends Controller
                 }
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {
                     $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
                                             DB::raw("'lote' = 'sumep'"))
@@ -674,7 +687,7 @@ class SiafDemandaController extends Controller
                 }
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica === null) {
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {
                     $contratosSumep = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
                                             DB::raw("'lote' = 'sumep'"))
@@ -843,9 +856,9 @@ class SiafDemandaController extends Controller
         // Capturar os dados do lote de amortizacao
         $lote = new LoteAmortizacaoLiquidacaoSIAF;
         // Capturar os dados do usuário da sessão
-        $usuario = Empregado::find(substr($_SERVER["LOGON_USER"],strpos($_SERVER["LOGON_USER"], "\\")+1));
+        $usuario = Empregado::find($request->session()->get('matricula'));
         // Captura a lotacao do usuario
-        if ($usuario->codigoLotacaoFisica === null) {
+        if ($usuario->codigoLotacaoFisica == 'NULL') {
             $lotacao = $usuario->codigoLotacaoAdministrativa;
         } else {
             $lotacao = $usuario->codigoLotacaoFisica;
@@ -954,7 +967,7 @@ class SiafDemandaController extends Controller
                 $mail->enviarMensageria($usuario, $dadosDemandaCadastrada, $tipoEmail);
             }
         }
-        return $this->loteAtual();
+        return $this->loteAtual($request);
     }
 
     /**

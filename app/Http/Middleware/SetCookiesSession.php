@@ -20,7 +20,7 @@ class SetCookiesSession
     {
         if (env('DB_CONNECTION') === 'sqlite') {
             if (!$request->session()->has('matricula')) {
-                $empregado = Empregado::find('c111710');
+                $empregado = Empregado::find('c112346');
                 $request->session()->put([
                     'matricula' => $empregado->matricula,
                     'nomeCompleto' => $empregado->nomeCompleto,

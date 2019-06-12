@@ -38,7 +38,7 @@
 
 <br>
 
-    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal" id="formAnaliseDemanda">
+    <form method="POST" action="../../js/contratacao/backend/post_teste_inova.php" enctype="multipart/form-data" class="form-horizontal" id="formAnaliseDemanda">
 
         <div class="form-group">
 
@@ -112,23 +112,23 @@
 
             <label class="col-sm-1 control-label">Data de Liquidação:</label>
             <div class="col-sm-2">
-                <input class="form-control" name="dataLiquidacao" id="dataLiquidacao" type="date" placeholder="DD/MM/AAAA">
+                <input class="form-control" name="dataLiquidacao" id="dataLiquidacao" type="date" placeholder="DD/MM/AAAA" required>
             </div>
 
             <label class="col-sm-1 control-label">Número do Boleto:</label>
             <div class="col-sm-2">
-                <input class="form-control" name="numeroBoleto" id="numeroBoleto" type="number">
+                <input class="form-control" name="numeroBoleto" id="numeroBoleto" type="number" required>
             </div>
 
             <label class="col-sm-1 control-label">Status:</label>
             <div class="col-sm-3">
-                    <select class="form-control" name="statusGeral" id="statusGeral">
-                        <option value="0">Selecione</option>
-                        <option value="1">Inconforme</option>
-                        <option value="2">Conforme</option>
-                        <option value="3">Conta OK</option>
-                        <option value="4">Conferido</option>
-                        <option value="5">Cancelar</option>
+                    <select class="form-control" name="statusGeral" id="statusGeral" required>
+                        <option value="">Selecione</option>
+                        <option value="Inconforme">Inconforme</option>
+                        <option value="Conforme">Conforme</option>
+                        <option value="Conta OK">Conta OK</option>
+                        <option value="Conferido">Conferido</option>
+                        <option value="Cancelar">Cancelar</option>
                     </select>
             </div>
 
@@ -147,11 +147,11 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Invoice:</label>
                 <div class="col-sm-3">
-                        <select class="form-control" name="statusInvoice" id="statusInvoice">
-                            <option value="0">Selecione</option>
-                            <option value="1">Conforme</option>
-                            <option value="2">Inconforme</option>
-                            <option value="3">N/A</option>
+                        <select class="form-control" name="statusInvoice" id="statusInvoice" required>
+                            <option value="">Selecione</option>
+                            <option value="Conforme">Conforme</option>
+                            <option value="Inconforme">Inconforme</option>
+                            <option value="N/A">N/A</option>
                         </select>
                 </div>
             </div>
@@ -159,11 +159,11 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Conhecimento:</label>
                 <div class="col-sm-3">
-                        <select class="form-control" name="statusConhecimento" id="statusConhecimento">
-                            <option value="0">Selecione</option>
-                            <option value="1">Conforme</option>
-                            <option value="2">Inconforme</option>
-                            <option value="3">N/A</option>
+                        <select class="form-control" name="statusConhecimento" id="statusConhecimento" required>
+                            <option value="">Selecione</option>
+                            <option value="Conforme">Conforme</option>
+                            <option value="Inconforme">Inconforme</option>
+                            <option value="N/A">N/A</option>
                         </select>
                 </div>
             </div>
@@ -171,11 +171,11 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">DI / DU-E:</label>
                 <div class="col-sm-3">
-                        <select class="form-control" name="statusDiDue" id="statusDiDue">
-                            <option value="0">Selecione</option>
-                            <option value="1">Conforme</option>
-                            <option value="2">Inconforme</option>
-                            <option value="3">N/A</option>
+                        <select class="form-control" name="statusDiDue" id="statusDiDue" required>
+                            <option value="">Selecione</option>
+                            <option value="Conforme">Conforme</option>
+                            <option value="Inconforme">Inconforme</option>
+                            <option value="N/A">N/A</option>
                         </select>
                 </div>
             </div>
@@ -183,11 +183,11 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Dados Bancários:</label>
                 <div class="col-sm-3">
-                        <select class="form-control" name="statusDadosBancarios" id="statusDadosBancarios">
-                            <option value="0">Selecione</option>
-                            <option value="1">Conforme</option>
-                            <option value="2">Inconforme</option>
-                            <option value="3">N/A</option>
+                        <select class="form-control" name="statusDadosBancarios" id="statusDadosBancarios" required>
+                            <option value="">Selecione</option>
+                            <option value="Conforme">Conforme</option>
+                            <option value="Inconforme">Inconforme</option>
+                            <option value="N/A">N/A</option>
                         </select>
                 </div>
             </div>
@@ -195,11 +195,11 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Autorização SR:</label>
                 <div class="col-sm-3">
-                        <select class="form-control" name="statusAutorizacaoSr" id="statusAutorizacaoSr">
-                            <option value="0">Selecione</option>
-                            <option value="1">Conforme</option>
-                            <option value="2">Inconforme</option>
-                            <option value="3">N/A</option>
+                        <select class="form-control" name="statusAutorizacaoSr" id="statusAutorizacaoSr" required>
+                            <option value="">Selecione</option>
+                            <option value="Conforme">Conforme</option>
+                            <option value="Inconforme">Inconforme</option>
+                            <option value="N/A">N/A</option>
                         </select>
                 </div>
             </div>
@@ -276,7 +276,7 @@
 
 @section('js')
     <!-- <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js') }}"></script> -->
-    <script src="{{ asset('js/contratacao/jquery-3.4.1.min') }}"></script>
+    <!-- <script src="{{ asset('js/contratacao/jquery-3.4.1.min.js') }}"></script> -->
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>

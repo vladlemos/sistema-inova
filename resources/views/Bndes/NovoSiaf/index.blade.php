@@ -618,9 +618,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><i class="icon-checkmark"></i>Não foi possível efetuar o cadastro, favor tentar novamente!</h4>
+                     <h4 class="modal-title"><i class="icon-checkmark"></i>Cadastro não efetuado.</h4>
                 </div>
-
+                <div class="modal-body with-padding">
+                    <p>Não foi possível efetuar o cadastro, favor tentar novamente!</p>
+                </div>
                 <div class="modal-footer">
                     <button class="btn btn-success center" data-dismiss="modal">OK</button>
                 </div>
