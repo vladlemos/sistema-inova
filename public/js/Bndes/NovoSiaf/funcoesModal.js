@@ -1,4 +1,4 @@
-//carrega as informações do contrato para visulaizar nas abas lote atual, anterior, sumep e pesquisa
+//carrega as informações do contrato para visulaizar nas abas lote atual, anterior, Gestor e pesquisa
 function visualizaDemanda(json){ 
        
     $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
@@ -95,7 +95,7 @@ $('#visualizarcontrato').modal('show');
 }   
 
 
-//carrega as informações do contrato para visulaizar nas abas lote atual, anterior e sumep 
+//carrega as informações do contrato para visulaizar nas abas lote atual, anterior e Gestor 
 function editarContrato(json){
     
 $.get( '../api/bndes/v2/siaf_amortizacoes/' + json, function(dados) {
