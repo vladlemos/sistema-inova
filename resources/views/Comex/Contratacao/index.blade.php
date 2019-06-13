@@ -32,7 +32,7 @@
         <h3>Contratação - Cadastro de Demanda</h3>
     </div>
 <br>
-    <form method="POST" action="../../js/contratacao/backend/post_teste_inova.php" enctype="multipart/form-data" id="formCadastroContratacao">
+    <form method="POST" action="#" enctype="multipart/form-data" id="formCadastroContratacao">
 
         <fieldset class="form-group row">
            
@@ -169,7 +169,7 @@
                                 <span class="btn btn-primary">
                                 <i class="fa fa-lg fa-cloud-upload"></i>
                                 Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadInvoice_" id="uploadInvoice" multiple>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadInvoice" multiple>
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -187,7 +187,7 @@
                                 <span class="btn btn-primary">
                                 <i class="fa fa-lg fa-cloud-upload"></i>
                                 Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadConhecimento_" id="uploadConhecimento" multiple>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadConhecimento" multiple>
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -205,7 +205,7 @@
                                 <span class="btn btn-primary">
                                 <i class="fa fa-lg fa-cloud-upload"></i>
                                 Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDi_" id="uploadDi" multiple>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadDi" multiple>
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -223,7 +223,7 @@
                                 <span class="btn btn-primary">
                                 <i class="fa fa-lg fa-cloud-upload"></i>
                                 Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDue_" id="uploadDue" multiple>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadDue" multiple>
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -241,7 +241,7 @@
                                 <span class="btn btn-primary">
                                 <i class="fa fa-lg fa-cloud-upload"></i>
                                 Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDadosBancarios_" id="uploadDadosBancarios" multiple>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadDadosBancarios" multiple>
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -259,7 +259,7 @@
                                 <span class="btn btn-primary">
                                 <i class="fa fa-lg fa-cloud-upload"></i>
                                 Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadAutorizacaoSr_" id="uploadAutorizacaoSr" multiple>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadAutorizacaoSr" multiple>
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -272,7 +272,7 @@
 
             
 
-        <input id="matricula" name="matricula" type="hidden"> 
+        <input id="matricula" name="matricula" type="text" value="c142765" hidden> 
         
         <br>
             
