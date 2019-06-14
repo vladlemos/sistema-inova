@@ -17,9 +17,14 @@ class ControleDemandaEsteiraMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // dd('parou');
         $controleDemandasEsteira = new ControleDemandasEsteira($request);
-        dd($controleDemandasEsteira);
+        $request->session()->flash('dataAtualizacaoBaseSuint', $controleDemandasEsteira->getDataAtualizacaoBaseSuint());
+        $request->session()->flash('contagemDemandasCadastradasLiquidacao', $controleDemandasEsteira->getContagemDemandasCadastradasLiquidacao());
+        $request->session()->flash('contagemDemandasCadastradasAntecipadosCambioPronto', $controleDemandasEsteira->getContagemDemandasCadastradasAntecipadosCambioPronto());
+        $request->session()->flash('contagemDemandasDistribuidasLiquidacao', $controleDemandasEsteira->getContagemDemandasDistribuidasLiquidacao());
+        $request->session()->flash('contagemDemandasEmAnaliseLiquidacao', $controleDemandasEsteira->getContagemDemandasEmAnaliseLiquidacao());
+        $request->session()->flash('contademDemandasDistribuidasAntecipadoCambioPronto', $controleDemandasEsteira->getContademDemandasDistribuidasAntecipadoCambioPronto()); 
+        dd($request->session()->all());
         return $next($request);
     }
 }
