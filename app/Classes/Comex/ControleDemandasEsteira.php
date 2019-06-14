@@ -24,7 +24,7 @@ class ControleDemandasEsteira
      * @param  \Illuminate\Http\Request  $request
      * 
      */
-    public function __construct(Request  $request)
+    public function __construct($request)
     {
         $this->setContagemDemandasCadastradasLiquidacao();
         $this->setContagemDemandasCadastradasAntecipadosCambioPronto();

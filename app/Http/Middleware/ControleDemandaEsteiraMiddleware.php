@@ -17,7 +17,7 @@ class ControleDemandaEsteiraMiddleware
      */
     public function handle($request, Closure $next)
     {
-        dd('parou');
+        // dd('parou');
         $controleDemandasEsteira = new ControleDemandasEsteira($request);
         dd($controleDemandasEsteira);
         return $next($request);
