@@ -789,7 +789,7 @@
                                                 <th>Tomador</th>
                                                 <th>Ctr CAIXA</th>
                                                 <th>Ctr BNDES</th>
-                                                <th>Lote Rotina</th>
+                                                <th>Lote</th>
                                                 <th>Valor</th>
                                                 <th>Comando</th>
                                                 <th>Status</th>

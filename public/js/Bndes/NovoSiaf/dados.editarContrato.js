@@ -1,4 +1,6 @@
 var idTabelaDataTable = '';
+
+
 //função para enviar dados para o banco
 function enviarSolicitacao()
 {
@@ -29,7 +31,18 @@ function enviarSolicitacao()
                 }
             });
         //se o status for diferente de cancelado atualiza a tabela ativa    
-        } else {
+        } else if(idTabelaDataTable = 'tabelaGestor'){
+            $.ajax({       
+                type: 'PUT',
+                url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
+                context : this,
+                data: ctr,
+                success: function(ctr){
+                    refreshTabelaGestor(ctr, idTabelaDataTable); 
+                  
+                }
+            });
+        } else{
             $.ajax({       
                 type: 'PUT',
                 url : '../api/bndes/v2/siaf_amortizacoes/' + $("#codDemanda").val() ,
