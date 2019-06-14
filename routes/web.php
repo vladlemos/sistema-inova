@@ -49,12 +49,6 @@ Route::prefix('esteiracomex')->group(function(){
         return view('Comex.Contratacao.consulta');
     });
 
-    // Criei essa rota pro Kazalbé
-    Route::post('contratacao/cadastro', function () {
-        return view('Comex.Contratacao.post-teste');
-    });
-
-
     // Route::resource('contratacao','Comex\Contratacao\ContratacaoController');
     
     // Indicadores Antecipados
