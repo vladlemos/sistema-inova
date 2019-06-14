@@ -289,7 +289,7 @@ class SiafDemandaController extends Controller
                     return $this->loteAnterior($request);
                     break;
                 case 'gestor':
-                    return $this->contratosNaGestor($request);
+                    return $this->contratosComGestor($request);
                     break;
             }
             
