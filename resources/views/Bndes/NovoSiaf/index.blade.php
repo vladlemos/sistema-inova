@@ -666,7 +666,7 @@
             <a  href="#contratosliquidar" data-toggle="tab"><i class="icon-paragraph-justify2"></i> Solicitar Liquidação/Amortização  </a></li>
             <li id="abaLoteAtual"><a href="#loteAtual" data-toggle="tab"><i class="icon-exit4"></i> Pedidos lote dia <span id="dataLoteAtual"></span>  </a></li>
             <li id="abaAmortizaant"><a href="#amortizaant" data-toggle="tab"><i class="icon-exit3"></i> Pedidos Lote dia <span id="dataLoteAnterior"></span></a></li>
-            <li id="abaSUMEP"><a href="#SUMEP" data-toggle="tab"><i class="icon-hammer"></i>Contratos no GESTOR</a></li>
+            <li id="abaGestor"><a href="#GESTOR" data-toggle="tab"><i class="icon-hammer"></i>Contratos no GESTOR</a></li>
             <li id="abaAmortizaTodas"><a href="#amortizatodas" data-toggle="tab"><i class="icon-file4"></i>Pedidos Anteriores </a></li>
         </ul>
 
@@ -770,26 +770,26 @@
             </div>
             
 
-<!-- inicio teste de inclusão da aba da SUMEP -->
+<!-- inicio teste de inclusão da aba do gestor -->
 
-        <div class="tab-pane" id="SUMEP">
+        <div class="tab-pane" id="GESTOR">
 
                     <!-- Default datatable inside panel -->
                     <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h6 class="panel-title">
-                                <i class="icon-table"></i>  Lista de solicitações com análise Pendente pela SUMEP:</h6>
+                                <i class="icon-table"></i>  Lista de solicitações com análise Pendente pelo GESTOR:</h6>
                             </div>
 
                             <div class="tabResponsiva">
-                                    <table id="tabelaSumep" class="table table-striped table-hover">
+                                    <table id="tabelaGestor" class="table table-striped table-hover">
                                         <thead>
                                             <tr>
                                                 <th>Pedido</th>
                                                 <th>Tomador</th>
                                                 <th>Ctr CAIXA</th>
                                                 <th>Ctr BNDES</th>
-                                                <th>Lote Rotina</th>
+                                                <th>Lote</th>
                                                 <th>Valor</th>
                                                 <th>Comando</th>
                                                 <th>Status</th>
@@ -804,7 +804,7 @@
                     
             </div>
             
-<!-- fim da aba da SUMEP -->
+<!-- fim da aba do GESTOR -->
 
 
     <!-- tabela onde constam todas as solicitações         -->
