@@ -327,7 +327,7 @@ class SiafDemandaController extends Controller
         $lote = new LoteAmortizacaoLiquidacaoSIAF; 
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {      
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {      
                     // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                     //                     ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                     //                         DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
@@ -370,7 +370,7 @@ class SiafDemandaController extends Controller
                 }                   
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {       
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {       
                     // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                     //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                     //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
@@ -413,7 +413,7 @@ class SiafDemandaController extends Controller
                 }                   
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {    
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {    
                     // $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                     //                 ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                     //                     DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
@@ -483,7 +483,7 @@ class SiafDemandaController extends Controller
         $lote = new LoteAmortizacaoLiquidacaoSIAF;
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
@@ -522,7 +522,7 @@ class SiafDemandaController extends Controller
                 }
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {      
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
@@ -563,7 +563,7 @@ class SiafDemandaController extends Controller
                 }
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {      
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {      
                     $loteAnterior = DB::table('TBL_SIAF_DEMANDAS')
                                         ->select('codigoDemanda', 'nomeCliente', 'cnpj', 'contratoCaixa', 'contratoBndes', 'contaDebito', 'status', 'tipoOperacao',
                                             DB::raw("'valorOperacao' = CAST([valorOperacao] AS VARCHAR)"),
@@ -630,7 +630,7 @@ class SiafDemandaController extends Controller
         
         switch ($empregadoAcesso[0]->nivelAcesso) {
             case 'EMPREGADO_AG':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {
                     $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
                                             DB::raw("'lote' = 'gestor'"))
@@ -675,7 +675,7 @@ class SiafDemandaController extends Controller
                 }
                 break;
             case 'EMPREGADO_SR':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {
                     $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
                                             DB::raw("'lote' = 'gestor'"))
@@ -720,7 +720,7 @@ class SiafDemandaController extends Controller
                 }
                 break;
             case 'GIGAD':
-                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL') {
+                if ($empregadoAcesso[0]->codigoLotacaoFisica == 'NULL' || $empregadoAcesso[0]->codigoLotacaoFisica === null) {
                     $contratosGestor = DB::table('TBL_SIAF_DEMANDAS')
                                             ->select('codigoDemanda', 'nomeCliente', 'contratoCaixa', 'contratoBndes', 'valorOperacao', 'dataLote', 'status', 'tipoOperacao',
                                             DB::raw("'lote' = 'gestor'"))

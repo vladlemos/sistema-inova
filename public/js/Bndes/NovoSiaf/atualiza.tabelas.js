@@ -1,6 +1,7 @@
 //atualiza a tabela 
 function refreshTabela(tabelaAtualizada, idTabelaDataTable)
 {
+    // console.log(idTabelaDataTable);
     $("#" + idTabelaDataTable).DataTable().fnDestroy();
     $("#" + idTabelaDataTable).empty(); 
 

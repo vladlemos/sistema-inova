@@ -34,22 +34,22 @@ Route::prefix('esteiracomex')->group(function(){
     
 
     /* ESTEIRA CONTRATACAO */
-    // Route::get('contratacao', function () {
-    //     return view('Comex.Contratacao.index');
-    // });
+    Route::get('contratacao', function () {
+        return view('Comex.Contratacao.index');
+    });
 
-    // Route::get('contratacao/upload', function () {
-    //     return view('Comex.Contratacao.uploadfile');
-    // });
+    Route::get('contratacao/upload', function () {
+        return view('Comex.Contratacao.uploadfile');
+    });
 
-    // Route::get('contratacao/analise', function () {
-    //     return view('Comex.Contratacao.analise');
-    // });
-    // Route::get('contratacao/consulta', function () {
-    //     return view('Comex.Contratacao.consulta');
-    // });
+    Route::get('contratacao/analise', function () {
+        return view('Comex.Contratacao.analise');
+    });
+    Route::get('contratacao/consulta', function () {
+        return view('Comex.Contratacao.consulta');
+    });
 
-    Route::resource('contratacao','Comex\Contratacao\ContratacaoController');
+    // Route::resource('contratacao','Comex\Contratacao\ContratacaoController');
     
     // Indicadores Antecipados
     Route::get('indicadores/antecipados', function () {

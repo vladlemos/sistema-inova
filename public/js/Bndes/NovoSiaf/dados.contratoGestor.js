@@ -61,10 +61,10 @@ function refreshTabelaGestor(tabelaAtualizada, idTabelaDataTable)
     novaTableThCtrBndes.appendChild(tituloCtrBndes);
     novaTableTr.appendChild(novaTableThCtrBndes);
 
-    let novaTableThConta = document.createElement('th');
-    let tituloConta = document.createTextNode("Lote");
-    novaTableThConta.appendChild(tituloConta);
-    novaTableTr.appendChild(novaTableThConta);
+    let novaTableThLote = document.createElement('th');
+    let tituloLote = document.createTextNode("Lote");
+    novaTableThLote.appendChild(tituloLote);
+    novaTableTr.appendChild(novaTableThLote);
 
     let novaTableThValor = document.createElement('th');
     let tituloValor = document.createTextNode("Valor");
@@ -112,6 +112,7 @@ function refreshTabelaGestor(tabelaAtualizada, idTabelaDataTable)
 //atualiza a tabela para visualizacao dos contratos
 function atualizaTabelaGestor(json)
 { 
+   
     bDestroy : true,  
     linha = '<tr>' +         
                 '<td>' + json.codigoDemanda        + '</td>' +
@@ -121,7 +122,7 @@ function atualizaTabelaGestor(json)
                 '<td>' + json.dataLote    + '</td>' +
                 '<td>' + json.valorOperacao.replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") + '</td>' +
                 '<td>' + json.tipoOperacao.replace("A","AMORTIZAÇÃO").replace("L","LIQUIDAÇÃO")   + '</td>' +
-                '<td>' + json.status.replace("GEPOD RESIDUO SIFBN","RESIDUO SIFBN")		        + '</td>' +
+                '<td>' + json.status.replace("GESTOR RESIDUO SIFBN","RESIDUO SIFBN")		        + '</td>' +
                 '<td>'	+				
                     '<button class="btn btn-info btn-xs tip visualiza fa fa-binoculars center-block" id="botaoCadastrar" onclick ="visualizaDemanda(\'' + json.codigoDemanda + '\')" ></button> ' + 
                 '</td>' +
