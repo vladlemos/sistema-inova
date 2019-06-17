@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Bndes\NovoSiaf;
+namespace App\Http\Controllers\Comex\AccAceLiquidacao;
 
-use App\SiafHistoricoSaldoContaAmortizacao;
+use App\Models\Comex\AccAceLiquidacao\AccAceLiquidacao;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class SiafHistoricoSaldoContaAmortizacaoController extends Controller
+class AccAceLiquidacaoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class SiafHistoricoSaldoContaAmortizacaoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Http\Controllers\Bndes\NovoSiafSiafHistoricoSaldoContaAmortizacao  $siafHistoricoSaldoContaAmortizacao
+     * @param  \App\Models\Comex\AccAceLiquidacao\AccAceLiquidacao  $accAceLiquidacao
      * @return \Illuminate\Http\Response
      */
-    public function show(SiafHistoricoSaldoContaAmortizacao $siafHistoricoSaldoContaAmortizacao)
+    public function show(AccAceLiquidacao $accAceLiquidacao)
     {
         //
     }
@@ -52,10 +53,10 @@ class SiafHistoricoSaldoContaAmortizacaoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Http\Controllers\Bndes\NovoSiafSiafHistoricoSaldoContaAmortizacao  $siafHistoricoSaldoContaAmortizacao
+     * @param  \App\Models\Comex\AccAceLiquidacao\AccAceLiquidacao  $accAceLiquidacao
      * @return \Illuminate\Http\Response
      */
-    public function edit(SiafHistoricoSaldoContaAmortizacao $siafHistoricoSaldoContaAmortizacao)
+    public function edit(AccAceLiquidacao $accAceLiquidacao)
     {
         //
     }
@@ -64,10 +65,10 @@ class SiafHistoricoSaldoContaAmortizacaoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Http\Controllers\Bndes\NovoSiafSiafHistoricoSaldoContaAmortizacao  $siafHistoricoSaldoContaAmortizacao
+     * @param  \App\Models\Comex\AccAceLiquidacao\AccAceLiquidacao  $accAceLiquidacao
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SiafHistoricoSaldoContaAmortizacao $siafHistoricoSaldoContaAmortizacao)
+    public function update(Request $request, AccAceLiquidacao $accAceLiquidacao)
     {
         //
     }
@@ -75,10 +76,10 @@ class SiafHistoricoSaldoContaAmortizacaoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Http\Controllers\Bndes\NovoSiafSiafHistoricoSaldoContaAmortizacao  $siafHistoricoSaldoContaAmortizacao
+     * @param  \App\Models\Comex\AccAceLiquidacao\AccAceLiquidacao  $accAceLiquidacao
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SiafHistoricoSaldoContaAmortizacao $siafHistoricoSaldoContaAmortizacao)
+    public function destroy(AccAceLiquidacao $accAceLiquidacao)
     {
         //
     }

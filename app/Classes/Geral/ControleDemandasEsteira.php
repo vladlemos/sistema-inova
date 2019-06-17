@@ -117,4 +117,3 @@ class ControleDemandasEsteira
         $this->contademDemandasDistribuidasAntecipadoCambioPronto = $contador[0]['QUANTIDADE_DISTR_EMPREG_ANTEC'];
     }
 }
-?>

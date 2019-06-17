@@ -1,6 +1,54 @@
-// function postCadastro()
-// tipoOperacao = $('#tipoOperacao').val();
-// {
+$(document).ready(function() {
+
+//Declaração de variáveis dos inputs de arquivos, para carregar múltiplos como array.
+    var invoiceImpAnt = '';
+    var dadosImpAnt = '';
+    var autSrImpAnt = '';
+
+    var invoiceImp = '';
+    var embarqueImp = '';
+    var di = '';
+    var dadosImp = '';
+    var autSrImp = '';
+
+    var invoiceExpAnt = '';
+    var autSrExpAnt = '';
+   
+    var invoiceExp = '';
+    var embarqueExp = '';
+    var due = '';
+    var autSrExp = '';
+
+    // $('input[type="file"]').change(function () {
+    //     var ext = this.value.split('.').pop().toLowerCase();
+    //     switch (ext) {
+    //         case 'jpg':
+    //         case 'jpeg':
+    //         case 'png':
+    //         case 'pdf':
+    //             $('#submitBtn').attr('disabled', false);
+                
+    //             break;
+    //         default:
+    //             $('#submitBtn').attr('disabled', true);
+    //             alert('O tipo de arquivo selecionado não é aceito. Favor carregar um arquivo de imagem ou PDF.');
+    //             this.value = '';
+    //     }
+    // });
+
+//     $("#formCadastroContratacao").submit(function postCadastro() {
+
+//     tipoOperacao = $('#tipoOperacao').val();
+//     switch (tipoOperacao) {
+
+//     case '1':
+
+//     alert = "Nenhuma operação foi selecionada.";
+
+//     break;
+
+//     case '2': //-Tipo 2 é Pronto Importação Antecipado
+
 //     submit = {
 //         cpf: $('#cpf').val(),
 //         cnpj: $('#cnpj').val(),
@@ -11,193 +59,208 @@
 //         dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
 //         responsavelAtual: $('#matricula').val(),
 
-// function postCadastro() 
-// tipoOperacao = $('#tipoOperacao').val()
-// $('#tipoOperacao').change(function trocaTipoOperacao()
-// {
-    
-    
-$(document).ready(function() {
+//         //-puxa dados bancarios beneficiário Antecipado
+//         nomeBeneficiario: $('#iban1').val(),
+//         nomeBanco: $('#iban2').val(),
+//         iban: $('#iban3').val(),
+//         agContaBeneficiario: $('#iban4').val(),
+//         //
+//         //-puxa arquivos de Pronto Importação Antecipado
+//         invoiceImpAnt: $('#uploadInvoice').map(function(){return $(this).val();}).get(),
+//         dadosImpAnt: $('#uploadDadosBancarios').map(function(){return $(this).val();}).get(),
+//         autSrImpAnt: $('#uploadAutorizacaoSr').map(function(){return $(this).val();}).get(),
+//         //
+//         } //- Fecha submit case 2
 
-//Declaração de variáveis dos inputs de arquivos, para carregar múltiplos como array.
-    var invoiceImpAnt = [];
-    var dadosImpAnt = [];
-    var autSrImpAnt = [];
+//         break;
 
-    var invoiceImp = [];
-    var embarqueImp = [];
-    var di = [];
-    var dadosImp = [];
-    var autSrImp = [];
+//     case '3': //-Tipo 3 é Pronto Importação
 
-    var invoiceExpAnt = [];
-    var autSrExpAnt = [];
-   
-    var invoiceExp = [];
-    var embarqueExp = [];
-    var due = [];
-    var autSrExp = [];
-
-
+//     submit = {
+//         cpf: $('#cpf').val(),
+//         cnpj: $('#cnpj').val(),
+//         nomeCliente: $('#nomeCliente').val(),
+//         tipoOperacao: $('#tipoOperacao').val(),
+//         tipoMoeda: $('#tipoMoeda').val(),
+//         valorOperacao: $('#valorOperacao').val(),
+//         dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
+//         responsavelAtual: $('#matricula').val(),
 
 
+//         //-puxa dados bancarios beneficiário 
+//         nomeBeneficiario: $('#iban1').val(),
+//         nomeBanco: $('#iban2').val(),
+//         iban: $('#iban3').val(),
+//         agContaBeneficiario: $('#iban4').val(),
+//         //        
 
-    $('input[name="temContaBeneficiarioAntecipado"]').click(function() {
-        if ($('#temContaBeneficiarioAntecipadoSim').is(':checked')) {
-        $('#dadosImpAnt').attr('required', true);
-        }
-        else {
-        $('#dadosImpAnt').attr('required', false);
-        }
-    });
-    $('input[name="temContaBeneficiarioNormal"]').click(function() {
-        if ($('#temContaBeneficiarioNormalSim').is(':checked')) {
-        $('#dadosImp').attr('required', true);
-        }
-        else{
-        $('#dadosImp').attr('required', false);
-        }
-    
-});
+//         //-puxa arquivos de Pronto Importação
+//         invoiceImp: $('#uploadInvoice').val(),
+//         embarqueImp: $('#uploadConhecimento').val(),
+//         di: $('#uploadDi').val(),
+//         dadosImp: $('#uploadDadosBancarios').val(),
+//         autSrImp: $('#uploadAutorizacaoSr').val(),
+//         //
+//         }//- Fecha submit case 3
 
-    $('input[type="file"]').change(function () {
-        var ext = this.value.split('.').pop().toLowerCase();
-        switch (ext) {
-            case 'jpg':
-            case 'jpeg':
-            case 'png':
-            case 'pdf':
-                $('#submitBtn').attr('disabled', false);
-                
-                break;
-            default:
-                $('#submitBtn').attr('disabled', true);
-                alert('O tipo de arquivo selecionado não é aceito. Favor carregar um arquivo de imagem ou PDF.');
-                this.value = '';
-        }
-    });
+//         break;
 
-    $("#formTipoOperacao").submit(function postCadastro() {
+//     case '4': //-Tipo 3 é Pronto Exportação Antecipado
 
-    tipoOperacao = $('#tipoOperacao').val();
-    switch (tipoOperacao) {
+//     submit = {
+//         cpf: $('#cpf').val(),
+//         cnpj: $('#cnpj').val(),
+//         nomeCliente: $('#nomeCliente').val(),
+//         tipoOperacao: $('#tipoOperacao').val(),
+//         tipoMoeda: $('#tipoMoeda').val(),
+//         valorOperacao: $('#valorOperacao').val(),
+//         dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
+//         responsavelAtual: $('#matricula').val(),
 
-    case '1':
+//         //-puxa arquivos de Pronto Exportação Antecipado
+//         invoiceExpAnt: $('#uploadInvoice').val(),
+//         autSrExpAnt: $('#uploadAutorizacaoSr').val(),
+//         //
+//         }//- Fecha submit case 4
 
-    alert = "Nenhuma operação foi selecionada.";
+//         break;
 
-    break;
+//     case '5': //-Tipo 3 é Pronto Exportação
 
-    case '2': //-Tipo 2 é Pronto Importação Antecipado
+//     submit = {
+//         cpf: $('#cpf').val(),
+//         cnpj: $('#cnpj').val(),
+//         nomeCliente: $('#nomeCliente').val(),
+//         tipoOperacao: $('#tipoOperacao').val(),
+//         tipoMoeda: $('#tipoMoeda').val(),
+//         valorOperacao: $('#valorOperacao').val(),
+//         dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
+//         responsavelAtual: $('#matricula').val(),
 
-    submit = {
-        cpf: $('#cpf').val(),
-        cnpj: $('#cnpj').val(),
-        nomeCliente: $('#nomeCliente').val(),
-        tipoOperacao: $('#tipoOperacao').val(),
-        tipoMoeda: $('#tipoMoeda').val(),
-        valorOperacao: $('#valorOperacao').val(),
-        dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
-        responsavelAtual: $('#matricula').val(),
+//         //-puxa arquivos de Pronto Exportação
+//         invoiceExp: $('#uploadInvoice').val(),
+//         embarqueExp: $('#uploadConhecimento').val(),
+//         due: $('#uploadDue').val(),
+//         autSrExp: $('#uploadAutorizacaoSr').val(),
+//         //
+//         } // fecha submit case 5
 
-        //-puxa dados bancarios beneficiário Antecipado
-        nomeBeneficiario: $('#nomeBeneficiarioAnt').val(),
-        nomeBanco: $('#nomeBancoAnt').val(),
-        iban: $('#ibanAnt').val(),
-        AgContaBeneficiario: $('#AgContaBeneficiarioAnt').val(),
-        //
-        //-puxa arquivos de Pronto Importação Antecipado
-        invoiceImpAnt: $('#invoiceImpAnt').map(function(){return $(this).val();}).get(),
-        dadosImpAnt: $('#dadosImpAnt').map(function(){return $(this).val();}).get(),
-        autSrImpAnt: $('#autSrImpAnt').map(function(){return $(this).val();}).get(),
-        //
-        } //- Fecha submit case 2
-
-        break;
-
-    case '3': //-Tipo 3 é Pronto Importação
-
-    submit = {
-        cpf: $('#cpf').val(),
-        cnpj: $('#cnpj').val(),
-        nomeCliente: $('#nomeCliente').val(),
-        tipoOperacao: $('#tipoOperacao').val(),
-        tipoMoeda: $('#tipoMoeda').val(),
-        valorOperacao: $('#valorOperacao').val(),
-        dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
-        responsavelAtual: $('#matricula').val(),
+// }; // fecha switch
 
 
-        //-puxa dados bancarios beneficiário 
-        nomeBeneficiario: $('#nomeBeneficiario').val(),
-        nomeBanco: $('#nomeBanco').val(),
-        iban: $('#iban').val(),
-        AgContaBeneficiario: $('#AgContaBeneficiario').val(),
-        //        
-
-        //-puxa arquivos de Pronto Importação
-        invoiceImp: $('#invoiceImp').val(),
-        embarqueImp: $('#embarqueImp').val(),
-        di: $('#di').val(),
-        dadosImp: $('#dadosImp').val(),
-        autSrImp: $('#autSrImp').val(),
-        //
-        }//- Fecha submit case 3
-
-        break;
-
-    case '4': //-Tipo 3 é Pronto Exportação Antecipado
-
-    submit = {
-        cpf: $('#cpf').val(),
-        cnpj: $('#cnpj').val(),
-        nomeCliente: $('#nomeCliente').val(),
-        tipoOperacao: $('#tipoOperacao').val(),
-        tipoMoeda: $('#tipoMoeda').val(),
-        valorOperacao: $('#valorOperacao').val(),
-        dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
-        responsavelAtual: $('#matricula').val(),
-
-        //-puxa arquivos de Pronto Exportação Antecipado
-        invoiceExpAnt: $('#invoiceExpAnt').val(),
-        autSrExpAnt: $('#autSrExpAnt').val(),
-        //
-        }//- Fecha submit case 4
-
-        break;
-
-    case '5': //-Tipo 3 é Pronto Exportação
-
-    submit = {
-        cpf: $('#cpf').val(),
-        cnpj: $('#cnpj').val(),
-        nomeCliente: $('#nomeCliente').val(),
-        tipoOperacao: $('#tipoOperacao').val(),
-        tipoMoeda: $('#tipoMoeda').val(),
-        valorOperacao: $('#valorOperacao').val(),
-        dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
-        responsavelAtual: $('#matricula').val(),
-
-        //-puxa arquivos de Pronto Exportação
-        invoiceExp: $('#invoiceExp').val(),
-        embarqueExp: $('#embarqueExp').val(),
-        due: $('#due').val(),
-        autSrExp: $('#autSrExp').val(),
-        //
-        } // fecha submit case 5
-
-}; // fecha switch
-
-
-// $('#upload').on('click', function () {
+// $('#formCadastroContratacao').on('submit', function(e){
+//     e.preventDefault();
+//     var formData = new FormData($(this).get(0)); // Creating a formData using the form.
+//     $.ajax({
+//         method: 'post',
+//         url: 'backend/post_teste2.php',
+//         dataType: 'json',
+//         cache: false,
+//         processData: false, // Important!
+//         contentType: false, // Important! I set dataType above as Json
+//         data: formData, // Important! The formData should be sent this way and not as a dict.
+//         // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
+//         success: function(data, textStatus) {
+//             console.log(data);
+//             console.log(formData);
+//             console.log(textStatus);
+//         },
+//         error: function (textStatus, errorThrown) {
+//             console.log(errorThrown);
+//             console.log(textStatus);
+//             console.log(errorThrown);
+//         }
+//     });
 // });
 
+}); // fecha document ready
 
-$.post('backend/post_teste.php', submit, function(postCadastro){
-    // submit = JSON.parse(postCadastro);
-    console.log (submit);
-    alert("Demanda cadastrada com sucesso.");
-});
+$.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    }
+    }); 
+    
+$('#formCadastroContratacao').on('submit', function(e){
+    e.preventDefault();
+    // $("#tipoOperacao").each(function(){
+    //     if($.trim(this.value) == ""){
+    //         alert('É necessário selecionar uma modalidade de demanda.');
+    //     } 
+    //     else {
+
+              //-puxa arquivos de Pronto Importação Antecipado
+            // var uploadInvoice = $('#uploadInvoice').map(function(){return $(this).val();}).get();
+            // uploadConhecimento: $('#uploadConhecimento').map(function(){return $(this).val();}).get();
+            // uploadDi: $('#uploadDi').map(function(){return $(this).val();}).get();
+            // uploadDue: $('#uploadDue').map(function(){return $(this).val();}).get();
+            // uploadDadosBancarios: $('#uploadDadosBancarios').map(function(){return $(this).val();}).get();
+            // uploadAutorizacaoSr: $('#uploadAutorizacaoSr').map(function(){return $(this).val();}).get();
+
+    // submit = {
+    //     cpf: $('#cpf').val(),
+    //     cnpj: $('#cnpj').val(),
+    //     nomeCliente: $('#nomeCliente').val(),
+    //     tipoOperacao: $('#tipoOperacao').val(),
+    //     tipoMoeda: $('#tipoMoeda').val(),
+    //     valorOperacao: $('#valorOperacao').val(),
+    //     dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
+    //     responsavelAtual: $('#matricula').val(),
+
+    //     uploadInvoice: $('#uploadInvoice').map(function(){return $(this).val();}).get(),
+    //     uploadConhecimento: $('#uploadConhecimento').map(function(){return $(this).val();}).get(),
+    //     uploadDi: $('#uploadDi').map(function(){return $(this).val();}).get(),
+    //     uploadDue: $('#uploadDue').map(function(){return $(this).val();}).get(),
+    //     uploadDadosBancarios: $('#uploadDadosBancarios').map(function(){return $(this).val();}).get(),
+    //     uploadAutorizacaoSr: $('#uploadAutorizacaoSr').map(function(){return $(this).val();}).get(),
+        
+    //     //-puxa arquivos de Pronto Exportação
+    //     //
+    //     }; // fecha submit case 5
+
+    //     console.log(submit);
+
+
+
+
+            var formData = new FormData(this); // Creating a formData using the form.
+            console.log(formData);
+            $.ajax({
+                type: 'POST',
+                url: '../../js/contratacao/backend/post_teste_inova.php',
+                dataType: 'json',
+                cache: false,
+                processData: false, // Important!
+                contentType: false, // Important! I set dataType above as Json
+                data: formData, // Important! The formData should be sent this way and not as a dict.
+                // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
+                success: function(data, textStatus) {
+                    console.log(data);
+                    console.log(formData);
+                    console.log(textStatus);
+                    alert("Demanda cadastrada com sucesso.");
+                    // return window.location.replace = "/esteiracomex/distribuir/demandas";
+
+                },
+                error: function (textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                    alert("Demanda não cadastrada.");
+                    // return window.location.replace = "/esteiracomex/distribuir/demandas";
+
+                }
+            });
+        // }
+    // })
+});  
+
+
+// $.post('backend/post_teste.php', submit, function(postCadastro){
+//     // submit = JSON.parse(postCadastro);
+//     console.log (submit);
+//     alert("Demanda cadastrada com sucesso.");
+// });
 
 
     // var form_data = new FormData();
@@ -249,7 +312,6 @@ $.post('backend/post_teste.php', submit, function(postCadastro){
 
 
 
-}); // fecha função postCadastro
+// }); // fecha função postCadastro
 
 
-}); // fecha document ready
