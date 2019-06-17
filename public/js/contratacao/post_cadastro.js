@@ -173,32 +173,87 @@ $(document).ready(function() {
 //     });
 // });
 
+}); // fecha document ready
 
-
+$.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    }
+    }); 
+    
 $('#formCadastroContratacao').on('submit', function(e){
     e.preventDefault();
-    var formData = new FormData($(this).get(0)); // Creating a formData using the form.
-    $.ajax({
-        type: 'post',
-        url: 'backend/post_teste2.php',
-        dataType: 'json',
-        cache: false,
-        processData: false, // Important!
-        contentType: false, // Important! I set dataType above as Json
-        data: formData, // Important! The formData should be sent this way and not as a dict.
-        // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
-        success: function(data, textStatus) {
-            console.log(data);
+    // $("#tipoOperacao").each(function(){
+    //     if($.trim(this.value) == ""){
+    //         alert('É necessário selecionar uma modalidade de demanda.');
+    //     } 
+    //     else {
+
+              //-puxa arquivos de Pronto Importação Antecipado
+            // var uploadInvoice = $('#uploadInvoice').map(function(){return $(this).val();}).get();
+            // uploadConhecimento: $('#uploadConhecimento').map(function(){return $(this).val();}).get();
+            // uploadDi: $('#uploadDi').map(function(){return $(this).val();}).get();
+            // uploadDue: $('#uploadDue').map(function(){return $(this).val();}).get();
+            // uploadDadosBancarios: $('#uploadDadosBancarios').map(function(){return $(this).val();}).get();
+            // uploadAutorizacaoSr: $('#uploadAutorizacaoSr').map(function(){return $(this).val();}).get();
+
+    // submit = {
+    //     cpf: $('#cpf').val(),
+    //     cnpj: $('#cnpj').val(),
+    //     nomeCliente: $('#nomeCliente').val(),
+    //     tipoOperacao: $('#tipoOperacao').val(),
+    //     tipoMoeda: $('#tipoMoeda').val(),
+    //     valorOperacao: $('#valorOperacao').val(),
+    //     dataPrevistaEmbarque: $('#dataPrevistaEmbarque').val(),
+    //     responsavelAtual: $('#matricula').val(),
+
+    //     uploadInvoice: $('#uploadInvoice').map(function(){return $(this).val();}).get(),
+    //     uploadConhecimento: $('#uploadConhecimento').map(function(){return $(this).val();}).get(),
+    //     uploadDi: $('#uploadDi').map(function(){return $(this).val();}).get(),
+    //     uploadDue: $('#uploadDue').map(function(){return $(this).val();}).get(),
+    //     uploadDadosBancarios: $('#uploadDadosBancarios').map(function(){return $(this).val();}).get(),
+    //     uploadAutorizacaoSr: $('#uploadAutorizacaoSr').map(function(){return $(this).val();}).get(),
+        
+    //     //-puxa arquivos de Pronto Exportação
+    //     //
+    //     }; // fecha submit case 5
+
+    //     console.log(submit);
+
+
+
+
+            var formData = new FormData(this); // Creating a formData using the form.
             console.log(formData);
-            console.log(textStatus);
-        },
-        error: function (textStatus, errorThrown) {
-            console.log(errorThrown);
-            console.log(textStatus);
-            console.log(errorThrown);
-        }
-    });
-});
+            $.ajax({
+                type: 'POST',
+                url: '../../js/contratacao/backend/post_teste_inova.php',
+                dataType: 'json',
+                cache: false,
+                processData: false, // Important!
+                contentType: false, // Important! I set dataType above as Json
+                data: formData, // Important! The formData should be sent this way and not as a dict.
+                // beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");},
+                success: function(data, textStatus) {
+                    console.log(data);
+                    console.log(formData);
+                    console.log(textStatus);
+                    alert("Demanda cadastrada com sucesso.");
+                    // return window.location.replace = "/esteiracomex/distribuir/demandas";
+
+                },
+                error: function (textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                    alert("Demanda não cadastrada.");
+                    // return window.location.replace = "/esteiracomex/distribuir/demandas";
+
+                }
+            });
+        // }
+    // })
+});  
 
 
 // $.post('backend/post_teste.php', submit, function(postCadastro){
@@ -260,4 +315,3 @@ $('#formCadastroContratacao').on('submit', function(e){
 // }); // fecha função postCadastro
 
 
-}); // fecha document ready

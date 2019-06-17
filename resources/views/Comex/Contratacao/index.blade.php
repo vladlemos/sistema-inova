@@ -32,14 +32,14 @@
         <h3>Contratação - Cadastro de Demanda</h3>
     </div>
 <br>
-    <form method="post" action="/esteira-contratacao/backend/post_teste.php" enctype="multipart/form-data" id="formCadastroContratacao">
+    <form method="POST" action="#" enctype="multipart/form-data" id="formCadastroContratacao">
 
         <fieldset class="form-group row">
            
                 <label class="col-sm-2 control-label">Tipo de Cliente:</label>
                 <div class="col-sm-10">
                     <label class="radio-inline">PF</label>
-                    <input class="radio-inline" name="tipoPessoa" id="radioCpf" type="radio" value="PF">
+                    <input class="radio-inline" name="tipoPessoa" id="radioCpf" type="radio" value="PF" required>
 
                     <label class="radio-inline">PJ</label>
                     <input class="radio-inline" name="tipoPessoa" id="radioCnpj" type="radio" value="PJ">
@@ -63,7 +63,7 @@
         <div class="form-group row">
             <label class="col-sm-2 control-label">Nome:</label>
             <div class="col-sm-6">
-                <input class="form-control" name="nomeCliente" id="nomeCliente" placeholder="Nome" type="text">
+                <input class="form-control" name="nomeCliente" id="nomeCliente" placeholder="Nome" type="text" required>
             </div>
         </div>  <!--/form-group row-->
 
@@ -72,12 +72,12 @@
         <div class="form-group row">
             <label class="col-sm-2 control-label">Tipo de Operação:</label>
             <div class="col-sm-4">
-                <select class="form-control" id="tipoOperacao" placeholder="Selecione uma modalidade">
-                    <option value="1">Nenhum</option>
-                    <option value="2">Pronto Importação Antecipado</option>
-                    <option value="3">Pronto Importação</option>
-                    <option value="4">Pronto Exportação Antecipado</option>
-                    <option value="5">Pronto Exportação</option>
+                <select class="form-control" id="tipoOperacao" placeholder="Selecione uma modalidade" required>
+                    <option value="">Nenhum</option>
+                    <option value="Pronto Importação Antecipado">Pronto Importação Antecipado</option>
+                    <option value="Pronto Importação">Pronto Importação</option>
+                    <option value="Pronto Exportação Antecipado">Pronto Exportação Antecipado</option>
+                    <option value="Pronto Exportação">Pronto Exportação</option>
                 </select>
             </div>
         </div>  <!--/form-group row-->
@@ -107,14 +107,14 @@
         <div class="form-group row">
             <label class="col-sm-2 control-label">Valor em Moeda Estrangeira:</label>
             <div class="col-sm-4">
-                <input class="form-control mascaradinheiro" name="valorOperacao" id="valorOperacao" placeholder="$ 0,00" maxlength="22" type="text">
+                <input class="form-control mascaradinheiro" name="valorOperacao" id="valorOperacao" placeholder="$ 0,00" maxlength="22" type="text" required>
             </div>
         </div>  <!--/form-group row-->
 
         <div class="form-group row">
             <label class="col-sm-2 control-label">Data Prevista de Embarque:</label>
             <div class="col-sm-2">
-                <input class="form-control mascaradata" name="dataPrevistaEmbarque" id="dataPrevistaEmbarque" placeholder="DD/MM/AAAA" maxlength="10" type="text">
+                <input class="form-control mascaradata" name="dataPrevistaEmbarque" id="dataPrevistaEmbarque" placeholder="DD/MM/AAAA" maxlength="10" type="text" required>
             </div>
         </div>  <!--/form-group row-->
 
@@ -169,7 +169,7 @@
                                 <span class="btn btn-primary">
                                 <i class="fa fa-lg fa-cloud-upload"></i>
                                 Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadInvoice_[]" id="uploadInvoice" multiple>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadInvoice" multiple>
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -187,7 +187,7 @@
                                 <span class="btn btn-primary">
                                 <i class="fa fa-lg fa-cloud-upload"></i>
                                 Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadConhecimento_[]" id="uploadConhecimento" multiple>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadConhecimento" multiple>
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -205,7 +205,7 @@
                                 <span class="btn btn-primary">
                                 <i class="fa fa-lg fa-cloud-upload"></i>
                                 Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDi_[]" id="uploadDi" multiple>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadDi" multiple>
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -223,7 +223,7 @@
                                 <span class="btn btn-primary">
                                 <i class="fa fa-lg fa-cloud-upload"></i>
                                 Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDue_[]" id="uploadDue" multiple>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadDue" multiple>
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -241,7 +241,7 @@
                                 <span class="btn btn-primary">
                                 <i class="fa fa-lg fa-cloud-upload"></i>
                                 Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadDadosBancarios_[]" id="uploadDadosBancarios" multiple>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadDadosBancarios" multiple>
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -259,7 +259,7 @@
                                 <span class="btn btn-primary">
                                 <i class="fa fa-lg fa-cloud-upload"></i>
                                 Carregar arquivo&hellip; 
-                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadAutorizacaoSr_[]" id="uploadAutorizacaoSr" multiple>
+                                <input type="file" accept=".pdf,.jpg,.jpeg,.png" style="display: none;" name="uploadFiles[]" id="uploadAutorizacaoSr" multiple>
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -272,7 +272,7 @@
 
             
 
-        <input id="matricula" name="matricula" type="hidden"> 
+        <input id="matricula" name="matricula" type="text" value="c142765" hidden> 
         
         <br>
             
@@ -317,7 +317,7 @@
 @stop
 
 @section('js')
-    <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/plugins/jquery/jquery-1.12.1.min.js') }}"></script> -->
     <script src="{{ asset('js/plugins/jquery/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/plugins/numeral/numeral.min.js') }}"></script>
 
